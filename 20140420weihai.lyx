@@ -1,0 +1,1124 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+\usepackage{xltxtra,fontspec,xunicode}
+\usepackage[slantfont,boldfont]{xeCJK}
+\setCJKmainfont{WenQuanYi Micro Hei}
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+\hypersetup{pdfpagemode={FullScreen}}
+\newtheorem{公式}{公式}
+\newtheorem{预实验}{预实验}
+\newtheorem{方法优化}{方法优化}
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont}
+\newcommand{\yichu}{\fontsize{32pt}{\baselineskip}\selectfont}      
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}     
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}     
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont} 
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}  
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}  
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont} 
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont} 
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman 文泉驿微米黑
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 2
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+多溴联苯醚气相色谱保留时间的模型预测与选择
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+第十届全国生物医药色谱会议
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+
+\series bold
+报告人:
+\series default
+ 于淼
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+于淼
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Institute
+环境化学与生态毒理学国家重点实验室
+\begin_inset Newline newline
+\end_inset
+
+中国科学院生态环境研究中心
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+RCEES,CAS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+2014年04月20日
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+logo{
+\backslash
+includegraphics[height=0.8cm]{/figure/institution-logo-rcees.jpg}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+AtBeginSubsection[]{
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+frame<beamer>{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+frametitle{Outline}   
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+tableofcontents[currentsection,currentsubsection] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Outline
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+研究背景
+\end_layout
+
+\begin_layout Subsection
+环境问题
+\end_layout
+
+\begin_layout BeginFrame
+环境污染物的定性问题
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features islongtable="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+污染物名称
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+种类
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+多氯联苯（PCBs）
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+209
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+多溴联苯醚（PBDEs）
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+209
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+单取代多氯联苯
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+837
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+单取代多溴联苯醚
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+837
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+短链氯化石蜡
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+环境污染物溯源
+\end_layout
+
+\begin_layout Itemize
+环境污染物迁移转化
+\end_layout
+
+\begin_layout Itemize
+污染物定性是环境过程研究的基础
+\end_layout
+
+\begin_layout Subsection
+色谱定性原理
+\end_layout
+
+\begin_layout BeginFrame
+从保留指数到模型
+\end_layout
+
+\begin_layout Itemize
+色谱定性依赖分离过程的分子间作用力
+\end_layout
+
+\begin_layout Itemize
+色谱柱与参考物描述定性范围
+\end_layout
+
+\begin_layout Itemize
+根据参考物的性质与其保留时间关系构建模型
+\begin_inset Formula $Y=f\text{(x)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+根据模型与待测物的性质预测保留时间定性
+\end_layout
+
+\begin_layout BeginFrame
+线性溶剂能关系
+\end_layout
+
+\begin_layout Quote
+线性溶剂能关系(LSER)模型就是将溶质分配状况与溶质极性、偶极矩、氢键及分子量进行多元线性回归的模型
+\end_layout
+
+\begin_layout Quote
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/7LSER.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align right
+(Mark Vitea 
+\shape slanted
+et al.
+
+\shape default
+ 2006)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+分子结构的计算描述
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figure/edragon.png
+	scale 26
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+分子描述符的计算获取已不再困难
+\end_layout
+
+\begin_layout Itemize
+实验数据的获取仍主要依赖文献
+\end_layout
+
+\begin_layout BeginFrame
+多元线性回归的局限性
+\end_layout
+
+\begin_layout Itemize
+高维诅咒
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+样本数少于变量数
+\end_layout
+
+\begin_layout Itemize
+方程不可解
+\end_layout
+
+\begin_layout Itemize
+数据空间稀疏
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+变量选择
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+全局最优解计算上不合算
+\end_layout
+
+\begin_layout Itemize
+局部最优解
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+模型选择
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+理论模型存在共线性
+\end_layout
+
+\begin_layout Itemize
+黑箱模型无法对理论探索提供线索
+\end_layout
+
+\end_deeper
+\begin_layout Section
+统计学习理论
+\end_layout
+
+\begin_layout Subsection
+统计建模理论
+\end_layout
+
+\begin_layout BeginFrame
+Bias-Variance Tradeoff
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/bias-variance trade off.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+统计建模思想
+\end_layout
+
+\begin_layout BeginFrame
+统计建模思想
+\end_layout
+
+\begin_layout Enumerate
+数据集分为训练集与检测集
+\end_layout
+
+\begin_layout Enumerate
+模型参数要通过在训练集上进行交叉检验确定
+\end_layout
+
+\begin_layout Enumerate
+过拟合可通过模型惩罚项来降低
+\end_layout
+
+\begin_layout Enumerate
+数据规律可通过模拟来探索或验证
+\end_layout
+
+\begin_layout Enumerate
+模型可根据研究目的分层或嵌套
+\end_layout
+
+\begin_layout Section
+PBDEs气相色谱保留时间预测
+\end_layout
+
+\begin_layout Subsection
+问题描述
+\end_layout
+
+\begin_layout BeginFrame
+问题描述
+\end_layout
+
+\begin_layout Itemize
+目的：构建PBDEs气相色谱保留时间预测模型并探索变量间关系
+\end_layout
+
+\begin_layout Itemize
+数据获取
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+209种PBDEs分子结构经构型优化后通过E-dragon计算分子描述符
+\end_layout
+
+\begin_layout Itemize
+删除常量分子描述符
+\end_layout
+
+\begin_layout Itemize
+实验数据来自文献(Wei hua 
+\shape italic
+et al.
+
+\shape default
+ 2010)中180种PBDEs在DB-5ms柱的色谱保留时间
+\end_layout
+
+\begin_layout Itemize
+数据标准化处理
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+数据分割
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+随机选取150个分子作为训练集参与建模
+\end_layout
+
+\begin_layout Itemize
+模型效果通过剩余30个数据验证
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+模型选择
+\end_layout
+
+\begin_layout BeginFrame
+多元线性回归
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/RRT.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+过拟合严重且交叉检验失效
+\end_layout
+
+\begin_layout BeginFrame
+lasso与岭回归
+\end_layout
+
+\begin_layout Itemize
+岭回归
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+不同于最小二乘估计对
+\begin_inset Formula $RSS$
+\end_inset
+
+的最小化，岭回归最小化
+\begin_inset Formula $RSS+\lambda\sum_{j=1}^{p}\beta_{j}^{2}$
+\end_inset
+
+，其中
+\begin_inset Formula $\text{\lambda}$
+\end_inset
+
+为调谐参数，后面一项为收缩惩罚，是个
+\begin_inset Formula $L_{2}$
+\end_inset
+
+范数，使参数估计逼近0，选择合适
+\begin_inset Formula $\text{\lambda}$
+\end_inset
+
+很重要，可用交叉检验来实现
+\end_layout
+
+\begin_layout Itemize
+岭回归的调谐参数与范数收缩状况可看作最小均方误的函数来表现bias-variance tradeoff
+\end_layout
+
+\begin_layout Itemize
+岭回归适用于全变量参与建模的情况
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Lasso
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Lasso最小化
+\begin_inset Formula $RSS+\lambda\sum_{j=1}^{p}|\beta_{j}|$
+\end_inset
+
+，收缩惩罚为
+\begin_inset Formula $L_{1}$
+\end_inset
+
+范数，
+\begin_inset Formula $\text{\lambda}$
+\end_inset
+
+亦可用交叉检验来实现
+\end_layout
+
+\begin_layout Itemize
+Lasso可以通过软边界直接收缩到0实现变量选择
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+贝叶斯视角下，岭回归与lasso关于线性模型系数的先验分布是不同的
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+岭回归为高斯分布，接近0时平坦，后验概率等同最优解
+\end_layout
+
+\begin_layout Itemize
+Lasso为拉普拉斯分布，接近0时尖锐，先验概率系数接近0，后验概率不一定为稀疏向量
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+lasso与岭回归
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/ridgelasso.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+主成分回归与偏最小二乘回归
+\end_layout
+
+\begin_layout Itemize
+主成分回归
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+前提是自变量间不独立，将p个自变量向量投影到M维空间(M < p)
+\end_layout
+
+\begin_layout Itemize
+各自变量在主成分方向上方差最大
+\end_layout
+
+\begin_layout Itemize
+实际为无监督算法，得到主成分后作为新变量进行最小二乘回归，主成分个数的选择影响模型效果
+\end_layout
+
+\begin_layout Itemize
+岭回归疑似为主成分回归的连续版，两者都需要标准化，效果也相近
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+偏最小二乘回归
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+第一个投影方向为因变量与自变量回归方向，后续投影是对残差投影方向的回归，重复得到监督学习的效果
+\end_layout
+
+\begin_layout Itemize
+化学学科常用
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+主成分回归与偏最小二乘回归
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/pcrpls.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+支持向量机回归
+\end_layout
+
+\begin_layout Itemize
+超平面：p维空间里(p-1)维子空间
+\end_layout
+
+\begin_layout Itemize
+支持向量：形成最大边界分类器所需要的边界点，用以支持最大边界超平面
+\end_layout
+
+\begin_layout Itemize
+支持向量分类器：有些情况不存在超平面，需要求一个软边界来适配最多的分类
+\end_layout
+
+\begin_layout Itemize
+回归是分类的连续版
+\end_layout
+
+\begin_layout Itemize
+使用内积的核函数计算上简单且等价与高维空间超平面分类
+\end_layout
+
+\begin_layout Itemize
+不同核函数暗示不同的变量响应关系
+\end_layout
+
+\begin_layout BeginFrame
+支持向量机回归
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/svm.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+网络应用
+\end_layout
+
+\begin_layout BeginFrame
+shinyBDE
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "shiny.R"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/webapp.png
+	scale 22
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+普吉特海湾PCBs数据
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/boostrap.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+总结与展望
+\end_layout
+
+\begin_layout BeginFrame
+总结与展望
+\end_layout
+
+\begin_layout Itemize
+统计学习模型对于色谱理论探索性研究有较好的指导性
+\end_layout
+
+\begin_layout Itemize
+以预测为目的的模型开发对于实际问题的解决很有必要
+\end_layout
+
+\begin_layout Itemize
+环境科学研究应该充分利用网络资源与开放数据
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figure/QR.png
+	scale 27
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+致谢
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\series bold
+\shape italic
+\size giant
+\begin_inset Flex Structure
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+\shape italic
+\size giant
+Thank You
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\end_body
+\end_document
