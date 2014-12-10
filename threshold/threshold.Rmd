@@ -38,7 +38,7 @@ output:
 - 数据来自美国环保署[网站](http://www.epa.gov/pugetsound/bold.html)
 - 75个底泥样品采样点数据与污染物浓度数据
 ```{r loading,echo=FALSE,cache=T}
-load('pugesound.RData')
+load('pugetsound.RData')
 ```
 ```{r showdata1,results='asis',echo=FALSE, message=FALSE}
 embed_data_html <-  function(dataset, textHTML = "数据下载"){
@@ -131,7 +131,8 @@ embed_data_html('train')
 - 分子描述符可大量获得
 - 多元线性回归无法进行机理探讨
 - 特定描述符的阈值分割有助于机理讨论
-- 277个分子 120个拓扑描述符 探讨其对沸点的影响
+- 277个分子 120个拓扑描述符
+- 探讨分子拓扑描述符对沸点的影响
 
 ## 结果展示
 
@@ -173,5 +174,5 @@ plot(create_meme(u, "For coder", ""))
 - [幻灯片源码](https://github.com/yufree/presentation/blob/master/threshold/threshold.Rmd)
 - [yufreecas@gmail.com](mailto:yufreecas@gmail.com)
 
-<center><img src="img/qrcodeslides.png" height="200px" width="200px" /></center>
+<center><img src="img/qrcode.png" height="200px" width="200px" /></center>
 </div>
