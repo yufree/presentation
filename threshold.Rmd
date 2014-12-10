@@ -1,0 +1,178 @@
+---
+title: "环境数据的阈值探索"
+subtitle: "第二届环境污染与健康研究生论坛"
+author: "于淼(中国科学院生态环境研究中心)"
+date: "2014/12/12"
+output:
+  ioslides_presentation:
+    logo: img/lab-logo.png
+---
+
+## 环境化学中的阈值
+
+> **对象发生某种变化所需的某种条件的值**
+
+- 条件：环境样品中污染物浓度
+- 对象
+    - 物化性质：K~ow~、K~oa~等分子描述符
+    - 环境因子：温度、气压、海拔
+    - 毒性：剂量－效应关系、毒物兴奋效应
+    - 健康：疾病发病率、死亡率
+
+> **环境阈值是研究环境过程机理或风险评估的关键参数**
+
+```{r loading,echo=FALSE,cache=T}
+load('pugesound.RData')
+```
+
+
+## 阈值常见判断方法
+
+- 拟合方程
+    - ED50 四参数法
+    - 本质上拟合不同形式的 logistic 模型
+    
+- 曲棍球模型
+    - 分段线性模型
+    - 贝叶斯方法(MCMC)
+
+- 问题：不够直观
+
+## 单变量案例：普吉特海湾PCBs开放数据
+
+- 数据来自美国环保署[网站](http://www.epa.gov/pugetsound/bold.html)
+- 75个底泥样品采样点数据与污染物浓度数据
+```{r showdata1,results='asis',echo=FALSE, message=FALSE}
+embed_data_html <-  function(dataset, textHTML = "数据下载"){
+
+  divname <- paste(sample(LETTERS), collapse="")
+  tf <- tempfile(pattern = dataset, fileext = "RData")
+  save(list = dataset, file = tf, envir = parent.frame())
+  filenameWithExt <- paste(dataset, "RData", sep=".")
+  
+  uri <- base64enc::dataURI(file = tf, mime = "application/octet-stream", encoding = "base64")
+  cat("<a style='text-decoration: none' id='",divname,"'></a>
+      <script>
+      var a = document.createElement('a');
+      var div = document.getElementById('",divname,"');
+      div.appendChild(a);
+      a.setAttribute('href', '",uri,"');
+      a.innerHTML = '",textHTML,"';
+      if (typeof a.download != 'undefined') {
+      a.setAttribute('download', '",filenameWithExt,"');
+      }else{
+      a.setAttribute('onclick', 'confirm(\"Your browser does not support the download HTML5 attribute. You must rename the file to ",filenameWithExt," after downloading it (or use Chrome/Firefox/Opera). \")');
+      }
+      </script>",
+      sep="")
+}
+embed_data_html('pugetsound')
+
+```
+```{r samplemap,cache=T,echo=FALSE,message=FALSE}
+library(raster)
+map <- getData('SRTM',lon = -123, lat = 48)
+plot(map,axes = T,xlim=c(-126,-120),ylim=c(47,48.9),main='sample sites')
+points(pugetsound$longitude,pugetsound$latitude,pch=19,col='red')
+```
+
+## PCBs与采样深度的关系：线性回归与LOWESS
+
+```{r pcbsdepth,cache=T,echo=FALSE}
+par(mfrow=c(1,2))
+plot(pugetsound$PCBs~pugetsound$depth, xlab = 'depth(m)', ylab = 'PCBs(pg/g)',pch=19,main = 'OLS versus LOWESS',frame.plot = F)
+abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 2)
+lines(lowess(pugetsound$PCBs~pugetsound$depth), col = 'green', lwd = 2)
+legend('topleft',c('OLS','LOWESS'),col = c('red','green'),lty=c(1,1),box.lty=0)
+
+plot(pugetsound$PCBs~pugetsound$depth, xlab = 'depth(m)', ylab = 'PCBs(pg/g)',pch=19,main = 'Bootstrap LOWESS',frame.plot = F)
+for (i in 1:1000){
+      idx = sample(nrow(pugetsound), replace=TRUE)
+      lines(lowess(pugetsound$PCBs[idx]~pugetsound$depth[idx]), col = rgb(0,0, 1, 0.02), lwd = 2) 
+      }  
+abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 2)
+```
+
+## PCBs与采样深度的关系
+
+- 线性回归与LOWESS
+    - R^2^: `r summary(lm(pugetsound$PCBs~pugetsound$depth))$r.squared` P值: `r anova(lm(pugetsound$PCBs~pugetsound$depth))$'Pr(>F)'[1]`
+    - lowess回归对异常值稳健，够直观，但不易描述
+- 自举重采样
+    - 有放回重采样1000次
+    - 拟合1000条LOWESS回归线 透明度1%
+    - 根据颜色从图上读出阈值
+
+## 多变量问题：决策树
+
+<div class="columns-2">
+```{r titanic,echo=FALSE,cache=T,message=FALSE,fig.height=4,fig.width=4}
+library(rpart)
+fit <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare, data=train, method="class")
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+fancyRpartPlot(fit, main = '',sub = '')
+```
+
+
+  - 数据结构探索
+  - 越靠近根 分异最大
+  - 可用来筛选可疑变量及其阈值
+  
+```{r showdata2,results='asis',echo=FALSE, message=FALSE}
+embed_data_html('train')
+```
+
+
+</div>
+## 多变量案例：寻找影响分子沸点的拓扑描述符
+
+- 出发点：结构影响性质
+- 分子描述符可大量获得
+- 多元线性回归无法进行机理探讨
+- 特定描述符的阈值分割有助于机理讨论
+- 277个分子 120个拓扑描述符 探讨其对沸点的影响
+
+## 结果展示
+
+```{r rcdk,cache=TRUE,echo=FALSE,message=FALSE}
+library(rcdk)
+data(bpdata)
+mols <- parse.smiles(bpdata[, 1])
+desc.names <- get.desc.names("topological")
+data <- lapply(mols, eval.desc, desc.names)
+df <- data.frame(matrix(unlist(data), nrow = 277, byrow = T))
+colnames(df) <- colnames(data[[1]])
+X <- df[, which(!apply(df, 2, sd) == 0)]
+Y <- bpdata[, 2]
+d <- data.frame(Y,X)
+fit <- rpart(d$Y~ .,data = d)
+fancyRpartPlot(fit, main = '',sub = '')
+```
+
+## 阈值探索小结
+
+- 让数据说话，不依赖预设分布或动力学假设
+- 基于探索发现‘疑似’规律并建模
+- **强规律**会再现于任一个模型
+```{r coder,cache=TRUE,echo=FALSE,warning=FALSE,message=FALSE,fig.height= 5,fig.width= 8}
+library("meme")
+u <- "http://attach.wzdsb.net/bbs_attachment/forum/201201/19/180316nee8ntznjxulplhl.jpg"
+plot(create_meme(u, "For coder", ""))
+```
+
+## THANK YOU
+
+- 扩展链接
+    
+    - [Bootstrap入门](http://www.ats.ucla.edu/stat/r/library/bootstrap.htm)
+    - [曲棍球模型](http://cran.r-project.org/web/packages/segmented/index.html)
+    - [决策树变量筛选](http://www.baylor.edu/content/services/document.php?id=46132)
+    - [QSPR入门](https://en.wikipedia.org/wiki/Quantitative_structure%E2%80%93activity_relationship)
+    - [TOX21 challenge](https://tripod.nih.gov/tox21/challenge/)
+    - [可复算性研究简介](http://blog.sciencenet.cn/blog-430956-813992.html)
+    - Email:[yufreecas@gmail.com](mailto:yufreecas@gmail.com)
+    
+## QR code
+
