@@ -21,17 +21,16 @@ output:
 
 > **环境阈值是研究环境过程机理或风险评估的关键参数**
 
-## 阈值常见判断方法
+## 阈值的拟合
 
-- 拟合方程
-    - ED50 四参数法
-    - 本质上拟合不同形式的 logistic 模型
+- logistic 回归
+    - 四参数法：f(x,(b,c,d,e)) = c + (d-c)/(1+exp(b(log(x)-log(e))))
     
-- 曲棍球模型
-    - 分段线性模型
-    - 贝叶斯方法(MCMC)
-
-- 问题：不够直观
+```{r message=F,cache=TRUE,echo=FALSE}
+library(drc)
+model1 <- drm(SLOPE~DOSE, CURVE, fct=LL.4(names=c("Slope", "Lower", "Upper", "ED50")),data=spinach)
+plot(model1)
+```
 
 ## 单变量案例：普吉特海湾PCBs开放数据
 
@@ -65,7 +64,6 @@ embed_data_html <-  function(dataset, textHTML = "数据下载"){
       sep="")
 }
 embed_data_html('pugetsound')
-
 ```
 ```{r samplemap,cache=T,echo=FALSE,message=FALSE}
 library(raster)
@@ -79,8 +77,8 @@ points(pugetsound$longitude,pugetsound$latitude,pch=19,col='red')
 ```{r pcbsdepth,cache=T,echo=FALSE}
 par(mfrow=c(1,2))
 plot(pugetsound$PCBs~pugetsound$depth, xlab = 'depth(m)', ylab = 'PCBs(pg/g)',pch=19,main = 'OLS versus LOWESS',frame.plot = F)
-abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 2)
-lines(lowess(pugetsound$PCBs~pugetsound$depth), col = 'green', lwd = 2)
+abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 5)
+lines(lowess(pugetsound$PCBs~pugetsound$depth), col = 'green', lwd = 5)
 legend('topleft',c('OLS','LOWESS'),col = c('red','green'),lty=c(1,1),box.lty=0)
 
 plot(pugetsound$PCBs~pugetsound$depth, xlab = 'depth(m)', ylab = 'PCBs(pg/g)',pch=19,main = 'Bootstrap LOWESS',frame.plot = F)
@@ -88,7 +86,7 @@ for (i in 1:1000){
       idx = sample(nrow(pugetsound), replace=TRUE)
       lines(lowess(pugetsound$PCBs[idx]~pugetsound$depth[idx]), col = rgb(0,0, 1, 0.02), lwd = 2) 
       }  
-abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 2)
+abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 5)
 ```
 
 ## PCBs与采样深度的关系
@@ -101,7 +99,45 @@ abline(lm(pugetsound$PCBs~pugetsound$depth), col="red",lwd = 2)
     - 拟合1000条LOWESS回归线 透明度1%
     - 根据颜色从图上读出阈值
 
-## 多变量问题：决策树
+## PCBs与采样深度的关系：曲棍球模型
+
+```{r echo=FALSE,message=FALSE,cache=TRUE}
+par(mfrow=c(1,2))
+library(segmented)
+lin.mod <- lm(PCBs~depth,data = pugetsound)
+segmented.mod <- segmented(lin.mod, seg.Z = ~depth, psi=list(depth = c(400)),data = pugetsound)
+plot(segmented.mod,xlab = 'depth(m)', ylab = 'PCBs(pg/g)',main = 'Break-Point: 391.7',ylim = c(0,10000),col="red",lwd = 5)
+points(PCBs~depth,pch=19,data = pugetsound)
+lin.mod0 <- lm(PCBs~depth,data = pugetsound[pugetsound$depth<400,])
+segmented.mod0 <- segmented(lin.mod0, seg.Z = ~depth, psi=list(depth = c(200)),data = pugetsound)
+plot(segmented.mod0,xlab = 'depth(m)', ylab = 'PCBs(pg/g)',main = 'Break-Point: 142.2',ylim = c(0,10000),xlim = c(0,600),col="red",lwd = 5)
+points(PCBs~depth,pch=19,data = pugetsound)
+```
+
+## PCBs与采样深度的关系
+- 曲棍球模型
+    - 为自动化阈值寻找提供了便利
+    - 无法弥补数据质量问题
+    - F检验进行模型筛选
+```{r ke,cache=TRUE,echo=FALSE,warning=FALSE,message=FALSE,fig.height= 4,fig.width= 6}
+library("meme")
+u <- "http://www.mememaker.net/static/images/templates/11411.jpg"
+plot(create_meme(u, "Keep exploring", ""))
+```
+
+## 多变量案例：寻找影响分子沸点的分子描述符
+
+- 原理
+    - 结构影响性质
+    - 分子描述符可大量获得
+- 数据
+    - 277个分子
+    - 16个常见描述符
+- 思路
+    - 捕捉分子描述符的层级关系
+    - 特定描述符的阈值分割有助于机理讨论
+
+## 寻找影响分子沸点的拓扑描述符：决策树模型
 
 <div class="columns-2">
 ```{r titanic,echo=FALSE,cache=T,message=FALSE,fig.height=4,fig.width=4}
@@ -114,7 +150,6 @@ library(RColorBrewer)
 fancyRpartPlot(fit, main = '',sub = '')
 ```
 
-
   - 数据结构探索
   - 越靠近根 分异最大
   - 可用来筛选可疑变量及其阈值
@@ -123,24 +158,15 @@ fancyRpartPlot(fit, main = '',sub = '')
 embed_data_html('train')
 ```
 
-
 </div>
-## 多变量案例：寻找影响分子沸点的拓扑描述符
 
-- 出发点：结构影响性质
-- 分子描述符可大量获得
-- 多元线性回归无法进行机理探讨
-- 特定描述符的阈值分割有助于机理讨论
-- 277个分子 120个拓扑描述符
-- 探讨分子拓扑描述符对沸点的影响
-
-## 结果展示
+## 种树结果
 
 ```{r rcdk,cache=TRUE,echo=FALSE,message=FALSE}
 library(rcdk)
 data(bpdata)
 mols <- parse.smiles(bpdata[, 1])
-desc.names <- get.desc.names("topological")
+desc.names <- get.desc.names("constitutional")
 data <- lapply(mols, eval.desc, desc.names)
 df <- data.frame(matrix(unlist(data), nrow = 277, byrow = T))
 colnames(df) <- colnames(data[[1]])
@@ -151,16 +177,29 @@ fit <- rpart(d$Y~ .,data = d)
 fancyRpartPlot(fit, main = '',sub = '')
 ```
 
+## 种树结果
+
+- 根描述符
+    - 化学键数目(nb) 阈值：7.5
+    - 酸性基团数目(AMR) 阈值：14
+    - 分子量(MW) 阈值：194
+- 讨论
+    - 根据描述符筛选重要变量
+    - 根据阈值讨论潜在数据结构
+    - 自举重采样
+    
+> **Essentially, all models are wrong, but some are useful. -- George E. P. Box**
+
 ## 阈值探索小结
 
 - 让数据说话，不依赖预设分布或动力学假设
-- 基于探索发现‘疑似’规律并建模
+- 基于探索发现现象并建模
 - **强规律**会再现于任一个模型
 ```{r coder,cache=TRUE,echo=FALSE,warning=FALSE,message=FALSE,fig.height= 5,fig.width= 8}
-library("meme")
 u <- "http://attach.wzdsb.net/bbs_attachment/forum/201201/19/180316nee8ntznjxulplhl.jpg"
 plot(create_meme(u, "For coder", ""))
 ```
+
 
 ## THANK YOU
 
@@ -170,7 +209,6 @@ plot(create_meme(u, "For coder", ""))
 - [决策树变量筛选](http://www.baylor.edu/content/services/document.php?id=46132)
 - [QSPR入门](https://en.wikipedia.org/wiki/Quantitative_structure%E2%80%93activity_relationship)
 - [TOX21 challenge](https://tripod.nih.gov/tox21/challenge/)
-- [可复算性研究简介](http://blog.sciencenet.cn/blog-430956-813992.html)
 - [幻灯片源码](https://github.com/yufree/presentation/blob/master/threshold/threshold.Rmd)
 - [yufreecas@gmail.com](mailto:yufreecas@gmail.com)
 
