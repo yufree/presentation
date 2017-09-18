@@ -29,7 +29,10 @@ library(qrencoder)
 ```
 ## How far away between PostDoc and PI?
 
-![](https://yufree.github.io/presentation/pdpi.png)
+```{r echo=FALSE, out.width='80%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pdpi.png')
+```
+
 von Bartheld CS, Houmanfar R, Candido A. (2015)
 https://doi.org/10.7717/peerj.1262
 ---
@@ -457,16 +460,16 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/textmining.Rmd)
+Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/textmining/textmining.Rmd)
 
 Contact me [**here**](https://yufree.cn/en)
 
 ---
 # Scan
 
-```{r QRcode}
+```{r QRcode,fig.height=6}
 par(mar=c(0,0,0,0))
-image(qrencode_raster("https://yufree.github.io/presentation/textmining.html"), 
+image(qrencode_raster("https://yufree.github.io/presentation/textmining/textmining.html"), 
       asp=1, col=c("white", "black"), axes=FALSE, 
       xlab="", ylab="")
 ```
