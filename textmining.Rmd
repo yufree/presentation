@@ -25,6 +25,7 @@ library(widyr)
 library(igraph)
 library(ggraph)
 library(topicmodels)
+library(qrencoder)
 ```
 ## How far away between PostDoc and PI?
 
@@ -248,7 +249,7 @@ class: inverse, center, middle
 
 # From words to terms
 
-```{r SPME,echo=T}
+```{r SPME}
 library(scifetch)
 query <- 'Solid Phase MicroExtraction[MH] AND 2007/08:2017/08[DP]'
 tmdf <- getpubmed(query, start = 1, end = 10000) %>%
@@ -297,7 +298,7 @@ title_word_pairs %>%
 ## Bioanalytical Chemistry
 
 ## Solid Phase MicroExtraction
-
+--
 Use Mass Spectrum and Solid Phase MicroExtraction to study Biological problems
 
 ---
@@ -425,12 +426,12 @@ tf_idf %>%
 ```
 
 ---
-# Comments
-
+# Final Comments
+--
 ## Larger scope
-
+--
 ## Write papers
-
+--
 ## Evaluate journals
 
 ---
@@ -448,6 +449,17 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-Source Code: https://github.com/yufree/presentation/blob/gh-pages/textmining.Rmd
+Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/textmining.Rmd)
 
-Online: https://yufree.github.io/presentation/textmining.html
+Contact me [**here**](https://yufree.cn/en)
+
+---
+# Scan
+
+```{r QRcode}
+par(mar=c(0,0,0,0))
+image(qrencode_raster("https://yufree.github.io/presentation/textmining.html"), 
+      asp=1, col=c("white", "black"), axes=FALSE, 
+      xlab="", ylab="")
+```
+

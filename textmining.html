@@ -133,14 +133,6 @@ class: inverse, center, middle
 # From words to terms
 
 
-```r
-library(scifetch)
-query &lt;- 'Solid Phase MicroExtraction[MH] AND 2007/08:2017/08[DP]'
-tmdf &lt;- getpubmed(query, start = 1, end = 10000) %&gt;%
-        getpubmedtbl() %&gt;%
-        mutate(time = as.POSIXct(date, origin = "1970-01-01"),
-         month = round_date(date, "month"))
-```
 &lt;img src="textmining_files/figure-html/trend-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -152,7 +144,7 @@ tmdf &lt;- getpubmed(query, start = 1, end = 10000) %&gt;%
 ## Bioanalytical Chemistry
 
 ## Solid Phase MicroExtraction
-
+--
 Use Mass Spectrum and Solid Phase MicroExtraction to study Biological problems
 
 ---
@@ -182,12 +174,12 @@ my research could be mapped into one of those topic
 &lt;img src="textmining_files/figure-html/EI-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Comments
-
+# Final Comments
+--
 ## Larger scope
-
+--
 ## Write papers
-
+--
 ## Evaluate journals
 
 ---
@@ -205,9 +197,14 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-Source Code: https://github.com/yufree/presentation/blob/gh-pages/textmining.Rmd
+Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/textmining.Rmd)
 
-Online: https://yufree.github.io/presentation/textmining.html
+Contact me [**here**](https://yufree.cn/en)
+
+---
+# Scan
+
+&lt;img src="textmining_files/figure-html/QRcode-1.png" style="display: block; margin: auto;" /&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
