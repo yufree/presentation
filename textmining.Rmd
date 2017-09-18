@@ -28,7 +28,7 @@ library(topicmodels)
 ```
 ## How far away between PostDoc and PI?
 
-![](./pdpi.png)
+![](https://yufree.github.io/presentation/pdpi.png)
 von Bartheld CS, Houmanfar R, Candido A. (2015)
 https://doi.org/10.7717/peerj.1262
 ---
@@ -447,3 +447,7 @@ class: center, middle
 # Thanks!
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Source Code: https://github.com/yufree/presentation/blob/gh-pages/textmining.Rmd
+
+Online: https://yufree.github.io/presentation/textmining.html
