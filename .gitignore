@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 presentation.Rproj
+.DS_Store
+.gitignore

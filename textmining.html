@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Mining for Academic Journals</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Pawliszyn Research Group" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Text Mining for Academic Journals
+## Miao Yu
+### Pawliszyn Research Group
+### 2017/09/20
+
+---
+
+
+
+## How far away between PostDoc and PI?
+
+![](./pdpi.png)
+von Bartheld CS, Houmanfar R, Candido A. (2015)
+https://doi.org/10.7717/peerj.1262
+---
+class: inverse, center, middle
+
+# Get Started
+
+???
+Who changed research area as a PDF?
+Share my experiences in new research area
+---
+# Common workflow - SCSU
+--
+
+## 1. Search keywords on WOS/Pubmed/Scopus
+--
+
+## 2. Collect tons of papers
+--
+
+## 3. Start with few reviews
+--
+
+## 4. Update with RSS
+
+---
+class: inverse, center, middle
+
+# My Story
+
+???
+
+only be focused on one topic, have no idea about the whole domain
+
+PDF should have a larger scope as a Prof? no, editor
+
+---
+
+# Text Mining
+
+## Term Frequency
+
+## Temporal Trends
+
+## Word Co-ocurrences
+
+## Topic modeling
+
+???
+
+Text Mining, or natural language processing, use statistical method to find the rules behind literatures
+---
+
+# Data collection
+
+Here I collected the information from all the papers published in *Analytical Chemistry* in the past five years
+
+
+```r
+# devtools::install_github('yufree/scifetch')
+library(scifetch)
+query &lt;- '0003-2700[TA] AND 2012/08:2017/08[DP]'
+# fetch data
+tmdf &lt;- getpubmed(query, start = 1, end = 10000) %&gt;%
+        getpubmedtbl() %&gt;%
+        mutate(time = as.POSIXct(date, origin = "1970-01-01"),
+         month = round_date(date, "month"))
+```
+
+```
+8676 records founds
+```
+
+???
+
+five year means the trends currently happened while not included in textbook
+we found 8676 records
+
+---
+# Frequently used words
+
+
+
+&lt;img src="textmining_files/figure-html/Frequently used words-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Preferred words
+
+&lt;img src="textmining_files/figure-html/wordsource-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Temporal Trends - Growing Words
+
+&lt;img src="textmining_files/figure-html/time-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+# Temporal Trends - Shrinking Words
+&lt;img src="textmining_files/figure-html/time2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Solid Phase MicroExtraction
+
+---
+
+# From words to terms
+
+
+```r
+library(scifetch)
+query &lt;- 'Solid Phase MicroExtraction[MH] AND 2007/08:2017/08[DP]'
+tmdf &lt;- getpubmed(query, start = 1, end = 10000) %&gt;%
+        getpubmedtbl() %&gt;%
+        mutate(time = as.POSIXct(date, origin = "1970-01-01"),
+         month = round_date(date, "month"))
+```
+&lt;img src="textmining_files/figure-html/trend-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Insights in Text Mining
+
+## Mass Spectrum 
+
+## Bioanalytical Chemistry
+
+## Solid Phase MicroExtraction
+
+Use Mass Spectrum and Solid Phase MicroExtraction to study Biological problems
+
+---
+class: inverse, center, middle
+
+# Metabolomics
+
+???
+larger scope, such as Science, Nature
+---
+
+# Topic Model
+
+
+&lt;img src="textmining_files/figure-html/TMplot-1.png" style="display: block; margin: auto;" /&gt;
+???
+my research could be mapped into one of those topic
+---
+# Sentiment analysis
+
+&lt;img src="textmining_files/figure-html/SAplot-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Journal Tones
+
+&lt;img src="textmining_files/figure-html/EI-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Comments
+
+## Larger scope
+
+## Write papers
+
+## Evaluate journals
+
+---
+class: inverse, center, middle
+
+# From Yahoo! to Google
+
+???
+Yahoo! use manually category. Google use algorithm.
+---
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
