@@ -298,7 +298,9 @@ title_word_pairs %>%
 ## Bioanalytical Chemistry
 
 ## Solid Phase MicroExtraction
+
 --
+
 Use Mass Spectrum and Solid Phase MicroExtraction to study Biological problems
 
 ---
@@ -429,10 +431,15 @@ tf_idf %>%
 # Final Comments
 
 --
+
 ## Larger scope
+
 --
+
 ## Write papers
+
 --
+
 ## Evaluate journals
 
 ---
