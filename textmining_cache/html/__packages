@@ -19,3 +19,6 @@ widyr
 igraph
 ggraph
 topicmodels
+sp
+raster
+qrencoder
