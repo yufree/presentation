@@ -16,6 +16,7 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+# You need to install those packages by 'install.packages('PACKAGE NAME')' before use them
 library(tidyverse)
 library(lubridate)
 library(stringr)
@@ -26,6 +27,8 @@ library(igraph)
 library(ggraph)
 library(topicmodels)
 library(qrencoder)
+library(ngramr)
+library(gtrendsR)
 ```
 ## How far away between PostDoc and PI?
 
@@ -431,6 +434,27 @@ tf_idf %>%
 ```
 
 ---
+# Word usage
+
+```{r data,fig.width=12,fig.height=3}
+ng  <- ngram(c("data is", "data are"), year_start = 1950)
+ggplot(ng, aes(x=Year, y=Frequency, colour=Phrase)) +
+  geom_line() +
+        ggtitle("Usage in books") +
+        scale_color_manual(values=c('red', 'blue'))
+
+lang_trend <- gtrends(c("data is", "data are"))
+df <- lang_trend$interest_over_time
+ggplot(df, aes_string(x = "date", y = "hits", color = "keyword")) +
+    geom_line() +
+    xlab("Year") +
+    ylab("Search hits") +
+    ggtitle("Usage in keywords search") +
+        scale_color_manual(name = "Phrase",values=c('blue', 'red'))+
+        guides(col = guide_legend(reverse = TRUE))
+```
+
+---
 # Final Comments
 
 --
@@ -462,7 +486,7 @@ Slides created via the R package [**xaringan**](https://github.com/yihui/xaringa
 
 Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/textmining/textmining.Rmd)
 
-Contact me [**here**](https://yufree.cn/en)
+Contact me [**here**](https://yufree.cn/en) or @yu_free
 
 ---
 # Scan
@@ -473,4 +497,3 @@ image(qrencode_raster("https://yufree.github.io/presentation/textmining/textmini
       asp=1, col=c("white", "black"), axes=FALSE, 
       xlab="", ylab="")
 ```
-
