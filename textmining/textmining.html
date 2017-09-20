@@ -29,7 +29,7 @@ This presentation is all about papers or research articles published on academic
 
 My topic will cover my experiences about using text mining to find hot point in analytical chemistry. I will also cover some usages about text mining for PDF or young scientist.
 
-This slides is actually a template. You could make small modification to find your answer.
+This slides is actually a template. You could make modification to fit your study.
 ---
 
 ## How far away between PostDoc and PI?
@@ -41,7 +41,7 @@ von Bartheld CS, Houmanfar R, Candido A. (2015)
 https://doi.org/10.7717/peerj.1262
 
 ???
-It's not easy to survive in academia, especially when lots of the technique are younger than you
+It's not easy to survive in academia, especially when lots of the technique are younger than you/your kids
 
 ---
 class: inverse, center, middle
@@ -62,13 +62,13 @@ class: inverse, center, middle
 
 ### Precision Medicine
 
-### MOOC
+### MOOCs
 
 ???
 
-In the future, more and more new trend or technology will change our life, including our research.
+More and more new trend or technology will change our life, including our research.
 
-We might have to change our research in the near future by including new technology.
+We might have to change our research in the near future by using new technology.
 
 Text mining is one of them which I think almost any researcher could benefit from it.
 
@@ -102,13 +102,8 @@ class: inverse, center, middle
 
 ???
 
-keywords have no idea about the whole subject
+My topic in Waterloo
 
-PDF should have a larger scope as a Prof? no, editor
-
-Text Mining, or natural language processing, use statistical method to find the rules behind literatures. It cover term frequency, term frequency–inverse document frequency, word co-ocurrences, topic modeling, sentiment analysis, etc.
-
-It will help us
 ---
 # Subdiscipline in SPME
 
@@ -123,8 +118,12 @@ tmdf &lt;- getpubmed(query, start = 1, end = 10000) %&gt;%
 ```
 &lt;img src="textmining_files/figure-html/trend-1.png" style="display: block; margin: auto;" /&gt;
 ???
+I developed scifetch package to fetch data from pubmed and google scholar
+
 2668 records
+
 Keywords show no idea about the whole discipline
+
 I found SPME is a technique with its hard core around extraction. I don't think I should go into this area too much. Instead, I prefer some words related to this technique like mass spectrum.
 
 ---
@@ -133,11 +132,13 @@ class: inverse, center, middle
 # Analytical Chemistry
 
 ???
+PDF should have a larger scope as a Prof? no, editor
 
 Here I collected the information from all the papers published in *Analytical Chemistry* in the past five years
 
 five year means the trends currently happened while not included in textbook
-we found 8676 records
+
+8676 records found
 
 
 
@@ -156,7 +157,7 @@ Something about mass spectrum and biological analysis
 
 &lt;img src="textmining_files/figure-html/time-1.png" style="display: block; margin: auto;" /&gt;
 ???
-term frequency is count data, so I use binomial regression to compute the slope about time. Here I select 9 fast growing words in the titles. We could find more concepts are actually about living system. Also I found metabolomics which is actually what I did in the past year since I came Waterloo.
+term frequency is count data, so I use Generalized Linear Regression (binomi)to compute the slope about time. Here I select 9 fast growing words in the titles. We could find more concepts are actually about living system. Also I found metabolomics which is actually what I did in the past year since I came Waterloo.
 
 ---
 
@@ -171,7 +172,8 @@ class: inverse, center, middle
 # Science &amp; Nature
 
 ???
-
+Go further
+14964 records founds
 I collected paper published on S&amp;N for 3 years
 ---
 
@@ -181,7 +183,7 @@ I collected paper published on S&amp;N for 3 years
 ???
 Topic modeling use latent Dirichlet allocation to find potential topic among the papers.
 Climate change, quantum, tumour, protein, neurons, evolution and astronomy are what they like.
-my research should be mapped into one of those topic.
+My research should be mapped into one of those topics.
 
 ---
 
@@ -223,7 +225,9 @@ Science has American accent and Nature has British tones
 
 &lt;img src="textmining_files/figure-html/data-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="textmining_files/figure-html/data-2.png" style="display: block; margin: auto;" /&gt;
 ???
-You might also use text mining to help you write papers.
+Whether data is a plural or singular nouns?
+
+You might also use text mining to write papers.
 
 ---
 # Final Comments
@@ -261,7 +265,9 @@ Contact me [**here**](https://yufree.cn/en) or @yu_free
 
 Online textbook about textmining: http://tidytextmining.com/
 ???
-keywords for pubmed: https://www.ncbi.nlm.nih.gov/books/NBK3827/
+For xaringan, @xieyihui
+
+Keywords for pubmed: https://www.ncbi.nlm.nih.gov/books/NBK3827/
 ---
 # Scan
 
