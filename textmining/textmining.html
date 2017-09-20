@@ -41,7 +41,7 @@ von Bartheld CS, Houmanfar R, Candido A. (2015)
 https://doi.org/10.7717/peerj.1262
 
 ???
-It's not easy to survive in academia, especially when lots of the technique are younger than ourself
+It's not easy to survive in academia, especially when lots of the technique are younger than you
 
 ---
 class: inverse, center, middle
@@ -72,6 +72,8 @@ We might have to change our research in the near future by including new technol
 
 Text mining is one of them which I think almost any researcher could benefit from it.
 
+Text Mining, or natural language processing, use statistical method to find the rules behind literatures. It cover term frequency, term frequency–inverse document frequency, word co-ocurrences, topic modeling, sentiment analysis, etc.
+
 Let's start with a simple question: how to change research area
 
 ---
@@ -89,10 +91,14 @@ Let's start with a simple question: how to change research area
 
 ## 4. Update with RSS
 
+???
+
+Keywords tracking is always keywords orientated
+
 ---
 class: inverse, center, middle
 
-# Text Mining
+# Solid Phase MicroExtraction
 
 ???
 
@@ -104,31 +110,36 @@ Text Mining, or natural language processing, use statistical method to find the 
 
 It will help us
 ---
-
-# Data collection
-
-Here I collected the information from all the papers published in *Analytical Chemistry* in the past five years
+# Subdiscipline in SPME
 
 
 ```r
-# devtools::install_github('yufree/scifetch')
 library(scifetch)
-query &lt;- '0003-2700[TA] AND 2012/08:2017/08[DP]'
-# fetch data
+query &lt;- 'Solid Phase MicroExtraction[MH] AND 2007/08:2017/08[DP]'
 tmdf &lt;- getpubmed(query, start = 1, end = 10000) %&gt;%
         getpubmedtbl() %&gt;%
         mutate(time = as.POSIXct(date, origin = "1970-01-01"),
          month = round_date(date, "month"))
 ```
+&lt;img src="textmining_files/figure-html/trend-1.png" style="display: block; margin: auto;" /&gt;
+???
+2668 records
+Keywords show no idea about the whole discipline
+I found SPME is a technique with its hard core around extraction. I don't think I should go into this area too much. Instead, I prefer some words related to this technique like mass spectrum.
 
-```
-8676 records founds
-```
+---
+class: inverse, center, middle
+
+# Analytical Chemistry
 
 ???
 
+Here I collected the information from all the papers published in *Analytical Chemistry* in the past five years
+
 five year means the trends currently happened while not included in textbook
 we found 8676 records
+
+
 
 ---
 # Frequently used words
@@ -157,20 +168,14 @@ It is interesting to find some words which currently get into our textbook are d
 ---
 class: inverse, center, middle
 
-# Solid Phase MicroExtraction
+# Science &amp; Nature
 
----
-
-# From words to terms
-
-
-&lt;img src="textmining_files/figure-html/trend-1.png" style="display: block; margin: auto;" /&gt;
 ???
-I found SPME is a technique with its hard core around extraction. I don't think I should go into this area too much. Instead, I try to find some words related to this technique like mass spectrum.
+
+I collected paper published on S&amp;N for 3 years
 ---
 
 # Topic Model
-
 
 &lt;img src="textmining_files/figure-html/TMplot-1.png" style="display: block; margin: auto;" /&gt;
 ???
@@ -219,6 +224,7 @@ Science has American accent and Nature has British tones
 &lt;img src="textmining_files/figure-html/data-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="textmining_files/figure-html/data-2.png" style="display: block; margin: auto;" /&gt;
 ???
 You might also use text mining to help you write papers.
+
 ---
 # Final Comments
 
@@ -253,8 +259,9 @@ Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/t
 
 Contact me [**here**](https://yufree.cn/en) or @yu_free
 
-???
 Online textbook about textmining: http://tidytextmining.com/
+???
+keywords for pubmed: https://www.ncbi.nlm.nih.gov/books/NBK3827/
 ---
 # Scan
 

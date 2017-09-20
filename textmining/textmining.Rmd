@@ -53,7 +53,7 @@ von Bartheld CS, Houmanfar R, Candido A. (2015)
 https://doi.org/10.7717/peerj.1262
 
 ???
-It's not easy to survive in academia, especially when lots of the technique are younger than ourself
+It's not easy to survive in academia, especially when lots of the technique are younger than you
 
 ---
 class: inverse, center, middle
@@ -84,6 +84,8 @@ We might have to change our research in the near future by including new technol
 
 Text mining is one of them which I think almost any researcher could benefit from it.
 
+Text Mining, or natural language processing, use statistical method to find the rules behind literatures. It cover term frequency, term frequency–inverse document frequency, word co-ocurrences, topic modeling, sentiment analysis, etc.
+
 Let's start with a simple question: how to change research area
 
 ---
@@ -101,10 +103,14 @@ Let's start with a simple question: how to change research area
 
 ## 4. Update with RSS
 
+???
+
+Keywords tracking is always keywords orientated
+
 ---
 class: inverse, center, middle
 
-# Text Mining
+# Solid Phase MicroExtraction
 
 ???
 
@@ -116,12 +122,65 @@ Text Mining, or natural language processing, use statistical method to find the 
 
 It will help us
 ---
+# Subdiscipline in SPME
 
-# Data collection
+```{r SPME, echo = T}
+library(scifetch)
+query <- 'Solid Phase MicroExtraction[MH] AND 2007/08:2017/08[DP]'
+tmdf <- getpubmed(query, start = 1, end = 10000) %>%
+        getpubmedtbl() %>%
+        mutate(time = as.POSIXct(date, origin = "1970-01-01"),
+         month = round_date(date, "month"))
+```
+```{r trend,fig.width=8,fig.height=5}
+papers_per_month <- tmdf %>%
+  group_by(month) %>%
+  summarize(month_total = n())
+
+wordfabs <- tmdf %>%
+        filter(nchar(abstract) > 0) %>%
+        unnest_tokens(word, abstract) %>%
+        anti_join(stop_words) %>%
+        filter(str_detect(word, "[^\\d]")) %>%
+        group_by(word) %>%
+        mutate(word_total = n()) %>%
+        ungroup() 
+
+title_word_pairs <- wordfabs %>%
+        pairwise_count(word,line,sort = TRUE)
+
+set.seed(42)
+title_word_pairs %>%
+  filter(n >= 800) %>%
+  graph_from_data_frame() %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = "cyan4") +
+  geom_node_point(size = 2) +
+  geom_node_text(aes(label = name), repel = TRUE, 
+                 point.padding = unit(0.2, "lines")) +
+  labs(title = "Bigrams in abstract") +
+  theme_void()+
+        theme(axis.text = element_text(size = 22)
+              )
+```
+???
+2668 records
+Keywords show no idea about the whole discipline
+I found SPME is a technique with its hard core around extraction. I don't think I should go into this area too much. Instead, I prefer some words related to this technique like mass spectrum.
+
+---
+class: inverse, center, middle
+
+# Analytical Chemistry
+
+???
 
 Here I collected the information from all the papers published in *Analytical Chemistry* in the past five years
 
-```{r fetchdata,message=TRUE,echo=TRUE}
+five year means the trends currently happened while not included in textbook
+we found 8676 records
+
+```{r fetchdata}
 # devtools::install_github('yufree/scifetch')
 library(scifetch)
 query <- '0003-2700[TA] AND 2012/08:2017/08[DP]'
@@ -131,11 +190,6 @@ tmdf <- getpubmed(query, start = 1, end = 10000) %>%
         mutate(time = as.POSIXct(date, origin = "1970-01-01"),
          month = round_date(date, "month"))
 ```
-
-???
-
-five year means the trends currently happened while not included in textbook
-we found 8676 records
 
 ---
 # Frequently used words
@@ -256,57 +310,7 @@ It is interesting to find some words which currently get into our textbook are d
 ---
 class: inverse, center, middle
 
-# Solid Phase MicroExtraction
-
----
-
-# From words to terms
-
-```{r SPME}
-library(scifetch)
-query <- 'Solid Phase MicroExtraction[MH] AND 2007/08:2017/08[DP]'
-tmdf <- getpubmed(query, start = 1, end = 10000) %>%
-        getpubmedtbl() %>%
-        mutate(time = as.POSIXct(date, origin = "1970-01-01"),
-         month = round_date(date, "month"))
-```
-```{r trend,fig.width=12}
-papers_per_month <- tmdf %>%
-  group_by(month) %>%
-  summarize(month_total = n())
-
-wordfabs <- tmdf %>%
-        filter(nchar(abstract) > 0) %>%
-        unnest_tokens(word, abstract) %>%
-        anti_join(stop_words) %>%
-        filter(str_detect(word, "[^\\d]")) %>%
-        group_by(word) %>%
-        mutate(word_total = n()) %>%
-        ungroup() 
-
-title_word_pairs <- wordfabs %>%
-        pairwise_count(word,line,sort = TRUE)
-
-set.seed(42)
-title_word_pairs %>%
-  filter(n >= 800) %>%
-  graph_from_data_frame() %>%
-  ggraph(layout = "fr") +
-  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = "cyan4") +
-  geom_node_point(size = 2) +
-  geom_node_text(aes(label = name), repel = TRUE, 
-                 point.padding = unit(0.2, "lines")) +
-  labs(title = "Bigrams in abstract") +
-  theme_void()+
-        theme(axis.text = element_text(size = 22)
-              )
-```
-???
-I found SPME is a technique with its hard core around extraction. I don't think I should go into this area too much. Instead, I try to find some words related to this technique like mass spectrum.
----
-
-# Topic Model
-
+# Science & Nature
 ```{r TM}
 query <- '(1095-9203[TA] OR 0028-0836[TA]) AND 2014/08:2017/08[DP]'
 xml2_1 <- getpubmed(query, start = 1, end = 10000)
@@ -337,6 +341,13 @@ wordft <- tmdf %>%
         mutate(word_total = n()) %>%
         ungroup()
 ```
+???
+
+I collected paper published on S&N for 3 years
+---
+
+# Topic Model
+
 ```{r TMplot,fig.width=12}
 desc_dtm <- wordfabs %>%
         count(line, word, sort = TRUE) %>%
@@ -473,6 +484,7 @@ ggplot(df, aes_string(x = "date", y = "hits", color = "keyword")) +
 ```
 ???
 You might also use text mining to help you write papers.
+
 ---
 # Final Comments
 
@@ -507,8 +519,9 @@ Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/t
 
 Contact me [**here**](https://yufree.cn/en) or @yu_free
 
-???
 Online textbook about textmining: http://tidytextmining.com/
+???
+keywords for pubmed: https://www.ncbi.nlm.nih.gov/books/NBK3827/
 ---
 # Scan
 
