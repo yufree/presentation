@@ -20,31 +20,71 @@ class: center, middle, inverse, title-slide
 
 
 
+class: inverse, center, middle
+
+# Papers
+
+???
+This presentation is all about papers or research articles published on academic journals
+
+My topic will cover my experiences about using text mining to find hot point in analytical chemistry. I will also cover some usages about text mining for PDF or young scientist.
+
+This slides is actually a template. You could make small modification to find your answer.
+---
+
 ## How far away between PostDoc and PI?
 
+--
 &lt;img src="https://yufree.github.io/presentation/figure/pdpi.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 von Bartheld CS, Houmanfar R, Candido A. (2015)
 https://doi.org/10.7717/peerj.1262
+
+???
+It's not easy to survive in academia, especially when lots of the technique are younger than ourself
+
 ---
 class: inverse, center, middle
 
-# Get Started
+### Genomics/Protomics/Metabolomics
+
+### Quantum Computing
+
+### Big Data
+
+### Nanotechnology
+
+### Artificial Intelligence
+
+### Blockchain
+
+### 3D Printing
+
+### Precision Medicine
+
+### MOOC
 
 ???
-Who changed research area as a PDF?
-Share my experiences in new research area
+
+In the future, more and more new trend or technology will change our life, including our research.
+
+We might have to change our research in the near future by including new technology.
+
+Text mining is one of them which I think almost any researcher could benefit from it.
+
+Let's start with a simple question: how to change research area
+
 ---
-# Common workflow - SCSU
+# Common workflow
 --
 
 ## 1. Search keywords on WOS/Pubmed/Scopus
 --
 
-## 2. Collect tons of papers
+## 2. Collect papers
 --
 
-## 3. Start with few reviews
+## 3. Start with few reviews/feature articles
 --
 
 ## 4. Update with RSS
@@ -52,29 +92,17 @@ Share my experiences in new research area
 ---
 class: inverse, center, middle
 
-# My Story
+# Text Mining
 
 ???
 
-only be focused on one topic, have no idea about the whole domain
+keywords have no idea about the whole subject
 
 PDF should have a larger scope as a Prof? no, editor
 
----
+Text Mining, or natural language processing, use statistical method to find the rules behind literatures. It cover term frequency, term frequency–inverse document frequency, word co-ocurrences, topic modeling, sentiment analysis, etc.
 
-# Text Mining
-
-## Term Frequency
-
-## Temporal Trends
-
-## Word Co-ocurrences
-
-## Topic modeling
-
-???
-
-Text Mining, or natural language processing, use statistical method to find the rules behind literatures
+It will help us
 ---
 
 # Data collection
@@ -109,21 +137,23 @@ we found 8676 records
 
 &lt;img src="textmining_files/figure-html/Frequently used words-1.png" style="display: block; margin: auto;" /&gt;
 
----
-
-# Preferred words
-
-&lt;img src="textmining_files/figure-html/wordsource-1.png" style="display: block; margin: auto;" /&gt;
+???
+Something about mass spectrum and biological analysis
 
 ---
 # Temporal Trends - Growing Words
 
 &lt;img src="textmining_files/figure-html/time-1.png" style="display: block; margin: auto;" /&gt;
+???
+term frequency is count data, so I use binomial regression to compute the slope about time. Here I select 9 fast growing words in the titles. We could find more concepts are actually about living system. Also I found metabolomics which is actually what I did in the past year since I came Waterloo.
+
 ---
 
 # Temporal Trends - Shrinking Words
 &lt;img src="textmining_files/figure-html/time2-1.png" style="display: block; margin: auto;" /&gt;
 
+???
+It is interesting to find some words which currently get into our textbook are disappearing as hot spots.
 ---
 class: inverse, center, middle
 
@@ -135,6 +165,18 @@ class: inverse, center, middle
 
 
 &lt;img src="textmining_files/figure-html/trend-1.png" style="display: block; margin: auto;" /&gt;
+???
+I found SPME is a technique with its hard core around extraction. I don't think I should go into this area too much. Instead, I try to find some words related to this technique like mass spectrum.
+---
+
+# Topic Model
+
+
+&lt;img src="textmining_files/figure-html/TMplot-1.png" style="display: block; margin: auto;" /&gt;
+???
+Topic modeling use latent Dirichlet allocation to find potential topic among the papers.
+Climate change, quantum, tumour, protein, neurons, evolution and astronomy are what they like.
+my research should be mapped into one of those topic.
 
 ---
 
@@ -146,41 +188,37 @@ class: inverse, center, middle
 
 ## Solid Phase MicroExtraction
 
+## Living Samples
 --
 
-Use Mass Spectrum and Solid Phase MicroExtraction to study Biological problems
+Use Mass Spectrum and Solid Phase MicroExtraction to study Omics by **in vivo** sampling
 
 ---
 class: inverse, center, middle
 
 # Metabolomics
 
-???
-larger scope, such as Science, Nature
----
-
-# Topic Model
-
-
-&lt;img src="textmining_files/figure-html/TMplot-1.png" style="display: block; margin: auto;" /&gt;
-???
-my research could be mapped into one of those topic
 ---
 # Sentiment analysis
 
 &lt;img src="textmining_files/figure-html/SAplot-1.png" style="display: block; margin: auto;" /&gt;
-
+???
+Should we use neutral word? Sentiment analysis could show this.
 ---
 
 # Journal Tones
 
 &lt;img src="textmining_files/figure-html/EI-1.png" style="display: block; margin: auto;" /&gt;
+???
+Here I use term frequency–inverse document frequency, which could show the preferred words in different parts of records.
+Science has American accent and Nature has British tones
 
 ---
 # Word usage
 
 &lt;img src="textmining_files/figure-html/data-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="textmining_files/figure-html/data-2.png" style="display: block; margin: auto;" /&gt;
-
+???
+You might also use text mining to help you write papers.
 ---
 # Final Comments
 
@@ -190,11 +228,11 @@ my research could be mapped into one of those topic
 
 --
 
-## Write papers
+## Capture trends
 
 --
 
-## Evaluate journals
+## Write papers
 
 ---
 class: inverse, center, middle
@@ -215,6 +253,8 @@ Source Code is [**here**](https://github.com/yufree/presentation/blob/gh-pages/t
 
 Contact me [**here**](https://yufree.cn/en) or @yu_free
 
+???
+Online textbook about textmining: http://tidytextmining.com/
 ---
 # Scan
 
