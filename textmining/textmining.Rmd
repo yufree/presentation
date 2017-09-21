@@ -282,7 +282,7 @@ slopes %>%
               )
 ```
 ???
-term frequency is count data, so I use Generalized Linear Regression (binomi)to compute the slope about time. Here I select 9 fast growing words in the titles. We could find more concepts are actually about living system. Also I found metabolomics which is actually what I did in the past year since I came Waterloo.
+term frequency is count data, so I use Generalized Linear Regression (binomial)to compute the slope about time. Here I select 9 fast growing words in the titles. We could find more concepts are actually about living system. Also I found metabolomics which is actually what I did in the past year since I came Waterloo.
 
 ---
 
