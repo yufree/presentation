@@ -17,6 +17,8 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 # You need to install those packages by 'install.packages('PACKAGE NAME')' before use them
+# for scifetch package, you need to use 'devtools::install_github('yufree/scifetch')' to install the packages
+# I suggest using Rstudio to compile this rmd files. Just click knit on the toolbar
 library(tidyverse)
 library(lubridate)
 library(stringr)
