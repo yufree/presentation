@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metabolomics Data Analysis</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Miao Yu" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Metabolomics Data Analysis
+## Introduction
+### Miao Yu
+### 2018/06/14
+
+---
+
+
+
+
+## Don't Panic
+
+&lt;img src="https://yufree.github.io/presentation/figure/oreilly.png" width="42%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# What
+---
+class: middle,center
+
+.left[
+## Defination
+]
+
+&lt;img src="https://yufree.github.io/presentation/figure/metabolomics.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+By &lt;a href="//commons.wikimedia.org/w/index.php?title=User:Ycyc0927&amp;amp;action=edit&amp;amp;redlink=1" class="new" title="User:Ycyc0927 (page does not exist)"&gt;Ycyc0927&lt;/a&gt; - &lt;span class="int-own-work" lang="en"&gt;Own work&lt;/span&gt;, &lt;a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0"&gt;CC BY-SA 4.0&lt;/a&gt;, &lt;a href="https://commons.wikimedia.org/w/index.php?curid=68544125"&gt;Link&lt;/a&gt;
+
+???
+
+- Downstream of Central Dogma
+- Small molecular (molecular weight &lt; 1500Da)
+- Endogenous substance
+- XC-MS or NMR based
+
+---
+## History
+
+&lt;img src="https://yufree.github.io/presentation/figure/metabolomics.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Kusonmano, K., Vongsangnak, W., &amp; Chumnanpuen, P. (2016). Informatics for Metabolomics. Translational Biomedical Informatics, 91–115. doi:10.1007/978-981-10-1503-8_5
+]
+
+???
+- 2000-1500 BC some traditional Chinese doctors who began to evaluate the glucose level in urine of diabetic patients using ants
+
+- 300 BC ancient Egypt and Greece that traditionally determine the urine taste to diagnose human diseases
+
+- 1913 Joseph John Thomson and Francis William Aston mass spectrometry 
+
+- 1946 Felix Bloch and Edward Purcell Nuclear magnetic resonance
+
+- late 1960s chromatographic separation technique
+
+- 1971 Pauling’s research team "Quantitative Analysis of Urine Vapor and Breath by Gas–Liquid Partition Chromatography"
+
+- Willmitzer and his research team pioneer group in metabolomics which suggested the promotion of the metabolomics field and its potential applications from agriculture to medicine and other related areas in the biological sciences
+
+- 2007 Human Metabolome Project consists of databases of approximately 2500 metabolites, 1200 drugs, and 3500 food components
+
+- post-metabolomics era high-throughput analytical techniques 
+
+---
+
+class: inverse, center, middle
+
+# Why
+
+---
+
+## Omics famliy
+
+&lt;img src="introduction_files/figure-html/rentrez-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Applicaiton
+
+.large[
+- Systems biology
+- Precision medicine
+- Toxicology
+- Forensic science
+- Food science
+- Enivromental science
+]
+
+---
+
+class: inverse, center, middle
+
+# How
+---
+
+## General workflow
+
+.large[
+- Idea
+- Experimental Design
+- Sample collection
+- Pretreatment
+- Instrumental Analysis
+- Data Analysis
+]
+
+---
+
+## Idea
+
+- Metabolomics would cover unknown compounds
+- Study would cover nothing without purpose
+
+&gt; Garbage in, garbage out
+
+### Common goals
+
+- Methodology/validation
+- Diagnose/prediction
+- Bio-process/explaination
+
+&gt; Validation is hard for unknown compounds
+
+---
+## Experimental Design
+
+### Homogeneity 
+
+- Technical replicates
+
+        - all samples are from same population
+        - research purpose is about method
+
+- Biological replicates
+
+        - all samples are from same population with same biological process
+        - research purpose is about biological process
+
+---
+## Experimental Design
+
+### Heterogeneity
+
+- Outliar detection/Cross-section study
+
+        - Inner relationship among known/unknown compounds
+        - Baseline
+        
+- Distribution/Spatial analysis
+
+        - Geological relationship of known/unknown compounds
+        
+- Time Series/Cohort study
+
+        - Temporal trend of known/unknown compounds
+        - Baseline
+
+---
+## Experimental Design
+
+### Power analysis
+
+- Power = 1 - False Negative
+
+        - Probability of finding an effect that is there
+        - Fixed effects, get sample size to show differences among groups
+        - Fixed power, get effects to show differences among groups
+        - Prelimitary experiment required
+
+- Simulation to estimate the sample size
+
+.half[
+Blaise, B. J., Correia, G., Tin, A., Young, J. H., Vergnaud, A.-C., Lewis, M., … Ebbels, T. M. D. (2016). Power Analysis and Sample Size Determination in Metabolic Phenotyping. Analytical Chemistry, 88(10), 5179–5188. doi:10.1021/acs.analchem.6b00188
+]
+
+???
+The numbers of samples in each group should be carefully calculated. Supposing the metaoblites of certain biological process only have a few metabolites, the first goal of the exprimenal design is to find the differences of each metabolite in different group. For each metabolite, such comparision could be treated as one t-test. You need to perform a Power analysis to get the numbers. For example, we have two groups of samples with 10 samples in each group. Then we set the power at 0.9, which means 1 minus Type II error probability, the standard deviation at 1 and the significance level(Type 1 error probability) at 0.05. Then we get the meanful delta between the two groups should be higher than 1.53367 under this experiment design. Also we could set the delta to get the minimized numbers of the samples in each group. To get those data such as the standard deviation or delta for power analysis, you need to perform pre-experiments.
+
+---
+## Sample collection
+
+### Quenching
+        
+        - Instantaneous inactivation of metabolism
+        - rapid low/high temprature
+        - Organic solvent
+
+### Storage
+
+        - -80°C or -20°C
+        - Dry ice
+
+
+.half[
+Faijes, M., Mars, A. E., &amp; Smid, E. J. (2007). Comparison of quenching and extraction methodologies for metabolome analysis of Lactobacillus plantarum. Microbial Cell Factories, 6(1), 27. doi:10.1186/1475-2859-6-27 Wandro, S., Carmody, L., Gallagher, T., LiPuma, J. J., &amp; Whiteson, K. (2017). Making It Last: Storage Time and Temperature Have Differential Impacts on Metabolite Profiles of Airway Samples from Cystic Fibrosis Patients. mSystems, 2(6), e00100–17. doi:10.1128/msystems.00100-17
+]
+???
+Quenching is always discussed for microorganism or cell related metabolomics.
+Storage is always concerned by tissue related study.
+
+---
+## Pretreatment
+
+- From samples to injection vials
+
+- More **interesting** compounds, less **unrelated** interference (matrix effects)
+
+- Remove lipid
+
+  - Gel Permeation Chromatograph(GPC)
+  - Florisil
+  - Strong acid
+  
+- Protein denaturation
+  
+  - Alcohols
+  - Strong acid/base
+
+???
+Pretreatment should fit the purpose of your research. For metabolomics, common unrelated interferences are hard to define. Usually, we need to remove lipid and make protein denaturation to release more compounds.
+
+---
+
+## Pretreatment
+
+- Different pretreatment would show different coverages of compounds
+
+  - solvent/sorbent/coating
+  - extraction time
+  - temprature
+  
+- Free concentration v.s. binding constants
+
+- Living system: *in vivo* SPME
+
+???
+No method could cover all the interesting compounds. The form of the compounds would also matters
+
+---
+## Instrumental Analysis
+
+- Nuclear magnetic resonance(NMR)
+
+  - structural identification
+  - little or no sample preparation
+  - highly reproducible results
+
+- Gas/Liquid chromatography–mass spectrometry(XCMS)
+
+  - high sensitivity
+  - high selectivity
+  - multi-stage mass spectrometry
+
+---
+## Instrumental Analysis - GC-MS
+
+### Column and temperature selection
+
+- Higher temperature, higher boiling point
+- Normal-phase: non-polar compounds first, polar compounds make seperation
+- Reversed-phase: polar compounds first, non-polar compounds make seperation
+- Higher boiling point **usually** means more polar compounds
+
+&gt; How to select column and temperature to seperate polor compounds?
+
+---
+## Instrumental Analysis - LC-MS
+
+### Column and gradient selection
+
+- More polar solvent could release polar compounds
+- More non-polar solvent could release non-polor compounds
+- Normal-phase: non-polar compounds first, polar compounds make seperation
+- Reversed-phase: polar compounds first, non-polar compounds make seperation
+
+&gt; Gradient from polar to non-polar make a better seperation on ____ compounds on a reversed-phase column
+
+???
+pretreatment method should fit the instrumental analysis methods
+---
+
+## Instrumental Analysis - Quality control
+
+- Random injection sequence
+- Calibration for high resolution mass sepctrum in real time
+- The cap of sequence should old the column with Pooled QC:
+
+  - Blank, Blank, Blank 
+  - Solvent Blank, Solvent Blank, Solvent Blank
+  - Pooled QC, Pooled QC, Pooled QC
+  - Instrumental QC, blank
+  
+- Every ten random samples as a block
+- Blocks are seperated by this sub-sequence 
+
+  - Block1
+  - Blank, Pooled QC, Instrumental QC
+  - Block2
+
+&gt; Compute the volumn of pooled QC before started!!!
+
+???
+Instrumental QC show the stability of instrument; blank show the baseline of column; Solvent Blank show the baseline of column and solvent; Pooled QC show the baseline of all compounds
+  
+---
+## Data Analysis
+
+.large[
+- From raw data to peaks in each samples
+- Align peaks to make retention time correction
+- Fill the peaks for aligned peaks list
+- Peaks list
+  - Peaks with mass to charge ratio @ retention time in row
+  - Samples in column
+- Statistical analysis on peaks list
+- Annotation for peaks
+]
+
+---
+class: inverse, center, middle
+
+# Issues
+---
+# Issues
+
+- ## Batch effects correction
+
+- ## Annotation of peaks
+
+- ## Statistical analysis
+
+- ### Pretreatment optimization
+
+- ### Omics analysis
+
+- ### Reproducible research
+
+---
+
+## Summary
+
+- ### Metabolomics cover topics in biology, analytical chemistry and chemometrics
+
+- ### You need to know related concepts before experiments
+
+- ### Design your workflow according to your research
+
+- ### Report the details of everything
+
+---
+
+class: inverse, center, middle
+
+# Q&amp;A
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

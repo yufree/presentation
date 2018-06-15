@@ -1,0 +1,394 @@
+---
+title: "Metabolomics Data Analysis"
+subtitle: "Introduction"
+author: "Miao Yu"
+date: "2018/06/14"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE,echo=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Don't Panic
+
+```{r echo=FALSE,out.width='42%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/oreilly.png')
+```
+
+---
+class: inverse, center, middle
+
+# What
+---
+class: middle,center
+
+.left[
+## Defination
+]
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/metabolomics.png')
+```
+
+By <a href="//commons.wikimedia.org/w/index.php?title=User:Ycyc0927&amp;action=edit&amp;redlink=1" class="new" title="User:Ycyc0927 (page does not exist)">Ycyc0927</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=68544125">Link</a>
+
+???
+
+- Downstream of Central Dogma
+- Small molecular (molecular weight < 1500Da)
+- Endogenous substance
+- XC-MS or NMR based
+
+---
+## History
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/metabolomics.png')
+```
+
+.half[
+```{r hisref,results = 'asis'}
+doi <- c('10.1007/978-981-10-1503-8_5')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+- 2000-1500 BC some traditional Chinese doctors who began to evaluate the glucose level in urine of diabetic patients using ants
+
+- 300 BC ancient Egypt and Greece that traditionally determine the urine taste to diagnose human diseases
+
+- 1913 Joseph John Thomson and Francis William Aston mass spectrometry 
+
+- 1946 Felix Bloch and Edward Purcell Nuclear magnetic resonance
+
+- late 1960s chromatographic separation technique
+
+- 1971 Pauling’s research team "Quantitative Analysis of Urine Vapor and Breath by Gas–Liquid Partition Chromatography"
+
+- Willmitzer and his research team pioneer group in metabolomics which suggested the promotion of the metabolomics field and its potential applications from agriculture to medicine and other related areas in the biological sciences
+
+- 2007 Human Metabolome Project consists of databases of approximately 2500 metabolites, 1200 drugs, and 3500 food components
+
+- post-metabolomics era high-throughput analytical techniques 
+
+---
+
+class: inverse, center, middle
+
+# Why
+
+---
+
+## Omics famliy
+
+```{r rentrez}
+library(rentrez)
+library(reshape)
+library(ggplot2)
+papers_by_year <- function(years, search_term){
+    return(sapply(years, function(y) entrez_search(db="pubmed",term=search_term, mindate=y, maxdate=y, retmax=0)$count))
+}
+years <- 1987:2017
+total_papers <- papers_by_year(years, "")
+omics <- c("genomic", "transcriptomic", "proteomic", "metabolomics", "lipidomics", "exposome")
+trend_data <- sapply(omics, function(t) papers_by_year(years, t))
+trend_props <- trend_data/total_papers
+trend_df <- melt(data.frame(years, trend_data), id.vars="years")
+p <- ggplot(trend_df, aes(years, value, colour=variable))
+p + geom_line(size=1) + scale_y_log10("number of papers")
+```
+
+---
+## Applicaiton
+
+.large[
+- Systems biology
+- Precision medicine
+- Toxicology
+- Forensic science
+- Food science
+- Enivromental science
+]
+
+---
+
+class: inverse, center, middle
+
+# How
+---
+
+## General workflow
+
+.large[
+- Idea
+- Experimental Design
+- Sample collection
+- Pretreatment
+- Instrumental Analysis
+- Data Analysis
+]
+
+---
+
+## Idea
+
+- Metabolomics would cover unknown compounds
+- Study would cover nothing without purpose
+
+> Garbage in, garbage out
+
+### Common goals
+
+- Methodology/validation
+- Diagnose/prediction
+- Bio-process/explaination
+
+> Validation is hard for unknown compounds
+
+---
+## Experimental Design
+
+### Homogeneity 
+
+- Technical replicates
+
+        - all samples are from same population
+        - research purpose is about method
+
+- Biological replicates
+
+        - all samples are from same population with same biological process
+        - research purpose is about biological process
+
+---
+## Experimental Design
+
+### Heterogeneity
+
+- Outliar detection/Cross-section study
+
+        - Inner relationship among known/unknown compounds
+        - Baseline
+        
+- Distribution/Spatial analysis
+
+        - Geological relationship of known/unknown compounds
+        
+- Time Series/Cohort study
+
+        - Temporal trend of known/unknown compounds
+        - Baseline
+
+---
+## Experimental Design
+
+### Power analysis
+
+- Power = 1 - False Negative
+
+        - Probability of finding an effect that is there
+        - Fixed effects, get sample size to show differences among groups
+        - Fixed power, get effects to show differences among groups
+        - Prelimitary experiment required
+
+- Simulation to estimate the sample size
+
+.half[
+```{r powerref,results = 'asis'}
+doi <- c('10.1021/acs.analchem.6b00188')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+The numbers of samples in each group should be carefully calculated. Supposing the metaoblites of certain biological process only have a few metabolites, the first goal of the exprimenal design is to find the differences of each metabolite in different group. For each metabolite, such comparision could be treated as one t-test. You need to perform a Power analysis to get the numbers. For example, we have two groups of samples with 10 samples in each group. Then we set the power at 0.9, which means 1 minus Type II error probability, the standard deviation at 1 and the significance level(Type 1 error probability) at 0.05. Then we get the meanful delta between the two groups should be higher than 1.53367 under this experiment design. Also we could set the delta to get the minimized numbers of the samples in each group. To get those data such as the standard deviation or delta for power analysis, you need to perform pre-experiments.
+
+---
+## Sample collection
+
+### Quenching
+        
+        - Instantaneous inactivation of metabolism
+        - rapid low/high temprature
+        - Organic solvent
+
+### Storage
+
+        - -80°C or -20°C
+        - Dry ice
+
+
+.half[
+```{r sampleref,results = 'asis'}
+doi <- c('10.1186/1475-2859-6-27','10.1128/mSystems.00100-17')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+???
+Quenching is always discussed for microorganism or cell related metabolomics.
+Storage is always concerned by tissue related study.
+
+---
+## Pretreatment
+
+- From samples to injection vials
+
+- More **interesting** compounds, less **unrelated** interference (matrix effects)
+
+- Remove lipid
+
+  - Gel Permeation Chromatograph(GPC)
+  - Florisil
+  - Strong acid
+  
+- Protein denaturation
+  
+  - Alcohols
+  - Strong acid/base
+
+???
+Pretreatment should fit the purpose of your research. For metabolomics, common unrelated interferences are hard to define. Usually, we need to remove lipid and make protein denaturation to release more compounds.
+
+---
+
+## Pretreatment
+
+- Different pretreatment would show different coverages of compounds
+
+  - solvent/sorbent/coating
+  - extraction time
+  - temprature
+  
+- Free concentration v.s. binding constants
+
+- Living system: *in vivo* SPME
+
+???
+No method could cover all the interesting compounds. The form of the compounds would also matters
+
+---
+## Instrumental Analysis
+
+- Nuclear magnetic resonance(NMR)
+
+  - structural identification
+  - little or no sample preparation
+  - highly reproducible results
+
+- Gas/Liquid chromatography–mass spectrometry(XCMS)
+
+  - high sensitivity
+  - high selectivity
+  - multi-stage mass spectrometry
+
+---
+## Instrumental Analysis - GC-MS
+
+### Column and temperature selection
+
+- Higher temperature, higher boiling point
+- Normal-phase: non-polar compounds first, polar compounds make seperation
+- Reversed-phase: polar compounds first, non-polar compounds make seperation
+- Higher boiling point **usually** means more polar compounds
+
+> How to select column and temperature to seperate polor compounds?
+
+---
+## Instrumental Analysis - LC-MS
+
+### Column and gradient selection
+
+- More polar solvent could release polar compounds
+- More non-polar solvent could release non-polor compounds
+- Normal-phase: non-polar compounds first, polar compounds make seperation
+- Reversed-phase: polar compounds first, non-polar compounds make seperation
+
+> Gradient from polar to non-polar make a better seperation on ____ compounds on a reversed-phase column
+
+???
+pretreatment method should fit the instrumental analysis methods
+---
+
+## Instrumental Analysis - Quality control
+
+- Random injection sequence
+- Calibration for high resolution mass sepctrum in real time
+- The cap of sequence should old the column with Pooled QC:
+
+  - Blank, Blank, Blank 
+  - Solvent Blank, Solvent Blank, Solvent Blank
+  - Pooled QC, Pooled QC, Pooled QC
+  - Instrumental QC, blank
+  
+- Every ten random samples as a block
+- Blocks are seperated by this sub-sequence 
+
+  - Block1
+  - Blank, Pooled QC, Instrumental QC
+  - Block2
+
+> Compute the volumn of pooled QC before started!!!
+
+???
+Instrumental QC show the stability of instrument; blank show the baseline of column; Solvent Blank show the baseline of column and solvent; Pooled QC show the baseline of all compounds
+  
+---
+## Data Analysis
+
+.large[
+- From raw data to peaks in each samples
+- Align peaks to make retention time correction
+- Fill the peaks for aligned peaks list
+- Peaks list
+  - Peaks with mass to charge ratio @ retention time in row
+  - Samples in column
+- Statistical analysis on peaks list
+- Annotation for peaks
+]
+
+---
+class: inverse, center, middle
+
+# Issues
+---
+# Issues
+
+- ## Batch effects correction
+
+- ## Annotation of peaks
+
+- ## Statistical analysis
+
+- ### Pretreatment optimization
+
+- ### Omics analysis
+
+- ### Reproducible research
+
+---
+
+## Summary
+
+- ### Metabolomics cover topics in biology, analytical chemistry and chemometrics
+
+- ### You need to know related concepts before experiments
+
+- ### Design your workflow according to your research
+
+- ### Report the details of everything
+
+---
+
+class: inverse, center, middle
+
+# Q&A
