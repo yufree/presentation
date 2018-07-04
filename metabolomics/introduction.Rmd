@@ -322,11 +322,10 @@ No method could cover all the interesting compounds. The form of the compounds w
 ### Column and Temperature Selection
 
 - Higher temperature, higher boiling point
-- Normal-phase: non-polar compounds first, polar compounds make separation
-- Reversed-phase: polar compounds first, non-polar compounds make separation
-- Higher boiling point **usually** means more polar compounds
-
-> How to select column and temperature to seperate polor compounds?
+- Polarity of samples and column should match
+- Funtional groups of stationary phase matters
+  
+> How to select column and temperature to seperate polar compounds?
 
 ---
 ## Instrumental Analysis - LC-MS
