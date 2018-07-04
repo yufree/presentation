@@ -2,7 +2,7 @@
 title: "Metabolomics Data Analysis"
 subtitle: "Introduction"
 author: "Miao Yu"
-date: "2018/06/14"
+date: "2018/07/04"
 output:
   xaringan::moon_reader:
     css: ["default", "my-theme.css"]
@@ -23,6 +23,20 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 ```{r echo=FALSE,out.width='42%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/oreilly.png')
 ```
+
+---
+
+# Workshop outline
+
+## Introduction
+
+## Statistical Analysis
+
+## Batch effect and correction
+
+## Annotation
+
+## Data analysis in practice
 
 ---
 class: inverse, center, middle
@@ -169,7 +183,7 @@ class: inverse, center, middle
 
         - all samples are from same population with same biological process
         - research purpose is about biological process
-        - technical replicates could also be used with Biological replicates
+        - technical replicates could also be used with biological replicates
 
 ---
 ## Experimental Design

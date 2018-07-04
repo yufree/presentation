@@ -2,7 +2,7 @@
 title: "Metabolomics Data Analysis"
 subtitle: "Statistical Analysis"
 author: "Miao Yu"
-date: "2018/06/14"
+date: "2018/07/05"
 output:
   xaringan::moon_reader:
     css: ["default", "my-theme.css"]
@@ -352,12 +352,6 @@ For certain model, certain cutoff(p-value) could show one point. Change the cuto
 ### Statistical model could be evaluated and selected
 
 ---
-
-class: inverse, center, middle
-
-# Q&A
-
----
 class: inverse, center, middle
 
 # Advanced Statistical Analysis
@@ -644,3 +638,9 @@ knitr::include_graphics('http://neuralnetworksanddeeplearning.com/images/tikz36.
 class: inverse, center, middle
 
 # Q&A
+
+## @yu_free
+
+## miao.yu@uwaterloo.ca
+
+## https://yufree.cn/metaworkflow/
