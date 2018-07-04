@@ -18,6 +18,13 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
+## Don't Panic
+
+```{r echo=FALSE,out.width='72%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
+```
+---
+
 ## Statistic
 
 $$Statistic = f(sample_1,sample_2,...,sample_n)$$
