@@ -420,8 +420,6 @@ class: inverse, center, middle
 
 # Q&A
 
-## @yu_free
+## yufreecas@gmail.com
 
-## miao.yu@uwaterloo.ca
-
-## https://yufree.cn/metaworkflow/
+## https://bookdown.org/yufree/Metabolomics/
