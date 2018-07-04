@@ -67,13 +67,13 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - 300 BC ancient Egypt and Greece that traditionally determine the urine taste to diagnose human diseases
 
-- 1913 Joseph John Thomson and Francis William Aston mass spectrometry 
+- 1913 Joseph John Thomson and Francis William Aston mass spectrometer 
 
 - 1946 Felix Bloch and Edward Purcell Nuclear magnetic resonance
 
-- late 1960s chromatographic separation technique
+- late 1960s cinematographic separation technique
 
-- 1971 Pauling’s research team "Quantitative Analysis of Urine Vapor and Breath by Gas–Liquid Partition Chromatography"
+- 1971 Pauling’s research team "Quantitative Analysis of Urine Vapor and Breath by Gas–Liquid Partition Cinematography"
 
 - Willmitzer and his research team pioneer group in metabolomics which suggested the promotion of the metabolomics field and its potential applications from agriculture to medicine and other related areas in the biological sciences
 
@@ -117,7 +117,7 @@ p + geom_line(size=1) + scale_y_log10("number of papers")
 - Toxicology
 - Forensic science
 - Food science
-- Enivromental science
+- Environmental science
 ]
 
 ---
@@ -151,7 +151,7 @@ class: inverse, center, middle
 
 - Methodology/validation
 - Diagnose/prediction
-- Bio-process/explaination
+- Bio-process/explanation
 
 > Validation is hard for unknown compounds
 
@@ -163,19 +163,20 @@ class: inverse, center, middle
 - Technical replicates
 
         - all samples are from same population
-        - research purpose is about method
+        - research purpose is about method in most cases
 
 - Biological replicates
 
         - all samples are from same population with same biological process
         - research purpose is about biological process
+        - technical replicates could also be used with Biological replicates
 
 ---
 ## Experimental Design
 
 ### Heterogeneity
 
-- Outliar detection/Cross-section study
+- Outlier detection/Cross-section study
 
         - Inner relationship among known/unknown compounds
         - Baseline
@@ -211,7 +212,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 ]
 
 ???
-The numbers of samples in each group should be carefully calculated. Supposing the metaoblites of certain biological process only have a few metabolites, the first goal of the exprimenal design is to find the differences of each metabolite in different group. For each metabolite, such comparision could be treated as one t-test. You need to perform a Power analysis to get the numbers. For example, we have two groups of samples with 10 samples in each group. Then we set the power at 0.9, which means 1 minus Type II error probability, the standard deviation at 1 and the significance level(Type 1 error probability) at 0.05. Then we get the meanful delta between the two groups should be higher than 1.53367 under this experiment design. Also we could set the delta to get the minimized numbers of the samples in each group. To get those data such as the standard deviation or delta for power analysis, you need to perform pre-experiments.
+The numbers of samples in each group should be carefully calculated. Supposing the metabolites of certain biological process only have a few metabolites, the first goal of the experimental design is to find the differences of each metabolite in different group. For each metabolite, such comparison could be treated as one t-test. You need to perform a Power analysis to get the numbers. For example, we have two groups of samples with 10 samples in each group. Then we set the power at 0.9, which means 1 minus Type II error probability, the standard deviation at 1 and the significance level(Type 1 error probability) at 0.05. Then we get the meaningful delta between the two groups should be higher than 1.53367 under this experiment design. Also we could set the delta to get the minimized numbers of the samples in each group. To get those data such as the standard deviation or delta for power analysis, you need to perform pre-experiments.
 
 ---
 ## Sample collection
@@ -249,25 +250,33 @@ Storage is always concerned by tissue related study.
 
   - Gel Permeation Chromatograph(GPC)
   - Florisil
-  - Strong acid
+  - Alumina
+  - Silica gel
   
 - Protein denaturation
   
   - Alcohols
   - Strong acid/base
 
+.half[
+```{r spmeref,results = 'asis'}
+doi <- c('10.1021/acs.analchem.7b04502')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
 ???
-Pretreatment should fit the purpose of your research. For metabolomics, common unrelated interferences are hard to define. Usually, we need to remove lipid and make protein denaturation to release more compounds.
+Pretreatment should fit the purpose of your research. For metabolomics, common unrelated interference are hard to define. Usually, we need to remove lipid and make protein denaturation to release more compounds.
 
 ---
 
 ## Pretreatment
 
-- Different pretreatment would show different coverages of compounds
+- Different pretreatment would show different coverage of compounds
 
   - solvent/sorbent/coating
   - extraction time
-  - temprature
+  - temperature
   
 - Free concentration v.s. binding constants
 
@@ -297,8 +306,8 @@ No method could cover all the interesting compounds. The form of the compounds w
 ### Column and temperature selection
 
 - Higher temperature, higher boiling point
-- Normal-phase: non-polar compounds first, polar compounds make seperation
-- Reversed-phase: polar compounds first, non-polar compounds make seperation
+- Normal-phase: non-polar compounds first, polar compounds make separation
+- Reversed-phase: polar compounds first, non-polar compounds make separation
 - Higher boiling point **usually** means more polar compounds
 
 > How to select column and temperature to seperate polor compounds?
@@ -309,9 +318,9 @@ No method could cover all the interesting compounds. The form of the compounds w
 ### Column and gradient selection
 
 - More polar solvent could release polar compounds
-- More non-polar solvent could release non-polor compounds
-- Normal-phase: non-polar compounds first, polar compounds make seperation
-- Reversed-phase: polar compounds first, non-polar compounds make seperation
+- More non-polar solvent could release non-polar compounds
+- Normal-phase: non-polar compounds first, polar compounds make separation
+- Reversed-phase: polar compounds first, non-polar compounds make separation
 
 > Gradient from polar to non-polar make a better seperation on ____ compounds on a reversed-phase column
 
@@ -322,7 +331,7 @@ pretreatment method should fit the instrumental analysis methods
 ## Instrumental Analysis - Quality control
 
 - Random injection sequence
-- Calibration for high resolution mass sepctrum in real time
+- Calibration for high resolution mass spectrum in real time
 - The cap of sequence should old the column with Pooled QC:
 
   - Blank, Blank, Blank 
@@ -331,13 +340,13 @@ pretreatment method should fit the instrumental analysis methods
   - Instrumental QC, blank
   
 - Every ten random samples as a block
-- Blocks are seperated by this sub-sequence 
+- Blocks are separated by this sub-sequence 
 
   - Block1
   - Blank, Pooled QC, Instrumental QC
   - Block2
 
-> Compute the volumn of pooled QC before started!!!
+> Compute the volume of pooled QC before started!!!
 
 ???
 Instrumental QC show the stability of instrument; blank show the baseline of column; Solvent Blank show the baseline of column and solvent; Pooled QC show the baseline of all compounds
@@ -363,11 +372,11 @@ class: inverse, center, middle
 ---
 # Issues
 
+- ### Statistical analysis
+
 - ### Batch effects correction
 
 - ### Annotation of peaks
-
-- ### Statistical analysis
 
 - #### High-throughput
 
