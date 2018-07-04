@@ -52,7 +52,7 @@ By <a href="//commons.wikimedia.org/w/index.php?title=User:Ycyc0927&amp;action=e
 ## History
 
 ```{r echo=FALSE,out.width='70%'}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/metabolomics.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/metahistory.jpg')
 ```
 
 .half[
@@ -189,6 +189,8 @@ class: inverse, center, middle
 
         - Temporal trend of known/unknown compounds
         - Baseline
+
+- Clinical Tril
 
 ---
 ## Experimental Design
@@ -403,3 +405,9 @@ class: inverse, center, middle
 class: inverse, center, middle
 
 # Q&A
+
+## @yu_free
+
+## miao.yu@uwaterloo.ca
+
+## https://yufree.cn/metaworkflow/
