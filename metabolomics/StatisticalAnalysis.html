@@ -32,7 +32,7 @@ class: center, middle, inverse, title-slide
 most of the papers looks like owl and they only show two circle to explain how they process the data
 ---
 
-## Demo of XC-MS data
+## Demo of XC-MS Data
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="https://yufree.github.io/metaworkflow/images/singledata.png" alt="Demo of GC/LC-MS data"  /&gt;
@@ -41,13 +41,13 @@ most of the papers looks like owl and they only show two circle to explain how t
 
 ---
 
-## Demo of peaks
+## Demo of Peaks
 
 &lt;img src="StatisticalAnalysis_files/figure-html/demoeic-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Demo of peak detection
+## Demo of Peak Detection
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="https://yufree.github.io/metaworkflow/images/matchedfilter.jpg" alt="Demo of matchedfilter"  /&gt;
@@ -59,12 +59,12 @@ Smith, C. A., Want, E. J., O’Maille, G., Abagyan, R., &amp; Siuzdak, G. (2006)
 ]
 
 ???
-In mass spectrumetry dataset, the EIC is not that simple for full scan. Due to the accuracy of instrument, the detected mass to charge ratio would have some shift and EIC would fail if different scan get the intensity from different mass to charge ratio. In the matchedfilter algorithm, they solve this issue by bin the data in m/z dimension. The adjacent chromatographic slices could be combined to find a clean signal fitting fixed second-derivative Gaussian with full width at half-maximum
+In mass spectrum dataset, the EIC is not that simple for full scan. Due to the accuracy of instrument, the detected mass to charge ratio would have some shift and EIC would fail if different scan get the intensity from different mass to charge ratio. In the matchedfilter algorithm, they solve this issue by bin the data in m/z dimension. The adjacent chromatographic slices could be combined to find a clean signal fitting fixed second-derivative Gaussian with full width at half-maximum
 (fwhm) of 30s to find peaks with about 1.5-4 times the signal peak width. The the integration is performed on the fitted area.
 
 ---
 
-## Demo of peak detection
+## Demo of Peak Detection
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2639432/bin/1471-2105-9-504-2.jpg" alt="Demo of Region Of Interest (ROI)" width="62%" /&gt;
@@ -80,7 +80,7 @@ ROI means a regine with stable mass for a certain time. When we find the ROIs, t
 
 ---
 
-## Demo of peak detection
+## Demo of Peak Detection
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2639432/bin/1471-2105-9-504-6.jpg" alt="Demo of CentWave" width="62%" /&gt;
@@ -96,7 +96,7 @@ the following Continuous Wavelet Transform (CWT) is preferred to detect peaks
 
 ---
 
-## Demo of retention time correction
+## Demo of Retention Time Correction
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="https://yufree.github.io/presentation/figure/obiwarp.gif" alt="Demo of Obiwarp" width="50%" /&gt;
@@ -112,13 +112,13 @@ Loess alignment use local region to align the peaks. However, obiwarp alignment 
 
 ---
 
-## Demo of peaks filling
+## Demo of Peaks Filling
 
 &lt;img src="https://yufree.github.io/presentation/figure/peakfiling.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Demo of many XC-MS data
+## Demo of Many XC-MS Data
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="https://yufree.github.io/metaworkflow/images/multidata.png" alt="Demo of many GC/LC-MS data"  /&gt;
@@ -147,7 +147,7 @@ Loess alignment use local region to align the peaks. However, obiwarp alignment 
 
 &lt;img src="https://yufree.github.io/presentation/figure/diffplot.png" style="display: block; margin: auto;" /&gt;
 
-- NOT statistical comparision
+- NOT statistical comparison
 
 - Useful for exploratory analysis
 
@@ -159,7 +159,7 @@ Loess alignment use local region to align the peaks. However, obiwarp alignment 
 
 `$$Statistic = f(sample_1,sample_2,...,sample_n)$$`
 
-- Statistics descripe certain property among the samples
+- Statistics describe certain property among the samples
         
 - Statistics could be designed for certain purpose
 
@@ -170,7 +170,7 @@ Statistical Inference is based on statistic
 
 ---
 
-## Null Hypothesis Significance Testing(NHST)
+## Null Hypothesis Significance Testing (NHST)
 
 - H0: nothing happens
 - H1: something happens
@@ -184,7 +184,7 @@ Statistical Inference is based on statistic
 
 ---
 
-## P value Demo
+## P Value Demo
 
 ### http://rpsychologist.com/d3/NHST/
 
@@ -192,15 +192,15 @@ Statistical Inference is based on statistic
 
 ## Multiple Comparision
 
-- One comparision test, false positive 
+- One comparison test, false positive 
 
 $$ 1- (1 - 0.05) = 0.05$$
 
-- Two comparision tests, false positive 
+- Two comparison tests, false positive 
 
 `$$1 - (1 - 0.05)^2 = 0.0975$$`
 
-- Ten comparision tests, false positive
+- Ten comparison tests, false positive
 
 `$$1 - (1 - 0.05)^{10} = 0.4012$$`
 
@@ -224,9 +224,9 @@ $$ 1- (1 - 0.05) = 0.05$$
 
 `$$p_i \leq \frac{i}{m} \alpha$$`
 
-- `\(\alpha\)` means the cutoff of p value, i means the rank of certain test and m means the numbers of comparision
+- `\(\alpha\)` means the cutoff of p value, i means the rank of certain test and m means the numbers of comparison
 
-- Adjested p value for FDR control
+- Adjusted p value for FDR control
 
 ### Storey Q value 
 
@@ -277,13 +277,13 @@ This is publication bias or "cherry-picking". Try to avoid p value in the future
 
 - Based on real data and/or hypothesis
 
-- Diagnoised by other statistics( `\(R^2\)`, `\(ROC\)`)
+- Diagnosed by other statistics( `\(R^2\)`, `\(ROC\)`)
 
 - We could tune statistical models by parameters or make model selection
 
 ---
 
-## T test
+## T Test
 
 ### Statistic 
 
@@ -299,7 +299,7 @@ $$ t = \frac{\bar x - \mu}{\frac{\sigma}{\sqrt n}} $$
 
 ---
 
-## One-way Anova
+## One-Way Anova
 
 ### Statistic 
 
@@ -313,7 +313,7 @@ $$ F = \frac{explained\ variance}{unexplained\ variance} $$
 
 ---
 
-## Parametric v.s. Non-parametric test
+## Parametric v.s. Non-parametric Test
 
 - Most of parametric test need assumptions for data
 
@@ -356,7 +356,7 @@ Linear regression could replace both of them in most cases
 
 - A T-test would be used to test whether the parameter is 0 or not
 
-- If the parameter show no signifituer differences with 0, the group information might show limited contribution for this peak intensity
+- If the parameter show no significant differences with 0, the group information might show limited contribution for this peak intensity
 
 - This peak would not be suitable to predict the group
 
@@ -366,21 +366,21 @@ Linear regression could replace both of them in most cases
 
 ---
 
-## Time series analysis
+## Time Series Analysis
 
 `$$Intensity_{t} = Intensity_{t-1} + Group + Random$$`
 
-- Data points on time series has autocorrelation
+- Data points on time series has auto-correlation
 
 - Regression analysis is not suitable for time series
 
-- Survial analysis might also be used in certain context
+- Survival analysis might also be used in certain context
 
 &gt; If you know nothing about time series analysis, just show trends without claim statistical analysis
 
 ---
 
-## Bio-marker or Model prediction
+## Bio-marker or Model Prediction
 
 ### Bio-marker: peaks which could show the group information
 
@@ -388,9 +388,9 @@ $$Group = f_m(peak_m) $$
 
 - Select one bio-marker by statistical analysis 
 - Use bio-marker to make prediction
-- Use bio-infomation to explain the mechanism
+- Use bio-information to explain the mechanism
 
-### Model prediction
+### Model Prediction
 
 `$$Group/Value = f_m(peak_1, peak_2, ...,peak_n)$$`
 
@@ -400,7 +400,7 @@ $$Group = f_m(peak_m) $$
 
 ---
 
-## Model evaluation
+## Model Evaluation
 
 ### Sensitivity is true positive in all real positive
 
@@ -417,11 +417,11 @@ $$Group = f_m(peak_m) $$
 - [More](https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Graphical_illustration)
 
 ???
-This is actually the same in analytical chemistry. A higher sensitivity model could avoid false negative. A higher specificity model could avoid false positive. The accuracy would not distinguish such things.
+This is actually the same in analytically chemistry. A higher sensitivity model could avoid false negative. A higher specificity model could avoid false positive. The accuracy would not distinguish such things.
 
 ---
 
-## ROC curve
+## ROC Curve
 
 &lt;a title="By Sharpr [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], from Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:ROC_curves.svg"&gt;&lt;center&gt;&lt;img width="600" alt="ROC curves" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/ROC_curves.svg/512px-ROC_curves.svg.png"&gt;&lt;/center&gt;&lt;/a&gt;
 
@@ -544,28 +544,28 @@ class: inverse, center, middle
 
 ---
 
-## Principle component analysis
+## Principle Component Analysis
 
 ### Unsupervised model
 
 ### Peaks are not indenpendent
 
-- use priciple components to show the major variances
-- each priciple component is a liner combination of peaks with loadings
+- use principle components to show the major variances
+- each principle component is a liner combination of peaks with loading
 
 ### Samples could be visulized in 2D/3D mode in score plot
 
-- When the first 2or3 priciple components could show 80% variances
+- When the first 2or3 principle components could show 80% variances
 
-- If the samples are clustered, they might be similar on the major priciple components
+- If the samples are clustered, they might be similar on the major principle components
 
 
 ???
-PCA is an Exploratory Data Analysis(EDA) method, not statistical inference with p value. Conclusion should be valided by extra statistical methods or simulation
+PCA is an Exploratory Data Analysis(EDA) method, not statistical inference with p value. Conclusion should be validated by extra statistical methods or simulation
 
 ---
 
-## PLSDA
+## Partial Least Squares Discriminant Analysis (PLSDA)
 
 ### Supervised model
 
@@ -573,13 +573,13 @@ PCA is an Exploratory Data Analysis(EDA) method, not statistical inference with 
 
 ### Peaks are not indenpendent
 
-- For PCA, both new variables and classes are orthognal
-- For PLSDA(Wold), only new classes are orthognal. 
-- For PLS(Martens), only new variables are orthognal. 
+- For PCA, both new variables and classes are orthogonal
+- For PLSDA(Wold), only new classes are orthogonal. 
+- For PLS(Martens), only new variables are orthogonal. 
 
 ### Sparse PLS-DA make a L1 penal on the variable selection
 
-- remove the influnces from unrelated variables
+- remove the influences from unrelated variables
 
 ???
 Partial least squares discriminant analysis(PLSDA) was first used in the 1990s. However, Partial least squares(PLS) was proposed in the 1960s by Hermann Wold. Principal components analysis produces the weight matrix reflecting the covariance structure between the variables, while partial least squares produces the weight matrix reflecting the covariance structure between the variables and classes. After rotation by weight matrix, the new variables would contain relationship with classes. 
@@ -594,7 +594,7 @@ For o-PLS-DA, s-plot could be used to find features.[@wiklund2008]
 
 ---
 
-## PLSDA
+## Partial Least Squares Discriminant Analysis (PLSDA)
 
 ### Variable Importance in Projection (VIP) score
 
@@ -610,11 +610,11 @@ For o-PLS-DA, s-plot could be used to find features.[@wiklund2008]
 
 ---
 
-## Cluster analysis
+## Cluster Analysis
 
 ### Unsupervised model
 
-- Use varibales' distances among samples to show inner relationship
+- Use variables' distances among samples to show inner relationship
 
 - Find Homogeneity from Heterogeneity
 
@@ -630,30 +630,30 @@ For o-PLS-DA, s-plot could be used to find features.[@wiklund2008]
 
 ---
 
-## Tree based model
+## Tree Based Model
 
 ### Hierarchical model with multiple levels
 
-- At each level, different variables play roles in seperation of samples
+- At each level, different variables play roles in separation of samples
 
-- Each branchs of the tree belong to certain groups
+- Each branch of the tree belong to certain groups
 
 &lt;img src="https://yufree.github.io/presentation/figure/Tree.png" width="68%" style="display: block; margin: auto;" /&gt;
 
 ???
-peaks could be used in dfferent levels for seperation
+peaks could be used in different levels for separation
 Tree base model could also be used to select important variables
 
 ---
-## Tree based model
+## Tree Based Model
 
 ### Random forest
 
 - At each level use bootstrap to select peaks
 
-- Use multiple trees to vote for the seperation
+- Use multiple trees to vote for the separation
 
-- Variable importance could be computed by the influnces on the seperation
+- Variable importance could be computed by the influences on the separation
 
 - Each model is unique since random selection involved
 
@@ -661,7 +661,7 @@ Tree base model could also be used to select important variables
 
 ---
 
-## Tree based model
+## Tree Based Model
 
 ### Boosting
 
@@ -669,20 +669,20 @@ Tree base model could also be used to select important variables
 
 - Each tree is based on previous tree and the parameters are weighted
 
-- New trees are shrinked to fit the residual errors
+- New trees are shrank to fit the residual errors
 
 `$$\hat f(x) = \sum_{b=1}^B \lambda \hat f^b(x)$$`
-- When depth is 1, boosting is identical with addtive model
+- When depth is 1, boosting is identical with additive model
 
 ---
 
-## Support vector machine
+## Support Vector Machine (SVM)
 
-- p-dimensional vector could be seperate by (p-1)-dimensional hyperplane
+- p-dimensional vector could be separate by (p-1)-dimensional hyperplane
 
-- Find the hyperlane to make largest separation between gourps
+- Find the hyperlane to make largest separation between groups
 
-- Kernel function is used to map the higher-dimensional into a lower-dimensinal space
+- Kernel function is used to map the higher-dimensional into a lower-dimension space
 
 - Similar to logistic regression with kernel function
 
@@ -690,22 +690,22 @@ Tree base model could also be used to select important variables
 
 ---
 
-## Artificial neural network
+## Artificial Neural Network (ANN)
 
 &lt;a title="By Glosser.ca [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], from Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg"&gt;&lt;center&gt;&lt;img width="400" alt="Colored neural network" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/256px-Colored_neural_network.svg.png"&gt;&lt;/center&gt;&lt;/a&gt;
 
 ???
 
-Hidden layer use different kernal functions
+Hidden layer use different kernel functions
 
 ---
 
-## Deep learning
+## Deep Learning
 
 &lt;img src="http://neuralnetworksanddeeplearning.com/images/tikz36.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ???
-multiple layer
+multiple layers
 
 ---
 
