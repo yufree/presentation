@@ -169,6 +169,18 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/diffplot.p
 
 ---
 
+## Summary
+
+### Each sample need peak-picking algorithm to get peaks
+
+### Peaks should be aligned and grouped by retention time
+
+### Samples without certain peaks should be filled with noise
+
+### Peaks list is the beginning of Statistical analysis
+
+---
+
 ## Statistic
 
 $$Statistic = f(sample_1,sample_2,...,sample_n)$$
@@ -299,6 +311,18 @@ knitr::include_graphics('https://yufree.cn/images/pvalue-1.png')
 
 ???
 This is publication bias or "cherry-picking". Try to avoid p value in the future.
+
+---
+
+## Summary
+
+### P values are used for NHST
+
+### Multiple Comparisions would produce multiple P values
+
+### FDR control should be performed to corrected P values or generate Q values
+
+### NHST is not perfect
 
 ---
 
