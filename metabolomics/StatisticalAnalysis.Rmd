@@ -23,6 +23,150 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 ```{r echo=FALSE,out.width='72%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
 ```
+
+???
+most of the papers looks like owl and they only show two circle to explain how they process the data
+---
+
+## Demo of XC-MS data
+
+```{r singledata, fig.show='hold', fig.cap='Demo of GC/LC-MS data',echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/metaworkflow/images/singledata.png')
+```
+
+---
+
+## Demo of peaks
+
+```{r demoeic, fig.show='hold'}
+intensity <- c(10,10,10,10,10,14,19,25,30,33,26,21,16,12,11,10,9,10,11,10)
+time <- c(1:20)
+plot(intensity~time, type = 'o', main = 'EIC')
+```
+
+---
+
+## Demo of peak detection
+
+```{r matchedfilter, fig.show='hold', fig.cap='Demo of matchedfilter',echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/metaworkflow/images/matchedfilter.jpg')
+```
+
+.half[
+```{r refp0,results = 'asis'}
+doi <- c('10.1021/ac051437y')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+In mass spectrumetry dataset, the EIC is not that simple for full scan. Due to the accuracy of instrument, the detected mass to charge ratio would have some shift and EIC would fail if different scan get the intensity from different mass to charge ratio. In the matchedfilter algorithm, they solve this issue by bin the data in m/z dimension. The adjacent chromatographic slices could be combined to find a clean signal fitting fixed second-derivative Gaussian with full width at half-maximum
+(fwhm) of 30s to find peaks with about 1.5-4 times the signal peak width. The the integration is performed on the fitted area.
+
+---
+
+## Demo of peak detection
+
+```{r roi, fig.show='hold', fig.cap='Demo of Region Of Interest (ROI)',echo=FALSE,out.width= '62%'}
+knitr::include_graphics('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2639432/bin/1471-2105-9-504-2.jpg')
+```
+
+.half[
+```{r refp,results = 'asis'}
+doi <- c('10.1186/1471-2105-9-504')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+ROI means a regine with stable mass for a certain time. When we find the ROIs, the peak shape is evaluated and ROI could be extended if needed. 
+
+---
+
+## Demo of peak detection
+
+```{r centwave, fig.show='hold', fig.cap='Demo of CentWave',echo=FALSE,out.width= '62%'}
+knitr::include_graphics('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2639432/bin/1471-2105-9-504-6.jpg')
+```
+
+.half[
+```{r refp1,results = 'asis'}
+doi <- c('10.1186/1471-2105-9-504')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+the following Continuous Wavelet Transform (CWT) is preferred to detect peaks
+
+---
+
+## Demo of retention time correction
+
+```{r obiwarp, fig.show='hold', fig.cap='Demo of Obiwarp',echo=FALSE,out.width= '50%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/obiwarp.gif')
+```
+
+.half[
+```{r refrt,results = 'asis'}
+doi <- c('10.1021/ac0605344')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+Loess alignment use local region to align the peaks. However, obiwarp alignment with bijective interpolated dynamic time warping. Raw data from two LC−MS runs, whether successive fractions or across different biological conditions, (1) is interpolated into a (2) uniform matrix (or rectilinear matrix). (3) An all vs all similarity matrix of the spectra is constructed. (4) The similarity matrix distribution is mean centered and normalized by the standard deviation. (5) Dynamic programming is performed by adding similarity scores along a recursively generated optimal path while off-diagonal transitions are penalized by either a local or global gap penalty to give (6) an additive score matrix. (7) Pointers are kept in a traceback matrix used to deliver (8) the optimal alignment path. (9) High scoring points in the optimal path are selected to create a bijective (one-to-one) mapping, which is used as anchors for PCHIP interpolation to generate a smooth warp function. (II) Verification and optimization. (11) MS/MS spectra from the raw MS runs are searched via SEQUEST and Peptide/Protein Prophet to determine peak identities. (12) High-confidence identifications are selected and (13) the overlapping set of peptide identifications (after filtering outliers) is used as the alignment standard. (14) The warp function produced through the comparison of MS data is applied to the standards. (15) The ideal alignment would shift all standards to the diagonal. The accuracy of an alignment is calculated as the sum of the square residuals from the diagonal.
+
+---
+
+## Demo of peaks filling
+
+```{r peakfilling, fig.show='hold', echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakfiling.png')
+```
+
+---
+
+## Demo of many XC-MS data
+
+```{r multidata, fig.show='hold', fig.cap='Demo of many GC/LC-MS data',echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/metaworkflow/images/multidata.png')
+```
+
+---
+
+## Statistic Analysis v.s. Description
+
+### Single mass spectrum comparision
+
+.pull-left[
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/2585ms.png')
+```
+]
+
+.pull-right[
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/258535ms.png')
+```
+]
+
+---
+
+## Statistic Analysis v.s. Description
+
+### Mass spectrums differences
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/diffplot.png')
+```
+
+- NOT statistical comparision
+
+- Useful for exploratory analysis
+
+- Single sample is not enough
+
 ---
 
 ## Statistic
@@ -381,7 +525,7 @@ knitr::include_graphics('http://scott.fortmann-roe.com/docs/docs/BiasVariance/bi
 
 - Calculate the difference between 'full' model and 'leave one out' model
 
-- Repeat selections of 1 samples for the entire data set
+- Repeat selections of 1 sample for the entire data set
 
 - Use the differences to estimate the model performance
 
@@ -620,6 +764,9 @@ Hidden layer use different kernal functions
 ```{r dl,echo=FALSE,out.width='90%'}
 knitr::include_graphics('http://neuralnetworksanddeeplearning.com/images/tikz36.png')
 ```
+
+???
+multiple layer
 
 ---
 
