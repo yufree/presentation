@@ -494,7 +494,7 @@ $$Accuracy = \frac{Group_{TP}+Group_{TN}}{Group_{TP}+Group_{TN}+Group_{FP}+Group
 - [More](https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Graphical_illustration)
 
 ???
-This is actually the same in analytically chemistry. A higher sensitivity model could avoid false negative. A higher specificity model could avoid false positive. The accuracy would not distinguish such things.
+This is actually not the same with analytically chemistry. A higher sensitivity model could avoid false negative. A higher specificity model could avoid false positive. The accuracy would not distinguish such things.
 
 ---
 
