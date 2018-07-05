@@ -20,7 +20,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ## Don't Panic
 
-```{r echo=FALSE,out.width='72%'}
+```{r echo=FALSE,out.width='72%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
 ```
 
@@ -121,7 +121,7 @@ Loess alignment use local region to align the peaks. However, obiwarp alignment 
 
 ## Demo of peaks filling
 
-```{r peakfilling, fig.show='hold', echo=FALSE}
+```{r peakfilling, fig.show='hold', echo=FALSE,out.width= '90%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/peakfiling.png')
 ```
 
