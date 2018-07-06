@@ -200,7 +200,7 @@ $$Statistic = f(sample_1,sample_2,...,sample_n)$$
         
 - Statistics could be designed for certain purpose
 
-- Statistics extract single and remove noise
+- Statistics extract signal and remove noise
 
 ???
 Statistical Inference is based on statistic
