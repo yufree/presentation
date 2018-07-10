@@ -6,3 +6,5 @@ presentation.Rproj
 .gitignore
 *cache
 *files
+test.Rmd
+test.html
