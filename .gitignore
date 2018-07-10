@@ -4,3 +4,5 @@
 presentation.Rproj
 .DS_Store
 .gitignore
+*cache
+*files
