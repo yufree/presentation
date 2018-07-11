@@ -30,7 +30,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 </script>
 
 ## Don't Panic
-```{r echo=FALSE,out.width='72%', fig.cap='When you need to repeat your work ...'}
+```{r echo=FALSE,out.width='72%', fig.cap='When you need to re-run your samples...'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/mad-panda.gif')
 ```
 
