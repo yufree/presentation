@@ -330,7 +330,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - Pathway based
 
-  - More compounds in certain pathway with changes, associated compounds's name would be trun
+  - More compounds in certain pathway with changes, associated compounds's name would be true
 
 - Potential biological reaction
 
