@@ -1,0 +1,176 @@
+---
+title: "Meta-Workflow"
+author: "Miao Yu"
+date: "August 16, 2016"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,cache = T,message=T,warning=F)
+sessionInfo()
+```
+
+# Optimization
+
+```{r IPOpos,eval=FALSE}
+library(IPO)
+library(xcms)
+peakpickingParameters <- getDefaultXcmsSetStartingParams('centWave')
+path <- list.files('D:/metademo/data/oq/',full.names = T,recursive = T)
+
+peakpickingParameters$ppm <- 15
+resultPeakpicking <- 
+  optimizeXcmsSet(files = path, 
+                  params = peakpickingParameters,
+                  nSlaves = 1,
+                  subdir = NULL)
+
+optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset
+retcorGroupParameters <- getDefaultRetGroupStartingParams()
+resultRetcorGroup <-
+  optimizeRetGroup(xset = optimizedXcmsSetObject, 
+                   params = retcorGroupParameters, 
+                   subdir = NULL)
+writeRScript(resultPeakpicking$best_settings$parameters, 
+             resultRetcorGroup$best_settings)
+```
+
+# Wrap function
+
+```{r eval=F}
+library(xcms)
+library(Rmpi)
+getrtmz <- function(path){
+  files <- list.files(path,full.names = T,recursive = T)
+  xset <- xcmsSet(files,
+  method = "centWave",
+  peakwidth       = c(11.68, 99.5),
+  ppm             = 15,
+  noise           = 0,
+  snthresh        = 10,
+  mzdiff          = 0.00406,
+  prefilter       = c(3, 100),
+  mzCenterFun     = "wMean",
+  integrate       = 1,
+  fitgauss        = FALSE,
+  verbose.columns = FALSE)
+xset <- retcor( 
+  xset,
+  method         = "obiwarp",
+  plottype       = "none",
+  distFunc       = "cor_opt",
+  profStep       = 1,
+  center         = 1,
+  response       = 1,
+  gapInit        = 0.4816,
+  gapExtend      = 2.4,
+  factorDiag     = 2,
+  factorGap      = 1,
+  localAlignment = 0)
+xset <- group( 
+  xset,
+  method  = "density",
+  bw      = 0.879999999999999,
+  mzwid   = 0.0166,
+  minfrac = 1,
+  minsamp = 1,
+  max     = 50)
+
+xset <- fillPeaks(xset)
+}
+```
+
+# Peaks list
+
+```{r eval=F}
+# get the xcmsset object
+neg <- getrtmz('D:/metademo/data/')
+# back up the xcmsset object
+save(neg,file = 'neg.Rdata')
+# get the EIC, boxplot and diffreport, eixmax should be equal to the numbers of peaks groups in the pos objects 
+report <- CAMERA::annotateDiffreport(neg,filebase = 'peaklistneg',metlin = T, eicmax = 1811, classeic = neg@phenoData$class)
+# save the report as a csv file
+write.csv(report,file = 'all.csv')
+# get the csv file for Metaboanalyst.ca
+enviGCMS::getupload(neg,name = 'metabo')
+```
+
+# Peaks filtering
+
+```{r}
+load('neg.Rdata')
+# get the peak intensity, m/z, retention time and group information as list
+mzrt <- enviGCMS::getmzrt(neg)
+# get the mean and rsd for each group
+mzrtm <- enviGCMS::getdoe(mzrt)
+gm <- mzrtm$groupmean
+gr <- mzrtm$grouprsd
+# find the blank group and pool QC group
+blk <- grepl('k',colnames(gm))
+pqc <- grepl('q',colnames(gm))
+# filter by pool QC and blank's group mean intensity(pool QC should larger than three times of blank), return numbers and index
+sum(indexmean <- apply(gm,1,function(x) all(x[pqc]>= 3*x[blk])))
+# filt by pool qc rsd%, return numbers and index
+rsdcf <- 30
+sum(indexrsd <- apply(gr,1,function(x) ifelse(is.na(x[pqc]),T,x[pqc]<rsdcf)))
+# overlap with rsd% and mean filter
+sum(index <- indexmean&indexrsd)
+
+# new list, update group and remove pool qc/blk
+qcindex <- grepl('k',mzrt$group$class) | grepl('q',mzrt$group$class)
+mzrtfilter <- list(data = mzrt$data[index,!qcindex],
+                   mz = mzrt$mz[index],
+                   rt = mzrt$rt[index],
+                   group = droplevels(mzrt$group$class[!qcindex,drop =T]))
+```
+
+# Normalization (Optional)
+
+```{r}
+# visulize the batch effect
+mzrtsim::rlaplot(mzrt$data,lv = mzrt$group$class)
+mzrtsim::ridgesplot(mzrt$data,lv = mzrt$group$class)
+# get the simulation data and test on NOREVA
+sim <- mzrtsim::simmzrt(mzrt$data)
+mzrtsim::simdata(sim)
+# correct the batch effect by sva
+mzrtcor <- mzrtsim::svacor(mzrt$data,lv = mzrt$group$class)
+# visulize the batch effect correction
+li <- mzrtsim::limmaplot(mzrtcor,lv = mzrt$group$class)
+# return the corrected data
+mzrt$data <- mzrtcor$dataCorrected
+```
+
+# Statistical analysis
+
+```{r}
+# visulize the data
+enviGCMS::plotmr(mzrtfilter,inscf = 4,rsdcf = 50)
+# PCA
+#enviGCMS::plotpca(mzrtfilter$data,
+#                  as.character(mzrtfilter$group))
+enviGCMS::plotpca(mzrtfilter$data,
+                  c('b','b','b','M','M','M','H','H','H','L','L','L'))
+```
+
+# Annotation
+
+```{r eval=FALSE}
+library(xMSannotator)
+num_nodes = 10
+data("adduct_weights")
+anno <- xsetplus::fanno(neg,outloc = 'D:/metademo/anno',mode = 'neg')
+# annolipid <- xsetplus::fanno(neg,outloc = 'D:/storage/data/anno',
+#                              db_name = 'LipidMaps')
+```
+
+# Pathway Analysis
+
+```{r pathway}
+# get the file
+xsetplus::mumdata(pos,lv = mzrt$group$class)
+# http://mummichog.org/index.html
+# mummichog1 -f 'test.txt' -o myResult
+```

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metabolomics Data Analysis</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Miao Yu" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Metabolomics Data Analysis
+## Demo
+### Miao Yu
+### 2018/06/14
+
+---
+
+
+
+
+&lt;script&gt;
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43118729-1', 'auto');
+  ga('send', 'pageview');
+
+&lt;/script&gt;
+
+# Don't Panic
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/onecode.gif" alt="When you change one parameter in your code..." width="72%" /&gt;
+&lt;p class="caption"&gt;When you change one parameter in your code...&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+class: inverse, center, middle
+
+# Workflow
+
+---
+
+# Project Setup
+
+## Data
+
+- Different groups should assign different sub-folder
+
+## Anno
+
+- For annotation results
+
+## Workflow.Rmd
+
+- Templete script for reproducible research
+
+---
+
+# Data conversion
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/MSconvert.png" alt="MSconvert" width="60%" /&gt;
+&lt;p class="caption"&gt;MSconvert&lt;/p&gt;
+&lt;/div&gt;
+
+.half[
+Kessner, D., Chambers, M., Burke, R., Agus, D., &amp; Mallick, P. (2008). ProteoWizard: open source software for rapid proteomics tools development. Bioinformatics, 24(21), 2534–2536. doi:10.1093/bioinformatics/btn323
+]
+
+---
+
+# Session Info
+
+
+```r
+# record the software version
+sessionInfo()
+```
+
+```
+R version 3.5.0 (2018-04-23)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.5
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] compiler_3.5.0  backports_1.1.2 magrittr_1.5    rprojroot_1.3-2
+ [5] tools_3.5.0     htmltools_0.3.6 xaringan_0.6.7  yaml_2.1.19    
+ [9] Rcpp_0.12.17    stringi_1.2.3   rmarkdown_1.10  knitr_1.20     
+[13] xfun_0.3        stringr_1.3.1   digest_0.6.15   evaluate_0.10.1
+```
+
+---
+
+# Optimization
+
+
+```r
+library(IPO)
+library(xcms)
+# the path should be some pool QC samples
+path &lt;- list.files('D:/metademo/data/oq/',full.names = T,recursive = T)
+# find the parameters for peak picking algorithm
+peakpickingParameters &lt;- getDefaultXcmsSetStartingParams('centWave')
+# for obitrap, ppm should be 5
+peakpickingParameters$ppm &lt;- 15
+resultPeakpicking &lt;- 
+  optimizeXcmsSet(files = path, 
+                  params = peakpickingParameters,
+                  nSlaves = 1,
+                  subdir = NULL)
+# find the parameters for retention time correction algorithm, obiwarp
+optimizedXcmsSetObject &lt;- resultPeakpicking$best_settings$xset
+retcorGroupParameters &lt;- getDefaultRetGroupStartingParams()
+resultRetcorGroup &lt;-
+  optimizeRetGroup(xset = optimizedXcmsSetObject, 
+                   params = retcorGroupParameters, 
+                   subdir = NULL)
+writeRScript(resultPeakpicking$best_settings$parameters, 
+             resultRetcorGroup$best_settings)
+```
+
+---
+
+### IPO package
+
+`$$Peak\ Picking\ Score = \frac{reliable\ peaks^2}{all\ peaks - low\ intensity\ peaks}$$`
+
+- RPs are defined as peaks that belong to an isotopologue.
+
+  - mass range
+  
+  - retention time
+  
+  - intensity
+
+`$$retention\ time\ correction\ and\ grouping\ target\ value  = norm(RCS) + norm(GS)$$`
+
+- Retention time correction could also be optimized
+
+---
+
+# Wrap function
+
+
+```r
+library(xcms)
+getrtmz &lt;- function(path,index = NULL) {
+  path &lt;- list.files(path, full.names = T, recursive = T)
+  if(!is.null(index)){path &lt;- path[index]}
+  xset &lt;- xcmsSet(
+    files = path,
+  method = "centWave",peakwidth = c(9.9264, 91.7),ppm = 15, 
+  noise = 0, snthresh = 10, mzdiff = 0.0020888, 
+  prefilter = c(3, 100), mzCenterFun = "wMean", integrate = 1,
+  fitgauss = FALSE,verbose.columns = FALSE) # peak extraction
+  xset &lt;- retcor(
+    xset,
+    method = "obiwarp", plottype = "none", distFunc = "cor_opt",
+    profStep = 1, center = 1, response = 1, gapInit = 0.928,
+    gapExtend = 2.7, factorDiag = 2, factorGap = 1,
+    localAlignment = 0) # retention time correction
+  xset &lt;- group(
+    xset,
+    method  = "density", bw = 0.879999999999999, 
+    mzwid   = 0.01932, minfrac = 1, minsamp = 1, max = 50) # peak grouping
+  xset &lt;- fillPeaks(xset) # peak filling
+  return(xset)
+}
+```
+
+---
+
+# Peaks list
+
+
+```r
+# get the xcmsset object
+pos &lt;- getrtmz('D:/metademo/data/')
+# back up the xcmsset object
+save(pos,file = 'pos.Rdata')
+load('pos.Rdata')
+# get the EIC, boxplot and diffreport, eixmax should be equal to the numbers of peaks groups in the pos objects 
+
+report &lt;- annotateDiffreport(pos,filebase = 'peaklistpos',metlin = T, eicmax = 3094, classeic = xset@phenoData$class)
+# save the report as a csv file
+write.csv(report,file = 'all.csv')
+# get the csv file for Metaboanalyst.ca
+enviGCMS::getupload(pos,name = 'metabo')
+```
+
+---
+
+# Peaks filtering
+
+
+```r
+# get the peak intensity, m/z, retention time and group information as list
+mzrt &lt;- enviGCMS::getmzrt(pos)
+
+# get the mean and rsd for each group
+mzrtm &lt;- enviGCMS::getdoe(mzrt)
+gm &lt;- mzrtm$groupmean
+gr &lt;- mzrtm$grouprsd
+
+# find the blank group and pool QC group
+blk &lt;- grepl('blk',colnames(gm)))
+pqc &lt;- grepl('qc',colnames(gm))
+
+# filter by pool QC and blank's group mean intensity(pool QC should larger than three times of blank), return numbers and index
+sum(indexmean &lt;- apply(gm,1,function(x) all(x[pqc]&gt;= 3*x[blk])))
+
+# filt by pool qc rsd%, return numbers and index
+rsdcf &lt;- 30
+sum(indexrsd &lt;- apply(gm,1,function(x) ifelse(is.na(x[pqc]),T,x[pqc]&lt;rsdcf)))
+
+# overlap with rsd% and mean filter
+sum(index &lt;- indexmean&amp;indexrsd)
+```
+
+---
+
+# Peaks filtering
+
+
+```r
+# new list, update group and remove pool qc/blk
+qcindex &lt;- grepl('blk',mzrt$group$class) | grepl('qc',mzrt$group$class)
+mzrtfilter &lt;- list(data = mzrt$data[index,!qcindex],
+                   mz = mzrt$mz[index],
+                   rt = mzrt$rt[index],
+                   group = mzrt$group)
+mzrtfilter$group$class &lt;- mzrt$group$class[!qcindex]
+```
+
+- The average intensities in pool QC for each peak should larger than three tims of the average intensities in blank sample
+
+- RSD% less than 30% in Pooled QC 
+
+---
+
+# Normalization
+
+
+```r
+# visulize the batch effect
+mzrtsim::rlaplot(mzrt$data,lv = mzrt$group$class)
+mzrtsim::ridgesplot(mzrt$data,lv = mzrt$group$class)
+# get the simulation data and test on NOREVA
+sim &lt;- mzrtsim::simmzrt(mzrt$data)
+mzrtsim::simdata(sim)
+# correct the batch effect by sva
+mzrtcor &lt;- mzrtsim::svacor(mzrt$data,lv = mzrt$group$class)
+# visulize the batch effect correction
+li &lt;- mzrtsim::limmaplot(mzrtcor,lv = mzrt$group$class)
+# return the corrected data
+mzrt$data &lt;- mzrtcor$dataCorrected
+```
+
+---
+
+# Statistical analysis
+
+
+```r
+# visulize the data
+enviGCMS::plotmr(mzrtfilter)
+# PCA
+enviGCMS::plotpca(mzrtfilter$data,
+                  as.character(mzrtfilter$group$class))
+```
+
+---
+
+# Annotation
+
+
+```r
+library(xMSannotator)
+num_nodes = 10
+data("adduct_weights")
+annolipid &lt;- xsetplus::fanno(pos,outloc = 'D:/storage/data/anno', mode = 'pos', db_name = 'hmdb')
+```
+
+
+---
+
+# Pathway Analysis
+
+
+```r
+# get the file
+xsetplus::mumdata(pos,lv = mzrt$group$class)
+# http://mummichog.org/index.html
+mummichog1 -f 'test.txt' -o myResult
+```
+
+---
+
+# XCMS online
+
+https://xcmsonline.scripps.edu/
+
+---
+
+# Metaboanalyst
+
+http://www.metaboanalyst.ca/
+
+---
+
+# NOREVA
+
+http://idrb.zju.edu.cn/noreva/
+
+---
+
+# Reproducible research
+
+- Report software version
+
+- Avoid GUI
+
+- Report script
+
+- Share raw data
+
+<a href="data:text/x-markdown;base64,LS0tCnRpdGxlOiAiTWV0YS1Xb3JrZmxvdyIKYXV0aG9yOiAiTWlhbyBZdSIKZGF0ZTogIkF1Z3VzdCAxNiwgMjAxNiIKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICBkZl9wcmludDogcGFnZWQKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFLGNhY2hlID0gVCxtZXNzYWdlPVQsd2FybmluZz1GKQpzZXNzaW9uSW5mbygpCmBgYAoKIyBPcHRpbWl6YXRpb24KCmBgYHtyIElQT3BvcyxldmFsPUZBTFNFfQpsaWJyYXJ5KElQTykKbGlicmFyeSh4Y21zKQpwZWFrcGlja2luZ1BhcmFtZXRlcnMgPC0gZ2V0RGVmYXVsdFhjbXNTZXRTdGFydGluZ1BhcmFtcygnY2VudFdhdmUnKQpwYXRoIDwtIGxpc3QuZmlsZXMoJ0Q6L21ldGFkZW1vL2RhdGEvb3EvJyxmdWxsLm5hbWVzID0gVCxyZWN1cnNpdmUgPSBUKQoKcGVha3BpY2tpbmdQYXJhbWV0ZXJzJHBwbSA8LSAxNQpyZXN1bHRQZWFrcGlja2luZyA8LSAKICBvcHRpbWl6ZVhjbXNTZXQoZmlsZXMgPSBwYXRoLCAKICAgICAgICAgICAgICAgICAgcGFyYW1zID0gcGVha3BpY2tpbmdQYXJhbWV0ZXJzLAogICAgICAgICAgICAgICAgICBuU2xhdmVzID0gMSwKICAgICAgICAgICAgICAgICAgc3ViZGlyID0gTlVMTCkKCm9wdGltaXplZFhjbXNTZXRPYmplY3QgPC0gcmVzdWx0UGVha3BpY2tpbmckYmVzdF9zZXR0aW5ncyR4c2V0CnJldGNvckdyb3VwUGFyYW1ldGVycyA8LSBnZXREZWZhdWx0UmV0R3JvdXBTdGFydGluZ1BhcmFtcygpCnJlc3VsdFJldGNvckdyb3VwIDwtCiAgb3B0aW1pemVSZXRHcm91cCh4c2V0ID0gb3B0aW1pemVkWGNtc1NldE9iamVjdCwgCiAgICAgICAgICAgICAgICAgICBwYXJhbXMgPSByZXRjb3JHcm91cFBhcmFtZXRlcnMsIAogICAgICAgICAgICAgICAgICAgc3ViZGlyID0gTlVMTCkKd3JpdGVSU2NyaXB0KHJlc3VsdFBlYWtwaWNraW5nJGJlc3Rfc2V0dGluZ3MkcGFyYW1ldGVycywgCiAgICAgICAgICAgICByZXN1bHRSZXRjb3JHcm91cCRiZXN0X3NldHRpbmdzKQpgYGAKCiMgV3JhcCBmdW5jdGlvbgoKYGBge3IgZXZhbD1GfQpsaWJyYXJ5KHhjbXMpCmxpYnJhcnkoUm1waSkKZ2V0cnRteiA8LSBmdW5jdGlvbihwYXRoKXsKICBmaWxlcyA8LSBsaXN0LmZpbGVzKHBhdGgsZnVsbC5uYW1lcyA9IFQscmVjdXJzaXZlID0gVCkKICB4c2V0IDwtIHhjbXNTZXQoZmlsZXMsCiAgbWV0aG9kID0gImNlbnRXYXZlIiwKICBwZWFrd2lkdGggICAgICAgPSBjKDExLjY4LCA5OS41KSwKICBwcG0gICAgICAgICAgICAgPSAxNSwKICBub2lzZSAgICAgICAgICAgPSAwLAogIHNudGhyZXNoICAgICAgICA9IDEwLAogIG16ZGlmZiAgICAgICAgICA9IDAuMDA0MDYsCiAgcHJlZmlsdGVyICAgICAgID0gYygzLCAxMDApLAogIG16Q2VudGVyRnVuICAgICA9ICJ3TWVhbiIsCiAgaW50ZWdyYXRlICAgICAgID0gMSwKICBmaXRnYXVzcyAgICAgICAgPSBGQUxTRSwKICB2ZXJib3NlLmNvbHVtbnMgPSBGQUxTRSkKeHNldCA8LSByZXRjb3IoIAogIHhzZXQsCiAgbWV0aG9kICAgICAgICAgPSAib2Jpd2FycCIsCiAgcGxvdHR5cGUgICAgICAgPSAibm9uZSIsCiAgZGlzdEZ1bmMgICAgICAgPSAiY29yX29wdCIsCiAgcHJvZlN0ZXAgICAgICAgPSAxLAogIGNlbnRlciAgICAgICAgID0gMSwKICByZXNwb25zZSAgICAgICA9IDEsCiAgZ2FwSW5pdCAgICAgICAgPSAwLjQ4MTYsCiAgZ2FwRXh0ZW5kICAgICAgPSAyLjQsCiAgZmFjdG9yRGlhZyAgICAgPSAyLAogIGZhY3RvckdhcCAgICAgID0gMSwKICBsb2NhbEFsaWdubWVudCA9IDApCnhzZXQgPC0gZ3JvdXAoIAogIHhzZXQsCiAgbWV0aG9kICA9ICJkZW5zaXR5IiwKICBidyAgICAgID0gMC44Nzk5OTk5OTk5OTk5OTksCiAgbXp3aWQgICA9IDAuMDE2NiwKICBtaW5mcmFjID0gMSwKICBtaW5zYW1wID0gMSwKICBtYXggICAgID0gNTApCgp4c2V0IDwtIGZpbGxQZWFrcyh4c2V0KQp9CmBgYAoKIyBQZWFrcyBsaXN0CgpgYGB7ciBldmFsPUZ9CiMgZ2V0IHRoZSB4Y21zc2V0IG9iamVjdApuZWcgPC0gZ2V0cnRteignRDovbWV0YWRlbW8vZGF0YS8nKQojIGJhY2sgdXAgdGhlIHhjbXNzZXQgb2JqZWN0CnNhdmUobmVnLGZpbGUgPSAnbmVnLlJkYXRhJykKIyBnZXQgdGhlIEVJQywgYm94cGxvdCBhbmQgZGlmZnJlcG9ydCwgZWl4bWF4IHNob3VsZCBiZSBlcXVhbCB0byB0aGUgbnVtYmVycyBvZiBwZWFrcyBncm91cHMgaW4gdGhlIHBvcyBvYmplY3RzIApyZXBvcnQgPC0gQ0FNRVJBOjphbm5vdGF0ZURpZmZyZXBvcnQobmVnLGZpbGViYXNlID0gJ3BlYWtsaXN0bmVnJyxtZXRsaW4gPSBULCBlaWNtYXggPSAxODExLCBjbGFzc2VpYyA9IG5lZ0BwaGVub0RhdGEkY2xhc3MpCiMgc2F2ZSB0aGUgcmVwb3J0IGFzIGEgY3N2IGZpbGUKd3JpdGUuY3N2KHJlcG9ydCxmaWxlID0gJ2FsbC5jc3YnKQojIGdldCB0aGUgY3N2IGZpbGUgZm9yIE1ldGFib2FuYWx5c3QuY2EKZW52aUdDTVM6OmdldHVwbG9hZChuZWcsbmFtZSA9ICdtZXRhYm8nKQpgYGAKCiMgUGVha3MgZmlsdGVyaW5nCgpgYGB7cn0KbG9hZCgnbmVnLlJkYXRhJykKIyBnZXQgdGhlIHBlYWsgaW50ZW5zaXR5LCBtL3osIHJldGVudGlvbiB0aW1lIGFuZCBncm91cCBpbmZvcm1hdGlvbiBhcyBsaXN0Cm16cnQgPC0gZW52aUdDTVM6OmdldG16cnQobmVnKQojIGdldCB0aGUgbWVhbiBhbmQgcnNkIGZvciBlYWNoIGdyb3VwCm16cnRtIDwtIGVudmlHQ01TOjpnZXRkb2UobXpydCkKZ20gPC0gbXpydG0kZ3JvdXBtZWFuCmdyIDwtIG16cnRtJGdyb3VwcnNkCiMgZmluZCB0aGUgYmxhbmsgZ3JvdXAgYW5kIHBvb2wgUUMgZ3JvdXAKYmxrIDwtIGdyZXBsKCdrJyxjb2xuYW1lcyhnbSkpCnBxYyA8LSBncmVwbCgncScsY29sbmFtZXMoZ20pKQojIGZpbHRlciBieSBwb29sIFFDIGFuZCBibGFuaydzIGdyb3VwIG1lYW4gaW50ZW5zaXR5KHBvb2wgUUMgc2hvdWxkIGxhcmdlciB0aGFuIHRocmVlIHRpbWVzIG9mIGJsYW5rKSwgcmV0dXJuIG51bWJlcnMgYW5kIGluZGV4CnN1bShpbmRleG1lYW4gPC0gYXBwbHkoZ20sMSxmdW5jdGlvbih4KSBhbGwoeFtwcWNdPj0gMyp4W2Jsa10pKSkKIyBmaWx0IGJ5IHBvb2wgcWMgcnNkJSwgcmV0dXJuIG51bWJlcnMgYW5kIGluZGV4CnJzZGNmIDwtIDMwCnN1bShpbmRleHJzZCA8LSBhcHBseShnciwxLGZ1bmN0aW9uKHgpIGlmZWxzZShpcy5uYSh4W3BxY10pLFQseFtwcWNdPHJzZGNmKSkpCiMgb3ZlcmxhcCB3aXRoIHJzZCUgYW5kIG1lYW4gZmlsdGVyCnN1bShpbmRleCA8LSBpbmRleG1lYW4maW5kZXhyc2QpCgojIG5ldyBsaXN0LCB1cGRhdGUgZ3JvdXAgYW5kIHJlbW92ZSBwb29sIHFjL2JsawpxY2luZGV4IDwtIGdyZXBsKCdrJyxtenJ0JGdyb3VwJGNsYXNzKSB8IGdyZXBsKCdxJyxtenJ0JGdyb3VwJGNsYXNzKQptenJ0ZmlsdGVyIDwtIGxpc3QoZGF0YSA9IG16cnQkZGF0YVtpbmRleCwhcWNpbmRleF0sCiAgICAgICAgICAgICAgICAgICBteiA9IG16cnQkbXpbaW5kZXhdLAogICAgICAgICAgICAgICAgICAgcnQgPSBtenJ0JHJ0W2luZGV4XSwKICAgICAgICAgICAgICAgICAgIGdyb3VwID0gZHJvcGxldmVscyhtenJ0JGdyb3VwJGNsYXNzWyFxY2luZGV4LGRyb3AgPVRdKSkKYGBgCgojIE5vcm1hbGl6YXRpb24gKE9wdGlvbmFsKQoKYGBge3J9CiMgdmlzdWxpemUgdGhlIGJhdGNoIGVmZmVjdAptenJ0c2ltOjpybGFwbG90KG16cnQkZGF0YSxsdiA9IG16cnQkZ3JvdXAkY2xhc3MpCm16cnRzaW06OnJpZGdlc3Bsb3QobXpydCRkYXRhLGx2ID0gbXpydCRncm91cCRjbGFzcykKIyBnZXQgdGhlIHNpbXVsYXRpb24gZGF0YSBhbmQgdGVzdCBvbiBOT1JFVkEKc2ltIDwtIG16cnRzaW06OnNpbW16cnQobXpydCRkYXRhKQptenJ0c2ltOjpzaW1kYXRhKHNpbSkKIyBjb3JyZWN0IHRoZSBiYXRjaCBlZmZlY3QgYnkgc3ZhCm16cnRjb3IgPC0gbXpydHNpbTo6c3ZhY29yKG16cnQkZGF0YSxsdiA9IG16cnQkZ3JvdXAkY2xhc3MpCiMgdmlzdWxpemUgdGhlIGJhdGNoIGVmZmVjdCBjb3JyZWN0aW9uCmxpIDwtIG16cnRzaW06OmxpbW1hcGxvdChtenJ0Y29yLGx2ID0gbXpydCRncm91cCRjbGFzcykKIyByZXR1cm4gdGhlIGNvcnJlY3RlZCBkYXRhCm16cnQkZGF0YSA8LSBtenJ0Y29yJGRhdGFDb3JyZWN0ZWQKYGBgCgojIFN0YXRpc3RpY2FsIGFuYWx5c2lzCgpgYGB7cn0KIyB2aXN1bGl6ZSB0aGUgZGF0YQplbnZpR0NNUzo6cGxvdG1yKG16cnRmaWx0ZXIsaW5zY2YgPSA0LHJzZGNmID0gNTApCiMgUENBCiNlbnZpR0NNUzo6cGxvdHBjYShtenJ0ZmlsdGVyJGRhdGEsCiMgICAgICAgICAgICAgICAgICBhcy5jaGFyYWN0ZXIobXpydGZpbHRlciRncm91cCkpCmVudmlHQ01TOjpwbG90cGNhKG16cnRmaWx0ZXIkZGF0YSwKICAgICAgICAgICAgICAgICAgYygnYicsJ2InLCdiJywnTScsJ00nLCdNJywnSCcsJ0gnLCdIJywnTCcsJ0wnLCdMJykpCmBgYAoKIyBBbm5vdGF0aW9uCgpgYGB7ciBldmFsPUZBTFNFfQpsaWJyYXJ5KHhNU2Fubm90YXRvcikKbnVtX25vZGVzID0gMTAKZGF0YSgiYWRkdWN0X3dlaWdodHMiKQphbm5vIDwtIHhzZXRwbHVzOjpmYW5ubyhuZWcsb3V0bG9jID0gJ0Q6L21ldGFkZW1vL2Fubm8nLG1vZGUgPSAnbmVnJykKIyBhbm5vbGlwaWQgPC0geHNldHBsdXM6OmZhbm5vKG5lZyxvdXRsb2MgPSAnRDovc3RvcmFnZS9kYXRhL2Fubm8nLAojICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGJfbmFtZSA9ICdMaXBpZE1hcHMnKQpgYGAKCiMgUGF0aHdheSBBbmFseXNpcwoKYGBge3IgcGF0aHdheX0KIyBnZXQgdGhlIGZpbGUKeHNldHBsdXM6Om11bWRhdGEocG9zLGx2ID0gbXpydCRncm91cCRjbGFzcykKIyBodHRwOi8vbXVtbWljaG9nLm9yZy9pbmRleC5odG1sCiMgbXVtbWljaG9nMSAtZiAndGVzdC50eHQnIC1vIG15UmVzdWx0CmBgYA==" download="workflow.Rmd">Download workflow.Rmd</a>
+
+---
+
+class: inverse, center, middle
+
+# Q&amp;A
+
+## yufreecas@gmail.com
+
+## https://yufree.cn/metaworkflow/
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
