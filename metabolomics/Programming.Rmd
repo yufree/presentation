@@ -2,7 +2,7 @@
 title: "Metabolomics Data Analysis"
 subtitle: "Demo"
 author: "Miao Yu"
-date: "2018/06/14"
+date: "2018/07/13"
 output:
   xaringan::moon_reader:
     css: ["default", "my-theme.css"]
