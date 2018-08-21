@@ -169,7 +169,7 @@ knitr::include_graphics('https://media.giphy.com/media/l4Jz3a8jO92crUlWM/giphy.g
 ```
 
 
-> You will never know each magic detail of each operator nn a certain day, even you did the experiment
+> You will never know each magic detail of each operator, even you did the experiment
 
 .half[
 ```{r berref,results = 'asis'}
