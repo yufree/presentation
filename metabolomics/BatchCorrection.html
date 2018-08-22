@@ -73,11 +73,7 @@ class: inverse, center, middle
 
 ## Multiple Compounds
 
-&lt;img src="https://yufree.github.io/presentation/figure/bem.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-.half[
-Wehrens, R., &amp; Franceschi, P. (2012). Meta-Statistics for Variable Selection: TheRPackageBioMark. Journal of Statistical Software, 51(10). doi:10.18637/jss.v051.i10
-]
+&lt;img src="BatchCorrection_files/figure-html/bem-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -123,6 +119,28 @@ Wehrens, R., &amp; Franceschi, P. (2012). Meta-Statistics for Variable Selection
 
 ---
 
+## How to find batch effects
+
+### Check the domination factor
+
+### Known batch
+
+- Linear regression with sequences/blocks
+
+- Check the slope and p-values of `\(\beta\)`
+
+        - Slope's positive/negative ratio
+        - p-values distribution
+
+### Unknown batch
+
+- Residual analysis of linear regression
+        
+        - PCA score plot
+        - Plot the residual
+
+---
+
 class: inverse, center, middle
 
 # Why
@@ -134,7 +152,7 @@ class: inverse, center, middle
 &lt;img src="https://media.giphy.com/media/l4Jz3a8jO92crUlWM/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
 
 
-&gt; You will never know each magic detail of each operator nn a certain day, even you did the experiment
+&gt; You will never know each magic detail of each operator, even you did the experiment
 
 .half[
 Leek, J. T., Scharpf, R. B., Bravo, H. C., Simcha, D., Langmead, B., Johnson, W. E., … Irizarry, R. A. (2010). Tackling the widespread and critical impact of batch effects in high-throughput data. Nature Reviews Genetics, 11(10), 733–739. doi:10.1038/nrg2825
@@ -223,6 +241,8 @@ class: inverse, center, middle
 
 - T-test: t value -3.3261, p value 0.0147
 
+&gt; Batch effects might not change the conclusion when the effect size is relatively small
+
 ---
 
 ### Real values with decreasing batch effects
@@ -244,6 +264,8 @@ class: inverse, center, middle
 - Group 2 : 13.216, 12.0602, 11.3926, 8.5134, 6.2748
 
 - T-test: t value -2.2587, p value 0.0587
+
+&gt; Randomization could not guarantee the results
 
 ---
 
@@ -274,6 +296,8 @@ class: inverse, center, middle
 - No guarantee for result
 
 - Transformation is required for some model based correction
+
+- [NOREVA](http://idrb.zju.edu.cn/noreva/)
 
 ---
 
@@ -340,7 +364,7 @@ class: inverse, center, middle
 
 - ### Model based correction is supervised method
 
-- ### Those models would be overfitted
+- ### Those models could be overfitted
 
 ---
 class: inverse, center, middle

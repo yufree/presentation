@@ -101,16 +101,27 @@ ggplot(data,aes(ind,batch,fill = group)) + geom_col() + theme_xkcd()
 
 ## Multiple Compounds
 
-```{r bem,echo=FALSE,out.width='90%'}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/bem.png')
-```
+```{r bem,echo=FALSE,out.width='70%'}
+getsample <- function(n){
+        batch <- NULL
+        for (i in 1:n){
+        batchin <- seq(1,10,length.out = 10) * rnorm(1)
+        batchde <- seq(10,1,length.out = 10) * rnorm(1)
+        batchblock <- c(rep(rnorm(1),2),rep(rnorm(1),5),rep(rnorm(1),3))
+        
+        batchtemp <- batchin*sample(c(0,1),1) + batchde*sample(c(0,1),1) + batchblock*sample(c(0,1),1)
+        
+        batch <- rbind(batch,batchtemp)
+        }
+        return(batch)
+}
 
-.half[
-```{r beref,results = 'asis'}
-doi <- c('10.18637/jss.v051.i10')
-cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+d <- getsample(30)
+df <- expand.grid(Compound = as.character(c(1:30)),index = as.character(c(1:10)))
+df$intensity <- c(d)
+ggplot(data = df, aes(x = index, y = Compound)) +
+  geom_tile(aes(fill = intensity)) + theme_xkcd()
 ```
-]
 
 ---
 
@@ -153,6 +164,28 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 - Heatmap
 
 - TIC overlap
+
+---
+
+## How to find batch effects
+
+### Check the domination factor
+
+### Known batch
+
+- Linear regression with sequences/blocks
+
+- Check the slope and p-values of $\beta$
+
+        - Slope's positive/negative ratio
+        - p-values distribution
+
+### Unknown batch
+
+- Residual analysis of linear regression
+        
+        - PCA score plot
+        - Plot the residual
 
 ---
 
@@ -278,6 +311,8 @@ re <- t.test(ins~group[index])
 
 - T-test: t value `r round(re$statistic,4)`, p value `r round(re$p.value,4)`
 
+> Batch effects might not change the conclusion when the effect size is relatively small
+
 ---
 
 ### Real values with decreasing batch effects
@@ -311,6 +346,8 @@ re <- t.test(ins~group[index])
 
 - T-test: t value `r round(re$statistic,4)`, p value `r round(re$p.value,4)`
 
+> Randomization could not guarantee the results
+
 ---
 
 ## Randomized samples sequence
@@ -340,6 +377,8 @@ re <- t.test(ins~group[index])
 - No guarantee for result
 
 - Transformation is required for some model based correction
+
+- [NOREVA](http://idrb.zju.edu.cn/noreva/)
 
 ---
 
@@ -406,7 +445,7 @@ $$Intensity =  Average + Condition + Batch + Error$$
 
 - ### Model based correction is supervised method
 
-- ### Those models would be overfitted
+- ### Those models could be overfitted
 
 ---
 class: inverse, center, middle

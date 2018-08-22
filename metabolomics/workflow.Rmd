@@ -22,7 +22,7 @@ path <- list.files('D:/metademo/data/oq/',full.names = T,recursive = T)
 
 peakpickingParameters$ppm <- 15
 resultPeakpicking <- 
-  optimizeXcmsSet(files = path, 
+  optimizeXcmsSet(files = path[c(1,2,3)], 
                   params = peakpickingParameters,
                   nSlaves = 1,
                   subdir = NULL)
@@ -35,25 +35,53 @@ resultRetcorGroup <-
                    subdir = NULL)
 writeRScript(resultPeakpicking$best_settings$parameters, 
              resultRetcorGroup$best_settings)
+para <- capture.output(writeRScript(resultPeakpicking$best_settings$parameters, resultRetcorGroup$best_settings), type = "message")
+save(para,file = 'para.RData')
+sessionInfo()
 ```
 
 # Wrap function
 
-```{r eval=F}
+```{r eval=T}
 library(xcms)
 library(Rmpi)
-getrtmz <- function(path){
+library(stringr)
+getrtmz <- function(path,index = NULL){
+  load('para.RData')
+peakwidth <- as.numeric(unlist(str_extract_all(para[grepl('peakwidth',para)],'\\d+\\.*\\d*')))
+ppm <- as.numeric(unlist(str_extract_all(para[grepl('ppm',para)],'\\d+')))
+noise <- as.numeric(unlist(str_extract_all(para[grepl('noise',para)],'\\d+')))
+snthresh <- as.numeric(unlist(str_extract_all(para[grepl('snthresh',para)],'\\d+')))
+mzdiff <- as.numeric(unlist(str_extract_all(para[grepl('mzdiff',para)],'\\d+\\.*\\d*')))
+prefilter <- as.numeric(unlist(str_extract_all(para[grepl('prefilter',para)],'\\d+\\.*\\d*')))
+integrate <- as.numeric(unlist(str_extract_all(para[grepl('integrate',para)],'\\d+')))
+profStep <- round(as.numeric(unlist(str_extract_all(para[grepl('profStep',para)],'\\d+\\.*\\d*'))),1)
+center <- as.numeric(unlist(str_extract_all(para[grepl('center',para)],'\\d+')))
+response <- as.numeric(unlist(str_extract_all(para[grepl('response',para)],'\\d+')))
+gapInit <- as.numeric(unlist(str_extract_all(para[grepl('gapInit',para)],'\\d+\\.*\\d*')))
+gapExtend <- as.numeric(unlist(str_extract_all(para[grepl('gapExtend',para)],'\\d+\\.*\\d*')))
+factorDiag <- as.numeric(unlist(str_extract_all(para[grepl('factorDiag',para)],'\\d+')))
+factorGap <- as.numeric(unlist(str_extract_all(para[grepl('factorGap',para)],'\\d+')))
+localAlignment <- as.numeric(unlist(str_extract_all(para[grepl('localAlignment',para)],'\\d+')))
+bw <- as.numeric(unlist(str_extract_all(para[grepl('bw',para)],'\\d+\\.*\\d*')))
+mzwid <- as.numeric(unlist(str_extract_all(para[grepl('mzwid',para)],'\\d+\\.*\\d*')))
+minfrac <- as.numeric(unlist(str_extract_all(para[grepl('minfrac',para)],'\\d+\\.*\\d*')))
+minsamp <- as.numeric(unlist(str_extract_all(para[grepl('minsamp',para)],'\\d+')))
+max <-  as.numeric(unlist(str_extract_all(para[grepl('max',para)],'\\d+')))
   files <- list.files(path,full.names = T,recursive = T)
+  if(!is.null(index)){
+    files <- files[index]
+  }
   xset <- xcmsSet(files,
   method = "centWave",
-  peakwidth       = c(11.68, 99.5),
-  ppm             = 15,
-  noise           = 0,
-  snthresh        = 10,
-  mzdiff          = 0.00406,
-  prefilter       = c(3, 100),
+  peakwidth       = peakwidth,
+  ppm             = ppm,
+  noise           = noise,
+  snthresh        = snthresh,
+  mzdiff          = mzdiff,
+  prefilter       = prefilter,
   mzCenterFun     = "wMean",
-  integrate       = 1,
+  integrate       = integrate,
   fitgauss        = FALSE,
   verbose.columns = FALSE)
 xset <- retcor( 
@@ -61,24 +89,25 @@ xset <- retcor(
   method         = "obiwarp",
   plottype       = "none",
   distFunc       = "cor_opt",
-  profStep       = 1,
-  center         = 1,
-  response       = 1,
-  gapInit        = 0.4816,
-  gapExtend      = 2.4,
-  factorDiag     = 2,
-  factorGap      = 1,
-  localAlignment = 0)
+  profStep       = profStep,
+  center         = center,
+  response       = response,
+  gapInit        = gapInit,
+  gapExtend      = gapExtend,
+  factorDiag     = factorDiag,
+  factorGap      = factorGap,
+  localAlignment = localAlignment)
 xset <- group( 
   xset,
   method  = "density",
-  bw      = 0.879999999999999,
-  mzwid   = 0.0166,
-  minfrac = 1,
-  minsamp = 1,
-  max     = 50)
+  bw      = bw,
+  mzwid   = mzwid,
+  minfrac = minfrac,
+  minsamp = minsamp,
+  max     = max)
 
 xset <- fillPeaks(xset)
+return(xset)
 }
 ```
 
@@ -89,8 +118,10 @@ xset <- fillPeaks(xset)
 neg <- getrtmz('D:/metademo/data/')
 # back up the xcmsset object
 save(neg,file = 'neg.Rdata')
+# get the number
+npeaks <- nrow(neg@groups)
 # get the EIC, boxplot and diffreport, eixmax should be equal to the numbers of peaks groups in the pos objects 
-report <- CAMERA::annotateDiffreport(neg,filebase = 'peaklistneg',metlin = T, eicmax = 1811, classeic = neg@phenoData$class)
+report <- CAMERA::annotateDiffreport(neg,filebase = 'peaklistneg',metlin = T, eicmax = npeaks, classeic = neg@phenoData$class)
 # save the report as a csv file
 write.csv(report,file = 'all.csv')
 # get the csv file for Metaboanalyst.ca
@@ -124,6 +155,9 @@ mzrtfilter <- list(data = mzrt$data[index,!qcindex],
                    mz = mzrt$mz[index],
                    rt = mzrt$rt[index],
                    group = droplevels(mzrt$group$class[!qcindex,drop =T]))
+# get the filtered csv
+enviGCMS::getupload(mzrtfilter,name = 'peakfilter')
+
 ```
 
 # Normalization (Optional)
@@ -151,8 +185,7 @@ enviGCMS::plotmr(mzrtfilter,inscf = 4,rsdcf = 50)
 # PCA
 #enviGCMS::plotpca(mzrtfilter$data,
 #                  as.character(mzrtfilter$group))
-enviGCMS::plotpca(mzrtfilter$data,
-                  c('b','b','b','M','M','M','H','H','H','L','L','L'))
+enviGCMS::plotpca(mzrtfilter$data,c('b','b','b','M','M','M','H','H','H','L','L','L'))
 ```
 
 # Annotation
@@ -161,7 +194,8 @@ enviGCMS::plotpca(mzrtfilter$data,
 library(xMSannotator)
 num_nodes = 10
 data("adduct_weights")
-anno <- xsetplus::fanno(neg,outloc = 'D:/metademo/anno',mode = 'neg')
+negsub <- getrtmz('D:/metademo/data/oq/')
+anno <- xsetplus::fanno(negsub,outloc = 'D:/metademo/anno',mode = 'neg')
 # annolipid <- xsetplus::fanno(neg,outloc = 'D:/storage/data/anno',
 #                              db_name = 'LipidMaps')
 ```
@@ -170,7 +204,17 @@ anno <- xsetplus::fanno(neg,outloc = 'D:/metademo/anno',mode = 'neg')
 
 ```{r pathway}
 # get the file
-xsetplus::mumdata(pos,lv = mzrt$group$class)
+xsetplus::mumdata(neg,lv = mzrt$group$class)
 # http://mummichog.org/index.html
 # mummichog1 -f 'test.txt' -o myResult
 ```
+
+# PMD analysis
+
+```{r pmd}
+load('neg.Rdata')
+enviGCMS::getmzrt(neg,name = 'pmd')
+options(shiny.maxRequestSize = 100*1024^2)
+pmd::runPMD()
+```
+
