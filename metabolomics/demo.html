@@ -260,7 +260,7 @@ mzrtfilter$group$class &lt;- mzrt$group$class[!qcindex]
 
 - The average intensities in pool QC for each peak should larger than three tims of the average intensities in blank sample
 
-- RSD% less than 30% in Pooled QC 
+- RSD% less than 30% in Pooled QC to remove batch effects
 
 ---
 
@@ -286,6 +286,8 @@ mzrt$data &lt;- mzrtcor$dataCorrected
 
 # Statistical analysis
 
+## Exploratory data analysis
+
 
 ```r
 # visulize the data
@@ -294,6 +296,133 @@ enviGCMS::plotmr(mzrtfilter)
 enviGCMS::plotpca(mzrtfilter$data,
                   as.character(mzrtfilter$group$class))
 ```
+
+- Find the confonding factors or inner correlationship among variables/samples
+
+- Correlationship/Cluster/Similarity/Dimension reducing analysis
+
+---
+# Statistical analysis
+
+## Linear mixed model
+
+- Fixed effects: Treatment/Control
+
+- Random effects: individual variances
+
+- `$$y = Fixed\ effects + (random\ slope\ variable|random \ baseline\ variable)$$`
+
+- [More](https://web.stanford.edu/class/psych252/section/Mixed_models_tutorial.html#getting-p-values)
+---
+
+# Statistical analysis
+
+## Split the data
+
+
+```r
+library(caret)
+## Spliting data
+trainIndex &lt;- createDataPartition(variable, p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+## Get the training and testing datasets
+Train &lt;- data[ trainIndex,]
+Test  &lt;- data[-trainIndex,]
+```
+
+- Variables should be larger than sample numbers
+- Train datasets are used to build the model
+- Test datasets are used to evaluate the final model
+
+---
+# Statistical analysis
+
+## Tune the model
+
+
+```r
+fitControl &lt;- trainControl(## 10-fold CV
+                           method = "repeatedcv",
+                           number = 10,
+                           ## repeated ten times
+                           repeats = 10)
+```
+
+- General parameters training control
+
+- Cross validation
+
+- Performance Metrics(RMSE or ROC)
+
+---
+# Statistical analysis
+
+## Tune the specific model
+
+
+```r
+# extra papameters for GBM 
+gbmGrid &lt;-  expand.grid(interaction.depth = c(1, 5, 9), 
+                        n.trees = (1:30)*50, 
+                        shrinkage = 0.1,
+                        n.minobsinnode = 20)
+```
+
+- Different models have different parameters
+
+- Use `expand.grid` to add the tuning for them
+
+---
+# Statistical analysis
+
+## Train the model
+
+
+```r
+set.seed(825)
+gbmFit &lt;- train(Class ~ ., data = training, 
+                 method = "gbm", 
+                 trControl = fitControl, 
+                 verbose = FALSE, 
+                 ## Now specify the exact models 
+                 ## to evaluate:
+                 tuneGrid = gbmGrid)
+# show the fitting process
+plot(gbmFit)  
+```
+
+- Fit the model based on the tuning parameters
+
+- Show the fitting results
+
+---
+# Statistical analysis
+
+## Model selection
+
+
+```r
+# ANOVA analysis
+anova(fit1,fit2)
+```
+
+- Check which model show improvements of the variances explained
+
+---
+# Statistical analysis
+
+## Variable importance
+
+
+```r
+Imp &lt;- varImp(fit)
+plot(Imp)
+```
+
+- Not all models have the variable impartance evaluation
+
+- `varImp` could be used to evaluate variable importance if possible
 
 ---
 
@@ -318,6 +447,8 @@ xsetplus::mumdata(pos,lv = mzrt$group$class)
 # http://mummichog.org/index.html
 mummichog1 -f 'test.txt' -o myResult
 ```
+
+- [More](http://mummichog.org/index.html)
 
 ---
 
