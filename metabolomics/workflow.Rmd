@@ -19,7 +19,7 @@ library(IPO)
 library(xcms)
 peakpickingParameters <- getDefaultXcmsSetStartingParams('centWave')
 path <- list.files('D:/metademo/data/oq/',full.names = T,recursive = T)
-
+# change to 5 for obitrap
 peakpickingParameters$ppm <- 15
 resultPeakpicking <- 
   optimizeXcmsSet(files = path[c(1,2,3)], 
@@ -114,6 +114,7 @@ return(xset)
 # Peaks list
 
 ```{r eval=F}
+library(enviGCMS)
 # get the xcmsset object
 neg <- getrtmz('D:/metademo/data/')
 # back up the xcmsset object
@@ -186,6 +187,42 @@ enviGCMS::plotmr(mzrtfilter,inscf = 4,rsdcf = 50)
 #enviGCMS::plotpca(mzrtfilter$data,
 #                  as.character(mzrtfilter$group))
 enviGCMS::plotpca(mzrtfilter$data,c('b','b','b','M','M','M','H','H','H','L','L','L'))
+
+library(caret)
+## Spliting data
+trainIndex <- createDataPartition(mzrtfilter$data, p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+## Get the training and testing datasets
+Train <- data[ trainIndex,]
+Test  <- data[-trainIndex,]
+## Set the cross validation method
+fitControl <- trainControl(## 10-fold CV
+                           method = "repeatedcv",
+                           number = 10,
+                           ## repeated ten times
+                           repeats = 10)
+# extra papameters for GBM 
+gbmGrid <-  expand.grid(interaction.depth = c(1, 5, 9), 
+                        n.trees = (1:30)*50, 
+                        shrinkage = 0.1,
+                        n.minobsinnode = 20)
+
+set.seed(825)
+gbmFit <- train(mzrtfilter$group ~ ., data = training, 
+                 method = "gbm", 
+                 trControl = fitControl, 
+                 verbose = FALSE, 
+                 ## Now specify the exact models 
+                 ## to evaluate:
+                 tuneGrid = gbmGrid)
+# show the fitting process
+plot(gbmFit)  
+# ANOVA analysis for model selection
+anova(fit1,fit2)
+# find the important variables
+Imp <- varImp(fit)
+plot(Imp)
 ```
 
 # Annotation
