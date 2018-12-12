@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Structure/Reaction Directed Analysis</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Miao Yu" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Structure/Reaction Directed Analysis
+## for non-target analysis
+### Miao Yu
+### 2018/12/12
+
+---
+
+
+
+
+## About Me
+
+- Ph.D. in Environmental Sciences from Chinese Academy of Sciences
+
+- Two years PostDoc training in Analytical Chemistry in University of Waterloo, Canada
+
+- Work with Prof. Lauren Petrick since Sep. 2018
+
+- Maintainter and author of 3 CRAN packages ([rgabriel](https://cran.r-project.org/web/packages/rgabriel/index.html), [enviGCMS](https://cran.r-project.org/web/packages/enviGCMS/index.html), [pmd](https://cran.r-project.org/web/packages/pmd/index.html)) and contributor of [rticles](https://cran.r-project.org/web/packages/rticles/index.html) package
+
+- Research interests
+
+    - environmental process of POPs
+    - *in vivo* SPME
+    - metabolomics data analysis
+    - reproducible research
+  
+---
+
+## Current Workflow for Nontarget Analysis
+
+- Predefined rules between peaks/features and compounds
+
+- Generate pseudo-spectrum
+
+- Search database or *in silico* prediction to identify compounds
+
+- Build the links between compounds by pathway/network analysis
+
+&gt; Features -&gt; Compounds -&gt; Relationship among compounds
+
+- Problems
+
+    - Standards for unknown compounds
+    - Standards coverage
+
+---
+
+## My Idea
+
+&gt; Features -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
+
+???
+- all compounds from metabolomcis study is a snapshot with metabolites and parent compounds
+- We could find the relationship among people without know the name of each person
+- mass spec could measure the distance without known the name of compounds
+
+---
+
+## My Idea
+
+&gt; Features -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+
+- Mass spectrum could directly measure reactions
+
+- Biomarker **reactions**
+
+&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+- Annotation is not really necessary for certain scientific problem
+- Relationship among compounds or reaction matters
+
+---
+
+## Results
+
+&lt;img src="https://yufree.github.io/presentation/figure/toc.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2018). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta. doi:10.1016/j.aca.2018.10.062
+
+???
+- Data-driven
+
+- Find high freqency paired mass distance relationship between peaks from same compounds
+
+  - reveal unknown adducts/netrual loss
+  - find independant peaks
+
+- Find high freqency paired mass distance relationship between peaks from different compounds
+
+  - reveal unknown reactions
+  - quantitative analysis for reactions
+
+---
+
+## Plan
+
+- Connection with reaction database
+
+- Quantitive analysis method for biomarker reactions
+
+- More **real data**
+
+- MSSM exposome docker [image](https://hub.docker.com/r/yufree/xcmsrocker/) for reproducible research
+
+---
+
+## Prelimitary Results
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pmd &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pmdcluster &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; CAMERA &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; RAMclust &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; profinder &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Independant peaks &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1382 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1382 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2043 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1149 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3361 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Target compounds &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 52 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+- 117 compounds for validation
+- 64 compounds could be found by xcms while 39 could be found by profinder untarget analysis
+- pmd could improve peaks selection
+
+---
+
+## Prelimitary Results
+
+&lt;img src="https://yufree.github.io/presentation/figure/diffpca.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&amp;A
+
+## miao.yu@mssm.edu
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
