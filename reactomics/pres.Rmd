@@ -1,0 +1,526 @@
+---
+title: "Reactomics and Paired Mass Distance Analysis"
+subtitle: ""
+author: "Miao Yu"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Current Workflow for Nontarget Analysis
+
+- Predefined rules between peaks/features and compounds
+
+- Generate pseudo-spectrum
+
+- Search database or *in silico* prediction to identify compounds
+
+- Build the links between compounds by pathway/network analysis
+
+> Features -> Compounds -> Relationship among compounds
+
+- Problems
+
+    - Predefined rules about adducts, neutral loss
+    - Standards for unknown compounds
+    - Standards coverage
+
+---
+
+## My Idea
+
+> Features -> Compounds -> Relationship among compounds
+
+- You ACTUALLY don't need people (compounds) name to know their relationship
+
+```{r echo=FALSE, out.width= '70%'}
+knitr::include_graphics('https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg')
+```
+
+From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
+
+???
+- all compounds from metabolomcis study is a snapshot with metabolites and parent compounds
+- We could find the relationship among people without know the name of each person
+- mass spec could measure the distance without known the name of compounds
+
+---
+
+## My Idea
+
+> Features -> ~~Compounds~~ -> Relationship among compounds
+
+- Mass spectrum could directly measure reactions
+
+```{r echo=FALSE, out.width= '100%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
+```
+
+???
+- Annotation is not really necessary for certain scientific problem
+- Relationship among compounds or reaction matters
+
+---
+## Why Reactions?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/database.png')
+```
+
+- Numbers: Gene(5) < Protein(20+2) < Metabolite(100K) < Compound(100M)
+
+- Combination: Gene(25000) < Protein(10K-1B) < Compound(???) 
+
+- Small molecular's **combination** is chemical reaction or paired mass distance
+
+---
+
+## Why PMD?
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+$$\Delta m = Zm_{H} + Nm_{n} - M$$
+- The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom made
+
+- Atoms -> Compounds -> Mass distances between compounds
+
+- **Paired Mass Distances(PMD)** is unique
+
+- **High resolution** mass spectrometry WINs
+
+???
+- Mass defects could be transfered from atom to paired mass distance
+- HRMS could measure PMDs for qualitative analysis
+
+---
+
+## Sources of PMDs in the real data
+
+- Reaction during sample preparation
+
+  - Method evaluation
+
+- In source reactions during the MS analysis
+
+  - Reduncdent peaks
+  - MS/MS analysis
+  
+- Biological reactions of compounds in the samples
+
+  - Biomarker reaction
+  - Metabolites of certain compounds
+  - Reaction network
+  - Evolution
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### KEGG reaction database
+
+```{r}
+library(pmd)
+top10 <- table(omics$pmd2)[order(table(omics$pmd2),decreasing = T)][1:10]
+example <- c('NAD(+) + succinate <=> fumarate + H(+) + NADH', 'NAD(+) + propanoyl-CoA <=> acryloyl-CoA + H(+) + NADH', 'ATP + GDP <=> ADP + GTP', 'deoxynogalonate + O2 <=> H(+) + H2O + nogalonate', 'H2O + hypotaurine + NAD(+) <=> H(+) + NADH + taurine', 'ATP + H2O <=> ADP + H(+) + phosphate','acetyl-CoA + propanoate <=> acetate + propanoyl-CoA', 'L-glutamate <=> D-glutamate','H2O + lactose <=> D-galactose + D-glucose','L-serine <=> 2-aminoprop-2-enoate + H2O')
+react <- cbind.data.frame(pmd = top10,example)
+colnames(react) <- c('PMD','Freq','Example')
+knitr::kable(react,align = 'c',format = 'markdown')
+```
+
+- Real reactions contain ions
+- Skewed by known reactions
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### HMDB compounds database
+
+```{r}
+library(pmd)
+top10 <- head(hmdb,10)
+knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
+```
+
+- Donimated by C, H and O
+- Structure or reaction?
+
+???
+- We need quantitative mass ready database for PMD annotation
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### Response factor matters
+
+- In one reaction, two compounds will show different response factors
+- To evaluate if one reaction active or not, we need intensity ratio stable
+
+- For example, [A,B], [C,D] and [E,F] are involoved in the same PMD:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4' )
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','RF ratio','C','D','RF ratio','E','F','RF ratio')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- [A,B] and [E,F] could be used for Quantitative analysis for certain PMD, rsd cutoff 30%
+- [C,D] could be used to check dynamics of specific reaction
+
+???
+- Response factor is the slope of calibration curve for certain compound
+- Total intensity of all pairs with the same PMD
+- Count once for ions involved in multiple reactions
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Independant peaks selection
+
+---
+
+## How many real compounds among features?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/gapfc.jpg')
+```
+
+.half[
+```{r ref1,results = 'asis'}
+doi <- c('10.1021/acs.analchem.7b02380')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Gap between features and compounds
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
+```
+
+---
+
+## GlobalStd Algorithm
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+## GlobalStd Algorithm Step 1
+
+### Retention time cluster analysis
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png')
+```
+
+---
+## GlobalStd Algorithm Step 2
+
+### High freqency PMD analysis across RT clusters
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png')
+```
+
+---
+
+## GlobalStd Algorithm Step 2
+
+### High freqency PMD analysis across RT clusters - example
+
+- Based on data itself, those adducts/multi-chargers/neutral loss/isotopologues can be unknown
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png')
+```
+
+---
+## GlobalStd Algorithm Step 3
+
+### Independant peaks selection
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdplot-1.png')
+```
+
+---
+## GlobalStd Algorithm Step 3
+
+### Independant peaks selection - example
+
+```{r echo=FALSE,out.width = "600px"}
+knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png')
+```
+
+---
+## GlobalStd Algorithm Step 3
+
+### Why redundant?
+
+- ~20% peaks can capture similar variances of all peaks
+
+```{r echo=FALSE,out.width = "600px"}
+knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pca-1.png')
+```
+
+???
+- Similiar to isotope labeled results (5% peaks)
+- Untarget analysis does not mean big data
+
+---
+## Untargeted MS/MS analysis - PMDDA(unpublished)
+
+- Only use GlobalStd peaks for MS/MS analysis
+    - Multiple injections
+- Compare with DDA annotation (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Background clean
+
+```{r echo=FALSE,out.width = "400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
+```
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Metabolites of targeted compound
+
+---
+
+## Metabolites of targeted compound
+
+  - Environmental pollutions metabolites
+  - Drug metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I (O,S,NH)
+    - Oxidation
+    - Reduction
+    - Hydrolysis
+  
+  - Phase II (CH2,SO4,COCH2,C6H9O7, C10H16N3O6S)
+    - Methylation
+    - Sulphation
+    - Acetylation
+    - Glucuronidation
+    - Glutathione conjugation
+    - Glycine conjugation
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Paired mass distance analysis to screen metabolites (+Br/-H)
+
+```{r echo=FALSE,out.width = "400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/brscreen.png')
+```
+
+.half[
+```{r ref3,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- Confirmation by  synthesized standards
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
+```
+
+
+.half[
+```{r ref4,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Biomarker Reaction
+
+---
+
+## Gender difference(unpublished)
+
+.left-column[
+### Rat urine samples
+
+### Negative mode
+]
+
+.right-column[
+```{r echo=FALSE,out.width="400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpnpmd.png')
+```
+]
+---
+## Gender difference(unpublished)
+
+.left-column[
+### Rat urine samples
+
+### Positive mode
+]
+.right-column[
+```{r echo=FALSE,out.width="400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpppmd.png')
+```
+]
+
+---
+
+## Gender difference(unpublished)
+
+- Direct links to enzyme, regardless of which substitutes
+
+  - PMD 56.026: Coenzyme A related reaction +C3H4O
+  - PMD 13.979: Oxygen oxidoreductase +O2/-H2O
+  - PMD 16.031: Oxygen oxidoreductase (methyl cleaving) +CH4
+  - PMD 32.026: incomplete or spontaneous reaction +CH4O
+  
+- Biomarker reactions
+
+- No cherry picking compounds
+
+- Analytical methods matter (PMD 13.979)
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Reaction Network Analysis
+
+---
+
+## HMDB PMDs Analysis(unpublished)
+
+- Most of the PMDs are random generated
+
+  - Top 100 PMDs cover 85.57% formulas
+
+- Any formula would be involved 8760-10151 PMDs
+
+  - 373 formulas involve in all top 100 PMDs
+
+```{r echo=FALSE,out.width="500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdcoverage.png')
+```
+
+---
+
+## Reaction Network (unpublished)
+
+- Few compounds and few PMDs dominated HMDB metabolits
+
+- They are connected by reaction network
+
+- Top 100 PMDs network
+
+- Scale-free network ???
+
+```{r echo=FALSE,out.width="600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/top100.png')
+```
+
+---
+
+## Real Reaction Network (unpublished)
+
+- NIST 1950 SRM
+
+- PMD network module detection by correlation
+
+```{r echo=FALSE,out.width="700px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/network.png')
+```
+
+---
+
+## Software
+
+> When the papers get published, all of the scripts will be online
+
+### [enviGCMS package](http://yufree.github.io/enviGCMS/)
+  
+  - Target analysis
+  - Mass defect analysis
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - Untarget analysis
+  - GlobalStd algorithm
+  - Reactomics analysis
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
+
+```{r cache=FALSE}
+knitr::knit_exit() 
+```
+
+
+---
+
+## Plan
+
+### Paired retention time distances(PRTD) analysis
+
+### Paired mass distance mass spectrometry
+
+### Paired mass distance based omics, cross validation
+
