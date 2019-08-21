@@ -214,7 +214,7 @@ enviGCMS::plotpca(t(rcp$SpecAbund),lv = c(rep('M',6),1:5), main = 'RAMclust peak
 
 ### Sensitivity matters
 
-- Target analysis could capture peaks with low intensity
+- Target screen analysis could capture peaks with low intensity
 
 - Untargeted analysis would loss sensitivity to capture all peaks 
 
@@ -359,7 +359,7 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
 - Step 2: MS/MS annotation
 
-  - increase the sensitivity of untarget analysis
+  - increase the sensitivity of untargeted analysis
 
 - Step 3: screen the environmental metabolites
 
