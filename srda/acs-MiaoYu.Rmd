@@ -380,7 +380,7 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
 ### CAS: Dr. Xingwang Hou
 
-### NIEHS Funding: **P30ES23515** and **U2C ES026561**
+### NIEHS: **P30ES23515** and **U2C ES026561**
 
 ### miao.yu@mssm.edu 
 
