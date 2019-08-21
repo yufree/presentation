@@ -18,7 +18,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## Current Workflow for Nontarget Analysis
+## Current Workflow for Untargeted Analysis
 
 - Predefined rules between peaks/features and compounds
 
@@ -32,8 +32,8 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 - Problems
 
-    - Predefined rules about adducts, neutral loss
-    - Standards for unknown compounds
+    - Time consuming - too many peaks
+    - Sensitivity - DDA or MS/MS
     - Standards coverage
 
 ---
@@ -121,7 +121,6 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
   - Biomarker reaction
   - Metabolites of certain compounds
   - Reaction network
-  - Evolution
 
 ---
 
@@ -346,7 +345,7 @@ pmd::plotpaired(pmd)
 
 ### High frequency PMD analysis across RT clusters - example
 
-- Based on data itself, those adducts/multi-chargers/neutral loss/isotopologues can be unknown
+- Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
 ```{r echo=FALSE,out.width = "300px"}
 index <- pmd$paired$diff2 == 21.98
@@ -386,17 +385,17 @@ pmd::plotstdrt(std,rtcluster = 8,main = 'Retention time group 8')
 - ~14.3% peaks can capture similar variances of all peaks
 - For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
 
-```{r echo=FALSE,out.width = "350px"}
+```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/software.png')
 ```
 
 ???
 - Similar to isotope labeled results (5% peaks)
-- Untarget analysis does not mean big data
+- Untargeted analysis does not mean big data
 
 ---
 
-# Targeted compounds validation
+# Target compounds validation
 
 ```{r echo=F}
 pmd <- c(985,18)
@@ -411,7 +410,7 @@ knitr::kable(comp, format = 'html')
 
 - 103 compounds for validation
 - 36 compounds could be found by xcms 6885 features
-- 7 could be found by profinder untarget analysis 6628 features
+- 7 could be found by profinder untargeted analysis 6628 features
 
 ---
 
@@ -419,9 +418,9 @@ knitr::kable(comp, format = 'html')
 
 ### Sensitivity matters
 
-- Targeted analysis could capture peaks with low intensity
+- Target analysis could capture peaks with low intensity
 
-- Detargeted analysis would loss sensitivity to capture all peaks 
+- Untargeted analysis would loss sensitivity to capture all peaks 
 
 - Send unknown while independent peaks for MS/MS
 
@@ -435,28 +434,38 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.p
 
 - Only use GlobalStd peaks for MS/MS analysis
     - Multiple injections
-- Compare with DDA annotation (173 compounds)
-    - Annotated 235 extra compounds and overlap 59 compounds
-    - Background clean
 
-```{r echo=FALSE,out.width = "400px"}
+- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
+
+- Compare with Data Dependent Acquisition (DDA) (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Less contaminant ions
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Untargeted MS/MS analysis - PMDDA(unpublished)
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
 ```
 ???
 - GNPS MS/MS annotation
 - 235:59:114 PMDDS:overlap:DDA
 
-
 ---
 class: inverse, center, middle
 
 # Reactomics Application 
 
-## Metabolites of targeted compound
+## Metabolites Discovery
 
 ---
 
-## Metabolites of targeted compound
+## Metabolites of exogenous compound
 
   - Environmental pollution metabolites
   - Drug metabolites
@@ -482,7 +491,7 @@ class: inverse, center, middle
 
 - Mass defect analysis to screen Brominated Compounds 
 
-- Confirmation by  synthesized standards
+- Confirmation by synthesized standards
 
 ```{r echo=FALSE,out.width = "600px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
@@ -499,9 +508,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Metabolites of TBBPA in Pumpkin
 
-- Re-check by PMD analysis
-
-- Metabolites network
+- TBBPA Metabolites PMD network (22)
 
 ```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
@@ -517,17 +524,39 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ---
 
+## Metabolites of endogenous compound
+
+### Metabolites of L-Octanoylcarnitine in NIST 1950
+
+- L-Octanoylcarnitine Metabolites PMD network (187)
+
+- Metabolites screen by 12 KEGG high frequency reaction PMD
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png")
+```
+
+---
+
+## KEGG reaction network
+
+### Metabolites of four compounds
+
+```{r echo=FALSE,out.width = "700px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmd.png")
+```
+
+
+---
 
 ## Endogenous vs Exogenous
 
-- T3DB Endogenous (255) vs Exogenous (3422)
+- T3DB Endogenous (255) vs Exogenous (705)
 
-- Select a mixture of compounds
-
-- Use high frequency PMDs
+- Use top 20 high frequency PMDs
 
 ```{r echo=FALSE,out.width = "500px"}
-knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db.png")
+knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png")
 ```
 
 ---
@@ -584,6 +613,20 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpppmd.
 - No cherry picking compounds
 
 - Analytical methods matter (PMD 13.979)
+
+---
+
+## Lung cancer
+
+- MTBLS28 1005 human urine samples
+
+- 188 independant peaks
+
+- PMD 18.011 also show gender difference (3 peaks)
+
+```{r echo=FALSE,out.width="600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
+```
 
 ---
 
@@ -650,7 +693,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/network.pn
 
 ### [pmd package](http://yufree.github.io/pmd/)
   
-  - Untarget analysis
+  - Untargeted analysis
   - GlobalStd algorithm
   - Reactomics analysis
 

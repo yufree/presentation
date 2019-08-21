@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 
 
 
-## Current Workflow for Nontarget Analysis
+## Current Workflow for Untargeted Analysis
 
 - Predefined rules between peaks/features and compounds
 
@@ -35,8 +35,8 @@ class: center, middle, inverse, title-slide
 
 - Problems
 
-    - Predefined rules about adducts, neutral loss
-    - Standards for unknown compounds
+    - Time consuming - too many peaks
+    - Sensitivity - DDA or MS/MS
     - Standards coverage
 
 ---
@@ -118,7 +118,6 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
   - Biomarker reaction
   - Metabolites of certain compounds
   - Reaction network
-  - Evolution
 
 ---
 
@@ -345,7 +344,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### High frequency PMD analysis across RT clusters - example
 
-- Based on data itself, those adducts/multi-chargers/neutral loss/isotopologues can be unknown
+- Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
 &lt;img src="pres_files/figure-html/unnamed-chunk-15-1.png" width="300px" style="display: block; margin: auto;" /&gt;
 
@@ -371,15 +370,15 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 - ~14.3% peaks can capture similar variances of all peaks
 - For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
 
-&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="350px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ???
 - Similar to isotope labeled results (5% peaks)
-- Untarget analysis does not mean big data
+- Untargeted analysis does not mean big data
 
 ---
 
-# Targeted compounds validation
+# Target compounds validation
 
 &lt;table&gt;
  &lt;thead&gt;
@@ -415,7 +414,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - 103 compounds for validation
 - 36 compounds could be found by xcms 6885 features
-- 7 could be found by profinder untarget analysis 6628 features
+- 7 could be found by profinder untargeted analysis 6628 features
 
 ---
 
@@ -423,9 +422,9 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### Sensitivity matters
 
-- Targeted analysis could capture peaks with low intensity
+- Target analysis could capture peaks with low intensity
 
-- Detargeted analysis would loss sensitivity to capture all peaks 
+- Untargeted analysis would loss sensitivity to capture all peaks 
 
 - Send unknown while independent peaks for MS/MS
 
@@ -437,26 +436,36 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Only use GlobalStd peaks for MS/MS analysis
     - Multiple injections
-- Compare with DDA annotation (173 compounds)
-    - Annotated 235 extra compounds and overlap 59 compounds
-    - Background clean
 
-&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" width="400px" style="display: block; margin: auto;" /&gt;
+- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
+
+- Compare with Data Dependent Acquisition (DDA) (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Less contaminant ions
+
 ???
 - GNPS MS/MS annotation
 - 235:59:114 PMDDS:overlap:DDA
 
+---
+
+## Untargeted MS/MS analysis - PMDDA(unpublished)
+
+&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" width="87%" style="display: block; margin: auto;" /&gt;
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
 
 ---
 class: inverse, center, middle
 
 # Reactomics Application 
 
-## Metabolites of targeted compound
+## Metabolites Discovery
 
 ---
 
-## Metabolites of targeted compound
+## Metabolites of exogenous compound
 
   - Environmental pollution metabolites
   - Drug metabolites
@@ -482,7 +491,7 @@ class: inverse, center, middle
 
 - Mass defect analysis to screen Brominated Compounds 
 
-- Confirmation by  synthesized standards
+- Confirmation by synthesized standards
 
 &lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
 
@@ -494,9 +503,7 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
 ## Metabolites of TBBPA in Pumpkin
 
-- Re-check by PMD analysis
-
-- Metabolites network
+- TBBPA Metabolites PMD network (22)
 
 &lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="500px" style="display: block; margin: auto;" /&gt;
 
@@ -507,16 +514,34 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
 ---
 
+## Metabolites of endogenous compound
+
+### Metabolites of L-Octanoylcarnitine in NIST 1950
+
+- L-Octanoylcarnitine Metabolites PMD network (187)
+
+- Metabolites screen by 12 KEGG high frequency reaction PMD
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## KEGG reaction network
+
+### Metabolites of four compounds
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmd.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+---
 
 ## Endogenous vs Exogenous
 
-- T3DB Endogenous (255) vs Exogenous (3422)
+- T3DB Endogenous (255) vs Exogenous (705)
 
-- Select a mixture of compounds
+- Use top 20 high frequency PMDs
 
-- Use high frequency PMDs
-
-&lt;img src="https://yufree.github.io/presentation/figure/t3db.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/t3db2.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -568,6 +593,18 @@ class: inverse, center, middle
 - No cherry picking compounds
 
 - Analytical methods matter (PMD 13.979)
+
+---
+
+## Lung cancer
+
+- MTBLS28 1005 human urine samples
+
+- 188 independant peaks
+
+- PMD 18.011 also show gender difference (3 peaks)
+
+&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="600px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -628,7 +665,7 @@ class: inverse, center, middle
 
 ### [pmd package](http://yufree.github.io/pmd/)
   
-  - Untarget analysis
+  - Untargeted analysis
   - GlobalStd algorithm
   - Reactomics analysis
 
