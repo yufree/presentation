@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Structure/reaction directed analysis for environmental metabolites</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Miao Yu, Georgia Dolios, Lauren Patrick" />
+    <meta name="date" content="2019-08-21" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Structure/reaction directed analysis for environmental metabolites
+## ACS Fall 2019 National Meeting &amp; Expo, San Diego, CA
+### Miao Yu, Georgia Dolios, Lauren Patrick
+### 2019-08-21
+
+---
+
+
+
+
+## Current Workflow for environmental metabolites
+
+- Peaks/features extraction
+
+- Compounds identification from peaks/features
+
+- Build the links between compounds by pathway/network analysis
+
+### Problem
+
+- Time consuming - too many peaks
+
+- Sensitivity - DDA or MS/MS
+
+- Environmental metabolites - where and how
+
+---
+
+## My idea
+
+- Step 1: reduce the numbers of peaks
+
+- Step 2: MS/MS annotation
+
+- Step 3: screen the environmental metabolites
+
+- Method: paired mass distance(PMD) analysis
+
+- Sample: Standard Reference Material for Human Plasma (NIST 1950)
+
+---
+
+## My idea - PMD analysis
+
+$$PMD = exact\ mass \ 1 - exact\ mass \ 2 $$
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+`$$\Delta m = Zm_{H} + Nm_{n} - M$$`
+
+- The missing mass was converted into energy ( `\(E=mc^2\)` ) and emitted when the atom made
+
+- Atoms -&gt; Compounds -&gt; Mass distances between compounds
+
+- **Paired Mass Distances(PMD)** is unique for element composition
+
+- **High resolution** mass spectrometry WINs (exact mass -&gt; mass to charge ratio)
+
+???
+- Mass defects could be transfered from atom to paired mass distance
+- HRMS could measure PMDs for qualitative analysis
+
+---
+
+## My idea - PMD analysis
+
+### Where is PMD?
+
+- Isotopologues 
+  
+  - `\([M]^+\)` `\([M+1]^+\)`
+  - 1.006 Da
+
+- in source reaction 
+
+  - `\([M+H]^+\)`  `\([M+Na]^+\)`
+  - 21.982 Da
+
+- **Xenobiotic metabolism**
+
+  - Phase I hydrolation
+  - 15.995 Da
+  
+---
+
+## Step 1: reduce the numbers of peaks
+
+### Gap between features and compounds
+
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### How many real compounds among features?
+
+&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+.half[
+Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. doi:10.1021/acs.analchem.7b02380
+]
+
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### GlobalStd Algorithm
+
+&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" width="650px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
+]
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### Independant peaks selection - example
+
+&lt;img src="acs-MiaoYu_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### Independant peaks selection - Why redundant?
+
+- ~14.3% peaks can capture similar variances of all peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independant peaks
+
+&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## Step 2: MS/MS annotation
+
+### Sensitivity matters
+
+- Target analysis could capture peaks with low intensity
+
+- Untargeted analysis would loss sensitivity to capture all peaks 
+
+- Perform MS/MS analysis for selected peaks
+
+&lt;img src="https://yufree.github.io/presentation/figure/missxcms.png" width="300px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Step 2: MS/MS annotation
+
+### Untargeted MS/MS analysis - PMDDA(unpublished)
+
+- Only use GlobalStd peaks for MS/MS analysis
+    - Multiple injections
+
+- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
+
+- Compare with Data Dependent Acquisition (DDA) (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Less contaminant ions
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Step 2: MS/MS annotation
+
+### Untargeted MS/MS analysis - PMDDA(unpublished)
+
+&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" width="87%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I (O,S,NH)
+    - Oxidation
+    - Reduction
+    - Hydrolysis
+  
+  - Phase II (CH2,SO4,COCH2,C6H9O7, C10H16N3O6S)
+    - Methylation
+    - Sulphation
+    - Acetylation
+    - Glucuronidation
+    - Glutathione conjugation
+    - Glycine conjugation
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Xenobiotic metabolism
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Confirmation by synthesized standards
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="500px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+]
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Metabolites of TBBPA in Pumpkin
+
+- TBBPA Metabolites PMD network (22)
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### KEGG reaction database
+
+
+|   PMD   | Freq |                        Example                        |
+|:-------:|:----:|:-----------------------------------------------------:|
+|  1.008  | 2037 |     NAD(+) + succinate &lt;=&gt; fumarate + H(+) + NADH     |
+|  2.016  | 1748 | NAD(+) + propanoyl-CoA &lt;=&gt; acryloyl-CoA + H(+) + NADH |
+| 15.995  | 1170 |                ATP + GDP &lt;=&gt; ADP + GTP                |
+| 13.979  | 1122 |   deoxynogalonate + O2 &lt;=&gt; H(+) + H2O + nogalonate    |
+| 17.003  | 929  | H2O + hypotaurine + NAD(+) &lt;=&gt; H(+) + NADH + taurine  |
+| 79.966  | 750  |         ATP + H2O &lt;=&gt; ADP + H(+) + phosphate          |
+| 14.016  | 611  |  acetyl-CoA + propanoate &lt;=&gt; acetate + propanoyl-CoA  |
+|    0    | 533  |              L-glutamate &lt;=&gt; D-glutamate              |
+| 162.053 | 365  |       H2O + lactose &lt;=&gt; D-galactose + D-glucose       |
+| 18.011  | 361  |        L-serine &lt;=&gt; 2-aminoprop-2-enoate + H2O        |
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Metabolites of L-Octanoylcarnitine in NIST 1950
+
+- L-Octanoylcarnitine Metabolites PMD network (187)
+
+- Metabolites screen by 12 KEGG high frequency reaction PMD
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Endogenous vs Exogenous
+
+- T3DB Endogenous (255) vs Exogenous (705)
+
+- Use top 20 high frenqency PMDs
+
+&lt;img src="https://yufree.github.io/presentation/figure/t3db2.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Summary
+
+- Step 1: reduce the numbers of peaks
+
+  - remove reduncdant isotope, adducts, multi-chargers
+
+- Step 2: MS/MS annotation
+
+  - increase the sensitivity of untarget analysis
+
+- Step 3: screen the environmental metabolites
+
+  - use PMD network to screen environmental metabolites
+
+- [pmd package](http://yufree.github.io/pmd/)
+  
+  - functions of GlobalStd algorithm and PMD network analysis
+
+- [rmwf package](https://github.com/yufree/rmwf)
+
+  - reproducible research of this study with data and script
+---
+
+# Thanks 
+
+### ISMMS: Dr. Vladimir Yong-gonzalez and Kelsey Chetnik
+
+### CAS: Dr. Xingwang Hou
+
+### Funding: **NIEHS P30ES23515** and **NIEHS: U2C ES026561**
+
+### miao.yu@mssm.edu 
+
+### @yu_free
+
+&lt;img src="https://yufree.github.io/presentation/figure/MSSMlogo.png" width="300px" style="display: block; margin: auto 0 auto auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

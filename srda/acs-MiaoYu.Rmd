@@ -1,0 +1,392 @@
+---
+title: "Structure/reaction directed analysis for environmental metabolites"
+subtitle: "ACS Fall 2019 National Meeting & Expo, San Diego, CA"
+author: "Miao Yu, Georgia Dolios, Lauren Patrick"
+date: "2019-08-27"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Current Workflow for environmental metabolites
+
+- Peaks/features extraction
+
+- Compounds identification from peaks/features
+
+- Build the links between compounds by pathway/network analysis
+
+### Problem
+
+- Time consuming - too many peaks
+
+- Sensitivity - DDA or MS/MS
+
+- Environmental metabolites - where and how
+
+---
+
+## My idea
+
+- Step 1: reduce the numbers of peaks
+
+- Step 2: MS/MS annotation
+
+- Step 3: screen the environmental metabolites
+
+- Method: paired mass distance(PMD) analysis
+
+- Sample: Standard Reference Material for Human Plasma (NIST 1950)
+
+---
+
+## My idea - PMD analysis
+
+$$PMD = exact\ mass \ 1 - exact\ mass \ 2 $$
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+$$\Delta m = Zm_{H} + Nm_{n} - M$$
+
+- The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom made
+
+- Atoms -> Compounds -> Mass distances between compounds
+
+- **Paired Mass Distances(PMD)** is unique for element composition
+
+- **High resolution** mass spectrometry WINs (exact mass -> mass to charge ratio)
+
+???
+- Mass defects could be transfered from atom to paired mass distance
+- HRMS could measure PMDs for qualitative analysis
+
+---
+
+## My idea - PMD analysis
+
+### Where is PMD?
+
+- Isotopologues 
+  
+  - $[M]^+$ $[M+1]^+$
+  - 1.006 Da
+
+- in source reaction 
+
+  - $[M+H]^+$  $[M+Na]^+$
+  - 21.982 Da
+
+- **Xenobiotic metabolism**
+
+  - Phase I hydrolation
+  - 15.995 Da
+  
+---
+
+## Step 1: reduce the numbers of peaks
+
+### Gap between features and compounds
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
+```
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### How many real compounds among features?
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/gapfc.jpg')
+```
+
+
+.half[
+```{r ref1,results = 'asis'}
+doi <- c('10.1021/acs.analchem.7b02380')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### GlobalStd Algorithm
+
+```{r echo=FALSE,out.width = "650px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### Independant peaks selection - example
+
+```{r echo=FALSE,out.width = "100%",fig.asp=0.5,fig.retina = 3}
+library(rmwf)
+data(mzrt)
+mzrtm <- enviGCMS::getdoe(mzrt)
+gm <- mzrtm$groupmean
+gr <- mzrtm$grouprsd
+# filter data
+srm <- grepl('NIST',colnames(gm))
+blk <- grepl('Matrix',colnames(gm))
+indexmean <- apply(gm,1,function(x) all(x[srm]>= 3*x[blk]))
+mzrtfilter <- enviGCMS::getfilter(mzrt,rowindex = indexmean)
+mzrtnist <- enviGCMS::getfilter(mzrt,rowindex = indexmean,colindex = grepl('NIST',colnames(mzrt$data)))
+pmd <- pmd::getpaired(mzrt)
+std <- pmd::getstd(pmd)
+par(mfrow = c(2,3))
+pmd::plotstdrt(std,rtcluster = 46,main = 'Retention time group 46')
+pmd::plotstdrt(std,rtcluster = 31,main = 'Retention time group 31')
+pmd::plotstdrt(std,rtcluster = 40,main = 'Retention time group 40')
+pmd::plotstdrt(std,rtcluster = 100,main = 'Retention time group 100')
+pmd::plotstdrt(std,rtcluster = 49,main = 'Retention time group 49')
+pmd::plotstdrt(std,rtcluster = 8,main = 'Retention time group 8')
+```
+
+---
+
+## Step 1: reduce the numbers of peaks
+
+### Independant peaks selection - Why redundant?
+
+- ~14.3% peaks can capture similar variances of all peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independant peaks
+
+```{r out.width = "70%"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/software.png')
+```
+
+```{r echo=FALSE, eval=F}
+data("srmxset")
+data("mzrt")
+path <- system.file("extdata/data", package = "rmwf")
+srmxset@filepaths <- list.files(path,full.names = T,recursive = T)
+xsa <- CAMERA::annotate(srmxset, perfwhm=0.7, cor_eic_th=0.75,
+ppm=10, polarity="positive")
+peaklist <- CAMERA::getPeaklist(xsa)
+peaklist$meanpeak <- apply(peaklist[,c(16:20)],1,mean)
+
+library(tidyverse)
+stdcamera <- peaklist %>%
+    group_by(pcgroup) %>%
+    filter(meanpeak == max(meanpeak)) %>%
+    ungroup()
+
+rcp <- RAMClustR::ramclustR(srmxset)
+
+mzrt <- pmd::globalstd(mzrt,ng=NULL)
+pmdpeak <- paste0(round(mzrt$mz[mzrt$stdmassindex],4),'@',round(mzrt$rt[mzrt$stdmassindex]))
+pmdpeak1 <- paste0(round(mzrt$mz[mzrt$stdmassindex],2),'@',round(mzrt$rt[mzrt$stdmassindex],-1))
+
+par(mfrow = c(2,2))
+enviGCMS::plotpca(mzrt$data,lv = c(rep('M',6),1:5), main = 'All peaks(6885)')
+enviGCMS::plotpca(mzrt$data[mzrt$stdmassindex,],lv = c(rep('M',6),1:5), main = 'GlobalStd peaks(985)')
+enviGCMS::plotpca(stdcamera[,c(10:20)],lv = c(rep('M',6),1:5), main = 'CAMERA peaks(1297)')
+enviGCMS::plotpca(t(rcp$SpecAbund),lv = c(rep('M',6),1:5), main = 'RAMclust peaks(461)')
+```
+
+---
+
+## Step 2: MS/MS annotation
+
+### Sensitivity matters
+
+- Target analysis could capture peaks with low intensity
+
+- Untargeted analysis would loss sensitivity to capture all peaks 
+
+- Perform MS/MS analysis for selected peaks
+
+```{r echo=FALSE,out.width = "300px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
+```
+
+---
+
+## Step 2: MS/MS annotation
+
+### Untargeted MS/MS analysis - PMDDA(unpublished)
+
+- Only use GlobalStd peaks for MS/MS analysis
+    - Multiple injections
+
+- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
+
+- Compare with Data Dependent Acquisition (DDA) (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Less contaminant ions
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Step 2: MS/MS annotation
+
+### Untargeted MS/MS analysis - PMDDA(unpublished)
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
+```
+
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I (O,S,NH)
+    - Oxidation
+    - Reduction
+    - Hydrolysis
+  
+  - Phase II (CH2,SO4,COCH2,C6H9O7, C10H16N3O6S)
+    - Methylation
+    - Sulphation
+    - Acetylation
+    - Glucuronidation
+    - Glutathione conjugation
+    - Glycine conjugation
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Xenobiotic metabolism
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Confirmation by synthesized standards
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
+```
+
+.half[
+```{r ref3,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Metabolites of TBBPA in Pumpkin
+
+- TBBPA Metabolites PMD network (22)
+
+```{r echo=FALSE,out.width = "400px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
+```
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### KEGG reaction database
+
+```{r}
+library(pmd)
+top10 <- table(omics$pmd2)[order(table(omics$pmd2),decreasing = T)][1:10]
+example <- c('NAD(+) + succinate <=> fumarate + H(+) + NADH', 'NAD(+) + propanoyl-CoA <=> acryloyl-CoA + H(+) + NADH', 'ATP + GDP <=> ADP + GTP', 'deoxynogalonate + O2 <=> H(+) + H2O + nogalonate', 'H2O + hypotaurine + NAD(+) <=> H(+) + NADH + taurine', 'ATP + H2O <=> ADP + H(+) + phosphate','acetyl-CoA + propanoate <=> acetate + propanoyl-CoA', 'L-glutamate <=> D-glutamate','H2O + lactose <=> D-galactose + D-glucose','L-serine <=> 2-aminoprop-2-enoate + H2O')
+react <- cbind.data.frame(pmd = top10,example)
+colnames(react) <- c('PMD','Freq','Example')
+knitr::kable(react,align = 'c',format = 'markdown')
+```
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Metabolites of L-Octanoylcarnitine in NIST 1950
+
+- L-Octanoylcarnitine Metabolites PMD network (187)
+
+- Metabolites screen by 12 KEGG high frequency reaction PMD
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png")
+```
+
+---
+
+## Step 3: screen the environmental metabolites
+
+### Endogenous vs Exogenous
+
+- T3DB Endogenous (255) vs Exogenous (705)
+
+- Use top 20 high frenqency PMDs
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png")
+```
+
+---
+
+## Summary
+
+- Step 1: reduce the numbers of peaks
+
+  - remove reduncdant isotope, adducts, multi-chargers
+
+- Step 2: MS/MS annotation
+
+  - increase the sensitivity of untarget analysis
+
+- Step 3: screen the environmental metabolites
+
+  - use PMD network to screen environmental metabolites
+
+- [pmd package](http://yufree.github.io/pmd/)
+  
+  - functions of GlobalStd algorithm and PMD network analysis
+
+- [rmwf package](https://github.com/yufree/rmwf)
+
+  - reproducible research of this study with data and script
+---
+
+# Thanks 
+
+### ISMMS: Dr. Vladimir Yong-gonzalez and Kelsey Chetnik
+
+### CAS: Dr. Xingwang Hou
+
+### Funding: **NIEHS P30ES23515** and **NIEHS: U2C ES026561**
+
+### miao.yu@mssm.edu 
+
+### @yu_free
+
+```{r echo=FALSE,out.width = "300px",fig.align='right'}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/MSSMlogo.png")
+```
+

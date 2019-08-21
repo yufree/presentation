@@ -1,0 +1,165 @@
+---
+title: "Structure/Reaction Directed Analysis"
+subtitle: "for non-target analysis"
+author: "Miao Yu"
+date: "2018/12/12"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE,echo=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## About Me
+
+- Ph.D. in Environmental Sciences from Chinese Academy of Sciences
+
+- Two years PostDoc training in Analytical Chemistry in University of Waterloo, Canada
+
+- Work with Prof. Lauren Petrick since Sep. 2018
+
+- Maintainter and author of 3 CRAN packages ([rgabriel](https://cran.r-project.org/web/packages/rgabriel/index.html), [enviGCMS](https://cran.r-project.org/web/packages/enviGCMS/index.html), [pmd](https://cran.r-project.org/web/packages/pmd/index.html)) and contributor of [rticles](https://cran.r-project.org/web/packages/rticles/index.html) package
+
+- Research interests
+
+    - environmental process of POPs
+    - *in vivo* SPME
+    - metabolomics data analysis
+    - reproducible research
+  
+---
+
+## Current Workflow for Nontarget Analysis
+
+- Predefined rules between peaks/features and compounds
+
+- Generate pseudo-spectrum
+
+- Search database or *in silico* prediction to identify compounds
+
+- Build the links between compounds by pathway/network analysis
+
+> Features -> Compounds -> Relationship among compounds
+
+- Problems
+
+    - Standards for unknown compounds
+    - Standards coverage
+
+---
+
+## My Idea
+
+> Features -> ~~Compounds~~ -> Relationship among compounds
+
+```{r echo=FALSE, out.width= '70%'}
+knitr::include_graphics('https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg')
+```
+
+From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
+
+???
+- all compounds from metabolomcis study is a snapshot with metabolites and parent compounds
+- We could find the relationship among people without know the name of each person
+- mass spec could measure the distance without known the name of compounds
+
+---
+
+## My Idea
+
+> Features -> ~~Compounds~~ -> Relationship among compounds
+
+- Mass spectrum could directly measure reactions
+
+- Biomarker **reactions**
+
+```{r echo=FALSE, out.width= '100%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
+```
+
+???
+- Annotation is not really necessary for certain scientific problem
+- Relationship among compounds or reaction matters
+
+---
+
+## Results
+
+```{r echo=FALSE, out.width= '70%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/toc.png')
+```
+
+```{r pmdref,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+
+???
+- Data-driven
+
+- Find high freqency paired mass distance relationship between peaks from same compounds
+
+  - reveal unknown adducts/netrual loss
+  - find independant peaks
+
+- Find high freqency paired mass distance relationship between peaks from different compounds
+
+  - reveal unknown reactions
+  - quantitative analysis for reactions
+
+---
+
+## Plan
+
+- Connection with reaction database
+
+- Quantitive analysis method for biomarker reactions
+
+- More **real data**
+
+- MSSM exposome docker [image](https://hub.docker.com/r/yufree/xcmsrocker/) for reproducible research
+
+---
+
+## Prelimitary Results
+
+```{r echo=F}
+pmd <- c(1382,43)
+pmdcluster <- c(1382,52)
+CAMERA <- c(2043,28)
+RAMclust <- c(1149,36)
+profinder <- c(3361,39)
+comp <- cbind.data.frame(pmd,pmdcluster,CAMERA,RAMclust,profinder)
+rownames(comp) <- c('Independant peaks','Target compounds')
+knitr::kable(comp, format = 'html')
+```
+
+- 117 compounds for validation
+- 64 compounds could be found by xcms while 39 could be found by profinder untarget analysis
+- pmd could improve peaks selection
+
+---
+
+## Prelimitary Results
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/diffpca.png')
+```
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
