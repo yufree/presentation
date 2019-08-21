@@ -355,7 +355,7 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
 - Step 1: reduce the numbers of peaks
 
-  - remove redundant isotope, adducts, multi-chargers
+  - remove redundant isotope, adducts, multiply charged ions
 
 - Step 2: MS/MS annotation
 
