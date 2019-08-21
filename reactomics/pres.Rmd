@@ -82,7 +82,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/database.p
 
 - Combination: Gene(25000) < Protein(10K-1B) < Compound(???) 
 
-- Small molecular's **combination** is chemical reaction or paired mass distance
+- Small molecular **combination** is chemical reaction or paired mass distance
 
 ---
 
@@ -100,7 +100,7 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 - **High resolution** mass spectrometry WINs
 
 ???
-- Mass defects could be transfered from atom to paired mass distance
+- Mass defects could be transferred from atom to paired mass distance
 - HRMS could measure PMDs for qualitative analysis
 
 ---
@@ -113,7 +113,7 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 - In source reactions during the MS analysis
 
-  - Reduncdent peaks
+  - Redundant peaks
   - MS/MS analysis
   
 - Biological reactions of compounds in the samples
@@ -247,7 +247,7 @@ knitr::kable(df,align = 'c',format = 'markdown',row.names = T)
 - In one reaction, two compounds will show different response factors
 - To evaluate if one reaction active or not, we need intensity ratio stable
 
-- For example, [A,B], [C,D] and [E,F] are involoved in the same PMD:
+- For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
 
 ```{r}
 GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
@@ -270,7 +270,7 @@ class: inverse, center, middle
 
 # Reactomics Application 
 
-## Independant peaks selection
+## Independent peaks selection
 
 ---
 
@@ -334,7 +334,7 @@ pmd::plotrtg(pmd)
 ---
 ## GlobalStd Algorithm Step 2
 
-### High freqency PMD analysis across RT clusters
+### High frequency PMD analysis across RT clusters
 
 ```{r echo=FALSE,out.width = "450px"}
 pmd::plotpaired(pmd)
@@ -344,7 +344,7 @@ pmd::plotpaired(pmd)
 
 ## GlobalStd Algorithm Step 2
 
-### High freqency PMD analysis across RT clusters - example
+### High frequency PMD analysis across RT clusters - example
 
 - Based on data itself, those adducts/multi-chargers/neutral loss/isotopologues can be unknown
 
@@ -356,7 +356,7 @@ pmd::plotpaired(pmd,index)
 ---
 ## GlobalStd Algorithm Step 3
 
-### Independant peaks selection
+### Independent peaks selection
 
 ```{r echo=FALSE,out.width = "430px"}
 std <- pmd::getstd(pmd)
@@ -366,7 +366,7 @@ pmd::plotstd(std)
 ---
 ## GlobalStd Algorithm Step 3
 
-### Independant peaks selection - example
+### Independent peaks selection - example
 
 ```{r echo=FALSE,out.width = "450px"}
 par(mfrow = c(2,3))
@@ -384,14 +384,14 @@ pmd::plotstdrt(std,rtcluster = 8,main = 'Retention time group 8')
 ### Why redundant?
 
 - ~14.3% peaks can capture similar variances of all peaks
-- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independant peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
 
 ```{r echo=FALSE,out.width = "350px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/software.png')
 ```
 
 ???
-- Similiar to isotope labeled results (5% peaks)
+- Similar to isotope labeled results (5% peaks)
 - Untarget analysis does not mean big data
 
 ---
@@ -404,7 +404,7 @@ CAMERA <- c(1297,15)
 RAMclust <- c(461,12)
 profinder <- c(6628,7)
 comp <- rbind.data.frame(pmd,CAMERA,RAMclust,profinder)
-colnames(comp) <- c('Independant peaks','Target compounds found')
+colnames(comp) <- c('Independent peaks','Target compounds found')
 rownames(comp) <- c('pmd','CAMERA','RAMclust','profinder')
 knitr::kable(comp, format = 'html')
 ```
@@ -421,9 +421,9 @@ knitr::kable(comp, format = 'html')
 
 - Targeted analysis could capture peaks with low intensity
 
-- Untergeted analysis would loss sensitivity to captuer all peaks 
+- Detargeted analysis would loss sensitivity to capture all peaks 
 
-- Send unknown while independant peaks for MS/MS
+- Send unknown while independent peaks for MS/MS
 
 ```{r echo=FALSE,out.width = "300px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
@@ -458,7 +458,7 @@ class: inverse, center, middle
 
 ## Metabolites of targeted compound
 
-  - Environmental pollutions metabolites
+  - Environmental pollution metabolites
   - Drug metabolites
 
 ### Xenobiotic metabolism
@@ -524,7 +524,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - Select a mixture of compounds
 
-- Use high frenqency PMDs
+- Use high frequency PMDs
 
 ```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db.png")
@@ -574,7 +574,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpppmd.
 
 - Direct links to enzyme, regardless of which substitutes
 
-  - PMD 56.026: Coenzyme A related reaction +C3H4O
+  - PMD 56.026: Co enzyme A related reaction +C3H4O
   - PMD 13.979: Oxygen oxidoreductase +O2/-H2O
   - PMD 16.031: Oxygen oxidoreductase (methyl cleaving) +CH4
   - PMD 32.026: incomplete or spontaneous reaction +CH4O

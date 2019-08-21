@@ -67,7 +67,7 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 - **High resolution** mass spectrometry WINs (exact mass -> mass to charge ratio)
 
 ???
-- Mass defects could be transfered from atom to paired mass distance
+- Mass defects could be transferred from atom to paired mass distance
 - HRMS could measure PMDs for qualitative analysis
 
 ---
@@ -141,7 +141,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Step 1: reduce the numbers of peaks
 
-### Independant peaks selection - example
+### Independent peaks selection - example
 
 ```{r echo=FALSE,out.width = "100%",fig.asp=0.5,fig.retina = 3}
 library(rmwf)
@@ -170,10 +170,10 @@ pmd::plotstdrt(std,rtcluster = 8,main = 'Retention time group 8')
 
 ## Step 1: reduce the numbers of peaks
 
-### Independant peaks selection - Why redundant?
+### Independent peaks selection - Why redundant?
 
 - ~14.3% peaks can capture similar variances of all peaks
-- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independant peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
 
 ```{r out.width = "70%"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/software.png')
@@ -343,7 +343,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/g
 
 - T3DB Endogenous (255) vs Exogenous (705)
 
-- Use top 20 high frenqency PMDs
+- Use top 20 high frequency PMDs
 
 ```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png")
@@ -355,7 +355,7 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
 - Step 1: reduce the numbers of peaks
 
-  - remove reduncdant isotope, adducts, multi-chargers
+  - remove redundant isotope, adducts, multi-chargers
 
 - Step 2: MS/MS annotation
 
