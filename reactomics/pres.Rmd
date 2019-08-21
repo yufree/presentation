@@ -2,7 +2,7 @@
 title: "Reactomics and Paired Mass Distance Analysis"
 subtitle: ""
 author: "Miao Yu"
-date: "`r Sys.Date()`"
+date: "2018/11/11 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
     css: ["default", "my-theme.css", "middlebury"]
@@ -127,6 +127,37 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 ## Quantitative and Qualitative analysis for Reaction
 
+### Reaction PMD
+
+- Reaction: $P_1 + P_2 + … + P_n = C_1 + C_2 + … + C_m \ (n>=1,m>=1)$
+
+- PMD matrix
+
+```{r render= 'asis'}
+C1 <- c('\\(|P_1 - C_1|\\)','\\(|P_2 - C_1|\\)','...','\\(|P_n - C_1|\\)')
+C2 <- c('\\(|P_1 - C_2|\\)','\\(|P_2 - C_2|\\)','...','\\(|P_n - C_2|\\)')
+C3 <- c('...','...','...','...')
+Cm <- c('\\(|P_1 - C_m|\\)','\\(|P_2 - C_m|\\)','...','\\(|P_n - C_m|\\)')
+
+tb <- rbind.data.frame(C1,C2,C3,Cm)
+colnames(tb) <- c('\\(P_1\\)','\\(P_2\\)','...','\\(P_n\\)')
+rownames(tb) <- c('\\(C_1\\)','\\(C_2\\)','...','\\(C_m\\)')
+tb <- knitr::kable(tb, align="c",format = 'html',row.names = T,escape = F)
+tb <- gsub("`", "", tb) 
+tb
+```
+
+- Paired mass distances for certain parent compound:
+
+$$PMD_{P_{k}} = min(|P_k-C_1|,|P_k-C_2|,...,|P_k-C_m|) (1 \le k \le n )$$
+- Paired mass distances for certain reaction:
+
+$$PMD_R = \{PMD_{P_{1}}, PMD_{P_{2}},...,PMD_{P_{n}}\}$$
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
 ### KEGG reaction database
 
 ```{r}
@@ -158,6 +189,54 @@ knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
 
 ???
 - We need quantitative mass ready database for PMD annotation
+
+---
+## Quantitative and Qualitative analysis for Reaction
+
+### HMDB compounds database
+
+```{r}
+pmdraw <- c(12.0000,28.03130,24.00000,15.99491,14.01565,30.01056,16.03130,27.99491,56.06260,44.02621)
+frequency <- c(3127,3110,3005,2988,2655,2492,2463,2401,2373,2370)
+pmd3 <- c(14.016,2.016,28.031,26.016,15.995,56.063,12.000,42.047,30.011,24.000)
+frequency3 <- c(4884,4842,4817,4159,4156,3809,3803,3727,3642,3635)
+pmd2 <- c(14.02,2.02,28.03,15.99,26.02,12.00,24.00,27.99,4.03,30.01)
+frequency2 <- c(7901,7846,7682,7615,7204,7036,6857,6701,6696,6654)
+pmd1 <- c(16.0,30.0,18.0,28.0,2.0,14.0,4.0,6.0,42.0,12.0)
+frequency1 <- c(50486,50404,49994,49942,49640,49611,49449,49371,49006,48549)
+pmd0 <- c(14,2,16,4,12,28,10,18,6,8)
+frequency0 <- c(153601,153592,153200,152873,152708,152665,152371,151856,151787,151709)
+
+head <- c('PMD(raw)','frequency','PMD(digits = 3)','frequency','PMD(digits = 2)','frequency','PMD(digits = 2)','frequency','PMD(unit)','frequency')
+  
+massa <- cbind.data.frame(as.character(pmdraw),frequency,as.character(pmd3),frequency3,as.character(pmd2),frequency2,as.character(pmd1),frequency1,as.character(pmd0),frequency0)
+colnames(massa) <- head
+knitr::kable(massa,align = 'c',format = 'markdown',col.names = NA)
+```
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### HMDB compounds database
+
+```{r}
+c2h <- c(0.9754,0.6030,0.0960,0.0310)
+h2 <- c(0.9707,0.5990,0.0947,0.0306)
+c2h4 <- c(0.9786,0.6136,0.0944,0.0309)
+c2h2 <- c(0.9776,0.5644,0.0852,0.0268)
+o <- c(0.9805,0.5351,0.0807,0.0266)
+c4h8 <- c(0.9656,0.5569,0.1025,0.0246)
+c <- c(0.9832,0.5314,0.0770,0.0245)
+c3h6 <- c(0.9737, 0.5619,0.0740,0.0240)
+ch2o <- c(0.9440,0.5167,0.0682,0.0227)
+c2 <- c(0.9807, 0.5199,0.0754,0.0235)
+df <- rbind.data.frame(c2h,h2,c2h4,c2h2,o,c4h8,c,c3h6,ch2o,c2)
+rownames(df) <- c('+C2H','+2H','+2C4H','+2C2H','+O','+4C8H','+C','+3C6H','+C2HO','+2C')
+colnames(df) <- c('PMD(digits = 3)','PMD(digits = 2)','PMD(digits = 1)','PMD(unit)')
+
+knitr::kable(df,align = 'c',format = 'markdown',row.names = T)
+```
 
 ---
 
@@ -236,8 +315,20 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ### Retention time cluster analysis
 
-```{r echo=FALSE}
-knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png')
+```{r echo=FALSE,out.width = "450px"}
+library(rmwf)
+data(mzrt)
+mzrtm <- enviGCMS::getdoe(mzrt)
+gm <- mzrtm$groupmean
+gr <- mzrtm$grouprsd
+# filter data
+srm <- grepl('NIST',colnames(gm))
+blk <- grepl('Matrix',colnames(gm))
+indexmean <- apply(gm,1,function(x) all(x[srm]>= 3*x[blk]))
+mzrtfilter <- enviGCMS::getfilter(mzrt,rowindex = indexmean)
+mzrtnist <- enviGCMS::getfilter(mzrt,rowindex = indexmean,colindex = grepl('NIST',colnames(mzrt$data)))
+pmd <- pmd::getpaired(mzrt)
+pmd::plotrtg(pmd)
 ```
 
 ---
@@ -245,8 +336,8 @@ knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/f
 
 ### High freqency PMD analysis across RT clusters
 
-```{r echo=FALSE}
-knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png')
+```{r echo=FALSE,out.width = "450px"}
+pmd::plotpaired(pmd)
 ```
 
 ---
@@ -257,8 +348,9 @@ knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/f
 
 - Based on data itself, those adducts/multi-chargers/neutral loss/isotopologues can be unknown
 
-```{r echo=FALSE,out.width = "500px"}
-knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png')
+```{r echo=FALSE,out.width = "300px"}
+index <- pmd$paired$diff2 == 21.98
+pmd::plotpaired(pmd,index)
 ```
 
 ---
@@ -266,8 +358,9 @@ knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/f
 
 ### Independant peaks selection
 
-```{r echo=FALSE}
-knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdplot-1.png')
+```{r echo=FALSE,out.width = "430px"}
+std <- pmd::getstd(pmd)
+pmd::plotstd(std)
 ```
 
 ---
@@ -275,8 +368,14 @@ knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/f
 
 ### Independant peaks selection - example
 
-```{r echo=FALSE,out.width = "600px"}
-knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png')
+```{r echo=FALSE,out.width = "450px"}
+par(mfrow = c(2,3))
+pmd::plotstdrt(std,rtcluster = 46,main = 'Retention time group 46')
+pmd::plotstdrt(std,rtcluster = 31,main = 'Retention time group 31')
+pmd::plotstdrt(std,rtcluster = 40,main = 'Retention time group 40')
+pmd::plotstdrt(std,rtcluster = 100,main = 'Retention time group 100')
+pmd::plotstdrt(std,rtcluster = 49,main = 'Retention time group 49')
+pmd::plotstdrt(std,rtcluster = 8,main = 'Retention time group 8')
 ```
 
 ---
@@ -284,15 +383,52 @@ knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/f
 
 ### Why redundant?
 
-- ~20% peaks can capture similar variances of all peaks
+- ~14.3% peaks can capture similar variances of all peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independant peaks
 
-```{r echo=FALSE,out.width = "600px"}
-knitr::include_graphics('https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pca-1.png')
+```{r echo=FALSE,out.width = "350px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/software.png')
 ```
 
 ???
 - Similiar to isotope labeled results (5% peaks)
 - Untarget analysis does not mean big data
+
+---
+
+# Targeted compounds validation
+
+```{r echo=F}
+pmd <- c(985,18)
+CAMERA <- c(1297,15)
+RAMclust <- c(461,12)
+profinder <- c(6628,7)
+comp <- rbind.data.frame(pmd,CAMERA,RAMclust,profinder)
+colnames(comp) <- c('Independant peaks','Target compounds found')
+rownames(comp) <- c('pmd','CAMERA','RAMclust','profinder')
+knitr::kable(comp, format = 'html')
+```
+
+- 103 compounds for validation
+- 36 compounds could be found by xcms 6885 features
+- 7 could be found by profinder untarget analysis 6628 features
+
+---
+
+## Untargeted MS/MS analysis - PMDDA(unpublished)
+
+### Sensitivity matters
+
+- Targeted analysis could capture peaks with low intensity
+
+- Untergeted analysis would loss sensitivity to captuer all peaks 
+
+- Send unknown while independant peaks for MS/MS
+
+```{r echo=FALSE,out.width = "300px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
+```
+
 
 ---
 ## Untargeted MS/MS analysis - PMDDA(unpublished)
@@ -309,6 +445,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.p
 ???
 - GNPS MS/MS annotation
 - 235:59:114 PMDDS:overlap:DDA
+
 
 ---
 class: inverse, center, middle
@@ -345,10 +482,10 @@ class: inverse, center, middle
 
 - Mass defect analysis to screen Brominated Compounds 
 
-- Paired mass distance analysis to screen metabolites (+Br/-H)
+- Confirmation by  synthesized standards
 
-```{r echo=FALSE,out.width = "400px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/brscreen.png')
+```{r echo=FALSE,out.width = "600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
 ```
 
 .half[
@@ -362,10 +499,12 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Metabolites of TBBPA in Pumpkin
 
-- Confirmation by  synthesized standards
+- Re-check by PMD analysis
 
-```{r echo=FALSE}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
+- Metabolites network
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
 ```
 
 
@@ -375,6 +514,21 @@ doi <- c('10.1021/acs.est.9b02122')
 cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 ```
 ]
+
+---
+
+
+## Endogenous vs Exogenous
+
+- T3DB Endogenous (255) vs Exogenous (3422)
+
+- Select a mixture of compounds
+
+- Use high frenqency PMDs
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db.png")
+```
 
 ---
 
@@ -399,6 +553,7 @@ class: inverse, center, middle
 knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpnpmd.png')
 ```
 ]
+
 ---
 ## Gender difference(unpublished)
 
@@ -513,7 +668,6 @@ class: inverse, center, middle
 knitr::knit_exit() 
 ```
 
-
 ---
 
 ## Plan
@@ -523,4 +677,12 @@ knitr::knit_exit()
 ### Paired mass distance mass spectrometry
 
 ### Paired mass distance based omics, cross validation
+
+
+```{r}
+t <- x %>%
+   group_by(rt) %>%
+    filter(abs(cor)>0.99 & diff2<10) %>%
+    ungroup()
+```
 
