@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+.Ruserdata
 presentation.Rproj
 .DS_Store
 .gitignore
