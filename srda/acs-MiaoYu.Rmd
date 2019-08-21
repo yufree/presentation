@@ -1,7 +1,7 @@
 ---
 title: "Structure/reaction directed analysis for environmental metabolites"
 subtitle: "ACS Fall 2019 National Meeting & Expo, San Diego, CA"
-author: "Miao Yu, Georgia Dolios, Lauren Patrick"
+author: "Miao Yu, Georgia Dolios, Lauren Petrick"
 date: "2019-08-27"
 output:
   xaringan::moon_reader:
