@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 
 # Reactomics and Paired Mass Distance Analysis
 ### Miao Yu
-### 2018/11/11 (updated: 2019-08-21)
+### 2018/11/11 (updated: 2019-08-22)
 
 ---
 
@@ -104,20 +104,20 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 
 ## Sources of PMDs in the real data
 
-- Reaction during sample preparation
-
-  - Method evaluation
-
-- In source reactions during the MS analysis
-
-  - Redundant peaks
-  - MS/MS analysis
+- Isotopologues 
   
-- Biological reactions of compounds in the samples
+  - `\([M]^+\)` `\([M+1]^+\)`
+  - 1.006 Da
 
-  - Biomarker reaction
-  - Metabolites of certain compounds
-  - Reaction network
+- in source reaction 
+
+  - `\([M+H]^+\)`  `\([M+Na]^+\)`
+  - 21.982 Da
+
+- **Xenobiotic metabolism**
+
+  - Phase I hydrolation
+  - 15.995 Da
 
 ---
 
@@ -656,8 +656,6 @@ class: inverse, center, middle
 
 ## Software
 
-&gt; When the papers get published, all of the scripts will be online
-
 ### [enviGCMS package](http://yufree.github.io/enviGCMS/)
   
   - Target analysis
@@ -668,6 +666,11 @@ class: inverse, center, middle
   - Untargeted analysis
   - GlobalStd algorithm
   - Reactomics analysis
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Script
 
 ---
 

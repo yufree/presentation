@@ -126,8 +126,8 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ### GlobalStd Algorithm
 
-```{r echo=FALSE,out.width = "650px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd2.png')
 ```
 
 .half[
@@ -220,7 +220,7 @@ enviGCMS::plotpca(t(rcp$SpecAbund),lv = c(rep('M',6),1:5), main = 'RAMclust peak
 
 - Perform MS/MS analysis for selected peaks
 
-```{r echo=FALSE,out.width = "300px"}
+```{r echo=FALSE,out.width = "420px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
 ```
 
@@ -372,19 +372,24 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 - [rmwf package](https://github.com/yufree/rmwf)
 
   - reproducible research of this study with data and script
+
 ---
 
 # Thanks 
 
-### ISMMS: Dr. Vladimir Yong-gonzalez and Kelsey Chetnik
+#### ISMMS: Lautenberg Laboratory Dr. Petrick’s Lab 
 
-### CAS: Dr. Xingwang Hou
+- Georgia Dolios
+- Dr. Vladimir Yong- Gonzalez
+- Kelsey Chetnik
 
-### NIEHS: **P30ES23515** and **U2C ES026561**
+#### CAS: Dr. Xingwang Hou
 
-### miao.yu@mssm.edu 
+#### NIEHS: **P30ES23515** and **U2C ES026561**
 
-### @yu_free
+#### miao.yu@mssm.edu 
+
+#### @yu_free
 
 ```{r echo=FALSE,out.width = "300px",fig.align='right'}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/MSSMlogo.png")
