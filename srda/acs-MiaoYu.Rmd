@@ -124,8 +124,6 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Step 1: reduce the numbers of peaks
 
-### GlobalStd Algorithm
-
 ```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd2.png')
 ```
@@ -218,9 +216,7 @@ enviGCMS::plotpca(t(rcp$SpecAbund),lv = c(rep('M',6),1:5), main = 'RAMclust peak
 
 - Untargeted analysis would loss sensitivity to capture all peaks 
 
-- Perform MS/MS analysis for selected peaks
-
-```{r echo=FALSE,out.width = "420px"}
+```{r echo=FALSE,out.width = "450px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
 ```
 
@@ -249,7 +245,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.p
 
 ### Untargeted MS/MS analysis - PMDDA(unpublished)
 
-```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+```{r echo=FALSE,out.width = "81%",fig.retina = 3}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
 ```
 
@@ -265,7 +261,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.p
     - Reduction
     - Hydrolysis
   
-  - Phase II (CH2,SO4,COCH2,C6H9O7, C10H16N3O6S)
+  - Phase II (C2H,4OS,2C2HO,6C9H7O, 10C16H3N6OS)
     - Methylation
     - Sulphation
     - Acetylation
