@@ -24,13 +24,13 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 - Compounds identification from peaks/features
 
-- Build the links between compounds by pathway/network analysis
+- Find the relationship among compounds
 
 ### Problem
 
 - Time consuming - too many peaks
 
-- Sensitivity - DDA or MS/MS
+- Annotation - DDA or MS/MS
 
 - Environmental metabolites - where and how
 
@@ -38,11 +38,17 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ## Idea
 
-### Step 1: reduce the numbers of peaks
+### Time consuming
 
-### Step 2: MS/MS annotation
+- Step 1: reduce the numbers of peaks
 
-### Step 3: screen the environmental metabolites
+### Annotation
+
+- Step 2: untargeted MS/MS annotation
+
+### Environmental metabolites
+
+- Step 3: screen the environmental metabolites
 
 ### Method: paired mass distance(PMD) analysis
 
@@ -208,23 +214,9 @@ enviGCMS::plotpca(t(rcp$SpecAbund),lv = c(rep('M',6),1:5), main = 'RAMclust peak
 
 ---
 
-## Step 2: MS/MS annotation
+## Step 2: untargeted MS/MS annotation
 
-### Sensitivity matters
-
-- Target screen analysis could capture peaks with low intensity
-
-- Untargeted analysis would loss sensitivity to capture all peaks 
-
-```{r echo=FALSE,out.width = "450px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
-```
-
----
-
-## Step 2: MS/MS annotation
-
-### Untargeted MS/MS analysis - PMDDA(unpublished)
+### Untargeted MS/MS analysis - PMDDA
 
 - Only use GlobalStd peaks for MS/MS analysis
     - Multiple injections
@@ -241,9 +233,9 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.p
 
 ---
 
-## Step 2: MS/MS annotation
+## Step 2: untargeted MS/MS annotation
 
-### Untargeted MS/MS analysis - PMDDA(unpublished)
+### Untargeted MS/MS analysis - PMDDA
 
 ```{r echo=FALSE,out.width = "81%",fig.retina = 3}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
@@ -273,7 +265,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.p
 
 ## Step 3: screen the environmental metabolites
 
-### Xenobiotic metabolism
+### Metabolites of TBBPA in Pumpkin
 
 - Mass defect analysis to screen Brominated Compounds 
 
@@ -353,13 +345,13 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
   - remove redundant isotope, adducts, multiply charged ions
 
-- Step 2: MS/MS annotation
+- Step 2: untargeted MS/MS annotation
 
-  - increase the sensitivity of untargeted analysis
+  - multiple injections of GlobleStd peaks
 
 - Step 3: screen the environmental metabolites
 
-  - use PMD network to screen environmental metabolites
+  - PMD network 
 
 - [pmd package](http://yufree.github.io/pmd/)
   

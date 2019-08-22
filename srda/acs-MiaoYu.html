@@ -29,13 +29,13 @@ class: center, middle, inverse, title-slide
 
 - Compounds identification from peaks/features
 
-- Build the links between compounds by pathway/network analysis
+- Find the relationship among compounds
 
 ### Problem
 
 - Time consuming - too many peaks
 
-- Sensitivity - DDA or MS/MS
+- Annotation - DDA or MS/MS
 
 - Environmental metabolites - where and how
 
@@ -43,11 +43,17 @@ class: center, middle, inverse, title-slide
 
 ## Idea
 
-### Step 1: reduce the numbers of peaks
+### Time consuming
 
-### Step 2: MS/MS annotation
+- Step 1: reduce the numbers of peaks
 
-### Step 3: screen the environmental metabolites
+### Annotation
+
+- Step 2: untargeted MS/MS annotation
+
+### Environmental metabolites
+
+- Step 3: screen the environmental metabolites
 
 ### Method: paired mass distance(PMD) analysis
 
@@ -151,21 +157,9 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ---
 
-## Step 2: MS/MS annotation
+## Step 2: untargeted MS/MS annotation
 
-### Sensitivity matters
-
-- Target screen analysis could capture peaks with low intensity
-
-- Untargeted analysis would loss sensitivity to capture all peaks 
-
-&lt;img src="https://yufree.github.io/presentation/figure/missxcms.png" width="450px" style="display: block; margin: auto;" /&gt;
-
----
-
-## Step 2: MS/MS annotation
-
-### Untargeted MS/MS analysis - PMDDA(unpublished)
+### Untargeted MS/MS analysis - PMDDA
 
 - Only use GlobalStd peaks for MS/MS analysis
     - Multiple injections
@@ -182,9 +176,9 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ---
 
-## Step 2: MS/MS annotation
+## Step 2: untargeted MS/MS annotation
 
-### Untargeted MS/MS analysis - PMDDA(unpublished)
+### Untargeted MS/MS analysis - PMDDA
 
 &lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" width="81%" style="display: block; margin: auto;" /&gt;
 
@@ -212,7 +206,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Step 3: screen the environmental metabolites
 
-### Xenobiotic metabolism
+### Metabolites of TBBPA in Pumpkin
 
 - Mass defect analysis to screen Brominated Compounds 
 
@@ -286,13 +280,13 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
   - remove redundant isotope, adducts, multiply charged ions
 
-- Step 2: MS/MS annotation
+- Step 2: untargeted MS/MS annotation
 
-  - increase the sensitivity of untargeted analysis
+  - multiple injections of GlobleStd peaks
 
 - Step 3: screen the environmental metabolites
 
-  - use PMD network to screen environmental metabolites
+  - PMD network 
 
 - [pmd package](http://yufree.github.io/pmd/)
   
