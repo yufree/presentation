@@ -117,6 +117,11 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
   - $[M+H]^+$  $[M+Na]^+$
   - 21.982 Da
 
+- Homologous series
+
+  - Lipid
+  - 14.016 Da
+
 - **Xenobiotic metabolism**
 
   - Phase I hydrolation

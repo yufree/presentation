@@ -38,21 +38,21 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ## Idea
 
-### Time consuming
+#### Time consuming
 
 - Step 1: reduce the numbers of peaks
 
-### Annotation
+#### Annotation
 
 - Step 2: untargeted MS/MS annotation
 
-### Environmental metabolites
+#### Environmental metabolites
 
 - Step 3: screen the environmental metabolites
 
-### Method: paired mass distance(PMD) analysis
+#### Method: paired mass distance(PMD) analysis
 
-### Sample: Standard Reference Material for Human Plasma (NIST 1950)
+#### Sample: Standard Reference Material for Human Plasma (NIST 1950)
 
 ---
 
@@ -68,7 +68,7 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 - Atoms -> Compounds -> Mass distances between compounds
 
-- **Paired Mass Distances(PMD)** is unique for element composition
+- **Paired Mass Distances(PMD)** is unique for element composition, which is associated with structures/reactions
 
 - **High resolution** mass spectrometry WINs (exact mass -> mass to charge ratio)
 
@@ -91,6 +91,11 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
   - $[M+H]^+$  $[M+Na]^+$
   - 21.982 Da
+
+- Homologous series
+
+  - Lipid
+  - 14.016 Da
 
 - **Xenobiotic metabolism**
 
