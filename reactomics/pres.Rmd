@@ -430,7 +430,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.p
 
 
 ---
-## Untargeted MS/MS analysis - PMDDA(unpublished)
+## Untargeted MS/MS analysis - PMDDA
 
 - Only use GlobalStd peaks for MS/MS analysis
     - Multiple injections
@@ -447,7 +447,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.p
 
 ---
 
-## Untargeted MS/MS analysis - PMDDA(unpublished)
+## Untargeted MS/MS analysis - PMDDA
 
 ```{r echo=FALSE,out.width = "87%",fig.retina = 3}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
@@ -561,6 +561,38 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
 ---
 
+## HMDB PMDs Analysis
+
+- Most of the PMDs are random generated
+
+  - Top 100 PMDs cover 85.57% formulas
+
+- Any formula would be involved 8760-10151 PMDs
+
+  - 373 formulas involve in all top 100 PMDs
+
+```{r echo=FALSE,out.width="500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdcoverage.png')
+```
+
+---
+
+## Reaction Network
+
+- Few compounds and few PMDs dominated HMDB metabolits
+
+- They are connected by reaction network
+
+- Top 100 PMDs network
+
+- Scale-free network ???
+
+```{r echo=FALSE,out.width="600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/top100.png')
+```
+
+---
+
 class: inverse, center, middle
 
 # Reactomics Application 
@@ -626,58 +658,6 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpppmd.
 
 ```{r echo=FALSE,out.width="600px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
-```
-
----
-
-class: inverse, center, middle
-
-# Reactomics Application 
-
-## Reaction Network Analysis
-
----
-
-## HMDB PMDs Analysis(unpublished)
-
-- Most of the PMDs are random generated
-
-  - Top 100 PMDs cover 85.57% formulas
-
-- Any formula would be involved 8760-10151 PMDs
-
-  - 373 formulas involve in all top 100 PMDs
-
-```{r echo=FALSE,out.width="500px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdcoverage.png')
-```
-
----
-
-## Reaction Network (unpublished)
-
-- Few compounds and few PMDs dominated HMDB metabolits
-
-- They are connected by reaction network
-
-- Top 100 PMDs network
-
-- Scale-free network ???
-
-```{r echo=FALSE,out.width="600px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/top100.png')
-```
-
----
-
-## Real Reaction Network (unpublished)
-
-- NIST 1950 SRM
-
-- PMD network module detection by correlation
-
-```{r echo=FALSE,out.width="700px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/network.png')
 ```
 
 ---
