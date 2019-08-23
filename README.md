@@ -1,6 +1,6 @@
 # Presentation
 
-- Miao Yu, 2019, Structure/reaction directed analysis for environmental metabolites, ACS Fall 2019 National Meeting & Expo, San Diego, CA ([slides](http://yufree.github.io/presentation/srda/acs-MiaoYu.html))
+- Miao Yu, 2019, Structure/reaction directed analysis for environmental metabolites, ACS Fall 2019 National Meeting & Expo, San Diego, CA, USA ([slides](http://yufree.github.io/presentation/srda/acs-MiaoYu.html))
 
 - Miao Yu, 2018, Online batch correction and interactive data visualization for GC/LC-MS data, Pittcon 2018, Orlando, FL, USA. ([slides](https://docs.google.com/presentation/d/11nEtnaYR5KGE2uufv5sgw0Qw70G7ZAYd7AnCdMUKZa4/edit?usp=sharing))
 
