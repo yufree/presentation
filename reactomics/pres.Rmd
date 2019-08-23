@@ -107,7 +107,9 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 ## Sources of PMDs in the real data
 
-- Isotopologues 
+### Where is PMD?
+
+.pull-left[- Isotopologues 
   
   - $[M]^+$ $[M+1]^+$
   - 1.006 Da
@@ -116,16 +118,19 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
   - $[M+H]^+$  $[M+Na]^+$
   - 21.982 Da
+]
 
+.pull-right[
 - Homologous series
 
-  - Lipid
+  - Lipid $-[CH_2]-$
   - 14.016 Da
 
-- **Xenobiotic metabolism**
+- Xenobiotic metabolism
 
   - Phase I hydrolation
   - 15.995 Da
+]  
 
 ---
 
@@ -477,18 +482,16 @@ class: inverse, center, middle
 
 ### Xenobiotic metabolism
 
-  - Phase I (O,S,NH)
-    - Oxidation
-    - Reduction
-    - Hydrolysis
-  
-  - Phase II (CH2,SO4,COCH2,C6H9O7, C10H16N3O6S)
-    - Methylation
-    - Sulphation
-    - Acetylation
-    - Glucuronidation
-    - Glutathione conjugation
-    - Glycine conjugation
+  - Phase I
+    - Oxidation (R-H ⇒ R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O ⇒ R-C-OH, pmd 2.016 Da)
+    
+  - Phase II
+    - Methylation (R-OH ⇒ R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH ⇒ R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH ⇒ R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 ⇒ R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH ⇒ R-O-C6H11O5, pmd 162.053 Da)
 
 ---
 
