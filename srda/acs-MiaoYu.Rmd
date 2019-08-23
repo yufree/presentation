@@ -82,7 +82,7 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 ### Where is PMD?
 
-- Isotopologues 
+.pull-left[- Isotopologues 
   
   - $[M]^+$ $[M+1]^+$
   - 1.006 Da
@@ -91,17 +91,19 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
   - $[M+H]^+$  $[M+Na]^+$
   - 21.982 Da
+]
 
+.pull-right[
 - Homologous series
 
-  - Lipid
+  - Lipid $-[CH_2]-$
   - 14.016 Da
 
-- **Xenobiotic metabolism**
+- Xenobiotic metabolism
 
   - Phase I hydrolation
   - 15.995 Da
-  
+]  
 ---
 
 ## Step 1: reduce the numbers of peaks
