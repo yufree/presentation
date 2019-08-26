@@ -37,7 +37,15 @@ class: center, middle, inverse, title-slide
 
 - Annotation - DDA or MS/MS
 
-- Environmental metabolites - where and how
+- Environmental metabolites - how
+
+???
+
+Explain environmental metabolites: find compounds + find their metabolites in environmental samples. Compounds could be endogenous or exogenous.
+
+P1: Too many peaks to check
+P2: Untargeted annotation is complex for DDA or DIA, sensitivity and data analysis issue
+P3: how to define metabolites
 
 ---
 
@@ -53,11 +61,18 @@ class: center, middle, inverse, title-slide
 
 #### Environmental metabolites
 
-- Step 3: screen the environmental metabolites
+- Step 3: co-occurrence analysis
 
 #### Method: paired mass distance(PMD) analysis
 
 #### Sample: Standard Reference Material for Human Plasma (NIST 1950)
+
+???
+S1: reduce numbers while keep the same information
+S2: untargeted molecular ions search for MS/MS
+S3: parent compounds and metabolites should co-occurence and fit some rules
+Paired mass distance could link those three steps.
+Sample is SRM 1950 and good for method validation/reproducible research
 
 ---
 
@@ -81,16 +96,23 @@ $$PMD = exact\ mass \ 1 - exact\ mass \ 2 $$
 - Mass defects could be transferred from atom to paired mass distance
 - HRMS could measure PMDs for qualitative analysis
 
+???
+
+PMD orgin from tiny mass defect during the atom generation. Such tiny while identical changes can pass from atom to paired mass distances.
+PMD could be descripted by element composition
+HRMS could measure PMD via mass to charge ratios
+
 ---
 
 ## Idea - PMD analysis
 
 ### Where is PMD?
 
-.pull-left[- Isotopologues 
+.pull-left[
+- Isotopologues 
   
   - `\([M]^+\)` `\([M+1]^+\)`
-  - 1.006 Da
+  - 1.003 Da
 
 - in source reaction 
 
@@ -109,6 +131,11 @@ $$PMD = exact\ mass \ 1 - exact\ mass \ 2 $$
   - Phase I hydrolation
   - 15.995 Da
 ]  
+
+???
+
+Left part is the PMD from same compound. Right part is the PMD from different compounds. For S1 and S2, we need to find the left PMDs. For S3, we need right PMDs
+
 ---
 
 ## Step 1: reduce the numbers of peaks
@@ -116,6 +143,9 @@ $$PMD = exact\ mass \ 1 - exact\ mass \ 2 $$
 ### Gap between features and compounds
 
 &lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+
+???
+One compound can generate isotopologues, adducts, neutral loss, multiply charged ion and fragment ions. However, we could also find noise and co-eluted compounds. Meanwhile, we might find even more complex ions such as multiply charged fragment ions Before we discuss details of find molecular ions, let's check how many real compounds in peaks profiles.
 
 ---
 
@@ -130,6 +160,8 @@ $$PMD = exact\ mass \ 1 - exact\ mass \ 2 $$
 Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. doi:10.1021/acs.analchem.7b02380
 ]
 
+???
+5%
 
 ---
 
@@ -141,6 +173,12 @@ Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolo
 Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
 ]
 
+???
+GlobalStd is trying to find one peak for each compound.
+S1: retention time cluster as CAMERA package
+S2: pmd frequency analysis to find potential isotopologues, adducts, neutral loss, multiply charged ion and fragment ions.
+S3: try to find molecular ions or ions reflect PMD between compounds(independant peaks)
+
 ---
 
 ## Step 1: reduce the numbers of peaks
@@ -148,6 +186,17 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 ### Independent peaks selection - example
 
 &lt;img src="acs-MiaoYu_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+example of independent peaks selection:
+G1: single peak
+G2: no isotop, no adducts
+G3: isotops only
+G4: adducts only
+G5: combination
+G6: co-elute groups
+
+isotopologues, adducts, neutral loss, multiply charged ion and fragment ions are found by data instead of predefined lists
 
 ---
 
@@ -162,6 +211,11 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 
 
+???
+compare with CAMERA and RAMclust package
+
+PCA reveal 985 peaks could retain variances of 6885 peaks. Compared with CAMERA, GlobalStd show less peaks and simliar PC  variance explained. Compared with RAMclust, GlobalStd didn't change sample information
+
 ---
 
 ## Step 2: untargeted MS/MS annotation
@@ -169,7 +223,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 ### Untargeted MS/MS analysis - PMDDA
 
 - Only use GlobalStd peaks for MS/MS analysis
-    - Multiple injections
+    - Multiple injections(15)
 
 - MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
 
@@ -178,8 +232,10 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
     - Less contaminant ions
 
 ???
+- Multiple injections to increase the sensitivity
 - GNPS MS/MS annotation
 - 235:59:114 PMDDS:overlap:DDA
+- contaminant ions in DDA
 
 ---
 
@@ -189,10 +245,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 &lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" width="81%" style="display: block; margin: auto;" /&gt;
 
+???
+contaminant ions issue in DDA
+constant while repeated contaminant ions might from sample matrix, which is hard to remove by excluded analysis. Such peaks will not generated high freqency PMD and could be avoided by PMDDA. However, MS2 show that such contaminant ions is still hard to be avoided.
+Anyway, combination of PMDDA and DDA will give you more compounds names, which could be used to search metabolites.
 
 ---
 
-## Step 3: screen the environmental metabolites
+## Step 3: co-occurrence analysis
 
 ### Xenobiotic metabolism
 
@@ -207,9 +267,12 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
     - Glucuronidation (R-NH2 ⇒ R-NH-C6H9O7, pmd 192.027 Da)
     - Glycosylation (R-OH ⇒ R-O-C6H11O5, pmd 162.053 Da)
 
+???
+Xenobiotic metabolism is commen for environmental exogenous compounds. Here I listed their associated reaction and PMD. Let's start with an example.
+
 ---
 
-## Step 3: screen the environmental metabolites
+## Step 3: co-occurrence analysis
 
 ### Metabolites of TBBPA in Pumpkin
 
@@ -223,9 +286,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
 ]
 
+???
+This work is published this year and we find 7 TBBPA metabolites in pumpkin root after exposed to TBBPA.  
+The major metabolism pathway is glycosylation and malonylation by manually check.
+After this work get published, I found such metabolites could be a stepwise pathway. Then I selected five reaction related PMD and check the raw data again.
+
 ---
 
-## Step 3: screen the environmental metabolites
+## Step 3: co-occurrence analysis
 
 ### Metabolites of TBBPA in Pumpkin
 
@@ -233,9 +301,12 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
 &lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="400px" style="display: block; margin: auto;" /&gt;
 
+???
+Here I generated PMD network by searching 5 fixed PMD, compute the correlation coefficients of peaks pairs and start with TBBPA. Then I found an area which is missing by original paper due to the lack of screen of one hub compound. In total, such data could find 22 metabolites of TBBPA and the correlation coefficients of peaks pairs are larger than 0.6.
+
 ---
 
-## Step 3: screen the environmental metabolites
+## Step 3: co-occurrence analysis
 
 ### KEGG reaction database
 
@@ -253,9 +324,12 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 | 162.053 | 365  |       H2O + lactose &lt;=&gt; D-galactose + D-glucose       |
 | 18.011  | 361  |        L-serine &lt;=&gt; 2-aminoprop-2-enoate + H2O        |
 
+???
+For endogenous compounds, I generated PMD list from KEGG reactions database. It contain more than 10k reactions and top 25 high frequency PMDs with three digits covered 8080 reactions. Some PMDs are invovled in ions or hard to be detected by HRMS. I selected 12 PMDs to test our NIST samples
+
 ---
 
-## Step 3: screen the environmental metabolites
+## Step 3: co-occurrence analysis
 
 ### Metabolites of L-Octanoylcarnitine in NIST 1950
 
@@ -265,9 +339,14 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
 &lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png" width="500px" style="display: block; margin: auto;" /&gt;
 
+???
+We found 187 L-Octanoylcarnitine metabolites by PMD network. PMD network is not pathway while may associated with pathway. Regular pathway analysis always need known pathway while PMD network can find new pathway or screen new metabolites.
+
+It seems endogenous compounds will generated a larger PMD network and exogenous compounds might not have two many metabolites. To test this hypothesis, I make a data mining on T3DB, which contain the source annotation of each compounds.
+
 ---
 
-## Step 3: screen the environmental metabolites
+## Step 3: co-occurrence analysis
 
 ### Endogenous vs Exogenous
 
@@ -276,6 +355,9 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 - Use top 20 high frequency PMDs
 
 &lt;img src="https://yufree.github.io/presentation/figure/t3db2.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+???
+As an exploror analysis, I found endogenous compounds could be knit into a large PMD network while exogenous compounds will not be preferred by reactions. Exogenous compounds would be excreted by biological system or directed react with large molecular to cause toxicity. Such phenomenon may help us to find the source of certain compounds or PMD network(topological property).
 
 ---
 
@@ -301,6 +383,10 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
   - reproducible research of this study with data and script
 
+???
+Most of the analysis could be done by PMD package(on CRAN)
+rmwf package contain 5 injections of NIST 1950 and 6 matrix blank. The data process script could be found as rmd template.
+
 ---
 
 # Thanks 
@@ -320,6 +406,10 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 #### @yu_free
 
 &lt;img src="https://yufree.github.io/presentation/figure/MSSMlogo.png" width="300px" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+???
+
+twitter has the slides links and you could check them online
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
