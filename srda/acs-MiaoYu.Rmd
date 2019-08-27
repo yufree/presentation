@@ -133,7 +133,7 @@ Left part is the PMD from same compound. Right part is the PMD from different co
 
 ### Gap between features and compounds
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width = "600px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
 ```
 
