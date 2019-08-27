@@ -65,7 +65,7 @@ P3: how to define metabolites
 ???
 S1: reduce numbers while keep the same information
 S2: untargeted molecular ions search for MS/MS
-S3: parent compounds and metabolites should co-occurence and fit some rules
+S3: parent compounds and metabolites should be co-occurence in the samples and fit some other rules
 Paired mass distance could link those three steps.
 Sample is SRM 1950 and good for method validation/reproducible research
 
@@ -86,10 +86,6 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 - **Paired Mass Distances(PMD)** is unique for element composition, which is associated with structures/reactions
 
 - **High resolution** mass spectrometry WINs (exact mass -> mass to charge ratio)
-
-???
-- Mass defects could be transferred from atom to paired mass distance
-- HRMS could measure PMDs for qualitative analysis
 
 ???
 
@@ -142,7 +138,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.pn
 ```
 
 ???
-One compound can generate isotopologues, adducts, neutral loss, multiply charged ion and fragment ions. However, we could also find noise and co-eluted compounds. Meanwhile, we might find even more complex ions such as multiply charged fragment ions Before we discuss details of find molecular ions, let's check how many real compounds in peaks profiles.
+One compound can generate isotopologues, adducts, neutral loss, multiply charged ion and fragment ions. However, we could also find noise and co-eluted compounds. Meanwhile, we might find even more complex ions such as multiply charged fragment ions. Before we discuss details of find molecular ions, let's check how many real compounds in peaks profiles.
 
 ---
 
@@ -436,7 +432,7 @@ As an exploror analysis, I found endogenous compounds could be knit into a large
 
   - multiple injections of GlobleStd peaks
 
-- Step 3: screen the environmental metabolites
+- Step 3: co-occurrence analysis
 
   - PMD network 
 
@@ -450,7 +446,7 @@ As an exploror analysis, I found endogenous compounds could be knit into a large
 
 ???
 Most of the analysis could be done by PMD package(on CRAN)
-rmwf package contain 5 injections of NIST 1950 and 6 matrix blank. The data process script could be found as rmd template.
+rmwf package contain 5 injections of NIST 1950 and 6 matrix blank. The data process script could be found as rmd template for reproducible research.
 
 ---
 
