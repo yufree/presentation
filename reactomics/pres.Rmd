@@ -257,7 +257,7 @@ top10 <- head(hmdb,10)
 knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
 ```
 
-- Donimated by C, H and O
+- Dominated by C, H and O
 - Structure or reaction?
 
 ???
