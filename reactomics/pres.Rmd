@@ -18,7 +18,101 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## Current Workflow for Untargeted Analysis
+## MS based Target/Untargeted Analysis
+
+```{r tvn}
+Purpose <- c('Target','MS mode','Quantification','Qualitation','Study','Information')
+Target <- c('Known','SIM/MRM','Absolut','Standards','Validation','Subset analysis')
+Untargeted <- c('Unknown compounds','Full Scan','Relative quantification','Semi qualitative','Discovery','Global analysis')
+react <- cbind.data.frame(Purpose,Target,Untargeted)
+knitr::kable(react,align = 'c',format = 'markdown')
+```
+
+- Target analysis and untargeted Analysis are designed for different purposes
+- They could be part of one workflow for certain research
+
+---
+
+## Workflow for Untargeted Analysis
+
+.large[
+- [Sample collection]
+- [Pretreatment]
+- [Instrumental analysis (Mass Spectrometry)]
+- [From raw data to peaks in each sample]
+- Align peaks to make retention time correction for multiple samples
+- Fill the peaks for aligned peaks list
+- Peaks list
+  - Peaks with mass to charge ratio @ retention time in row
+  - Samples in column
+- Annotation for peaks
+- Validation by standards (targeted analysis)
+- [Prediction/Inference for scitific purpose]
+]
+
+---
+
+## Demo of XC-MS Data
+
+```{r singledata, fig.show='hold', fig.cap='Demo of GC/LC-MS data',echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/metaworkflow/images/singledata.png')
+```
+
+---
+
+## Demo of Peaks
+
+```{r demoeic, fig.show='hold'}
+intensity <- c(10,10,10,10,10,14,19,25,30,33,26,21,16,12,11,10,9,10,11,10)
+time <- c(1:20)
+plot(intensity~time, type = 'o', main = 'EIC')
+```
+
+---
+
+## Demo of Retention Time Correction
+
+```{r obiwarp, fig.show='hold', fig.cap='Demo of Obiwarp',echo=FALSE,out.width= '50%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/obiwarp.gif')
+```
+
+.half[
+```{r refrt,results = 'asis'}
+doi <- c('10.1021/ac0605344')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+???
+Loess alignment use local region to align the peaks. However, obiwarp alignment with bijective interpolated dynamic time warping. Raw data from two LC−MS runs, whether successive fractions or across different biological conditions, (1) is interpolated into a (2) uniform matrix (or rectilinear matrix). (3) An all vs all similarity matrix of the spectra is constructed. (4) The similarity matrix distribution is mean centered and normalized by the standard deviation. (5) Dynamic programming is performed by adding similarity scores along a recursively generated optimal path while off-diagonal transitions are penalized by either a local or global gap penalty to give (6) an additive score matrix. (7) Pointers are kept in a traceback matrix used to deliver (8) the optimal alignment path. (9) High scoring points in the optimal path are selected to create a bijective (one-to-one) mapping, which is used as anchors for PCHIP interpolation to generate a smooth warp function. (II) Verification and optimization. (11) MS/MS spectra from the raw MS runs are searched via SEQUEST and Peptide/Protein Prophet to determine peak identities. (12) High-confidence identifications are selected and (13) the overlapping set of peptide identifications (after filtering outliers) is used as the alignment standard. (14) The warp function produced through the comparison of MS data is applied to the standards. (15) The ideal alignment would shift all standards to the diagonal. The accuracy of an alignment is calculated as the sum of the square residuals from the diagonal.
+
+---
+
+## Demo of Peaks Filling
+
+```{r peakfilling, fig.show='hold', echo=FALSE,out.width= '90%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakfiling.png')
+```
+
+---
+
+## Demo of Many XC-MS Data
+
+```{r multidata, fig.show='hold', fig.cap='Demo of many GC/LC-MS data',echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/metaworkflow/images/multidata.png')
+```
+
+---
+
+## Major issue
+
+```{r echo=FALSE,out.width='42%', fig.cap='Annotation is similar to find real cat in this picture'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/cat.jpg')
+```
+
+---
+
+## Annotation for peaks
 
 - Predefined rules between peaks/features and compounds
 
@@ -78,9 +172,9 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
 knitr::include_graphics('https://yufree.github.io/presentation/figure/database.png')
 ```
 
-- Numbers: Gene(5) < Protein(20+2) < Metabolite(100K) < Compound(100M)
+- Unit: Gene(5) < Protein(20+2) < Metabolite(100K) < Compound(100M)
 
-- Combination: Gene(25000) < Protein(10K-1B) < Compound(???) 
+- Combination: Gene(20,000-25,000) < Protein(20,000-25,000) < Compound(???) 
 
 - Small molecular **combination** is chemical reaction or paired mass distance
 
@@ -132,36 +226,6 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
   - 15.995 Da
 ]  
 
----
-
-## Quantitative and Qualitative analysis for Reaction
-
-### Reaction PMD
-
-- Reaction: $P_1 + P_2 + … + P_n = C_1 + C_2 + … + C_m \ (n>=1,m>=1)$
-
-- PMD matrix
-
-```{r render= 'asis'}
-C1 <- c('\\(|P_1 - C_1|\\)','\\(|P_2 - C_1|\\)','...','\\(|P_n - C_1|\\)')
-C2 <- c('\\(|P_1 - C_2|\\)','\\(|P_2 - C_2|\\)','...','\\(|P_n - C_2|\\)')
-C3 <- c('...','...','...','...')
-Cm <- c('\\(|P_1 - C_m|\\)','\\(|P_2 - C_m|\\)','...','\\(|P_n - C_m|\\)')
-
-tb <- rbind.data.frame(C1,C2,C3,Cm)
-colnames(tb) <- c('\\(P_1\\)','\\(P_2\\)','...','\\(P_n\\)')
-rownames(tb) <- c('\\(C_1\\)','\\(C_2\\)','...','\\(C_m\\)')
-tb <- knitr::kable(tb, align="c",format = 'html',row.names = T,escape = F)
-tb <- gsub("`", "", tb) 
-tb
-```
-
-- Paired mass distances for certain parent compound:
-
-$$PMD_{P_{k}} = min(|P_k-C_1|,|P_k-C_2|,...,|P_k-C_m|) (1 \le k \le n )$$
-- Paired mass distances for certain reaction:
-
-$$PMD_R = \{PMD_{P_{1}}, PMD_{P_{2}},...,PMD_{P_{n}}\}$$
 
 ---
 
@@ -205,64 +269,54 @@ knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
 ### HMDB compounds database
 
 ```{r}
-pmdraw <- c(12.0000,28.03130,24.00000,15.99491,14.01565,30.01056,16.03130,27.99491,56.06260,44.02621)
-frequency <- c(3127,3110,3005,2988,2655,2492,2463,2401,2373,2370)
-pmd3 <- c(14.016,2.016,28.031,26.016,15.995,56.063,12.000,42.047,30.011,24.000)
-frequency3 <- c(4884,4842,4817,4159,4156,3809,3803,3727,3642,3635)
-pmd2 <- c(14.02,2.02,28.03,15.99,26.02,12.00,24.00,27.99,4.03,30.01)
-frequency2 <- c(7901,7846,7682,7615,7204,7036,6857,6701,6696,6654)
-pmd1 <- c(16.0,30.0,18.0,28.0,2.0,14.0,4.0,6.0,42.0,12.0)
-frequency1 <- c(50486,50404,49994,49942,49640,49611,49449,49371,49006,48549)
-pmd0 <- c(14,2,16,4,12,28,10,18,6,8)
-frequency0 <- c(153601,153592,153200,152873,152708,152665,152371,151856,151787,151709)
+pmd3 <- c(14.016,2.016,28.031,26.016,15.995,12.000,56.063,42.047,30.011,24.000)
+frequency3 <- c(4934,4909,4878,4229,4214,3861,3861,3771,3698,3689)
+accuracy3 <- c(0.9755,0.9703,0.9783,0.9775,0.9808,0.9826,0.9653,0.9737,0.9440,0.9810)
+pmd2 <- round(pmd3,2)
+frequency2 <- c(8003,7959,7799,7343,7731,7145,6699,6558,6761,6963)
+accuracy2 <- c(0.6014,0.5984,0.6119,0.5630,0.5346,0.5310,0.5564,0.5599,0.5163,0.5197)
+pmd1 <- round(pmd3,1)
+frequency1 <- c(50419,50467,50797,48517,51278,49335,36417,49808,51241,48099)
+accuracy1 <- c(0.0955,0.0944,0.0939,0.0852,0.0806,0.0769,0.1026,0.0737,0.0681,0.0752)
+pmd0 <- round(pmd3)
+frequency0 <- c(156245,156260,155410,154346,155811,155339,151894,153764,154369,154278)
+accuracy0 <- c(0.0354,0.0352,0.0356,0.0309,0.0307,0.0283,0.0286,0.0275,0.0260,0.0273)
 
-head <- c('PMD(raw)','frequency','PMD(digits = 3)','frequency','PMD(digits = 2)','frequency','PMD(digits = 2)','frequency','PMD(unit)','frequency')
-  
-massa <- cbind.data.frame(as.character(pmdraw),frequency,as.character(pmd3),frequency3,as.character(pmd2),frequency2,as.character(pmd1),frequency1,as.character(pmd0),frequency0)
-colnames(massa) <- head
-knitr::kable(massa,align = 'c',format = 'markdown',col.names = NA)
+df <- cbind.data.frame(pmd3,frequency3,accuracy3,pmd2,frequency2,accuracy2)
+rownames(df) <- c('+C2H','+2H','+2C4H','+2C2H','+O','+C','+4C8H','+3C6H','+C2HO','+2C')
+colnames(df) <- c('PMD','frequency','accuracy','PMD','frequency','accuracy')
+
+knitr::kable(df,align = 'c',format = 'markdown',col.names = NA)
 ```
 
 ---
-
 ## Quantitative and Qualitative analysis for Reaction
 
 ### HMDB compounds database
 
 ```{r}
-c2h <- c(0.9754,0.6030,0.0960,0.0310)
-h2 <- c(0.9707,0.5990,0.0947,0.0306)
-c2h4 <- c(0.9786,0.6136,0.0944,0.0309)
-c2h2 <- c(0.9776,0.5644,0.0852,0.0268)
-o <- c(0.9805,0.5351,0.0807,0.0266)
-c4h8 <- c(0.9656,0.5569,0.1025,0.0246)
-c <- c(0.9832,0.5314,0.0770,0.0245)
-c3h6 <- c(0.9737, 0.5619,0.0740,0.0240)
-ch2o <- c(0.9440,0.5167,0.0682,0.0227)
-c2 <- c(0.9807, 0.5199,0.0754,0.0235)
-df <- rbind.data.frame(c2h,h2,c2h4,c2h2,o,c4h8,c,c3h6,ch2o,c2)
-rownames(df) <- c('+C2H','+2H','+2C4H','+2C2H','+O','+4C8H','+C','+3C6H','+C2HO','+2C')
-colnames(df) <- c('PMD(digits = 3)','PMD(digits = 2)','PMD(digits = 1)','PMD(unit)')
+df <- cbind.data.frame(pmd1,frequency1,accuracy1,pmd0,frequency0,accuracy0)
+rownames(df) <- c('+C2H','+2H','+2C4H','+2C2H','+O','+C','+4C8H','+3C6H','+C2HO','+2C')
+colnames(df) <- c('PMD','frequency','accuracy','PMD','frequency','accuracy')
 
-knitr::kable(df,align = 'c',format = 'markdown',row.names = T)
+knitr::kable(df,align = 'c',format = 'markdown',col.names = NA)
 ```
 
 ---
 
 ## Quantitative and Qualitative analysis for Reaction
 
-### Response factor matters
+### Static v.s. dynamic 
 
-- In one reaction, two compounds will show different response factors
-- To evaluate if one reaction active or not, we need intensity ratio stable
-
+- Static mass pairs: paired intensity ratio is stable across samples
+- Dynamic mass pairs: paired intensity ratio is stable across samples
 - For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
 
 ```{r}
 GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
 GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4' )
 df <- rbind.data.frame(GroupI,GroupII)
-colnames(df) <- c('A','B','RF ratio','C','D','RF ratio','E','F','RF ratio')
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio')
 knitr::kable(df,align = 'c',format = 'markdown')
 ```
 
@@ -279,7 +333,21 @@ class: inverse, center, middle
 
 # Reactomics Application 
 
-## Independent peaks selection
+## Exhaustive screen
+
+---
+
+## Sensitivity matters
+
+- Target analysis could capture peaks with low intensity
+
+- Untargeted analysis would loss sensitivity to capture all peaks 
+
+- Send unknown while independent peaks for MS/MS
+
+```{r echo=FALSE,out.width = "300px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
+```
 
 ---
 
@@ -341,15 +409,6 @@ pmd::plotrtg(pmd)
 ```
 
 ---
-## GlobalStd Algorithm Step 2
-
-### High frequency PMD analysis across RT clusters
-
-```{r echo=FALSE,out.width = "450px"}
-pmd::plotpaired(pmd)
-```
-
----
 
 ## GlobalStd Algorithm Step 2
 
@@ -405,7 +464,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/software.p
 
 ---
 
-# Target compounds validation
+## Target compounds validation
 
 ```{r echo=F}
 pmd <- c(985,18)
@@ -421,23 +480,6 @@ knitr::kable(comp, format = 'html')
 - 103 compounds for validation
 - 36 compounds could be found by xcms 6885 features
 - 7 could be found by profinder untargeted analysis 6628 features
-
----
-
-## Untargeted MS/MS analysis - PMDDA(unpublished)
-
-### Sensitivity matters
-
-- Target analysis could capture peaks with low intensity
-
-- Untargeted analysis would loss sensitivity to capture all peaks 
-
-- Send unknown while independent peaks for MS/MS
-
-```{r echo=FALSE,out.width = "300px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
-```
-
 
 ---
 ## Untargeted MS/MS analysis - PMDDA
@@ -462,9 +504,27 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.p
 ```{r echo=FALSE,out.width = "87%",fig.retina = 3}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
 ```
+
 ???
 - GNPS MS/MS annotation
 - 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Untargeted MS/MS analysis - PMMD Annotation
+
+- Use pmd and rank of pmd for annotation
+
+- Intensity filter(10%) and robust for noise
+
+- 957/1098 PMDR/HMDB QqQ data
+
+- some compounds share the same pmd 87%
+
+
+```{r echo=FALSE,out.width="400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmmd.png')
+```
 
 ---
 class: inverse, center, middle
@@ -516,7 +576,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Metabolites of TBBPA in Pumpkin
 
-- TBBPA Metabolites PMD network (22)
+- TBBPA Metabolites PMD network
 
 ```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
@@ -532,28 +592,13 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ---
 
-## Metabolites of endogenous compound
-
-### Metabolites of L-Octanoylcarnitine in NIST 1950
-
-- L-Octanoylcarnitine Metabolites PMD network (187)
-
-- Metabolites screen by 12 KEGG high frequency reaction PMD
-
-```{r echo=FALSE,out.width = "500px"}
-knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png")
-```
-
----
-
 ## KEGG reaction network
 
-### Metabolites of four compounds
+- Metabolites of four compounds
 
-```{r echo=FALSE,out.width = "700px"}
+```{r echo=FALSE,out.width = "500px"}
 knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmd.png")
 ```
-
 
 ---
 
@@ -569,38 +614,6 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png"
 
 ---
 
-## HMDB PMDs Analysis
-
-- Most of the PMDs are random generated
-
-  - Top 100 PMDs cover 85.57% formulas
-
-- Any formula would be involved 8760-10151 PMDs
-
-  - 373 formulas involve in all top 100 PMDs
-
-```{r echo=FALSE,out.width="500px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdcoverage.png')
-```
-
----
-
-## Reaction Network
-
-- Few compounds and few PMDs dominated HMDB metabolits
-
-- They are connected by reaction network
-
-- Top 100 PMDs network
-
-- Scale-free network ???
-
-```{r echo=FALSE,out.width="600px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/top100.png')
-```
-
----
-
 class: inverse, center, middle
 
 # Reactomics Application 
@@ -609,64 +622,24 @@ class: inverse, center, middle
 
 ---
 
-## Gender difference(unpublished)
-
-.left-column[
-### Rat urine samples
-
-### Negative mode
-]
-
-.right-column[
-```{r echo=FALSE,out.width="400px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpnpmd.png')
-```
-]
-
----
-## Gender difference(unpublished)
-
-.left-column[
-### Rat urine samples
-
-### Positive mode
-]
-.right-column[
-```{r echo=FALSE,out.width="400px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/ratrpppmd.png')
-```
-]
-
----
-
-## Gender difference(unpublished)
-
-- Direct links to enzyme, regardless of which substitutes
-
-  - PMD 56.026: Co enzyme A related reaction +C3H4O
-  - PMD 13.979: Oxygen oxidoreductase +O2/-H2O
-  - PMD 16.031: Oxygen oxidoreductase (methyl cleaving) +CH4
-  - PMD 32.026: incomplete or spontaneous reaction +CH4O
-  
-- Biomarker reactions
-
-- No cherry picking compounds
-
-- Analytical methods matter (PMD 13.979)
-
----
-
 ## Lung cancer
 
 - MTBLS28 1005 human urine samples
 
-- 188 independant peaks
-
-- PMD 18.011 also show gender difference (3 peaks)
+- PMD 2.02 Da show differences among control and diseases
 
 ```{r echo=FALSE,out.width="600px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
 ```
+
+---
+
+## How
+
+```{r echo=FALSE,out.width='72%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
+```
+
 
 ---
 
@@ -718,5 +691,98 @@ t <- x %>%
    group_by(rt) %>%
     filter(abs(cor)>0.99 & diff2<10) %>%
     ungroup()
+```
+
+---
+## Why Reactions?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/cas.jpg')
+```
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### Reaction PMD
+
+- Reaction: $S_1 + S_2 + … + S_n = P_1 + P_2 + … + P_m \ (n>=1,m>=1)$
+
+- PMD matrix
+
+```{r render= 'asis'}
+C1 <- c('\\(|S_1 - P_1|\\)','\\(|S_2 - P_1|\\)','...','\\(|S_n - P_1|\\)')
+C2 <- c('\\(|S_1 - P_2|\\)','\\(|S_2 - P_2|\\)','...','\\(|S_n - P_2|\\)')
+C3 <- c('...','...','...','...')
+Cm <- c('\\(|S_1 - P_m|\\)','\\(|S_2 - P_m|\\)','...','\\(|S_n - P_m|\\)')
+
+tb <- rbind.data.frame(C1,C2,C3,Cm)
+colnames(tb) <- c('\\(S_1\\)','\\(S_2\\)','...','\\(S_n\\)')
+rownames(tb) <- c('\\(P_1\\)','\\(P_2\\)','...','\\(P_m\\)')
+tb <- knitr::kable(tb, align="c",format = 'html',row.names = T,escape = F)
+tb <- gsub("`", "", tb) 
+tb
+```
+
+- Paired mass distances for certain parent compound:
+
+$$PMD_{S_{k}} = min(|S_k-P_1|,|S_k-P_2|,...,|S_k-P_m|) (1 \le k \le n )$$
+- Paired mass distances for certain reaction:
+
+$$PMD_R = \{PMD_{S_{1}}, PMD_{S_{2}},...,PMD_{S_{n}}\}$$
+
+---
+
+## Metabolites of endogenous compound
+
+### Metabolites of L-Octanoylcarnitine in NIST 1950
+
+- L-Octanoylcarnitine Metabolites PMD network (187)
+
+- Metabolites screen by 12 KEGG high frequency reaction PMD
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/L-Octanoylcarnitine.png")
+```
+
+---
+
+## HMDB PMDs Analysis
+
+- Most of the PMDs are random generated
+
+  - Top 100 PMDs cover 85.57% formulas
+
+- Any formula would be involved 8760-10151 PMDs
+
+  - 373 formulas involve in all top 100 PMDs
+
+```{r echo=FALSE,out.width="500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdcoverage.png')
+```
+
+---
+
+## Reaction Network
+
+- Few compounds and few PMDs dominated HMDB metabolits
+
+- They are connected by reaction network
+
+- Top 100 PMDs network
+
+- Scale-free network ???
+
+```{r echo=FALSE,out.width="600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/top100.png')
+```
+
+---
+## GlobalStd Algorithm Step 2
+
+### High frequency PMD analysis across RT clusters
+
+```{r echo=FALSE,out.width = "450px"}
+pmd::plotpaired(pmd)
 ```
 
