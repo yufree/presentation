@@ -1,0 +1,504 @@
+---
+title: "Reactomics: Using mass spectrometry as a chemical reaction detector"
+subtitle: ""
+author: "Miao Yu"
+date: "2018/11/11 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## MS based Target/Untargeted Analysis
+
+```{r tvn}
+Purpose <- c('Target','MS mode','Quantification','Qualitation','Study','Information')
+Target <- c('Known','SIM/MRM','Absolut','Standards','Validation','Subset analysis')
+Untargeted <- c('Unknown compounds','Full Scan','Relative quantification','Semi qualitative','Discovery','Global analysis')
+react <- cbind.data.frame(Purpose,Target,Untargeted)
+knitr::kable(react,align = 'c',format = 'markdown')
+```
+
+- Target analysis and untargeted Analysis are designed for different purposes
+- They could be part of one workflow for certain research
+
+---
+
+## Annotation issues
+
+- Predefined rules between peaks/features and compounds
+
+- Generate pseudo-spectrum
+
+- Search database or *in silico* prediction to identify compounds
+
+- Build the links between compounds by pathway/network analysis
+
+> Features -> Compounds -> Relationship among compounds
+
+- Problems
+
+    - Time consuming - too many peaks
+    - Sensitivity - DDA or MS/MS
+    - Standards coverage
+
+---
+
+## My Idea
+
+> Features -> ~~Compounds~~ -> Relationship among compounds
+
+- Mass spectrum could directly measure reactions
+
+```{r echo=FALSE, out.width= '100%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
+```
+
+???
+- Annotation is not really necessary for certain scientific problem
+- Relationship among compounds or reaction matters
+
+---
+## Why Reactions?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/database.png')
+```
+
+- Unit: Gene(5) < Protein(20+2) < Metabolite(100K) < Compound(100M)
+
+- Combination: Gene(20,000-25,000) < Protein(20,000-25,000) < Compound(???) 
+
+- Small molecular **combination** is chemical reaction or paired mass distance
+
+---
+
+## Why PMD?
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+$$\Delta m = Zm_{H} + Nm_{n} - M$$
+- The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom made
+
+- Atoms -> Compounds -> Mass distances between compounds
+
+- **Paired Mass Distances(PMD)** is unique
+
+- **High resolution** mass spectrometry WINs
+
+???
+- Mass defects could be transferred from atom to paired mass distance
+- HRMS could measure PMDs for qualitative analysis
+
+---
+
+## Sources of PMDs in the real data
+
+### Where is PMD?
+
+.pull-left[- Isotopologues 
+  
+  - $[M]^+$ $[M+1]^+$
+  - 1.006 Da
+
+- in source reaction 
+
+  - $[M+H]^+$  $[M+Na]^+$
+  - 21.982 Da
+]
+
+.pull-right[
+- Homologous series
+
+  - Lipid $-[CH_2]-$
+  - 14.016 Da
+
+- Xenobiotic metabolism
+
+  - Phase I hydrolation
+  - 15.995 Da
+]  
+
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### KEGG reaction database
+
+```{r}
+library(pmd)
+top10 <- table(omics$pmd2)[order(table(omics$pmd2),decreasing = T)][1:10]
+example <- c('NAD(+) + succinate <=> fumarate + H(+) + NADH', 'NAD(+) + propanoyl-CoA <=> acryloyl-CoA + H(+) + NADH', 'ATP + GDP <=> ADP + GTP', 'deoxynogalonate + O2 <=> H(+) + H2O + nogalonate', 'H2O + hypotaurine + NAD(+) <=> H(+) + NADH + taurine', 'ATP + H2O <=> ADP + H(+) + phosphate','acetyl-CoA + propanoate <=> acetate + propanoyl-CoA', 'L-glutamate <=> D-glutamate','H2O + lactose <=> D-galactose + D-glucose','L-serine <=> 2-aminoprop-2-enoate + H2O')
+react <- cbind.data.frame(pmd = top10,example)
+colnames(react) <- c('PMD','Freq','Example')
+knitr::kable(react,align = 'c',format = 'markdown')
+```
+
+- Real reactions contain ions
+- Skewed by known reactions
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### HMDB compounds database
+
+```{r}
+library(pmd)
+top10 <- head(hmdb,10)
+knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
+```
+
+- Dominated by C, H and O
+- Structure or reaction?
+
+???
+- We need quantitative mass ready database for PMD annotation
+
+---
+## Quantitative and Qualitative analysis for Reaction
+
+### HMDB compounds database
+
+```{r}
+pmd3 <- c(14.016,2.016,28.031,26.016,15.995,12.000,56.063,42.047,30.011,24.000)
+frequency3 <- c(4934,4909,4878,4229,4214,3861,3861,3771,3698,3689)
+accuracy3 <- c(0.9755,0.9703,0.9783,0.9775,0.9808,0.9826,0.9653,0.9737,0.9440,0.9810)
+pmd2 <- round(pmd3,2)
+frequency2 <- c(8003,7959,7799,7343,7731,7145,6699,6558,6761,6963)
+accuracy2 <- c(0.6014,0.5984,0.6119,0.5630,0.5346,0.5310,0.5564,0.5599,0.5163,0.5197)
+pmd1 <- round(pmd3,1)
+frequency1 <- c(50419,50467,50797,48517,51278,49335,36417,49808,51241,48099)
+accuracy1 <- c(0.0955,0.0944,0.0939,0.0852,0.0806,0.0769,0.1026,0.0737,0.0681,0.0752)
+pmd0 <- round(pmd3)
+frequency0 <- c(156245,156260,155410,154346,155811,155339,151894,153764,154369,154278)
+accuracy0 <- c(0.0354,0.0352,0.0356,0.0309,0.0307,0.0283,0.0286,0.0275,0.0260,0.0273)
+
+df <- cbind.data.frame(pmd3,frequency3,accuracy3,pmd2,frequency2,accuracy2)
+rownames(df) <- c('+C2H','+2H','+2C4H','+2C2H','+O','+C','+4C8H','+3C6H','+C2HO','+2C')
+colnames(df) <- c('PMD','frequency','accuracy','PMD','frequency','accuracy')
+
+knitr::kable(df,align = 'c',format = 'markdown',col.names = NA)
+```
+
+---
+## Quantitative and Qualitative analysis for Reaction
+
+### HMDB compounds database
+
+```{r}
+df <- cbind.data.frame(pmd1,frequency1,accuracy1,pmd0,frequency0,accuracy0)
+rownames(df) <- c('+C2H','+2H','+2C4H','+2C2H','+O','+C','+4C8H','+3C6H','+C2HO','+2C')
+colnames(df) <- c('PMD','frequency','accuracy','PMD','frequency','accuracy')
+
+knitr::kable(df,align = 'c',format = 'markdown',col.names = NA)
+```
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### Static v.s. dynamic 
+
+- Static mass pairs: paired intensity ratio is stable across samples
+- Dynamic mass pairs: paired intensity ratio is stable across samples
+- For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4' )
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- [A,B] and [E,F] could be used for Quantitative analysis for certain PMD, rsd cutoff 30%
+- [C,D] could be used to check dynamics of specific reaction
+
+???
+- Response factor is the slope of calibration curve for certain compound
+- Total intensity of all pairs with the same PMD
+- Count once for ions involved in multiple reactions
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Exhaustive screen
+
+---
+
+## Sensitivity matters
+
+- Target analysis could capture peaks with low intensity
+
+- Untargeted analysis would loss sensitivity to capture all peaks 
+
+- Send unknown while independent peaks for MS/MS
+
+```{r echo=FALSE,out.width = "300px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
+```
+
+---
+
+## How many real compounds among features?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/gapfc.jpg')
+```
+
+.half[
+```{r ref1,results = 'asis'}
+doi <- c('10.1021/acs.analchem.7b02380')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Gap between features and compounds
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
+```
+
+---
+
+## GlobalStd Algorithm
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Target compounds validation
+
+```{r echo=F}
+pmd <- c(985,18)
+CAMERA <- c(1297,15)
+RAMclust <- c(461,12)
+profinder <- c(6628,7)
+comp <- rbind.data.frame(pmd,CAMERA,RAMclust,profinder)
+colnames(comp) <- c('Independent peaks','Target compounds found')
+rownames(comp) <- c('pmd','CAMERA','RAMclust','profinder')
+knitr::kable(comp, format = 'html')
+```
+
+- 103 compounds for validation
+- 36 compounds could be found by xcms 6885 features
+- 7 could be found by profinder untargeted analysis 6628 features
+
+---
+## Untargeted MS/MS analysis - PMDDA
+
+- Only use GlobalStd peaks for MS/MS analysis
+    - Multiple injections
+
+- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
+
+- Compare with Data Dependent Acquisition (DDA) (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Less contaminant ions
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Untargeted MS/MS analysis - PMDDA
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
+```
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Untargeted MS/MS analysis - PMMD Annotation
+
+- Use pmd and rank of pmd for annotation
+
+- Intensity filter(10%) and robust for noise
+
+- 957/1098 PMDR/HMDB QqQ data
+
+- some compounds share the same pmd 87%
+
+
+```{r echo=FALSE,out.width="400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmmd.png')
+```
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Metabolites Discovery
+
+---
+
+## Metabolites of exogenous compound
+
+  - Environmental pollution metabolites
+  - Drug metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I
+    - Oxidation (R-H ⇒ R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O ⇒ R-C-OH, pmd 2.016 Da)
+    
+  - Phase II
+    - Methylation (R-OH ⇒ R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH ⇒ R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH ⇒ R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 ⇒ R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH ⇒ R-O-C6H11O5, pmd 162.053 Da)
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Confirmation by synthesized standards
+
+```{r echo=FALSE,out.width = "600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
+```
+
+.half[
+```{r ref3,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- TBBPA Metabolites PMD network
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
+```
+
+
+.half[
+```{r ref4,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## KEGG reaction network
+
+- Metabolites of four compounds
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmd.png")
+```
+
+---
+
+## Endogenous vs Exogenous
+
+- T3DB Endogenous (255) vs Exogenous (705)
+
+- Use top 20 high frequency PMDs
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png")
+```
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Biomarker Reaction
+
+---
+
+## Lung cancer
+
+- MTBLS28 1005 human urine samples
+
+- PMD 2.02 Da show differences among control and diseases
+
+```{r echo=FALSE,out.width="600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
+```
+
+---
+
+## How
+
+```{r echo=FALSE,out.width='72%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
+```
+
+
+---
+
+## Software
+
+### [enviGCMS package](http://yufree.github.io/enviGCMS/)
+  
+  - Target analysis
+  - Mass defect analysis
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - Untargeted analysis
+  - GlobalStd algorithm
+  - Reactomics analysis
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Script
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
+
+```{r cache=FALSE}
+knitr::knit_exit() 
+```
+
