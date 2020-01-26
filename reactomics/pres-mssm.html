@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 
 # Reactomics: Using mass spectrometry as a chemical reaction detector
 ### Miao Yu
-### 2018/11/11 (updated: 2020-01-03)
+### 2018/11/11 (updated: 2020-01-26)
 
 ---
 
@@ -60,26 +60,9 @@ class: center, middle, inverse, title-slide
 
 ## My Idea
 
-&gt; Features -&gt; Compounds -&gt; Relationship among compounds
-
-- You ACTUALLY don't need people (compounds) name to know their relationship
-
-&lt;img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" width="70%" style="display: block; margin: auto;" /&gt;
-
-From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
-
-???
-- all compounds from metabolomcis study is a snapshot with metabolites and parent compounds
-- We could find the relationship among people without know the name of each person
-- mass spec could measure the distance without known the name of compounds
-
----
-
-## My Idea
-
 &gt; Features -&gt; ~~Compounds~~ -&gt; Relationship among compounds
 
-- Mass spectrum could directly measure reactions
+- Mass spectrum could directly measure relationsship(reactions)
 
 &lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -168,7 +151,7 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 | 18.011  | 361  |        L-serine &lt;=&gt; 2-aminoprop-2-enoate + H2O        |
 
 - Real reactions contain ions
-- Skewed by known reactions
+- Biased by known reactions
 
 ---
 
@@ -184,8 +167,8 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 |28.031 | 2 | 4 | 0 |
 |26.016 | 2 | 2 | 0 |
 |15.995 | 0 | 0 | 1 |
-|56.063 | 4 | 8 | 0 |
 |12     | 1 | 0 | 0 |
+|56.063 | 4 | 8 | 0 |
 |42.047 | 3 | 6 | 0 |
 |30.011 | 1 | 2 | 1 |
 |24     | 2 | 0 | 0 |
@@ -263,7 +246,7 @@ class: inverse, center, middle
 
 # Reactomics Application 
 
-## Exhaustive screen
+## Global screen
 
 ---
 
@@ -275,23 +258,7 @@ class: inverse, center, middle
 
 - Send unknown while independent peaks for MS/MS
 
-&lt;img src="https://yufree.github.io/presentation/figure/missxcms.png" width="300px" style="display: block; margin: auto;" /&gt;
-
----
-
-## How many real compounds among features?
-
-&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
-
-.half[
-Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. doi:10.1021/acs.analchem.7b02380
-]
-
----
-
-## Gap between features and compounds
-
-&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" width="600px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -344,6 +311,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 - 7 could be found by profinder untargeted analysis 6628 features
 
 ---
+
 ## Untargeted MS/MS analysis - PMDDA
 
 - Only use GlobalStd peaks for MS/MS analysis
@@ -371,7 +339,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ---
 
-## Untargeted MS/MS analysis - PMMD Annotation
+## Untargeted MS/MS analysis - PMD Annotation
 
 - Use pmd and rank of pmd for annotation
 

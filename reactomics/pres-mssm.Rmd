@@ -57,7 +57,7 @@ knitr::kable(react,align = 'c',format = 'markdown')
 
 > Features -> ~~Compounds~~ -> Relationship among compounds
 
-- Mass spectrum could directly measure reactions
+- Mass spectrum could directly measure relationsship(reactions)
 
 ```{r echo=FALSE, out.width= '100%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
@@ -145,7 +145,7 @@ knitr::kable(react,align = 'c',format = 'markdown')
 ```
 
 - Real reactions contain ions
-- Skewed by known reactions
+- Biased by known reactions
 
 ---
 
@@ -235,7 +235,7 @@ class: inverse, center, middle
 
 # Reactomics Application 
 
-## Exhaustive screen
+## Global screen
 
 ---
 
@@ -247,30 +247,7 @@ class: inverse, center, middle
 
 - Send unknown while independent peaks for MS/MS
 
-```{r echo=FALSE,out.width = "300px"}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
-```
-
----
-
-## How many real compounds among features?
-
-```{r echo=FALSE}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/gapfc.jpg')
-```
-
-.half[
-```{r ref1,results = 'asis'}
-doi <- c('10.1021/acs.analchem.7b02380')
-cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
-```
-]
-
----
-
-## Gap between features and compounds
-
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="600px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
 ```
 
@@ -309,6 +286,7 @@ knitr::kable(comp, format = 'html')
 - 7 could be found by profinder untargeted analysis 6628 features
 
 ---
+
 ## Untargeted MS/MS analysis - PMDDA
 
 - Only use GlobalStd peaks for MS/MS analysis
@@ -338,7 +316,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.p
 
 ---
 
-## Untargeted MS/MS analysis - PMMD Annotation
+## Untargeted MS/MS analysis - PMD Annotation
 
 - Use pmd and rank of pmd for annotation
 
