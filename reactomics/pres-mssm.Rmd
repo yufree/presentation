@@ -18,44 +18,29 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## MS based Target/Untargeted Analysis
+## Workflow for metabolomics
 
-```{r tvn}
-Purpose <- c('Target','MS mode','Quantification','Qualitation','Study','Information')
-Target <- c('Known','SIM/MRM','Absolut','Standards','Validation','Subset analysis')
-Untargeted <- c('Unknown compounds','Full Scan','Relative quantification','Semi qualitative','Discovery','Global analysis')
-react <- cbind.data.frame(Purpose,Target,Untargeted)
-knitr::kable(react,align = 'c',format = 'markdown')
-```
+- Collect samples
 
-- Target analysis and untargeted Analysis are designed for different purposes
-- They could be part of one workflow for certain research
+- Collect peaks from mass spectrometry
 
----
-
-## Annotation issues
-
-- Predefined rules between peaks/features and compounds
-
-- Generate pseudo-spectrum
-
-- Search database or *in silico* prediction to identify compounds
+- Annotate peaks to get the compound name
 
 - Build the links between compounds by pathway/network analysis
 
-> Features -> Compounds -> Relationship among compounds
+> Sample -> Peaks -> Compounds -> Relationship among compounds
 
 - Problems
 
-    - Time consuming - too many peaks
-    - Sensitivity - DDA or MS/MS
-    - Standards coverage
+    - Time consuming - too many peaks ~20k
+    - Sensitivity - low for full scan
+    - Standards coverage - unknown unknown
 
 ---
 
 ## My Idea
 
-> Features -> ~~Compounds~~ -> Relationship among compounds
+> Sample -> Peaks -> ~~Compounds~~ -> Relationship among compounds
 
 - Mass spectrum could directly measure relationsship(reactions)
 
@@ -239,9 +224,7 @@ class: inverse, center, middle
 
 ---
 
-## Sensitivity matters
-
-- Target analysis could capture peaks with low intensity
+## Redundant peaks
 
 - Untargeted analysis would loss sensitivity to capture all peaks 
 

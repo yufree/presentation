@@ -14,53 +14,36 @@ class: center, middle, inverse, title-slide
 
 # Reactomics: Using mass spectrometry as a chemical reaction detector
 ### Miao Yu
-### 2018/11/11 (updated: 2020-01-26)
+### 2018/11/11 (updated: 2020-01-29)
 
 ---
 
 
 
 
-## MS based Target/Untargeted Analysis
+## Workflow for metabolomics
 
+- Collect samples
 
-|    Purpose     |     Target      |       Untargeted        |
-|:--------------:|:---------------:|:-----------------------:|
-|     Target     |      Known      |    Unknown compounds    |
-|    MS mode     |     SIM/MRM     |        Full Scan        |
-| Quantification |     Absolut     | Relative quantification |
-|  Qualitation   |    Standards    |    Semi qualitative     |
-|     Study      |   Validation    |        Discovery        |
-|  Information   | Subset analysis |     Global analysis     |
+- Collect peaks from mass spectrometry
 
-- Target analysis and untargeted Analysis are designed for different purposes
-- They could be part of one workflow for certain research
-
----
-
-## Annotation issues
-
-- Predefined rules between peaks/features and compounds
-
-- Generate pseudo-spectrum
-
-- Search database or *in silico* prediction to identify compounds
+- Annotate peaks to get the compound name
 
 - Build the links between compounds by pathway/network analysis
 
-&gt; Features -&gt; Compounds -&gt; Relationship among compounds
+&gt; Sample -&gt; Peaks -&gt; Compounds -&gt; Relationship among compounds
 
 - Problems
 
-    - Time consuming - too many peaks
-    - Sensitivity - DDA or MS/MS
-    - Standards coverage
+    - Time consuming - too many peaks ~20k
+    - Sensitivity - low for full scan
+    - Standards coverage - unknown unknown
 
 ---
 
 ## My Idea
 
-&gt; Features -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+&gt; Sample -&gt; Peaks -&gt; ~~Compounds~~ -&gt; Relationship among compounds
 
 - Mass spectrum could directly measure relationsship(reactions)
 
@@ -250,9 +233,7 @@ class: inverse, center, middle
 
 ---
 
-## Sensitivity matters
-
-- Target analysis could capture peaks with low intensity
+## Redundant peaks
 
 - Untargeted analysis would loss sensitivity to capture all peaks 
 
