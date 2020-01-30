@@ -305,9 +305,9 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.p
 
 - Intensity filter(10%) and robust for noise
 
-- 957/1098 PMDR/HMDB QqQ data
+- 957/1098(87%) PMDR/HMDB QqQ data
 
-- some compounds share the same pmd 87%
+- some compounds share the same pmd 
 
 
 ```{r echo=FALSE,out.width="400px"}
@@ -384,7 +384,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - Metabolites of four compounds
 
-```{r echo=FALSE,out.width = "500px"}
+```{r echo=FALSE,out.width = "450px"}
 knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmd.png")
 ```
 
@@ -396,7 +396,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/g
 
 - Use top 20 high frequency PMDs
 
-```{r echo=FALSE,out.width = "500px"}
+```{r echo=FALSE,out.width = "450px"}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png")
 ```
 
@@ -416,7 +416,7 @@ class: inverse, center, middle
 
 - PMD 2.02 Da show differences among control and diseases
 
-```{r echo=FALSE,out.width="600px"}
+```{r echo=FALSE,out.width="500px"}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
 ```
 
