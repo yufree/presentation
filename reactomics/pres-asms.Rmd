@@ -33,7 +33,6 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 - Problems
 
     - Time consuming - too many peaks ~20k
-    - Sensitivity - low for full scan
     - Standards coverage - unknown unknown
     
 ---
