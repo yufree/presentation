@@ -1,0 +1,317 @@
+---
+title: "Reactomics: Using mass spectrometry as a chemical reaction detector"
+subtitle: "ID:304104"
+author: "Miao Yu, Lauren Petrick"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Workflow for metabolomics
+
+- Collect samples
+
+- Collect peaks from mass spectrometry
+
+- Annotate peaks to get the compound name
+
+- Build the links between compounds by pathway/network analysis
+
+> Sample -> Peaks -> Compounds -> Relationship among compounds
+
+- Problems
+
+    - Time consuming - too many peaks ~20k
+    - Sensitivity - low for full scan
+    - Standards coverage - unknown unknown
+    
+---
+
+## Idea
+
+> Sample -> Peaks -> ~~Compounds~~ -> Relationship among compounds
+
+- Mass spectrum could directly measure relationsship(reactions)
+
+```{r echo=FALSE, out.width= '100%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
+```
+
+???
+- Annotation is not really necessary for certain scientific problem
+- Relationship among compounds or reaction matters
+
+---
+## Why Reactions?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/database.png')
+```
+
+- Unit: Gene(5) < Protein(20+2) < Metabolite(100K) < Compound(100M)
+
+- Combination: Gene(20,000-25,000) < Protein(20,000-25,000) < Compound(???) 
+
+- Small molecular **combination** is chemical reaction or paired mass distance
+
+---
+
+## Why PMD?
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+$$\Delta m = Zm_{H} + Nm_{n} - M$$
+- The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom made
+
+- Atoms -> Compounds -> Mass distances between compounds
+
+- **Paired Mass Distances(PMD)** is unique
+
+- **High resolution** mass spectrometry WINs
+
+???
+- Mass defects could be transferred from atom to paired mass distance
+- HRMS could measure PMDs for qualitative analysis
+
+---
+
+## Sources of PMDs in the real data
+
+### Where is PMD?
+
+.pull-left[- Isotopologues 
+  
+  - $[M]^+$ $[M+1]^+$
+  - 1.006 Da
+
+- in source reaction 
+
+  - $[M+H]^+$  $[M+Na]^+$
+  - 21.982 Da
+]
+
+.pull-right[
+- Homologous series
+
+  - Lipid $-[CH_2]-$
+  - 14.016 Da
+
+- Xenobiotic metabolism
+
+  - Phase I hydrolation
+  - 15.995 Da
+]  
+
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### KEGG reaction database
+
+```{r}
+example = data.frame(
+  stringsAsFactors = FALSE,
+                       PMD=c("2.016", "15.995", "79.966", "14.016", "0", "18.011", "162.053", "159.933", "1.032", "42.011"),
+  Freq= c(1732L, 1169L, 729L, 594L, 532L, 359L, 365L, 243L, 262L, 237L),
+  ExampleReactionClass=c("RC00095", "RC00046 ", "RC00002", "RC00060", "RC00302", "RC00680", "RC00049", "RC02056", "RC00006", "RC00004"),
+  ExampleEnzyme = c("1.3.1.84", "1.3.99.18", "3.6.1.3", "1.5.3.1", "5.1.1.3", "3.5.2.5", "3.2.1.23", "4.2.3.42", "1.4.1.2", "2.3.1.54"))
+knitr::kable(example,align = 'c',format = 'markdown')
+```
+
+---
+
+## Quantitative and Qualitative analysis for Reaction
+
+### Static v.s. dynamic 
+
+- Static mass pairs: paired intensity ratio is stable across samples
+- Dynamic mass pairs: paired intensity ratio is stable across samples
+- For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4' )
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- [A,B] and [E,F] could be used for Quantitative analysis for certain PMD, rsd cutoff 30%
+- [C,D] could be used to check dynamics of specific reaction
+
+???
+- Response factor is the slope of calibration curve for certain compound
+- Total intensity of all pairs with the same PMD
+- Count once for ions involved in multiple reactions
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Metabolites Discovery
+
+---
+
+## Metabolites of exogenous compound
+
+  - Environmental pollution metabolites
+  - Drug metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I
+    - Oxidation (R-H ⇒ R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O ⇒ R-C-OH, pmd 2.016 Da)
+    
+  - Phase II
+    - Methylation (R-OH ⇒ R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH ⇒ R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH ⇒ R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 ⇒ R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH ⇒ R-O-C6H11O5, pmd 162.053 Da)
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Confirmation by synthesized standards
+
+```{r echo=FALSE,out.width = "600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
+```
+
+.half[
+```{r ref3,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- TBBPA Metabolites PMD network
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
+```
+
+
+.half[
+```{r ref4,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Endogenous or Exogenous
+
+---
+
+## Endogenous vs Exogenous
+
+- T3DB Endogenous (255) vs Exogenous (705)
+
+- Use top 10 high frequency PMDs
+
+```{r echo=FALSE,out.width = "450px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png")
+```
+
+---
+
+## KEGG reaction network
+
+- Metabolites of four compounds
+
+- Average network distance: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
+
+```{r echo=FALSE,out.width = "450px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png")
+```
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Biomarker Reaction
+
+---
+
+## Lung cancer
+
+- MTBLS28 1005 human urine samples
+
+- PMD 2.02 Da show differences among control and diseases
+
+```{r echo=FALSE,out.width="500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
+```
+
+---
+
+## How
+
+```{r echo=FALSE,out.width='72%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
+```
+
+---
+
+## Software
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - GlobalStd algorithm
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network anaysis
+  - pmd MS/MS annotation algorithm
+  - GUI application based on shiny
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Rmarkdown template
+  - From raw data to report
+  - part of `xcmsrocker` docker image
+  
+### POSTER 304118
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
+
+```{r cache=FALSE}
+knitr::knit_exit() 
+```
+
