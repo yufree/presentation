@@ -18,15 +18,15 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## Workflow for metabolomics
+## Typical workflow for HRMS metabolomics
 
 - Collect samples
 
-- Collect peaks from mass spectrometry
+- Acquire data (peaks) using mass spectrometry
 
-- Annotate peaks to get the compound name
+- Annotate peaks for identification with compound name
 
-- Build the links between compounds by pathway/network analysis
+- Build links between compounds using pathway/network analysis
 
 > Sample -> Peaks -> Compounds -> Relationship among compounds
 
@@ -34,14 +34,21 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
     - Time consuming - too many peaks ~20k
     - Standards coverage - unknown unknown
-    
+
+???
+Hello everyone, my name is Miao Yu and I am from Icahn School of medicine at Mount Sinai. My title is 'Reactomics: Using mass spectrometry as a chemical reaction detector'. I fully understand that you are tired of different 'omics' and I hope this one will make a difference.
+
+Before the discussion of the concepts, let's review the general workflow for metabolomics or untargeted analysis. We collect samples and then perform the instrument analysis. In terms of mass spectrometry, we will collect peaks signals. Then we will process the data and turn the peaks signals into featuers table and annotate the featuers as compounds by either database or prediction. The next step is building the links between those compounds by pathway analysis or network analysis. In summary, samples turn into peaks, peaks turn into compounds and compounds turn into relationship among compounds. The final purpose of metabolomics is not identification of a compound and the real scientific purpose is always the relationship among compounds.
+
+However, there are some problems at current stage. The first one is time consuming. We need to deal with about around 20 thousands peaks from each sample or featuers from multiple samples. It's just impossible to check them one by one and we need to focus on a reasonable number of compounds of interests. The second issue is the standards coverage. I doubt how many of you have received comments from reviewer 3 about standards confirmation or annotation of unkown peaks. In most cases, metabolomics and untarget analysis are facing the unknown unknown paradox. If we never find some compounds before, how could we make annotation based on current database. 
+
 ---
 
 ## Idea
 
 > Sample -> Peaks -> ~~Compounds~~ -> Relationship among compounds
 
-- Mass spectrum could directly measure relationsship(reactions)
+- Mass spectrum could directly measure relationship (reactions)
 
 ```{r echo=FALSE, out.width= '100%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
@@ -51,6 +58,10 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
 - Annotation is not really necessary for certain scientific problem
 - Relationship among compounds or reaction matters
 
+Here is my idea to those problems. Let's review the information flow. Samples, peaks, compounds, relationship among compounds... Wait, if we try to find the relationship among compounds, is there a way to skip the compounds identification phase?
+
+The answer should be yes. Let's take oxidation process as an example. If it happens, no matter which compounds are involved, there should always be a mass differnces of sixteen dalton between those compounds. Since our mass spectrometry could detect their mass to charge ratio, we actually could directly extract all those relationship by checking paired mass distance among the unknown peaks. The unit of the relationship between compounds should be chemical reactions.
+
 ---
 ## Why Reactions?
 
@@ -58,11 +69,14 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
 knitr::include_graphics('https://yufree.github.io/presentation/figure/database.png')
 ```
 
-- Unit: Gene(5) < Protein(20+2) < Metabolite(100K) < Compound(100M)
+- Unit: Gene (5) < Protein (20+2) < Metabolite (100K) < Compound (100M)
 
-- Combination: Gene(20,000-25,000) < Protein(20,000-25,000) < Compound(???) 
+- Combination: Gene (20,000-25,000) < Protein (20,000-25,000) < Compound(???) 
 
-- Small molecular **combination** is chemical reaction or paired mass distance
+- Small molecule  **combination** is a chemical reaction or paired mass distance
+
+???
+So why reactions? Compared with other omics, the major difference in metabolomics is the missing of unit of relationship. For genomics, five moleculars are the unit and their combination unit is base pair. For proteomics, twenty two amino acids are the molecular unit and their combination unit is peptide bond. For small molecular, over one hundred million molecular are unit while actually we only care the one who will show activity with other molecular. In this case, the combination unit should be chemical reactions. In terms of mass spectrometry, reactions mean paired mass distance among different compounds.
 
 ---
 
@@ -71,11 +85,11 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/database.p
 - [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
 
 $$\Delta m = Zm_{H} + Nm_{n} - M$$
-- The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom made
+- The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom was made
 
 - Atoms -> Compounds -> Mass distances between compounds
 
-- **Paired Mass Distances(PMD)** is unique
+- **Paired Mass Distances (PMD)** is unique
 
 - **High resolution** mass spectrometry WINs
 
@@ -83,9 +97,11 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 - Mass defects could be transferred from atom to paired mass distance
 - HRMS could measure PMDs for qualitative analysis
 
+So why PMD? The best feature for PMD is that it comes from the nuclear binding energy and almost unique to a specific element composition. In this case, if we have high resolution mass spectrometry, we could annotate a certain paired mass distance with element composition and check if it's linked to a known reaction.
+
 ---
 
-## Sources of PMDs in the real data
+## Sources of PMDs in real data
 
 ### Where is PMD?
 
@@ -112,10 +128,12 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
   - 15.995 Da
 ]  
 
+???
+However, not all of the PMD is linked to reaction among compounds. Some of the PMD could be generated from one compounds such as isotopologue or in source reaction or MSMS fragmental ions. Some PMDs could also show the homologous series like lipid, which is structure similarity instead of reaction relationship.
 
 ---
 
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
 
 ### KEGG reaction database
 
@@ -129,14 +147,17 @@ example = data.frame(
 knitr::kable(example,align = 'c',format = 'markdown')
 ```
 
+???
+In this case, though we don't need to annotate all the compounds, a PMD database are still needed for PMD annotate as element composition and their corresponding reaction class or enzyme. Here, I analyzed all the reactions PMD from KEGG reaction database and removed the ions related PMD, which is not detectable by mass spectrometry. I found our known reactions are actually highly enriched by a few PMDs. The double bonds formation or broken reaction appeared in 1732 reactions, almost fifteen percent of the reactions in KEGG. In this case, for reactomics we could skip quantitative analysis of endless unknown compounds and focus on the changes of those enriched PMDs.
+
 ---
 
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
 
 ### Static v.s. dynamic 
 
 - Static mass pairs: paired intensity ratio is stable across samples
-- Dynamic mass pairs: paired intensity ratio is stable across samples
+- Dynamic mass pairs: paired intensity ratio is not stable across samples
 - For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
 
 ```{r}
@@ -147,13 +168,15 @@ colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio')
 knitr::kable(df,align = 'c',format = 'markdown')
 ```
 
-- [A,B] and [E,F] could be used for Quantitative analysis for certain PMD, rsd cutoff 30%
-- [C,D] could be used to check dynamics of specific reaction
+- [A,B] and [E,F] are static mass pairs so can be used in quantitative analysis, rsd cutoff 30%
+- [C,D] can be used to check dynamics of a specific reaction
 
 ???
 - Response factor is the slope of calibration curve for certain compound
 - Total intensity of all pairs with the same PMD
 - Count once for ions involved in multiple reactions
+
+When we have the list of enriched PMDs, we need to define how to make quantitative analysis of the paired mass distance. Here I proposed to use static PMD pairs, which always show stable intensity ratios across samples, for quantitative analysis of reactions. After the discussion of concept and technique issues, now we could see some application of reactomics.
 
 ---
 class: inverse, center, middle
@@ -161,6 +184,9 @@ class: inverse, center, middle
 # Reactomics Application 
 
 ## Metabolites Discovery
+
+???
+The first application is metabolites discovery. Current workflow for metabolites discovery is the prediction of metabolites based on MS/MS database or pathway database and then match the predicted ions with real data. Here, based on reactomics, we proposed a local recursive search for metabolites discovery.
 
 ---
 
@@ -172,15 +198,18 @@ class: inverse, center, middle
 ### Xenobiotic metabolism
 
   - Phase I
-    - Oxidation (R-H ⇒ R-OH, pmd 15.995 Da)
-    - Reduction (R-C=O ⇒ R-C-OH, pmd 2.016 Da)
+    - Oxidation (R-H => R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O => R-C-OH, pmd 2.016 Da)
     
   - Phase II
-    - Methylation (R-OH ⇒ R-O-C,pmd 14.016 Da)
-    - Sulfation (R-OH ⇒ R-SO4, pmd 46.976 Da)
-    - Acetylation (R-OH ⇒ R-O-COCH3, pmd 42.011 Da)
-    - Glucuronidation (R-NH2 ⇒ R-NH-C6H9O7, pmd 192.027 Da)
-    - Glycosylation (R-OH ⇒ R-O-C6H11O5, pmd 162.053 Da)
+    - Methylation (R-OH => R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH => R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH => R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 => R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH => R-O-C6H11O5, pmd 162.053 Da)
+
+???
+Metabolites discovery is commen in two types of studies: environmental pollution metabolites and drug metabolites discovery. In general, it involved xenbiotic metabolism pathway. It's usually contain phase one reaction, which will be oxdation or reduction of original compounds. And then phase two reaction, which will add functional group to increase the polarity of compounds and help to release those exdogenous compounds into the environment. At chemical reaction level, there are only a few PMDs associated with this process.
 
 ---
 
@@ -201,6 +230,9 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 ```
 ]
 
+???
+Here I will use an example to demo such process. Here is a study to find the metabolites of tetrabromobisphenol A in pumpkin. I am actually one of the authors of this published work. Here we use mass defect analysis to screen all the Brominated compounds and then make confirmation by synthesized standards. You can see that we found seven metabolites of TBBPA. If you checked the structure, you will find it seems the metabolites follow a reaction flow. Metabolites one is the glycosylation of TBBPA and metabolites two is the mylonylation of metabolites one. Metabolites three is the glycosylation of both side of the hydroxlation groups of TBBPA. It seems the metabolites could be extended by certain PMDs.
+
 ---
 
 ## Metabolites of TBBPA in Pumpkin
@@ -219,12 +251,18 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 ```
 ]
 
+???
+Since I am one of the authors of this work, I have the raw data of this study and I reanalyzed the data in terms of reactomics. What I did is that I gather the five PMDs reported in this study. They are debrominated, glycosylation, mylonylation, methylation and hydroxylation process. You might notice that the PMDs are different from formula. For example, the debrominated process involved both adding Bromine atom and removing hydrogen atom and the PMD could not be shown as chemical formula but a plus and minus format. Anyway, I labeled all the previous found compounds as node of a network. In this case, the metabolites discovery is not based on prediction but based on the data itself. If the searching could find a peak with certain PMD, the node will be extanded and new search will begin at the new node for predefined PMD. In this case, we could find the metabolites of metabolites of metabolites of metabolites of metabolites in few seconds and it turn out that we still miss lots of metabolites of TBBPA when we didn't expect those reaction flow. However, reactomics show the power to reveal all the possibility of metabolites.
+
 ---
 class: inverse, center, middle
 
 # Reactomics Application 
 
 ## Endogenous or Exogenous
+
+???
+The second application of reactomics is an issue confusing lots of researchers. Do we have a way to separate endogenous compounds with exogenous compounds in our samples? For example, if we collect serum samples and get the untargeted metabolites profile. We want to link a disease with certain unknown compounds show differences among control and disease group. However, we have no clue whether this compound is from ourself or the environment. So, how could reactomics help?
 
 ---
 
@@ -238,6 +276,11 @@ class: inverse, center, middle
 knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png")
 ```
 
+???
+Here I use T3DB, which is the only database with the annotation of endogenous or exogenous for their compounds. I collected all of the 255 endogenous compounds and 705 exogenous compounds and polled their exact mass together. Then I performed PMD analysis to get all of the possible PMD among those compounds. As I mentioned before, PMD will always enriched in few high frequency ones. Here we didn't predefine those set but directly use top 10 high frequency PMD and construct the PMD network as we did for pumpkin study and here is the results.
+
+I removed all the compounds without any high frequency PMDs relationship with other and you could find interesting pattern for endogenous compounds and exogenous compounds. Most of the endogeous compounds could be connected by few large clusters. As for exogenous compounds, through they have larger numbers, they could not form a larger network. In this case, we need to think what does endogenous means. It means this compound could be generated in a biological process and biological process is alway enriched by few high freqency PMDs. As for exogenous compounds, they are new to biological process and we might not have two many pathways to metabolize them. 
+
 ---
 
 ## KEGG reaction network
@@ -250,6 +293,13 @@ knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/g
 knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png")
 ```
 
+???
+Let's see some real reactions from KEGG database. Here I use the top 10 high freqency PMDs from KEGG and generate the reaction network for four compounds. This is Glucose, which is very important to any biological process and it's a exogenous compound. You can see its network could be extended in all of high freqency PMD and lots of compounds could be coupled into this network. Then we could see Cholestene, which is also a endogenous compounds while not that important as Glucose. It's network is smaller. Then we could see Caffine, which is exogenous compounds for most animals. It also show a network while the network structure is much simpler than endogenous compounds. Then we could see bromophenol, which is also endogenous compounds and its network shows it didn't involved in too much reactions.
+
+OK, we could not always use our eye to make annotation of endogenous or exogenous. Based on reacotmics, the average network distance of  their high frequency PMD network could be a good option. The average network distance means the average numbers of how many PMD connections within a network. If such number is large, we will see a much larger network for certain compounds. Those number for Glucose is 9.74 and for Bromophenol is 1.8. 
+
+To be honest, there is no hard cut off for whether a compound is endogenous or exogenous. Some compounds will be endogenous for plant sample while exogenous for animal sample. In terms of reactomics, I suggest such cutoff should be generated from the samples themselves. Using the high freqency PMDs of your samples to get the PMD network for your specific samples. In my experience, you will always see few large clusters and lots of smaller clusters. Then when you find some compounds of your interests, check if this compound is on the larger PMD cluster or smaller cluster to guess whether this compound is from environment or not. Based on known compounds or T3DB, this method works in most cases.
+
 ---
 
 class: inverse, center, middle
@@ -257,6 +307,9 @@ class: inverse, center, middle
 # Reactomics Application 
 
 ## Biomarker Reaction
+
+???
+This is my favourite application of reactomics. I am from a medical school and all of our samples should be linked to healthcares. Biomarker is always of the most interests to our collaborator for certain disease. In the past, biomarker always means biomarker compounds and that's why lots of analytical paper spent lots of time on identification of unknown compounds. However, in reactomics such identification has been skipped by PMD. In this case, what we will check will not be biomarker compound, but biomarker reactions. I don't believe one compound could serve as biomarker well and when we talk about reactions, it always means at least two compounds and reaction level changes will be relatively stable for prediction.
 
 ---
 
@@ -270,13 +323,10 @@ class: inverse, center, middle
 knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
 ```
 
----
+???
+Though we had some exciting data, I prefer to use public data to avoid the bias of our methods. Here we use MTBLS28 dataset from metabolights. It contains 1005 human urine samples and linked to lung cancer. What I did is simply check the high freqency PMDs from the data itself and some known high freqency PMD from KEGG. 
 
-## How
-
-```{r echo=FALSE,out.width='72%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
-```
+As I mentioned in the quanlitative analysis of reactomics, only the pairs with stable intensity ratios were used to check if it's biomarker reaction or not. Here I found PMD 2.02 Da could be a biomarker reaction for lung cancer. As you could see here in the figure, lung cancer group will show a relatively lower PMD 2.02 Da level compared with control group. If this is true, urine samples could be used to predict disease at reaction level.
 
 ---
 
@@ -298,19 +348,49 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
   - From raw data to report
   - part of `xcmsrocker` docker image
   
-### POSTER 304118
+### [POSTER](https://docs.google.com/presentation/d/18qDbjy1PYuLZgOOlbSgzkpFBQnc3k-H5XhQPHjszfHA/edit?usp=sharing) 304118
+
+???
+Here I show three application of reactomics and you might find more. So what I did is write a R package to include all the functions for pmd analysis or reactomics analysis such as the pmd-reaction database based on KEGG/HMDB, quantitative pmd analysis, PMD network analysis. To make it clear, I only cover the reaction between different compounds instead of reactions from one compound. However, we do have functions to make MS/MS annotation based on pmd and you could check poster 304118 for details.
+
+Meanwhile, to make reactomics fully reproducible at the very beginning, I developed another R package called rmwf, which means reproducible metabolomics work flow. I included our lab data from NIST 1950, which is standard reference material. I included lots of R code and template to help the user to process the raw data into a report. This package is also part of xcmsrocker project, which try to creat a docker image for fully reproducible metabolomics data analysis environemnt based on RStudio.
 
 ---
 
-class: inverse, center, middle
+## Take-home message
 
-# Thanks 
+### Reaction is the "base pair" for small molecules
 
-## Q&A
+### Reactomics means the omics study at reaction or PMD level
 
-## miao.yu@mssm.edu
+### Real data always enriched in few PMDs or reactions
 
-```{r cache=FALSE}
-knitr::knit_exit() 
+### Reaction level changes could be quantitative and predictable
+
+???
+Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
+
+---
+
+## Acknowledgement
+
+.pull-left[- Institute for Exposomic Research, ISMMS
+
+- Department of Environmental Medicine and Public Health, ISMMS
+
+- Dr. Petrick's research group
+
+- Dr. Xinwang Hou
+
+- Q&A: miao.yu@mssm.edu
+]
+
+.pull-right[
+```{r echo=FALSE,out.width="300px"}
+knitr::include_graphics('IMG-2090.jpg')
 ```
+]
+
+???
+This research is supported by institute for exposomics research, Icahn school of medicine at mount sinai. Department of environmental medicine and public health, ISMMS. I am a postdoc from Dr. Petrick's research group and here is our group members. Dr. Petrick, Georgia, me, Kelsey, and Dr. Tu. Sepcial thanks to Dr. Xinwang Hou, who share the pumpkin raw data with me and included in enviGCMS package. If you have any question, feel free to contact me via email or twitter. I will be in the live Q&A. See you there and thanks!
 
