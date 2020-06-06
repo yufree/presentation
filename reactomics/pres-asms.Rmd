@@ -387,7 +387,7 @@ Here is the take-home message for reactomics: reaction is the "base pairs" for s
 
 .pull-right[
 ```{r echo=FALSE,out.width="300px"}
-knitr::include_graphics('IMG-2090.jpg')
+knitr::include_graphics('../figure/mssmlabmember.jpg')
 ```
 ]
 

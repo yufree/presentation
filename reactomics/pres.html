@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Reactomics and Paired Mass Distance Analysis</title>
     <meta charset="utf-8" />
@@ -14,125 +14,41 @@ class: center, middle, inverse, title-slide
 
 # Reactomics and Paired Mass Distance Analysis
 ### Miao Yu
-### 2018/11/11 (updated: 2020-01-08)
+### 2018/11/11 (updated: 2020-06-06)
 
 ---
 
 
 
 
-## MS based Target/Untargeted Analysis
 
+## Typical workflow for HRMS metabolomics
 
-|    Purpose     |     Target      |       Untargeted        |
-|:--------------:|:---------------:|:-----------------------:|
-|     Target     |      Known      |    Unknown compounds    |
-|    MS mode     |     SIM/MRM     |        Full Scan        |
-| Quantification |     Absolut     | Relative quantification |
-|  Qualitation   |    Standards    |    Semi qualitative     |
-|     Study      |   Validation    |        Discovery        |
-|  Information   | Subset analysis |     Global analysis     |
+- Collect samples
 
-- Target analysis and untargeted Analysis are designed for different purposes
-- They could be part of one workflow for certain research
+- Acquire data (peaks) using mass spectrometry
 
----
+- Annotate peaks for identification with compound name
 
-## Workflow for Untargeted Analysis
+- Build links between compounds using pathway/network analysis
 
-.large[
-- [Sample collection]
-- [Pretreatment]
-- [Instrumental analysis (Mass Spectrometry)]
-- [From raw data to peaks in each sample]
-- Align peaks to make retention time correction for multiple samples
-- Fill the peaks for aligned peaks list
-- Peaks list
-  - Peaks with mass to charge ratio @ retention time in row
-  - Samples in column
-- Annotation for peaks
-- Validation by standards (targeted analysis)
-- [Prediction/Inference for scitific purpose]
-]
-
----
-
-## Demo of XC-MS Data
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://yufree.github.io/metaworkflow/images/singledata.png" alt="Demo of GC/LC-MS data"  /&gt;
-&lt;p class="caption"&gt;Demo of GC/LC-MS data&lt;/p&gt;
-&lt;/div&gt;
-
----
-
-## Demo of Peaks
-
-&lt;img src="pres_files/figure-html/demoeic-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-## Demo of Retention Time Correction
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://yufree.github.io/presentation/figure/obiwarp.gif" alt="Demo of Obiwarp" width="50%" /&gt;
-&lt;p class="caption"&gt;Demo of Obiwarp&lt;/p&gt;
-&lt;/div&gt;
-
-.half[
-Prince, J. T., &amp; Marcotte, E. M. (2006). Chromatographic Alignment of ESI-LC-MS Proteomics Data Sets by Ordered Bijective Interpolated Warping. Analytical Chemistry, 78(17), 6140–6152. doi:10.1021/ac0605344
-]
-
-???
-Loess alignment use local region to align the peaks. However, obiwarp alignment with bijective interpolated dynamic time warping. Raw data from two LC−MS runs, whether successive fractions or across different biological conditions, (1) is interpolated into a (2) uniform matrix (or rectilinear matrix). (3) An all vs all similarity matrix of the spectra is constructed. (4) The similarity matrix distribution is mean centered and normalized by the standard deviation. (5) Dynamic programming is performed by adding similarity scores along a recursively generated optimal path while off-diagonal transitions are penalized by either a local or global gap penalty to give (6) an additive score matrix. (7) Pointers are kept in a traceback matrix used to deliver (8) the optimal alignment path. (9) High scoring points in the optimal path are selected to create a bijective (one-to-one) mapping, which is used as anchors for PCHIP interpolation to generate a smooth warp function. (II) Verification and optimization. (11) MS/MS spectra from the raw MS runs are searched via SEQUEST and Peptide/Protein Prophet to determine peak identities. (12) High-confidence identifications are selected and (13) the overlapping set of peptide identifications (after filtering outliers) is used as the alignment standard. (14) The warp function produced through the comparison of MS data is applied to the standards. (15) The ideal alignment would shift all standards to the diagonal. The accuracy of an alignment is calculated as the sum of the square residuals from the diagonal.
-
----
-
-## Demo of Peaks Filling
-
-&lt;img src="https://yufree.github.io/presentation/figure/peakfiling.png" width="90%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Demo of Many XC-MS Data
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://yufree.github.io/metaworkflow/images/multidata.png" alt="Demo of many GC/LC-MS data"  /&gt;
-&lt;p class="caption"&gt;Demo of many GC/LC-MS data&lt;/p&gt;
-&lt;/div&gt;
-
----
-
-## Major issue
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://yufree.github.io/presentation/figure/cat.jpg" alt="Annotation is similar to find real cat in this picture" width="42%" /&gt;
-&lt;p class="caption"&gt;Annotation is similar to find real cat in this picture&lt;/p&gt;
-&lt;/div&gt;
-
----
-
-## Annotation for peaks
-
-- Predefined rules between peaks/features and compounds
-
-- Generate pseudo-spectrum
-
-- Search database or *in silico* prediction to identify compounds
-
-- Build the links between compounds by pathway/network analysis
-
-&gt; Features -&gt; Compounds -&gt; Relationship among compounds
+&gt; Sample -&gt; Peaks -&gt; Compounds -&gt; Relationship among compounds
 
 - Problems
 
-    - Time consuming - too many peaks
-    - Sensitivity - DDA or MS/MS
-    - Standards coverage
+    - Time consuming - too many peaks ~20k
+    - Standards coverage - unknown unknown
+
+???
+Hello everyone, my name is Miao Yu and I am from Icahn School of medicine at Mount Sinai. My title is 'Reactomics and Paired Mass Distance Analysis'. I fully understand that you are tired of different 'omics' and I hope this one will make a difference.
+
+Before the discussion of the concepts, let's review the general workflow for metabolomics or untargeted analysis. We collect samples and then perform the instrument analysis. In terms of mass spectrometry, we will collect peaks signals. Then we will process the data and turn the peaks signals into featuers table and annotate the featuers as compounds by either database or prediction. The next step is building the links between those compounds by pathway analysis or network analysis. In summary, samples turn into peaks, peaks turn into compounds and compounds turn into relationship among compounds. The final purpose of metabolomics is not identification of a compound and the real scientific purpose is always the relationship among compounds.
+
+However, there are some problems at current stage. The first one is time consuming. We need to deal with about around 20 thousands peaks from each sample or featuers from multiple samples. It's just impossible to check them one by one and we need to focus on a reasonable number of compounds of interests. The second issue is the standards coverage. I doubt how many of you have received comments from reviewer 3 about standards confirmation or annotation of unkown peaks. In most cases, metabolomics and untarget analysis are facing the unknown unknown paradox. If we never find some compounds before, how could we make annotation based on current database. 
 
 ---
 
-## My Idea
+## Idea
 
 &gt; Features -&gt; Compounds -&gt; Relationship among compounds
 
@@ -149,11 +65,11 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 
 ---
 
-## My Idea
+## Idea
 
-&gt; Features -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+&gt; Sample -&gt; Peaks -&gt; ~~Compounds~~ -&gt; Relationship among compounds
 
-- Mass spectrum could directly measure reactions
+- Mass spectrum could directly measure relationship (reactions)
 
 &lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -161,16 +77,29 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 - Annotation is not really necessary for certain scientific problem
 - Relationship among compounds or reaction matters
 
+Here is my idea to those problems. Let's review the information flow. Samples, peaks, compounds, relationship among compounds... Wait, if we try to find the relationship among compounds, is there a way to skip the compounds identification phase?
+
+The answer should be yes. Let's take oxidation process as an example. If it happens, no matter which compounds are involved, there should always be a mass differnces of sixteen dalton between those compounds. Since our mass spectrometry could detect their mass to charge ratio, we actually could directly extract all those relationship by checking paired mass distance among the unknown peaks. The unit of the relationship between compounds should be chemical reactions.
+
+---
+
+## Why Reactions?
+
+&lt;img src="https://yufree.github.io/presentation/figure/cas.jpg" style="display: block; margin: auto;" /&gt;
+
 ---
 ## Why Reactions?
 
 &lt;img src="https://yufree.github.io/presentation/figure/database.png" style="display: block; margin: auto;" /&gt;
 
-- Unit: Gene(5) &lt; Protein(20+2) &lt; Metabolite(100K) &lt; Compound(100M)
+- Unit: Gene (5) &lt; Protein (20+2) &lt; Metabolite (100K) &lt; Compound (100M)
 
-- Combination: Gene(20,000-25,000) &lt; Protein(20,000-25,000) &lt; Compound(???) 
+- Combination: Gene (20,000-25,000) &lt; Protein (20,000-25,000) &lt; Compound(???) 
 
-- Small molecular **combination** is chemical reaction or paired mass distance
+- Small molecule  **combination** is a chemical reaction or paired mass distance
+
+???
+So why reactions? Compared with other omics, the major difference in metabolomics is the missing of unit of relationship. For genomics, five moleculars are the unit and their combination unit is base pair. For proteomics, twenty two amino acids are the molecular unit and their combination unit is peptide bond. For small molecular, over one hundred million molecular are unit while actually we only care the one who will show activity with other molecular. In this case, the combination unit should be chemical reactions. In terms of mass spectrometry, reactions mean paired mass distance among different compounds.
 
 ---
 
@@ -179,11 +108,11 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 - [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
 
 `$$\Delta m = Zm_{H} + Nm_{n} - M$$`
-- The missing mass was converted into energy ( `\(E=mc^2\)` ) and emitted when the atom made
+- The missing mass was converted into energy ( `\(E=mc^2\)` ) and emitted when the atom was made
 
 - Atoms -&gt; Compounds -&gt; Mass distances between compounds
 
-- **Paired Mass Distances(PMD)** is unique
+- **Paired Mass Distances (PMD)** is unique
 
 - **High resolution** mass spectrometry WINs
 
@@ -191,9 +120,23 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 - Mass defects could be transferred from atom to paired mass distance
 - HRMS could measure PMDs for qualitative analysis
 
+So why PMD? The best feature for PMD is that it comes from the nuclear binding energy and almost unique to a specific element composition. In this case, if we have high resolution mass spectrometry, we could annotate a certain paired mass distance with element composition and check if it's linked to a known reaction.
+
 ---
 
-## Sources of PMDs in the real data
+## Why PMD?
+
+- Mass defect at atom level
+
+&lt;img src="https://yufree.github.io/presentation/figure/massdefect.jpg" style="display: block; margin: auto;" /&gt;
+
+.half[
+Hall, M. P., Ashrafi, S., Obegi, I., Petesch, R., Peterson, J. N., &amp; Schneider, L. V. (2003). ?Mass defect? tags for biomolecular mass spectrometry. Journal of Mass Spectrometry, 38(8), 809–816. doi:10.1002/jms.493
+]
+
+---
+
+## Sources of PMDs in real data
 
 ### Where is PMD?
 
@@ -220,49 +163,110 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
   - 15.995 Da
 ]  
 
+???
+However, not all of the PMD is linked to reaction among compounds. Some of the PMD could be generated from one compounds such as isotopologue or in source reaction or MSMS fragmental ions. Some PMDs could also show the homologous series like lipid, which is structure similarity instead of reaction relationship.
 
 ---
 
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
+
+### Reaction PMD
+
+- Reaction: `\(S_1 + S_2 + … + S_n = P_1 + P_2 + … + P_m \ (n&gt;=1,m&gt;=1)\)`
+
+- PMD matrix
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(S_1\) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(S_2\) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; ... &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(S_n\) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \(P_1\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_1 - P_1|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_2 - P_1|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_n - P_1|\) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \(P_2\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_1 - P_2|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_2 - P_2|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_n - P_2|\) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \(P_m\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_1 - P_m|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_2 - P_m|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_n - P_m|\) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+- Paired mass distances for certain parent compound:
+
+`$$PMD_{S_{k}} = min(|S_k-P_1|,|S_k-P_2|,...,|S_k-P_m|) (1 \le k \le n )$$`
+- Paired mass distances for certain reaction:
+
+`$$PMD_R = \{PMD_{S_{1}}, PMD_{S_{2}},...,PMD_{S_{n}}\}$$`
+
+---
+
+## Quantitative and Qualitative analysis in Reactomics
 
 ### KEGG reaction database
 
 
-|   PMD   | Freq |                        Example                        |
-|:-------:|:----:|:-----------------------------------------------------:|
-|  1.008  | 2037 |     NAD(+) + succinate &lt;=&gt; fumarate + H(+) + NADH     |
-|  2.016  | 1748 | NAD(+) + propanoyl-CoA &lt;=&gt; acryloyl-CoA + H(+) + NADH |
-| 15.995  | 1170 |                ATP + GDP &lt;=&gt; ADP + GTP                |
-| 13.979  | 1122 |   deoxynogalonate + O2 &lt;=&gt; H(+) + H2O + nogalonate    |
-| 17.003  | 929  | H2O + hypotaurine + NAD(+) &lt;=&gt; H(+) + NADH + taurine  |
-| 79.966  | 750  |         ATP + H2O &lt;=&gt; ADP + H(+) + phosphate          |
-| 14.016  | 611  |  acetyl-CoA + propanoate &lt;=&gt; acetate + propanoyl-CoA  |
-|    0    | 533  |              L-glutamate &lt;=&gt; D-glutamate              |
-| 162.053 | 365  |       H2O + lactose &lt;=&gt; D-galactose + D-glucose       |
-| 18.011  | 361  |        L-serine &lt;=&gt; 2-aminoprop-2-enoate + H2O        |
+|   PMD   | Freq | ExampleReactionClass | ExampleEnzyme |
+|:-------:|:----:|:--------------------:|:-------------:|
+|  2.016  | 1732 |       RC00095        |   1.3.1.84    |
+| 15.995  | 1169 |       RC00046        |   1.3.99.18   |
+| 79.966  | 729  |       RC00002        |    3.6.1.3    |
+| 14.016  | 594  |       RC00060        |    1.5.3.1    |
+|    0    | 532  |       RC00302        |    5.1.1.3    |
+| 18.011  | 359  |       RC00680        |    3.5.2.5    |
+| 162.053 | 365  |       RC00049        |   3.2.1.23    |
+| 159.933 | 243  |       RC02056        |   4.2.3.42    |
+|  1.032  | 262  |       RC00006        |    1.4.1.2    |
+| 42.011  | 237  |       RC00004        |   2.3.1.54    |
 
-- Real reactions contain ions
-- Skewed by known reactions
+???
+In this case, though we don't need to annotate all the compounds, a PMD database are still needed for PMD annotate as element composition and their corresponding reaction class or enzyme. Here, I analyzed all the reactions PMD from KEGG reaction database and removed the ions related PMD, which is not detectable by mass spectrometry. I found our known reactions are actually highly enriched by a few PMDs. The double bonds formation or broken reaction appeared in 1732 reactions, almost fifteen percent of the reactions in KEGG. In this case, for reactomics we could skip quantitative analysis of endless unknown compounds and focus on the changes of those enriched PMDs.
 
 ---
 
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
 
 ### HMDB compounds database
 
 
-|       | C | H | O |
-|:------|:-:|:-:|:-:|
-|14.016 | 1 | 2 | 0 |
-|2.016  | 0 | 2 | 0 |
-|28.031 | 2 | 4 | 0 |
-|26.016 | 2 | 2 | 0 |
-|15.995 | 0 | 0 | 1 |
-|56.063 | 4 | 8 | 0 |
-|12     | 1 | 0 | 0 |
-|42.047 | 3 | 6 | 0 |
-|30.011 | 1 | 2 | 1 |
-|24     | 2 | 0 | 0 |
+| C  | H  | O  |
+|:--:|:--:|:--:|
+| -3 | 4  | 2  |
+| 1  | 4  | -1 |
+| 5  | 4  | -4 |
+| 2  | 8  | -2 |
+| 6  | 8  | -5 |
+| -1 | 12 | 0  |
+| 3  | 12 | -3 |
+| 0  | 16 | -1 |
+| 4  | 16 | -4 |
+| 8  | 16 | -7 |
 
 - Dominated by C, H and O
 - Structure or reaction?
@@ -271,51 +275,89 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 - We need quantitative mass ready database for PMD annotation
 
 ---
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
 
 ### HMDB compounds database
 
 
-|      |  PMD   | frequency | accuracy |  PMD  | frequency | accuracy |
-|:-----|:------:|:---------:|:--------:|:-----:|:---------:|:--------:|
-|+C2H  | 14.016 |   4934    |  0.9755  | 14.02 |   8003    |  0.6014  |
-|+2H   | 2.016  |   4909    |  0.9703  | 2.02  |   7959    |  0.5984  |
-|+2C4H | 28.031 |   4878    |  0.9783  | 28.03 |   7799    |  0.6119  |
-|+2C2H | 26.016 |   4229    |  0.9775  | 26.02 |   7343    |  0.5630  |
-|+O    | 15.995 |   4214    |  0.9808  | 15.99 |   7731    |  0.5346  |
-|+C    | 12.000 |   3861    |  0.9826  | 12.00 |   7145    |  0.5310  |
-|+4C8H | 56.063 |   3861    |  0.9653  | 56.06 |   6699    |  0.5564  |
-|+3C6H | 42.047 |   3771    |  0.9737  | 42.05 |   6558    |  0.5599  |
-|+C2HO | 30.011 |   3698    |  0.9440  | 30.01 |   6761    |  0.5163  |
-|+2C   | 24.000 |   3689    |  0.9810  | 24.00 |   6963    |  0.5197  |
+| Elemental Composition | PMD(digits = 3) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |     14.016      |   4934    |   0.98   |
+|          +2H          |      2.016      |   4909    |   0.97   |
+|         +2C4H         |     28.031      |   4878    |   0.99   |
+|         +2C2H         |     26.016      |   4229    |   0.98   |
+|          +O           |     15.995      |   4214    |   0.99   |
+|          +C           |     12.000      |   3861    |   0.99   |
+|         +4C8H         |     56.063      |   3861    |   0.97   |
+|         +3C6H         |     42.047      |   3771    |   0.98   |
+|         +C2HO         |     30.011      |   3698    |   0.95   |
+|          +2C          |     24.000      |   3689    |   0.99   |
 
 ---
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
 
 ### HMDB compounds database
 
 
-|      | PMD  | frequency | accuracy | PMD | frequency | accuracy |
-|:-----|:----:|:---------:|:--------:|:---:|:---------:|:--------:|
-|+C2H  | 14.0 |   50419   |  0.0955  | 14  |  156245   |  0.0354  |
-|+2H   | 2.0  |   50467   |  0.0944  |  2  |  156260   |  0.0352  |
-|+2C4H | 28.0 |   50797   |  0.0939  | 28  |  155410   |  0.0356  |
-|+2C2H | 26.0 |   48517   |  0.0852  | 26  |  154346   |  0.0309  |
-|+O    | 16.0 |   51278   |  0.0806  | 16  |  155811   |  0.0307  |
-|+C    | 12.0 |   49335   |  0.0769  | 12  |  155339   |  0.0283  |
-|+4C8H | 56.1 |   36417   |  0.1026  | 56  |  151894   |  0.0286  |
-|+3C6H | 42.0 |   49808   |  0.0737  | 42  |  153764   |  0.0275  |
-|+C2HO | 30.0 |   51241   |  0.0681  | 30  |  154369   |  0.0260  |
-|+2C   | 24.0 |   48099   |  0.0752  | 24  |  154278   |  0.0273  |
+| Elemental Composition | PMD(digits = 2) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |      14.02      |   8003    |   0.63   |
+|          +2H          |      2.02       |   7959    |   0.62   |
+|         +2C4H         |      28.03      |   7799    |   0.61   |
+|         +2C2H         |      26.02      |   7343    |   0.58   |
+|          +O           |      15.99      |   7731    |   0.56   |
+|          +C           |      12.00      |   7145    |   0.56   |
+|         +4C8H         |      56.06      |   6699    |   0.56   |
+|         +3C6H         |      42.05      |   6558    |   0.58   |
+|         +C2HO         |      30.01      |   6761    |   0.54   |
+|          +2C          |      24.00      |   6963    |   0.53   |
+
+---
+## Quantitative and Qualitative analysis in Reactomics
+
+### HMDB compounds database
+
+
+| Elemental Composition | PMD(digits = 1) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |      14.0       |   50419   |   0.10   |
+|          +2H          |       2.0       |   50467   |   0.10   |
+|         +2C4H         |      28.0       |   50797   |   0.09   |
+|         +2C2H         |      26.0       |   48517   |   0.09   |
+|          +O           |      16.0       |   51278   |   0.09   |
+|          +C           |      12.0       |   49335   |   0.08   |
+|         +4C8H         |      56.1       |   36417   |   0.10   |
+|         +3C6H         |      42.0       |   49808   |   0.08   |
+|         +C2HO         |      30.0       |   51241   |   0.07   |
+|          +2C          |      24.0       |   48099   |   0.08   |
+
+---
+## Quantitative and Qualitative analysis in Reactomics
+
+### HMDB compounds database
+
+
+| Elemental Composition | PMD(digits = 0) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |       14        |  156245   |   0.03   |
+|          +2H          |        2        |  156260   |   0.03   |
+|         +2C4H         |       28        |  155410   |   0.03   |
+|         +2C2H         |       26        |  154346   |   0.03   |
+|          +O           |       16        |  155811   |   0.03   |
+|          +C           |       12        |  155339   |   0.03   |
+|         +4C8H         |       56        |  151894   |   0.02   |
+|         +3C6H         |       42        |  153764   |   0.03   |
+|         +C2HO         |       30        |  154369   |   0.02   |
+|          +2C          |       24        |  154278   |   0.02   |
 
 ---
 
-## Quantitative and Qualitative analysis for Reaction
+## Quantitative and Qualitative analysis in Reactomics
 
 ### Static v.s. dynamic 
 
 - Static mass pairs: paired intensity ratio is stable across samples
-- Dynamic mass pairs: paired intensity ratio is stable across samples
+- Dynamic mass pairs: paired intensity ratio is not stable across samples
 - For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
 
 
@@ -324,20 +366,34 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 | 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    |
 | 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    |
 
-- [A,B] and [E,F] could be used for Quantitative analysis for certain PMD, rsd cutoff 30%
-- [C,D] could be used to check dynamics of specific reaction
+- [A,B] and [E,F] are static mass pairs so can be used in quantitative analysis, rsd cutoff 30%
+- [C,D] can be used to check dynamics of a specific reaction
 
 ???
 - Response factor is the slope of calibration curve for certain compound
 - Total intensity of all pairs with the same PMD
 - Count once for ions involved in multiple reactions
 
+When we have the list of enriched PMDs, we need to define how to make quantitative analysis of the paired mass distance. Here I proposed to use static PMD pairs, which always show stable intensity ratios across samples, for quantitative analysis of reactions. After the discussion of concept and technique issues, now we could see some application of reactomics.
+
+---
+
+# Applications
+
+## PMDDA Workflow
+
+## Metabolites Discovery
+
+## Endogenous or Exogenous
+
+## Biomarker Reaction
+
 ---
 class: inverse, center, middle
 
 # Reactomics Application 
 
-## Exhaustive screen
+## PMDDA Workflow
 
 ---
 
@@ -382,7 +438,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### Retention time cluster analysis
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-14-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-18-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+---
+## GlobalStd Algorithm Step 2
+
+### High frequency PMD analysis across RT clusters
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-19-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -392,21 +455,21 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-15-1.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-20-1.png" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-16-1.png" width="430px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-21-1.png" width="430px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection - example
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-17-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-22-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
@@ -510,6 +573,9 @@ class: inverse, center, middle
 
 ## Metabolites Discovery
 
+???
+The first application is metabolites discovery. Current workflow for metabolites discovery is the prediction of metabolites based on MS/MS database or pathway database and then match the predicted ions with real data. Here, based on reactomics, we proposed a local recursive search for metabolites discovery.
+
 ---
 
 ## Metabolites of exogenous compound
@@ -520,15 +586,18 @@ class: inverse, center, middle
 ### Xenobiotic metabolism
 
   - Phase I
-    - Oxidation (R-H ⇒ R-OH, pmd 15.995 Da)
-    - Reduction (R-C=O ⇒ R-C-OH, pmd 2.016 Da)
+    - Oxidation (R-H =&gt; R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O =&gt; R-C-OH, pmd 2.016 Da)
     
   - Phase II
-    - Methylation (R-OH ⇒ R-O-C,pmd 14.016 Da)
-    - Sulfation (R-OH ⇒ R-SO4, pmd 46.976 Da)
-    - Acetylation (R-OH ⇒ R-O-COCH3, pmd 42.011 Da)
-    - Glucuronidation (R-NH2 ⇒ R-NH-C6H9O7, pmd 192.027 Da)
-    - Glycosylation (R-OH ⇒ R-O-C6H11O5, pmd 162.053 Da)
+    - Methylation (R-OH =&gt; R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH =&gt; R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH =&gt; R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 =&gt; R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH =&gt; R-O-C6H11O5, pmd 162.053 Da)
+
+???
+Metabolites discovery is commen in two types of studies: environmental pollution metabolites and drug metabolites discovery. In general, it involved xenbiotic metabolism pathway. It's usually contain phase one reaction, which will be oxdation or reduction of original compounds. And then phase two reaction, which will add functional group to increase the polarity of compounds and help to release those exdogenous compounds into the environment. At chemical reaction level, there are only a few PMDs associated with this process.
 
 ---
 
@@ -544,6 +613,9 @@ class: inverse, center, middle
 Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
 ]
 
+???
+Here I will use an example to demo such process. Here is a study to find the metabolites of tetrabromobisphenol A in pumpkin. I am actually one of the authors of this published work. Here we use mass defect analysis to screen all the Brominated compounds and then make confirmation by synthesized standards. You can see that we found seven metabolites of TBBPA. If you checked the structure, you will find it seems the metabolites follow a reaction flow. Metabolites one is the glycosylation of TBBPA and metabolites two is the mylonylation of metabolites one. Metabolites three is the glycosylation of both side of the hydroxlation groups of TBBPA. It seems the metabolites could be extended by certain PMDs.
+
 ---
 
 ## Metabolites of TBBPA in Pumpkin
@@ -557,13 +629,18 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
 ]
 
+???
+Since I am one of the authors of this work, I have the raw data of this study and I reanalyzed the data in terms of reactomics. What I did is that I gather the five PMDs reported in this study. They are debrominated, glycosylation, mylonylation, methylation and hydroxylation process. You might notice that the PMDs are different from formula. For example, the debrominated process involved both adding Bromine atom and removing hydrogen atom and the PMD could not be shown as chemical formula but a plus and minus format. Anyway, I labeled all the previous found compounds as node of a network. In this case, the metabolites discovery is not based on prediction but based on the data itself. If the searching could find a peak with certain PMD, the node will be extanded and new search will begin at the new node for predefined PMD. In this case, we could find the metabolites of metabolites of metabolites of metabolites of metabolites in few seconds and it turn out that we still miss lots of metabolites of TBBPA when we didn't expect those reaction flow. However, reactomics show the power to reveal all the possibility of metabolites.
+
 ---
+class: inverse, center, middle
 
-## KEGG reaction network
+# Reactomics Application 
 
-- Metabolites of four compounds
+## Endogenous or Exogenous
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmd.png" width="500px" style="display: block; margin: auto;" /&gt;
+???
+The second application of reactomics is an issue confusing lots of researchers. Do we have a way to separate endogenous compounds with exogenous compounds in our samples? For example, if we collect serum samples and get the untargeted metabolites profile. We want to link a disease with certain unknown compounds show differences among control and disease group. However, we have no clue whether this compound is from ourself or the environment. So, how could reactomics help?
 
 ---
 
@@ -571,9 +648,31 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
 - T3DB Endogenous (255) vs Exogenous (705)
 
-- Use top 20 high frequency PMDs
+- Use top 10 high frequency PMDs
 
-&lt;img src="https://yufree.github.io/presentation/figure/t3db2.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+???
+Here I use T3DB, which is the only database with the annotation of endogenous or exogenous for their compounds. I collected all of the 255 endogenous compounds and 705 exogenous compounds and polled their exact mass together. Then I performed PMD analysis to get all of the possible PMD among those compounds. As I mentioned before, PMD will always enriched in few high frequency ones. Here we didn't predefine those set but directly use top 10 high frequency PMD and construct the PMD network as we did for pumpkin study and here is the results.
+
+I removed all the compounds without any high frequency PMDs relationship with other and you could find interesting pattern for endogenous compounds and exogenous compounds. Most of the endogeous compounds could be connected by few large clusters. As for exogenous compounds, through they have larger numbers, they could not form a larger network. In this case, we need to think what does endogenous means. It means this compound could be generated in a biological process and biological process is alway enriched by few high freqency PMDs. As for exogenous compounds, they are new to biological process and we might not have two many pathways to metabolize them. 
+
+---
+
+## KEGG reaction network
+
+- Metabolites of four compounds
+
+- Average network distance: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+???
+Let's see some real reactions from KEGG database. Here I use the top 10 high freqency PMDs from KEGG and generate the reaction network for four compounds. This is Glucose, which is very important to any biological process and it's a exogenous compound. You can see its network could be extended in all of high freqency PMD and lots of compounds could be coupled into this network. Then we could see Cholestene, which is also a endogenous compounds while not that important as Glucose. It's network is smaller. Then we could see Caffine, which is exogenous compounds for most animals. It also show a network while the network structure is much simpler than endogenous compounds. Then we could see bromophenol, which is also endogenous compounds and its network shows it didn't involved in too much reactions.
+
+OK, we could not always use our eye to make annotation of endogenous or exogenous. Based on reacotmics, the average network distance of  their high frequency PMD network could be a good option. The average network distance means the average numbers of how many PMD connections within a network. If such number is large, we will see a much larger network for certain compounds. Those number for Glucose is 9.74 and for Bromophenol is 1.8. 
+
+To be honest, there is no hard cut off for whether a compound is endogenous or exogenous. Some compounds will be endogenous for plant sample while exogenous for animal sample. In terms of reactomics, I suggest such cutoff should be generated from the samples themselves. Using the high freqency PMDs of your samples to get the PMD network for your specific samples. In my experience, you will always see few large clusters and lots of smaller clusters. Then when you find some compounds of your interests, check if this compound is on the larger PMD cluster or smaller cluster to guess whether this compound is from environment or not. Based on known compounds or T3DB, this method works in most cases.
 
 ---
 
@@ -583,6 +682,9 @@ class: inverse, center, middle
 
 ## Biomarker Reaction
 
+???
+This is my favourite application of reactomics. I am from a medical school and all of our samples should be linked to healthcares. Biomarker is always of the most interests to our collaborator for certain disease. In the past, biomarker always means biomarker compounds and that's why lots of analytical paper spent lots of time on identification of unknown compounds. However, in reactomics such identification has been skipped by PMD. In this case, what we will check will not be biomarker compound, but biomarker reactions. I don't believe one compound could serve as biomarker well and when we talk about reactions, it always means at least two compounds and reaction level changes will be relatively stable for prediction.
+
 ---
 
 ## Lung cancer
@@ -591,7 +693,12 @@ class: inverse, center, middle
 
 - PMD 2.02 Da show differences among control and diseases
 
-&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="600px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+???
+Though we had some exciting data, I prefer to use public data to avoid the bias of our methods. Here we use MTBLS28 dataset from metabolights. It contains 1005 human urine samples and linked to lung cancer. What I did is simply check the high freqency PMDs from the data itself and some known high freqency PMD from KEGG. 
+
+As I mentioned in the quanlitative analysis of reactomics, only the pairs with stable intensity ratios were used to check if it's biomarker reaction or not. Here I found PMD 2.02 Da could be a biomarker reaction for lung cancer. As you could see here in the figure, lung cancer group will show a relatively lower PMD 2.02 Da level compared with control group. If this is true, urine samples could be used to predict disease at reaction level.
 
 ---
 
@@ -607,21 +714,41 @@ class: inverse, center, middle
 
 ## Software
 
-### [enviGCMS package](http://yufree.github.io/enviGCMS/)
-  
-  - Target analysis
-  - Mass defect analysis
-
 ### [pmd package](http://yufree.github.io/pmd/)
   
-  - Untargeted analysis
   - GlobalStd algorithm
-  - Reactomics analysis
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network anaysis
+  - pmd MS/MS annotation algorithm
+  - GUI application based on shiny
 
 ### [rmwf package](https://github.com/yufree/rmwf)
 
   - NIST 1950 data 
-  - Script
+  - Rmarkdown template
+  - From raw data to report
+  - part of `xcmsrocker` docker image
+
+???
+Here I show three application of reactomics and you might find more. So what I did is write a R package to include all the functions for pmd analysis or reactomics analysis such as the pmd-reaction database based on KEGG/HMDB, quantitative pmd analysis, PMD network analysis. To make it clear, I only cover the reaction between different compounds instead of reactions from one compound. However, we do have functions to make MS/MS annotation based on pmd and you could check poster 304118 for details.
+
+Meanwhile, to make reactomics fully reproducible at the very beginning, I developed another R package called rmwf, which means reproducible metabolomics work flow. I included our lab data from NIST 1950, which is standard reference material. I included lots of R code and template to help the user to process the raw data into a report. This package is also part of xcmsrocker project, which try to creat a docker image for fully reproducible metabolomics data analysis environemnt based on RStudio.
+
+---
+
+## Take-home message
+
+### Reaction is the "base pair" for small molecules
+
+### Reactomics means the omics study at reaction or PMD level
+
+### Real data always enriched in few PMDs or reactions
+
+### Reaction level changes could be quantitative and predictable
+
+???
+Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
 
 ---
 
@@ -679,6 +806,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -696,17 +849,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
