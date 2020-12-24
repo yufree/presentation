@@ -1,0 +1,320 @@
+---
+title: "质谱反应组学及在环境健康中的应用"
+subtitle: ""
+author: "于淼"
+institute: "西奈山伊坎医学院"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## 报告提纲
+
+### 个人简介
+
+### 反应组学
+
+### 应用
+
+### 其他
+
+---
+
+# 个人简介
+
+- 山东大学 环境科学 理学学士（2006-2010）
+
+- 中科院生态环境研究中心 环境科学 理学博士（2010-2016）
+
+- 加拿大滑铁卢大学 分析化学 / *in vivo* SPME 博后（2016-2018）
+
+- 美国西奈山伊坎医学院 暴露组学 博后 （2018-现在）
+
+- 研究兴趣
+
+  - 环境分析化学
+  - 质谱数据分析
+  - 数据科学软件开发，累计下载量>5万
+
+---
+
+# 反应组学
+
+## 传统非目的分析/代谢组学流程
+
+- 样品收集
+
+- 质谱全扫描峰数据采集
+
+- 质谱峰鉴定为物质
+
+- 研究物质间关系
+
+> 样品 -> 质谱峰 -> 物质 -> 物质间关系
+
+- 问题
+
+  - 单样本峰数过万，鉴定耗时
+  - 无法覆盖“未知的未知”物质
+  
+---
+
+## 思路
+
+> 样品 -> 质谱峰 -> ~~物质~~ -> 物质间关系
+
+- 质谱可以直接测量物质关系 (质量差反应组学)
+
+```{r echo=FALSE, out.width= '100%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
+```
+
+---
+
+## 质量差定性
+
+### KEGG 反应数据库
+
+```{r}
+example = data.frame(
+  stringsAsFactors = FALSE,
+                       PMD=c("2.016", "15.995", "79.966", "14.016", "0", "18.011", "162.053", "159.933", "1.032", "42.011"),
+  Freq= c(1732L, 1169L, 729L, 594L, 532L, 359L, 365L, 243L, 262L, 237L),
+  ExampleReactionClass=c("RC00095", "RC00046 ", "RC00002", "RC00060", "RC00302", "RC00680", "RC00049", "RC02056", "RC00006", "RC00004"),
+  ExampleEnzyme = c("1.3.1.84", "1.3.99.18", "3.6.1.3", "1.5.3.1", "5.1.1.3", "3.5.2.5", "3.2.1.23", "4.2.3.42", "1.4.1.2", "2.3.1.54"))
+knitr::kable(example,align = 'c',format = 'markdown')
+```
+
+---
+
+## 质量差定量
+
+### 静态 v.s. 动态
+
+- 静态质量差: 质量对响应比在样本中相对稳定
+- 动态质量差: 质量对响应比在样本中持续变化
+- [A,B], [C,D] [E,F] 有相同质量差:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4' )
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- [A,B] 与 [E,F] 属于静态质量差可用来定量, rsd% 阈值 30%
+- [C,D] 可用来研究反应动态过程
+
+---
+
+## 质谱峰质量差来源
+
+.pull-left[- 同位素峰 
+  
+  - $[M]^+$ $[M+1]^+$
+  - 1.006 Da
+
+- 离子源反应 
+
+  - $[M+H]^+$  $[M+Na]^+$
+  - 21.982 Da
+]
+
+.pull-right[
+- 同系物
+
+  - 脂肪 $-[CH_2]-$
+  - 14.016 Da
+
+- 外源代谢
+
+  - I相反应
+  - 15.995 Da
+]  
+
+---
+
+## 消除冗余峰
+
+### GlobalStd 算法
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## 反应组学
+
+### 质量差相当于小分子的碱基对
+### 有机物质量差存在富集现象
+### 质量差可定性定量指示反应层变化
+### GlobalStd 算法利用质量差去除冗余峰
+
+---
+
+## 影响力
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmdif.png')
+```
+
+---
+
+## 应用：污染物代谢产物筛查
+
+### 外源代谢
+
+  - I相反应
+    - 氧化 (R-H => R-OH, pmd 15.995 Da)
+    - 还原 (R-C=O => R-C-OH, pmd 2.016 Da)
+    
+  - II相反应
+    - 甲基化 (R-OH => R-O-C,pmd 14.016 Da)
+    - 硫酸化 (R-OH => R-SO4, pmd 46.976 Da)
+    - 乙酰化 (R-OH => R-O-COCH3, pmd 42.011 Da)
+    - 葡萄糖醛酸化 (R-NH2 => R-NH-C6H9O7, pmd 192.027 Da)
+    - 糖基化 (R-OH => R-O-C6H11O5, pmd 162.053 Da)
+
+---
+
+## 四溴双酚A (TBBPA) 植物代谢
+
+- 质量亏损技术筛选溴代污染物 
+
+- 合成标准验证
+
+```{r echo=FALSE,out.width = "600px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/TBBPAmet.jpeg')
+```
+
+.half[
+```{r ref3,results = 'asis'}
+doi <- c('10.1021/acs.est.9b02122')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## 四溴双酚A (TBBPA) 植物代谢
+
+- 质量差网络分析
+
+```{r echo=FALSE,out.width = "450px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/TBBPA.png")
+```
+
+
+.half[
+```{r ref4,results = 'asis'}
+doi <- c('10.1038/s42004-020-00403-z')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## 内源产物 vs 外源产物
+
+- T3DB 数据库
+
+- 频率前十的质量差
+
+```{r echo=FALSE,out.width = "450px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png")
+```
+
+.half[
+```{r results = 'asis'}
+doi <- c('10.1038/s42004-020-00403-z')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+---
+
+## KEGG 反应网
+
+- 平均网络距离: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
+
+```{r echo=FALSE,out.width = "450px"}
+knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png")
+```
+
+.half[
+```{r results = 'asis'}
+doi <- c('10.1038/s42004-020-00403-z')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+---
+
+## 肺癌数据集
+
+- MTBLS28 1005 人尿样
+
+- PMD 2.02 Da 可用来区别是否得病
+
+```{r echo=FALSE,out.width="450px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/mtbls28.png')
+```
+
+.half[
+```{r results = 'asis'}
+doi <- c('10.1038/s42004-020-00403-z')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+---
+
+## 反应组学工具开发
+
+### [pmd 包](http://yufree.github.io/pmd/)
+  
+  - GlobalStd 算法
+  - KEGG/HMDB pmd-reaction 数据库 
+  - pmd 反应定量分析
+  - pmd 网络分析
+
+### [rmwf 包](https://github.com/yufree/rmwf)
+
+  - NIST 1950 数据 
+  - Rmarkdown 模版
+  - 从原始数据到结果报告
+  - 属于 `xcmsrocker` docker 镜像
+
+---
+
+## 研究计划
+
+### 活体固相微萃取技术
+
+### 暴露组学
+
+### 污染物反应组学
+
+---
+
+class: center, middle
+
+# 欢迎各位老师批评指正!
+
