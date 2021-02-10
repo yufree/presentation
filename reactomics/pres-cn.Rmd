@@ -27,7 +27,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ### 应用
 
-### 其他
+### 研究计划
 
 ---
 
