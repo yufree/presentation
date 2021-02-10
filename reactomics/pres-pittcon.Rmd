@@ -268,3 +268,5 @@ knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/netdemo.png')
 
 - Search 'reactomics' on google/bing/duckduckgo
 
+- Slides: http://yufree.github.io/presentation/reactomics/pres-pittcon
+
