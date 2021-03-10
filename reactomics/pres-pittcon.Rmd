@@ -18,7 +18,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## Typical workflow for HRMS metabolomics
+## Typical workflow for HRMS metabolomics/NTA
 
 - Collect samples
 
@@ -121,7 +121,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - reaction level evaluation
 
-## Step 3: Relation network
+## Step 3: Relationship network
 
 - network based evaluation
 
@@ -133,7 +133,9 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - Immortalized immunoglobulin-producing cell lines
 
-- 12 from patients with IgA nephropathy and 12 from healthy controls
+- 4 replicates from 6 cell lines
+
+- 3 patients with IgA nephropathy and 3 healthy controls
 
 - 1918 features or peaks
 
@@ -221,7 +223,7 @@ class: inverse, center, middle
 
 # Reactomics Workflow 
 
-## STEP3: Relation network
+## STEP3: Relationship network
 
 ---
 
@@ -252,12 +254,13 @@ knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/netdemo.png')
 
 ### enet package (under development)
 
-  - network analysis for relations among small molecules 
+  - network analysis for relationships among small molecules 
 
 ---
 
 ## Acknowledgement
 
+.pull-left[
 - Institute for Exposomic Research, ISMMS
 
 - Department of Environmental Medicine and Public Health, ISMMS
@@ -266,7 +269,16 @@ knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/netdemo.png')
 
 - Q&A: miao.yu@mssm.edu
 
-- Search 'reactomics' on google/bing/duckduckgo
+- Search 'reactomics'
 
-- Slides: http://yufree.github.io/presentation/reactomics/pres-pittcon
+```{r echo=FALSE,out.width="100px"}
+knitr::include_graphics('../figure/pittcon2021.png')
+```
 
+]
+
+.pull-right[
+```{r echo=FALSE,out.width="300px"}
+knitr::include_graphics('../figure/mssmlabmember.jpg')
+```
+]
