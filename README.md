@@ -1,6 +1,6 @@
 # Presentation
 
-- Miao Yu, 2021, General reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data, Pottcon 2021, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-pittcon) , [video](https://youtu.be/xYHW5Z5q_A8))
+- Miao Yu, 2021, General reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data, Pittcon 2021, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-pittcon) , [video](https://youtu.be/xYHW5Z5q_A8))
 
 - Miao Yu, 2020, Reactomics: Using mass spectrometry as a chemical reaction detector, ASMS 2020 Reboot, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-asms), [video](https://youtu.be/-mT3HcVygHE))
 
