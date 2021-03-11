@@ -50,11 +50,11 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Scientific questions
 
-### What's the relationship between small molecular and health outcome?
+### What's the relationship between small molecule and health outcome?
 
 ### What's the relationship between exposures and metabolites?
 
-### Are all metabolites matters?
+### Which metabolites are the most important?
 
 ---
 
@@ -74,11 +74,11 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - Active electron is located at the active molecular orbitals
 
-- Not all the electron will be influenced in chemical reactions
+- Not all electrons will be influenced in chemical reactions
 
 - electron could be treated as endogenous compound
 
-- Not all metabolites were responded to the stimuli of exposure
+- Not all metabolites responded to the stimuli of exposures
 
 ---
 
@@ -86,7 +86,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - The metabolites linked both exposures and other metabolite should be the frontier of biological process
 
-- Such molecular regulate and prevent the adverse influences from exposures
+- Such molecules may regulate the adverse influences of exposures
 
 ```{r echo=FALSE, out.width= '70%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/goalkeeper.png')
@@ -186,6 +186,15 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 ```
 
 - 13 gatekeepers were associated with multiple exposures
+---
+
+## Step 5: Association between exposure and health outcome
+
+```{r echo=FALSE,out.width= '61%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png')
+```
+
+- Pubertal milestones are associated with multiple exposures
 
 ---
 
@@ -199,21 +208,11 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ---
 
-## Step 5: Association between exposure and health outcome
-
-```{r echo=FALSE,out.width= '70%'}
-knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png')
-```
-
-- Pubertal milestones are associated with multiple exposures
-
----
-
 ## Conclusion
 
 - Only a small fraction of metabolites have response to exposures
 
-- Gatekeeper discovery could be used to such screen metabolites
+- Gatekeeper discovery could be used to screen such metabolites
 
 - Gatekeepers are more sensitive to multiple exposures
 
@@ -231,6 +230,38 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - Chemical reactions to explain the gatekeepers' function ...
 
+
+---
+
+## Acknowledgement
+
+.pull-left[
+
+- Dr. Petrick's research group
+
+- Lam-ha Dang
+
+- Prof. Mary Wolff
+
+- Prof. Susan Teitelbaum,
+
+### Funding
+
+- NIEHS P30ES23515
+- HHEAR pilot program
+- U2C ES026561
+- 1U2CES030859
+
+]
+
+
+.pull-right[
+
+```{r echo=FALSE,out.width="300px"}
+knitr::include_graphics('../figure/mssmlabmember.jpg')
+```
+
+]
 
 ---
 
