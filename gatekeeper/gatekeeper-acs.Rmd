@@ -136,7 +136,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Step 1: Correlation among metabolites
 
-```{r echo=FALSE,out.width= '70%'}
+```{r echo=FALSE,out.width= '60%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png')
 ```
 
