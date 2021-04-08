@@ -247,7 +247,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - Prof. Mary Wolff
 
-- Prof. Susan Teitelbaum,
+- Prof. Susan Teitelbaum
 
 ### Funding
 
