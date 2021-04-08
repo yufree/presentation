@@ -1,0 +1,278 @@
+---
+title: "Molecular gatekeeper discovery for multiple exposure groups in adolescent girls"
+subtitle: "Miao Yu"
+author: "ACS spring 2021"
+date: "2021-04-16"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Background
+
+### One compound, one outcome
+
+- regular epidemiology study
+
+### One compound, multiple outcomes
+
+- regular toxicology study
+
+### Multiple compounds, one outcome
+
+- regular metabolomics/non-targeted analysis
+
+### Multiple compounds, multiple outcomes
+
+- exposomics
+
+---
+
+## EMD model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
+```
+
+- What's the relationship between small molecule and health outcome?
+
+- What's the relationship between exposures and metabolites?
+
+- Which metabolites are the most important?
+
+---
+
+## Frontier molecular orbital theory
+
+> The frontier molecular orbitals of a compound are at the “frontier” of electron occupation—the highest-energy occupied and lowest-energy unoccupied molecular orbitals (the HOMO and LUMO)
+
+- Active electron is located at the active molecular orbitals
+
+- Not all electrons will be influenced in chemical reactions
+
+- electron could be treated as endogenous compound
+
+- Not all metabolites responded to the stimuli of exposures
+
+---
+
+## Gatekeeper theory for EMD model
+
+- The metabolites linked both exposures and other metabolites should be the frontier of biological process
+
+- Such molecules may regulate the adverse influences of exposures
+
+```{r echo=FALSE, out.width= '60%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/goalkeeper.png')
+```
+
+---
+
+## Gatekeeper molecular discovery
+
+### Step 1: Correlation among metabolites
+
+### Step 2: Correlation among exposures
+
+### Step 3: Association between paired metabolites and exposures
+
+### Step 4: Screen the network structure to discover gatekeeper
+
+### Step 5: Association between gatekeeper and health outcome
+
+---
+
+## Adolescent girls blood samples
+
+- BCERP project
+- 163 girls with data on exposure, outcome, and potential confounding variables 
+- PFCs (n-PFOS, n-PFOA, Sm-PFOS, Sm2-PFOS, PFHXS, PFNA2) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury)
+- Pubertal milestones
+- 18750 (ZHP) and 25937 (RPN) features found in blood samples
+
+---
+
+## Step 0: From featuers to independent peaks
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/gapfc.jpg')
+```
+
+.half[
+```{r ref1,results = 'asis'}
+doi <- c('10.1021/acs.analchem.7b02380')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Step 0: GlobalStd Algorithm
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolites
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Step 1: Correlation among metabolites
+
+```{r echo=FALSE,out.width= '70%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png')
+```
+
+- Spearman’s rho > 0.9
+- 67 (ZHP) and 95 (RPN) metabolites correlation network clusters found
+- 787 out of 964 metabolites have no correlation with other metabolites (ZHP)
+- 1419 out of 1784 metabolites have no correlation with other metabolites (RPN)
+
+---
+
+## Step 2: Correlation among exposures
+
+- Spearman’s rho > 0.9
+- No correlation could be found among exposures 
+
+---
+
+## Step 3: Association between paired metabolites and exposures
+
+**PFCs**
+
+| ZHP/RPN   | n-PFOA | n-PFOS  | Sm-PFOS | Sm2-PFOS | PFHXS | PFNA2  |
+|-----------|--------|---------|---------|----------|-------|--------|
+| Single    | 3/51   | 89/89   | 11/7   | 0/0      | 0/0   | 4/1    |
+| Double    | 17/49  | 21/50   | 9/0    | 0/0      | 0/0   | 1/0    | 
+| Triple    | 15/5   | 17/5    | 14/3   | 0/0      | 0/0   | 3/1    | 
+| Quadruple | 2/0    | 2/0     | 2/0     | 0/0      | 0/0   | 0/0    | 
+| Quintuple | 0/1    | 0/1     | 0/1     | 0/0      | 0/1   | 0/0    |
+| Total     | 37/106 | 129/145 | 36/11   | 0/0      | 0/1   | 8/2    | 
+
+---
+
+## Step 3: Association between paired metabolites and exposures
+
+**Metals**
+
+| ZHP/RPN   | BMN    | BPBLead | BSE     | BCD      | THG   |
+|-----------|--------|---------|---------|----------|-------|
+| Single    | 0/3    | 0/0     | 10/1    | 12/0     | 1/0   |
+| Double    | 0/0    | 0/0     | 21/1    | 23/0     | 0/0   |
+| Triple    | 0/0    | 0/1     | 7/0     | 7/0      | 0/0   |
+| Quadruple | 0/0    | 0/0     | 1/0     | 1/0      | 0/0   |
+| Quintuple | 0/0    | 0/1     | 0/0     | 0/0      | 0/0   |
+| Total     | 0/3    | 0/2     | 39/2    | 43/0     | 1/2   |
+
+---
+
+## Step 3: Association between paired metabolites and exposures
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png')
+```
+
+- 36 (ZHP) and 47 (RPN) peaks connected with other peaks and exposures
+- 163 (ZHP) and 163 (RPN) peaks connected with exposures only
+
+---
+
+## Step 4: Screen the network structure to discover gatekeeper
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkapn.png')
+```
+
+- 15 (ZHP) and 11 (RPN) gatekeepers are associated with multiple exposures
+- 5 annotated gatekeepers were associated with multiple exposures
+---
+
+## Step 5: Association between exposure and health outcome
+
+```{r echo=FALSE,out.width= '90%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png')
+```
+
+- Pubertal milestones are associated with multiple exposures
+
+---
+
+## Step 5: Association between gatekeepers and health outcome
+
+```{r echo=FALSE,out.width= '60%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MSgk.png')
+```
+
+- 4 out of 5 gatekeepers were associated with Pubertal milestones
+
+---
+
+## Conclusion
+
+- Only a small fraction of metabolites have responses to exposures
+
+- Gatekeeper discovery could be used to screen such metabolites
+
+- Some gatekeepers are sensitive to multiple exposures
+
+- Gatekeepers might reveal the details of exposures influences
+
+---
+
+## Acknowledgement
+
+.pull-left[
+
+- Dr. Petrick's research group
+
+- Lam-ha Dang
+
+- Prof. Mary Wolff
+
+- Prof. Susan Teitelbaum,
+
+### Funding
+
+- NIEHS P30ES23515
+- HHEAR pilot program
+- U2C ES026561
+- 1U2CES030859
+
+]
+
+
+.pull-right[
+
+```{r echo=FALSE,out.width="300px"}
+knitr::include_graphics('../figure/mssmlabmember.jpg')
+```
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
