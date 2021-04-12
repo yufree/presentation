@@ -171,7 +171,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Step 4: Association between exposure and health outcome
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width='200%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png')
 ```
 
