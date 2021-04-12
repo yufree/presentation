@@ -38,7 +38,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ---
 
-## EMD model
+## Exposures-Metabolites-Disease model
 
 ```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
@@ -72,23 +72,21 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - Such molecules may regulate the adverse influences of exposures
 
-```{r echo=FALSE, out.width= '60%'}
-knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/goalkeeper.png')
+```{r echo=FALSE, out.width= '70%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gatekeeper.png')
 ```
 
 ---
 
 ## Gatekeeper molecular discovery
 
-### Step 1: Correlation among metabolites
+### Step 1: Correlation among metabolites/exposures
 
-### Step 2: Correlation among exposures
+### Step 2: Association between paired metabolites and exposures
 
-### Step 3: Association between paired metabolites and exposures
+### Step 3: Screen the network structure to discover gatekeeper
 
-### Step 4: Screen the network structure to discover gatekeeper
-
-### Step 5: Association between gatekeeper and health outcome
+### Step 4: Association between gatekeeper and health outcome
 
 ---
 
@@ -96,7 +94,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - BCERP project
 - 163 girls with data on exposure, outcome, and potential confounding variables 
-- PFCs (n-PFOS, n-PFOA, Sm-PFOS, Sm2-PFOS, PFHXS, PFNA2) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury)
+- PFCs (n-PFOS, n-PFOA, Sm-PFOS, PFHXS, PFNA2) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury)
 - Pubertal milestones
 - 18750 (ZHP) and 25937 (RPN) features found in blood samples
 
@@ -134,9 +132,9 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ---
 
-## Step 1: Correlation among metabolites
+## Step 1: Correlation among metabolites/exposures
 
-```{r echo=FALSE,out.width= '60%'}
+```{r echo=FALSE,out.width= '90%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png')
 ```
 
@@ -144,47 +142,27 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 - 67 (ZHP) and 95 (RPN) metabolites correlation network clusters found
 - 787 out of 964 metabolites have no correlation with other metabolites (ZHP)
 - 1419 out of 1784 metabolites have no correlation with other metabolites (RPN)
+- No correlation could be found among exposures
 
 ---
 
-## Step 2: Correlation among exposures
+## Step 2: Association between metabolites and exposures
 
-- Spearman’s rho > 0.9
-- No correlation could be found among exposures 
-
----
-
-## Step 3: Association between paired metabolites and exposures
-
-**PFCs**
-
-| ZHP/RPN   | n-PFOA | n-PFOS  | Sm-PFOS | Sm2-PFOS | PFHXS | PFNA2  |
-|-----------|--------|---------|---------|----------|-------|--------|
-| Single    | 3/51   | 89/89   | 11/7   | 0/0      | 0/0   | 4/1    |
-| Double    | 17/49  | 21/50   | 9/0    | 0/0      | 0/0   | 1/0    | 
-| Triple    | 15/5   | 17/5    | 14/3   | 0/0      | 0/0   | 3/1    | 
-| Quadruple | 2/0    | 2/0     | 2/0     | 0/0      | 0/0   | 0/0    | 
-| Quintuple | 0/1    | 0/1     | 0/1     | 0/0      | 0/1   | 0/0    |
-| Total     | 37/106 | 129/145 | 36/11   | 0/0      | 0/1   | 8/2    | 
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/zhpset.png')
+```
 
 ---
 
-## Step 3: Association between paired metabolites and exposures
+## Step 2: Association between metabolites and exposures
 
-**Metals**
-
-| ZHP/RPN   | BMN    | BPBLead | BSE     | BCD      | THG   |
-|-----------|--------|---------|---------|----------|-------|
-| Single    | 0/3    | 0/0     | 10/1    | 12/0     | 1/0   |
-| Double    | 0/0    | 0/0     | 21/1    | 23/0     | 0/0   |
-| Triple    | 0/0    | 0/1     | 7/0     | 7/0      | 0/0   |
-| Quadruple | 0/0    | 0/0     | 1/0     | 1/0      | 0/0   |
-| Quintuple | 0/0    | 0/1     | 0/0     | 0/0      | 0/0   |
-| Total     | 0/3    | 0/2     | 39/2    | 43/0     | 1/2   |
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/rpnset.png')
+```
 
 ---
 
-## Step 3: Association between paired metabolites and exposures
+## Step 2: Association between metabolites and exposures
 
 ```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png')
@@ -195,7 +173,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ---
 
-## Step 4: Screen the network structure to discover gatekeeper
+## Step 3: Screen the network structure to discover gatekeeper
 
 ```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkapn.png')
@@ -205,23 +183,23 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 - 5 annotated gatekeepers were associated with multiple exposures
 ---
 
-## Step 5: Association between exposure and health outcome
+## Step 4: Association between exposure and health outcome
 
 ```{r echo=FALSE,out.width= '90%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png')
 ```
 
-- Pubertal milestones are associated with multiple exposures
+- Stages of puberty are associated with multiple exposures
 
 ---
 
-## Step 5: Association between gatekeepers and health outcome
+## Step 4: Association between gatekeepers and health outcome
 
-```{r echo=FALSE,out.width= '60%'}
+```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MSgk.png')
 ```
 
-- 4 out of 5 gatekeepers were associated with Pubertal milestones
+- 4 out of 5 gatekeepers were associated with stages of puberty
 
 ---
 
@@ -252,7 +230,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 ### Funding
 
 - NIEHS P30ES23515
-- HHEAR pilot program
+- CHEAR pilot program
 - U2C ES026561
 - 1U2CES030859
 
