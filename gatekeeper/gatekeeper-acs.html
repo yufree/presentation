@@ -56,23 +56,9 @@ class: center, middle, inverse, title-slide
 
 ---
 
-## Frontier molecular orbital theory
-
-&gt; The frontier molecular orbitals of a compound are at the “frontier” of electron occupation—the highest-energy occupied and lowest-energy unoccupied molecular orbitals (the HOMO and LUMO)
-
-- Active electron is located at the active molecular orbitals
-
-- Not all electrons will be influenced in chemical reactions
-
-- electron could be treated as endogenous compound
-
-- Not all metabolites responded to the stimuli of exposures
-
----
-
 ## Gatekeeper theory for EMD model
 
-- The metabolites linked both exposures and other metabolites should be the frontier of biological process
+- The small molecule linked both exposures and other small molecule should be the frontier of biological process
 
 - Such molecules may regulate the adverse influences of exposures
 
@@ -96,13 +82,13 @@ class: center, middle, inverse, title-slide
 
 - BCERP project
 - 163 girls with data on exposure, outcome, and potential confounding variables 
-- PFCs (n-PFOS, n-PFOA, Sm-PFOS, PFHXS, PFNA2) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury)
-- Pubertal milestones
-- 18750 (ZHP) and 25937 (RPN) features found in blood samples
+- Stages of puberty and Menarche
+- PFCs (n-PFOS, n-PFOA, Sm-PFOS, PFHXS, PFNA2) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) were measured by CDC
+- 18750 (ZHP) and 25937 (RPN) features were found in blood samples by LC-QToF
 
 ---
 
-## Step 0: From featuers to independent peaks
+## Step 0: From metabolomics features to independent peaks
 
 &lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
 
@@ -112,11 +98,11 @@ Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolo
 
 ---
 
-## Step 0: GlobalStd Algorithm
+## Step 0: Remove redundant peaks by GlobalStd algorithm
 
 &lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" style="display: block; margin: auto;" /&gt;
 
-- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolites
+- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolomics features
 
 .half[
 Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
@@ -126,12 +112,11 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Step 1: Correlation among metabolites/exposures
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png" style="display: block; margin: auto;" /&gt;
 
 - Spearman’s rho &gt; 0.9
 - 67 (ZHP) and 95 (RPN) metabolites correlation network clusters found
-- 787 out of 964 metabolites have no correlation with other metabolites (ZHP)
-- 1419 out of 1784 metabolites have no correlation with other metabolites (RPN)
+- 787 out of 964 metabolites have no correlation with other metabolites (ZHP) and 1419 out of 1784 metabolites have no correlation with other metabolites (RPN)
 - No correlation could be found among exposures
 
 ---
@@ -162,14 +147,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 &lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkapn.png" style="display: block; margin: auto;" /&gt;
 
 - 15 (ZHP) and 11 (RPN) gatekeepers are associated with multiple exposures
-- 5 annotated gatekeepers were associated with multiple exposures
+- 5 annotated gatekeepers were associated with multiple environmental exposures
 ---
 
 ## Step 4: Association between exposure and health outcome
 
 &lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png" width="90%" style="display: block; margin: auto;" /&gt;
 
-- Stages of puberty are associated with multiple exposures
+- Stages of puberty and Menarche are associated with multiple environmental exposures
 
 ---
 
@@ -177,19 +162,19 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 &lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MSgk.png" style="display: block; margin: auto;" /&gt;
 
-- 4 out of 5 gatekeepers were associated with stages of puberty
+- 4 out of 5 gatekeepers were associated with stages of puberty and Menarche
 
 ---
 
 ## Conclusion
 
-- Only a small fraction of metabolites have responses to exposures
+- Only a small fraction of metabolomics features are associated with exposures
 
-- Gatekeeper discovery could be used to screen such metabolites
+- Gatekeeper discovery could be used to screen such small molecule
 
-- Some gatekeepers are sensitive to multiple exposures
+- Some gatekeepers are sensitive to multiple environmental exposures
 
-- Gatekeepers might reveal the details of exposures influences
+- Gatekeepers might reveal mechanistic aspects of relationships between environmental exposures and metabolome
 
 ---
 
