@@ -166,11 +166,12 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - 15 (ZHP) and 11 (RPN) gatekeepers are associated with multiple exposures
 - 5 annotated gatekeepers were associated with multiple environmental exposures
+
 ---
 
 ## Step 4: Association between exposure and health outcome
 
-```{r echo=FALSE,out.width= '90%'}
+```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/MilestonesStage.png')
 ```
 
