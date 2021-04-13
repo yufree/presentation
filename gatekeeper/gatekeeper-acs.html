@@ -84,25 +84,17 @@ class: center, middle, inverse, title-slide
 - 163 girls with data on exposure, outcome, and potential confounding variables 
 - Stages of puberty and Menarche
 - PFCs (n-PFOS, n-PFOA, Sm-PFOS, PFHXS, PFNA2) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) were measured by CDC
-- 18750 (ZHP) and 25937 (RPN) features were found in blood samples by LC-QToF
+- 18750 (ZHP) and 25937 (RPN) features were found in blood samples by LC-Q-TOF-MS
 
 ---
 
 ## Step 0: From metabolomics features to independent peaks
 
-&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-.half[
-Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. doi:10.1021/acs.analchem.7b02380
-]
+- Remove redundant peaks by GlobalStd algorithm
 
----
-
-## Step 0: Remove redundant peaks by GlobalStd algorithm
-
-&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" style="display: block; margin: auto;" /&gt;
-
-- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolomics features
+- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolites
 
 .half[
 Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
@@ -169,7 +161,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Conclusion
 
-- Only a small fraction of metabolomics features are associated with exposures
+- Only a small fraction of metabolites are associated with exposures
 
 - Gatekeeper discovery could be used to screen such small molecule
 
@@ -190,6 +182,8 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 - Prof. Mary Wolff
 
 - Prof. Susan Teitelbaum
+
+- National Center for Environmental Health Laboratories at CDC
 
 ### Funding
 
