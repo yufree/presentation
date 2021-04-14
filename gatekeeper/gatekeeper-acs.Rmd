@@ -68,7 +68,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ### Step 1: Correlation among metabolites/exposures
 
-### Step 2: Association between paired metabolites and exposures
+### Step 2: Association between metabolites and exposures
 
 ### Step 3: Screen the network structure to discover gatekeeper
 
@@ -151,7 +151,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkapn.png')
 ```
 
-- 15 (ZHP) and 11 (RPN) gatekeepers are associated with multiple exposures
+- 15 (ZHP) and 11 (RPN) gatekeepers are associated with multiple environmental exposures
 - 5 annotated gatekeepers were associated with multiple environmental exposures
 
 ---
