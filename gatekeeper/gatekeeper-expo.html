@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Molecular Gatekeepers bridge the exposome and health</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Exposome Data Analysis Challenge" />
+    <meta name="date" content="2021-04-29" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Molecular Gatekeepers bridge the exposome and health
+## Miao Yu
+### Exposome Data Analysis Challenge
+### 2021-04-29
+
+---
+
+
+
+
+## Exposures-Metabolites-Disease model
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png" style="display: block; margin: auto;" /&gt;
+
+- What's the relationship between small molecule and health outcome?
+
+- What's the relationship between exposures and metabolites?
+
+- Which metabolites are the most important?
+
+---
+
+## Gatekeeper theory for EMD model
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMDG.png" style="display: block; margin: auto;" /&gt;
+
+- The small molecule linked both exposures and other small molecule should be the frontier of biological process
+
+- Such molecules may regulate the adverse influences of exposures
+
+---
+
+## Gatekeeper classes
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkc.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Gatekeeper molecular discovery
+
+### Step 1: Correlation among metabolites/exposures
+
+### Step 2: Association between metabolites and exposures
+
+### Step 3: Association between gatekeeper and health outcome
+
+---
+
+## Step 1: Correlation among metabolites
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mnec.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+- Cutoff for correlation: Spearman’s rho &gt; 0.9
+- 9 metabolites correlation network clusters found
+- 155 out of 177 metabolites have no correlation with other metabolites
+
+---
+
+## Step 2: Association between metabolites and exposures
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/menec.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+- 22 peaks connected with other peaks and exposures
+- 155 peaks connected with exposures only
+
+---
+
+## Step 2: Association between metabolites and exposures
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/upset.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Step 3: Association between gatekeeper and health outcome
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gka.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Conclusion
+
+- Gatekeeper discovery could be used to screen metabolites associated with exposures and other metabolites or battlefront
+
+- Some gatekeepers are sensitive to multiple environmental exposures
+
+- Gatekeepers might reveal mechanistic aspects of relationships between environmental exposures and metabolome to generate hypothesis for future studies
+
+- Gatekeeper can be metabolites, genes, proteins, etc.
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&amp;A
+
+## miao.yu@mssm.edu
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

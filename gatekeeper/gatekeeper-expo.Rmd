@@ -1,0 +1,122 @@
+---
+title: "Molecular Gatekeepers bridge the exposome and health"
+subtitle: "Miao Yu"
+author: "Exposome Data Analysis Challenge"
+date: "2021-04-29"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Exposures-Metabolites-Disease model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
+```
+
+- What's the relationship between small molecule and health outcome?
+
+- What's the relationship between exposures and metabolites?
+
+- Which metabolites are the most important?
+
+---
+
+## Gatekeeper theory for EMD model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMDG.png')
+```
+
+- The small molecule linked both exposures and other small molecule should be the frontier of biological process
+
+- Such molecules may regulate the adverse influences of exposures
+
+---
+
+## Gatekeeper classes
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkc.png')
+```
+
+---
+
+## Gatekeeper molecular discovery
+
+### Step 1: Correlation among metabolites/exposures
+
+### Step 2: Association between metabolites and exposures
+
+### Step 3: Association between gatekeeper and health outcome
+
+---
+
+## Step 1: Correlation among metabolites
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mnec.png')
+```
+
+- Cutoff for correlation: Spearman’s rho > 0.9
+- 9 metabolites correlation network clusters found
+- 155 out of 177 metabolites have no correlation with other metabolites
+
+---
+
+## Step 2: Association between metabolites and exposures
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/menec.png')
+```
+
+- 22 peaks connected with other peaks and exposures
+- 155 peaks connected with exposures only
+
+---
+
+## Step 2: Association between metabolites and exposures
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/upset.png')
+```
+
+---
+
+## Step 3: Association between gatekeeper and health outcome
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gka.png')
+```
+
+---
+
+## Conclusion
+
+- Gatekeeper discovery could be used to screen metabolites associated with exposures and other metabolites or battlefront
+
+- Some gatekeepers are sensitive to multiple environmental exposures
+
+- Gatekeepers might reveal mechanistic aspects of relationships between environmental exposures and metabolome to generate hypothesis for future studies
+
+- Gatekeeper can be metabolites, genes, proteins, etc.
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
