@@ -113,6 +113,40 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ---
 
+## Acknowledgement
+
+.pull-left[
+
+- Dr. Petrick's research group
+
+- Lam-ha Dang
+
+- Prof. Mary Wolff
+
+- Prof. Susan Teitelbaum
+
+- **Molecular gatekeeper discovery for multiple exposure groups in adolescent girls** 
+
+### Funding
+
+- NIEHS P30ES23515
+- CHEAR pilot program
+- U2C ES026561
+- 1U2CES030859
+
+]
+
+
+.pull-right[
+
+```{r echo=FALSE,out.width="300px"}
+knitr::include_graphics('../figure/mssmlabmember.jpg')
+```
+
+]
+
+---
+
 class: inverse, center, middle
 
 # Thanks 
