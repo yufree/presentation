@@ -18,7 +18,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## Exposures-Metabolites-Disease model
+## Exposures-Metabolites-Disease (EMD) model
 
 ```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
@@ -44,7 +44,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ---
 
-## Gatekeeper classes
+## Metabolites classes
 
 ```{r echo=FALSE}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkc.png')
@@ -59,6 +59,18 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 ### Step 2: Association between metabolites and exposures
 
 ### Step 3: Association between gatekeeper and health outcome
+
+---
+
+## Samples summary
+
+- HELIX subcohort database
+
+- Serum Metabolome: 1198 individuals and 177 metabolites. 
+
+- Exposures: 170 continuous variables
+
+- Health outcome: asthma or not
 
 ---
 
