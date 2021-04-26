@@ -80,7 +80,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mnec.png')
 ```
 
-- Cutoff for correlation: Spearman’s rho > 0.9
+- Cutoff for correlation: Pearson's R > 0.9
 - 9 metabolites correlation network clusters found
 - 155 out of 177 metabolites have no correlation with other metabolites
 
