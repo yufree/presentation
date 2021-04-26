@@ -99,7 +99,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Step 2: Association between metabolites and exposures
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width='90%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/upset.png')
 ```
 
