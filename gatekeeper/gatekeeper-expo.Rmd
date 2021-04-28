@@ -103,6 +103,9 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/upset.png')
 ```
 
+???
+exposures with association >6 gatekeepers: PM10(3), Metal(Cs,Hg,2), PCBs(PCB-180,1), NDVI(1), Access(4)
+
 ---
 
 ## Step 3: Association between gatekeeper and health outcome
