@@ -1,0 +1,119 @@
+---
+title: "Metabolomics Data Analysis"
+subtitle: "Exposome Data Challenge Event"
+author: "Miao Yu"
+date: " `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exposome Data Challenge Event
+
+```{r echo=FALSE}
+knitr::include_graphics('https://www.isglobal.org/documents/10179/8770981/Exposome+Data+Analysis+Challenge/e05ef219-b7f6-402a-96f6-5635726c1a0b?t=1613731839000')
+```
+
+- https://www.isglobal.org/-/exposome-data-analysis-challenge
+
+---
+
+## Exposures-Metabolites-Disease (EMD) model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
+```
+
+- What's the relationship between small molecule and health outcome?
+
+- What's the relationship between exposures and metabolites?
+
+- Which metabolites are the most important?
+
+---
+
+## Samples summary
+
+- HELIX subcohort database
+
+- Serum Metabolome: 1198 individuals and 177 metabolites. 
+
+- Exposures: 170 continuous variables
+
+- Health outcome: asthma or not
+
+---
+
+class: inverse, center, middle
+
+# Workflow
+
+---
+
+## What you need?
+
+- exposome dataset
+
+- metabolites tables
+
+- health outcome
+
+- Unique sample ID
+
+- Code book
+
+---
+
+## How to perform the data analysis?
+
+- Check associations between exposures/metabolites/health outcome
+
+- Check correlation within metabolites
+
+- Screen important metabolites linking exposome and health outcome
+
+---
+
+## Metabolites classes
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkc.png')
+```
+
+---
+
+## Explanation
+
+- Hypothesis generation
+
+- Validation
+
+---
+
+class: inverse, center, middle
+
+# Demo
+
+---
+
+## Limitations
+
+- Covariables
+
+- How to define associations?
+
+- How to define correlations?
+
+## Code
+
+- https://github.com/yufree/expochallenge
+
