@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>研之有数</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="yufree" />
+    <meta name="date" content="2021-06-20" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 研之有数
+### yufree
+### 2021-06-20
+
+---
+
+
+## Don't Panic
+
+&lt;div class="figure"&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/owl.png" alt="论文方法与论文结果" width="72%" /&gt;
+&lt;p class="caption"&gt;论文方法与论文结果&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## 统计量
+
+`$$Statistic = f(sample_1,sample_2,...,sample_n)$$`
+- 统计量是用来描述样本某个特性的量化指标
+
+- 统计量是可以自己根据研究需求设计的
+
+- 统计量要体现高信噪比
+
+- 常见统计量：众数、中位数、均值、方差、相关系数、主成分
+
+---
+
+## 统计估计
+
+`$$Statistic_{sample} = \hat {Statistic}_{population}$$`
+
+- 统计估计指用样本参数估计总体统计量
+
+- 点估计与区间估计（考虑不确定性）
+
+- 跟采样过程密切相关
+
+---
+
+## 统计推断
+
+- Null Hypothesis Significance Testing (NHST)
+- H0: 无事发生或随机过程
+- H1: 有事发生
+- P value: 零假设下某事发生的概率
+
+&gt; P值小不意味着效应强
+
+- P值适用于统计推断的决策
+
+- 统计推断可视化: http://rpsychologist.com/d3/NHST/
+
+---
+
+## 多重比较
+
+- 一次比较, 假阳性概率
+
+$$ 1- (1 - 0.05) = 0.05$$
+
+- 两次比较，假阳性概率
+
+`$$1 - (1 - 0.05)^2 = 0.0975$$`
+
+- 十次比较，假阳性概率
+
+`$$1 - (1 - 0.05)^{10} = 0.4012$$`
+
+- 比较次数越多，假阳性概率越高，结果越不可靠
+
+- 同一数据多次比较需要进行错误发现率控制（False Discovery Rate；FDR ）
+
+---
+
+## 错误发现率控制
+
+### Benjamini-Hochberg 方法
+
+`$$p_i \leq \frac{i}{m} \alpha$$`
+
+- `\(\alpha\)` 是P值的阈值, i 是某个测试p值的排序， m 是总的测试数
+
+- 调整p值
+
+### Storey Q 值
+
+`$$\hat\pi_0 = \frac{\#\{p_i&gt;\lambda\}}{(1-\lambda)m}$$`
+
+- 从p值分布里直接估计错误发现率
+
+- Q 值就是某一检验的错误发现率
+
+---
+
+## 发表歧视
+
+&lt;img src="https://yufree.cn/images/pvalue-1.png" width="68%" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Q&amp;A
+
+---
+## 统计模型
+
+`$$Target = g(Statistic) = g(f(sample_1,sample_2,...,sample_n))$$`
+
+- 利用统计量的函数解释现象或预测
+
+- 需要对函数的参数进行统计估计与假设检验
+
+- 有针对模型的统计量  `\(R^2\)`, `\(ROC\)`
+
+---
+### t 检验
+
+$$ t = \frac{\bar x - \mu}{\frac{\sigma}{\sqrt n}} $$
+- T 分布: http://rpsychologist.com/d3/tdist/
+
+- 单样本t检验: 样本均值是否为0
+
+- 双样本t检验: 检验两组数据差值是否为0
+
+- 双样本配对t检验: 配对样本差值的单样本t检验
+
+---
+###  方差分析
+
+$$ F = \frac{explained\ variance}{unexplained\ variance} $$
+
+- 单因素方差分析中F检验可以确定某单一因素是否有影响
+
+- 两组数据的单因素方差分析与等方差t检验实质等同
+
+- 确定有影响有时需要对比两两组间差异，属于多重比较
+
+- F检验可以用来进行模型选择
+
+---
+### 线性模型
+
+`$$Y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_nx_n$$`
+- 单因素方差分析是线性模型的特例， `\(\beta\)` 是哑变量
+
+- 线性模型的 `\(\beta\)` 的t检验结果表示该因素影响是否显著
+
+- 需要错误发现率控制
+
+- 可以用 `\(R^2\)` 来指示模型的解释能力
+
+---
+
+## 时序分析
+
+`$$Response_{t} = Response_{t-1} + \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_nx_n$$`
+
+- 时序数据是自相关的
+
+- 转化为时序数据差值来进行回归
+
+- 如果你不懂时序分析，那就展示数据而不要进行统计推断
+
+---
+
+## 变量选择
+
+- 选出解释现象最好（少但信息量高）的变量
+- F 检验
+- Adjusted R2、AIC、BIC、Cp
+- 交互作用
+- 污染物跟地理气象条件（温度、海拔、湿度等）或人类行为（城市距离、道路距离）的关系
+
+---
+## 模型选择
+
+- 灵敏度
+
+`$$Sensitivity = \frac{Group_{TP}}{Group_{TP}+Group_{FN}}$$`
+
+- 特异性
+
+`$$Specificity = \frac{Group_{TN}}{Group_{TN}+Group_{FP}}$$`
+
+- 准确性
+
+`$$Accuracy = \frac{Group_{TP}+Group_{TN}}{Group_{TP}+Group_{TN}+Group_{FP}+Group_{FN}}$$`
+
+- [更多](https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Graphical_illustration)
+
+---
+## 小结
+
+### 统计量用来描述数据的某个特性或维度
+
+### 统计推断用来给结论
+
+### 统计模型用来解释现象或做预测
+
+### 统计模型可以进行变量选择与模型选择
+
+---
+
+class: inverse, center, middle
+
+# Q&amp;A
+
+---
+## Bias-Variance Tradeoff
+
+`$$E[(y - \hat f)^2] = \sigma^2 + Var[\hat f] + Bias[\hat f]$$`
+&lt;img src="http://scott.fortmann-roe.com/docs/docs/BiasVariance/biasvariance.png
+" width="68%" /&gt;
+
+- 欠拟合: 误差大方差小
+- 过拟合: 误差小方差大
+
+---
+## 交叉检验
+
+### Jacknife
+
+- 用所有数据估计模型参数
+
+- 排除一个样本重新估计模型参数
+
+- 计算全样本模型与排除一个样本后模型参数差异
+
+- 排除另一个样本重复这个过程直到遍历所有样品
+
+- 用模型差异来估计模型的稳健性
+
+---
+
+## 交叉检验
+
+### bootstraping
+
+- 用所有数据估计模型参数
+
+- 有放回对样本重采样重新估计模型参数
+
+- 计算全样本模型与重采样模型参数差异
+
+- 重复多次
+
+- 用模型差异来估计模型的稳健性
+
+---
+
+## 交叉检验
+
+### 5-fold 交叉检验
+
+&lt;img src="https://yufree.github.io/presentation/figure/cvdata.png" width="72%" /&gt;
+
+---
+
+## Regularization
+
+`$$RSS = \sum_{i=1}^n(y_i - f(x_i))^2$$`
+
+- 最小化参差平方和(RSS) 
+- 为了避免过拟合，正则化会惩罚参数
+
+- 岭回归 Rigid regression(L2)
+
+`$$RSS + \lambda \sum_{j = 1}^{p} \beta_j^2$$`
+
+- 套索 Lasso regression(L1)
+
+`$$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$`
+
+- 弹性网络 elastic net (L1+L2)
+
+---
+## 监督学习与非监督学习
+
+### 监督学习
+
+`$$y = f(x)$$`
+
+- 有响应变量，可进行训练拟合
+
+### 非监督学习
+
+`$$x = g(x)$$`
+
+- 无响应变量，用来探索数据内部结构
+
+---
+## 主成分分析
+
+### 非监督学习
+
+### 变量间不独立
+
+- 用主成分来展示样本间的主要差异
+- 每一个主成分都是样本间的线性组合，互相正交
+
+### 样本间差异可以可视化
+
+- 前几个主成分需要能解释80%的样本方差
+
+- 如果样品在主成分图上聚类，那么现实中他们更相似
+
+---
+
+## 聚类分析
+
+### 非监督学习
+
+- 用样本间距离来定义其内部关系
+
+- 从异质性数据中发现均值性
+
+### 热图可视化
+
+### 常见算法
+
+- Hierarchical clustering
+
+- K-means
+
+- Self-organizing map
+
+---
+## 基于决策树的模型
+
+### 层级模型
+
+- 不同层级区分样品的变量不同
+
+- 每个分支属于特定均值性分组
+
+&lt;img src="https://yufree.github.io/presentation/figure/Tree.png" width="68%" /&gt;
+
+---
+## 基于决策树的模型
+
+### 随机森林
+
+- 每一层用bootstrap来选样品
+
+- 用多棵树预测结果来对分支投票
+
+- 变量的重要性可以通过计算其对分支的影响来确定
+
+- 结果重现性一般，有随机过程
+
+- 可以用交叉检验来选择稳健的重要变量
+
+---
+
+## 基于决策树的模型
+
+### Boosting
+
+- 通用模型
+
+- 每棵树是基于前一颗树构建并对参数加权
+
+- 新树收敛拟合前一个模型的残差
+
+`$$\hat f(x) = \sum_{b=1}^B \lambda \hat f^b(x)$$`
+
+- 当层数为1时，boosting等同于加性模型
+
+---
+
+## 支持向量机 (SVM)
+
+- p维向量可以用p-1维超平面分割
+
+- 预测转化为最大分割分组的超平面
+
+- 用核函数来把高维数据映射到低维空间
+
+- 类似有核函数的 logistic 回归
+
+- 参数重要性可以用交叉检验来获取
+
+---
+
+## Artificial Neural Network (ANN)
+
+&lt;a title="By Glosser.ca [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], from Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg"&gt;&lt;center&gt;&lt;img width="400" alt="Colored neural network" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/256px-Colored_neural_network.svg.png"&gt;&lt;/center&gt;&lt;/a&gt;
+
+---
+
+## Deep Learning
+
+&lt;img src="http://neuralnetworksanddeeplearning.com/images/tikz36.png" width="90%" /&gt;
+
+---
+
+## 小结
+
+### 交叉检验对模型评价很重要
+
+### 监督学习利用已知信息来训练模型
+
+### 非监督学习主要用来探索样品中异质性
+
+### 总有新模型
+
+---
+
+class: inverse, center, middle
+
+# Q&amp;A
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
