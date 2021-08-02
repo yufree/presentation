@@ -1,0 +1,102 @@
+---
+title: "How to build a website?"
+author: "Miao Yu"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Steps
+
+## Buy domain
+
+## Buy spaces
+
+## Software installation
+
+## Maintainance
+
+---
+
+# Domain
+
+- your full name + lab + .com/org/net
+
+- <https://domains.google/>
+
+- <https://www.godaddy.com/domains>
+
+- $10-20 /year
+
+- Your institution may assign a [second-level domain](https://uwaterloo.ca/pawliszyn-group/) to you
+
+---
+
+# Space
+
+- Server or a virtual machine to host your website
+
+- You can access the server via SSH or FTP
+
+- You can install software in your spaces
+
+- Pointing your domain to your web space
+
+- $1-10 /month
+
+- You can use free space/plan from Netlify/GitHub/GitLab
+
+---
+
+# Generators
+
+- Website = front end (web pages) + back end (computation/database)
+
+- Static site (blogdowm) or dynamic site (WordPress)
+
+- Static site generators: software to generate a website
+
+- [Blogdown](https://bookdown.org/yihui/blogdown/) = Hugo + R Markdown
+
+---
+
+# Generators
+
+- Choose a theme here: https://themes.gohugo.io/
+
+  - hugo-apero/hugo-apero
+
+- Replace contents
+
+  - Who (cv and team members)
+  - What (projects and courses)
+  - Where (contacts)
+  - News (updates)
+
+---
+
+# Maintainance
+
+- Create a post
+
+- Update a page
+
+- Check the visitor records
+
+---
+
+# Demo
+
+- Demo repo: <https://github.com/yufree/emphtest>
+
+- Netlify: <https://clever-wilson-f3b02f.netlify.app/>
+
+---
+
+# Thanks
+
