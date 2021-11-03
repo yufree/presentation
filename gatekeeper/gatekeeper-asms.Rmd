@@ -1,0 +1,229 @@
+---
+title: "Molecular gatekeeper discovery to link exposome with health outcomes through metabolomics"
+subtitle: "Miao Yu"
+author: "69th ASMS Conference, Pennsylvania "
+date: "2021-11-04"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Background
+
+### One compound, one outcome
+
+- regular epidemiology study
+
+### One compound, multiple outcomes
+
+- regular toxicology study
+
+### Multiple compounds, one outcome
+
+- regular metabolomics/non-targeted analysis
+
+### Multiple compounds, multiple outcomes
+
+- exposomics
+
+---
+
+## Exposures-Metabolites-Disease model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
+```
+
+- What's the relationship between exposures and metabolites?
+
+- What's the relationship between small molecule and health outcome?
+
+- Which metabolites are the most important?
+
+---
+
+## Gatekeeper theory for EMD model: active metabolites
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
+```
+
+- Active metabolites will connect to other metabolites
+
+---
+
+## Gatekeeper theory for EMD model: gatekeeper
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
+```
+
+- The small molecule linked both exposures and other small molecule should be the frontier of biological process
+
+- Such molecules may regulate the adverse influences of exposures
+
+---
+
+## Adolescent girls blood samples
+
+- Breast Cancer and the Environment Research Program (BCERP) 
+- 152 girls with data on exposure, health outcome, and potential confounding variables 
+- **Exposures**: PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) were measured by CDC
+- **Metabolomics**: 18750 (ZHP) and 25937 (RPN) features were found in plasma samples by LC-Q-TOF-MS
+- **Health outcomes**: BMI, BMI group and age at menarche
+
+---
+
+## Gatekeeper molecular discovery
+
+### Step 1: Correlation clusters among metabolites
+
+### Step 2: Association between metabolites and exposures
+
+### Step 3: Screen the network structure to discover gatekeeper
+
+### Step 4: Association between gatekeeper and health outcome
+
+---
+
+## Step 0: From metabolomics features to independent peaks
+
+```{r echo=FALSE,out.width='70%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
+```
+
+- Remove redundant peaks by GlobalStd algorithm
+
+- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolites
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Step 1: Correlation clusters among metabolites
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png')
+```
+
+- Cutoff for correlation: Spearman’s rho > 0.9
+- 62 (ZHP) and 98 (RPN) metabolites correlation network clusters found
+- 786 out of 964 metabolites have no correlation with other metabolites (ZHP) and 1416 out of 1784 metabolites have no correlation with other metabolites (RPN)
+
+---
+
+## Step 2: Association between metabolites and exposures
+
+```{r echo=FALSE}
+knitr::include_graphics(c('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkupset.png'))
+```
+
+---
+
+## Step 3: Screen the network structure to discover gatekeeper
+
+```{r echo=FALSE}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png')
+```
+
+- 28 (ZHP) and 43 (RPN) peaks connected with other peaks and exposures
+- 87 (ZHP) and 137 (RPN) peaks connected with exposures only
+
+---
+
+## Step 3: Screen the network structure to discover gatekeeper
+
+```{r echo=FALSE,out.width='90%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkall2.png')
+```
+
+- 5 (ZHP) and 5 (RPN) annotated gatekeepers are associated with exposure
+- 2 annotated gatekeepers were associated with multiple environmental exposures
+
+---
+
+## Step 4: Association between exposure and health outcome
+
+|            Exposure            | BMI (β±SE) | BMI group (β±SE) | Age at menarche in years (β±SE) | Associated exposure(s) |
+|:------------------------------:|:----------:|:----------------:|:-------------------------------:|:----------------------:|
+| n-PFOA                         | -4.5±3.1   | -0.3±0.2         | 1.2±1.5                         | -                      |
+| n-PFOS                         | **-4.2±2.1**   | -0.3±0.2         | -0.2±1                          | -                      |
+|           **Gatekeeper**           |            |                  |                                 |                        |
+| SM(d18:2/14:0)                 | **30.5 ±5.2**  | **2.2 ±0.5**         | **0.8 ±0.2**                        | n-PFOS                 |
+| Dehydroepiandrosterone sulfate | **6.0 ±2.5**   | **0.5 ±0.2**         | -0.1 ±0.1                       | n-PFOA                 |
+| Androsterone sulfate           | **10.8 ±2.4**  | **1.0 ±0.2**         | -0.1 ±0.1                       | n-PFOA                 |
+| taurodeoxycholate              | **-3.9 ±1.6**  | **-0.3 ±0.1**        | 0.1 ±0.1                        | n-PFOA, n-PFOS         |
+| GPC(P-18:0/20:4)               | **-13.4 ±5.1** | **-1.2 ±0.4**        | -0.1 ±0.2                       | n-PFOS                 |
+
+---
+
+## Conclusion
+
+- Gatekeeper discovery could be used to screen metabolites associated with exposures and other metabolites
+
+- Some gatekeepers are sensitive to multiple environmental exposures
+
+- Gatekeepers can reveal mechanistic aspects of relationships between environmental exposures and metabolome to generate hypothesis for future health related studies
+
+- As a general data analysis framework, the mediation molecular can also be gene, protein, RNA, and/or metagenomics
+
+- enet package on GitHub: https://github.com/yufree/enet
+
+---
+
+## Acknowledgement
+
+.pull-left[
+
+- Dr. Petrick's research group
+
+- Lam-ha Dang
+
+- Prof. Mary Wolff
+
+- Prof. Susan Teitelbaum
+
+- National Center for Environmental Health Laboratories at CDC
+
+### Funding
+
+- NIEHS P30ES23515
+- CHEAR pilot program
+- U2C ES026561
+- 1U2CES030859
+
+]
+
+
+.pull-right[
+
+```{r echo=FALSE,out.width="300px"}
+knitr::include_graphics('../figure/mssmlabmember.jpg')
+```
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu
