@@ -21,35 +21,27 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ## Background
 
-### One compound, one outcome
+- ### One compound, one outcome -> regular epidemiology study
 
-- regular epidemiology study
+- ### One compound, multiple outcomes -> regular toxicology study
 
-### One compound, multiple outcomes
+- ### Multiple compounds, one outcome -> regular metabolomics/non-targeted analysis
 
-- regular toxicology study
-
-### Multiple compounds, one outcome
-
-- regular metabolomics/non-targeted analysis
-
-### Multiple compounds, multiple outcomes
-
-- exposomics
+- ### Multiple compounds, multiple outcomes -> exposomics
 
 ---
 
 ## Exposures-Metabolites-Disease model
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width='120%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/EMD.png')
 ```
 
-- What's the relationship between exposures and metabolites?
+- ### What's the relationship between exposures and metabolites?
 
-- What's the relationship between small molecule and health outcome?
+- ### What's the relationship between small molecule and health outcome?
 
-- Which metabolites are the most important?
+- ### Which metabolites are the most important?
 
 ---
 
@@ -59,7 +51,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 ```
 
-- Active metabolites will connect to other metabolites
+- #### Active metabolites will connect to other metabolites
 
 ---
 
@@ -69,37 +61,40 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 ```
 
-- The small molecule linked both exposures and other small molecule should be the frontier of biological process
+- #### The small molecule linked both exposures and other small molecule should be the frontier of biological process
 
-- Such molecules may regulate the adverse influences of exposures
+- #### Such molecules may regulate the adverse influences of exposures
 
 ---
 
 ## Adolescent girls blood samples
 
-- Breast Cancer and the Environment Research Program (BCERP) 
-- 152 girls with data on exposures, health outcomes, and potential confounding variables 
-- **Exposures** measured by CDC
+- #### Breast Cancer and the Environment Research Program (BCERP) 
+
+- #### 152 girls with data on exposures, health outcomes, and potential confounding variables 
+
+- #### **Exposures** measured by CDC
   - PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA)
   - trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) 
-- **Metabolomics** by LC-Q-TOF-MS
+
+- #### **Metabolomics** by LC-Q-TOF-MS
   - 18750 (ZHP) and 25937 (RPN) features were found in plasma samples
-- **Health outcomes**
-  - BMI
-  - BMI group
+
+- #### **Health outcomes**
+  - BMI/BMI group
   - age at menarche
 
 ---
 
 ## Gatekeeper molecular discovery
 
-### Step 1: Correlation clusters among metabolites
+- ### Step 1: Correlation clusters among metabolites
 
-### Step 2: Association between metabolites and exposures
+- ### Step 2: Association between metabolites and exposures
 
-### Step 3: Screen the network structure to discover gatekeeper
+- ### Step 3: Screen the network structure to discover gatekeeper
 
-### Step 4: Association between gatekeeper and health outcome
+- ### Step 4: Association between gatekeeper and health outcome
 
 ---
 
@@ -109,9 +104,9 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
 ```
 
-- Remove redundant peaks by GlobalStd algorithm
+- #### Remove redundant peaks by GlobalStd algorithm
 
-- 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolites
+- #### 964 (ZHP) and 1784 (RPN) independent peaks as potential metabolites
 
 .half[
 ```{r ref2,results = 'asis'}
@@ -128,9 +123,9 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png')
 ```
 
-- Cutoff for correlation: Spearman’s rho > 0.9
-- 62 (ZHP) and 98 (RPN) metabolites correlation network clusters found
-- 786 out of 964 metabolites have no correlation with other metabolites (ZHP) and 1416 out of 1784 metabolites have no correlation with other metabolites (RPN)
+- #### Cutoff for correlation: Spearman’s rho > 0.9
+- #### 62 (ZHP) and 98 (RPN) metabolites correlation network clusters found
+- #### 786 out of 964 metabolites have no correlation with other metabolites (ZHP) and 1416 out of 1784 metabolites have no correlation with other metabolites (RPN)
 
 ---
 
@@ -148,8 +143,8 @@ knitr::include_graphics(c('https://raw.githubusercontent.com/yufree/presentation
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png')
 ```
 
-- 28 (ZHP) and 43 (RPN) peaks connected with other peaks and exposures
-- 87 (ZHP) and 137 (RPN) peaks connected with exposures only
+- #### 28 (ZHP) and 43 (RPN) peaks connected with other peaks and exposures
+- #### 87 (ZHP) and 137 (RPN) peaks connected with exposures only
 
 ---
 
@@ -159,8 +154,8 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkall2.png')
 ```
 
-- 5 (ZHP) and 5 (RPN) annotated gatekeepers are associated with exposure
-- 2 annotated gatekeepers were associated with multiple environmental exposures
+- #### 5 (ZHP) and 5 (RPN) annotated gatekeepers are associated with exposure
+- #### 2 annotated gatekeepers were associated with multiple environmental exposures
 
 ---
 
@@ -181,15 +176,15 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Conclusion
 
-- Gatekeeper discovery could be used to screen metabolites associated with exposures and other metabolites
+- ### Gatekeeper discovery could be used to screen metabolites associated with exposures and other metabolites
 
-- Some gatekeepers are sensitive to multiple environmental exposures
+- ### Some gatekeepers are sensitive to multiple environmental exposures
 
-- Gatekeepers can reveal mechanistic aspects of relationships between environmental exposures and metabolome to generate hypothesis for future health related studies
+- ### Gatekeepers can reveal mechanistic aspects of relationships between environmental exposures and metabolome to generate hypothesis for future health related studies
 
-- As a general data analysis framework, the mediation molecular can also be gene, protein, RNA, and/or metagenomics
+- ### As a general data analysis framework, the mediation molecular can also be gene, protein, RNA, and/or metagenomics
 
-- enet package on GitHub: https://github.com/yufree/enet
+- ### enet package on GitHub: https://github.com/yufree/enet
 
 ---
 
@@ -197,17 +192,17 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 .pull-left[
 
-- Dr. Petrick's research group
+- #### Dr. Petrick's research group
 
-- Lam-ha Dang
+- #### Lam-ha Dang
 
-- Prof. Mary Wolff
+- #### Prof. Mary Wolff
 
-- Prof. Susan Teitelbaum
+- #### Prof. Susan Teitelbaum
 
-- National Center for Environmental Health Laboratories at CDC
+- #### National Center for Environmental Health Laboratories at CDC
 
-### Funding
+- ### Funding
 
 - NIEHS P30ES23515
 - CHEAR pilot program
