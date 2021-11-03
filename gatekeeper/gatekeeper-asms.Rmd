@@ -11,6 +11,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      ratio: '16:9'
 ---
 
 ```{r setup, include=FALSE}
@@ -54,7 +55,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Gatekeeper theory for EMD model: active metabolites
 
-```{r echo=FALSE,out.width='70%'}
+```{r echo=FALSE,out.width='60%'}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 ```
 
@@ -64,7 +65,7 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 
 ## Gatekeeper theory for EMD model: gatekeeper
 
-```{r echo=FALSE,out.width='70%'}
+```{r echo=FALSE,out.width='60%'}
 knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 ```
 
@@ -77,10 +78,16 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 ## Adolescent girls blood samples
 
 - Breast Cancer and the Environment Research Program (BCERP) 
-- 152 girls with data on exposure, health outcome, and potential confounding variables 
-- **Exposures**: PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) were measured by CDC
-- **Metabolomics**: 18750 (ZHP) and 25937 (RPN) features were found in plasma samples by LC-Q-TOF-MS
-- **Health outcomes**: BMI, BMI group and age at menarche
+- 152 girls with data on exposures, health outcomes, and potential confounding variables 
+- **Exposures** measured by CDC
+  - PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA)
+  - trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) 
+- **Metabolomics** by LC-Q-TOF-MS
+  - 18750 (ZHP) and 25937 (RPN) features were found in plasma samples
+- **Health outcomes**
+  - BMI
+  - BMI group
+  - age at menarche
 
 ---
 
@@ -98,7 +105,7 @@ knitr::include_graphics("https://yufree.github.io/presentation/figure/gkc.png")
 
 ## Step 0: From metabolomics features to independent peaks
 
-```{r echo=FALSE,out.width='70%'}
+```{r echo=FALSE,out.width='55%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
 ```
 
@@ -117,7 +124,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ## Step 1: Correlation clusters among metabolites
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width='70%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png')
 ```
 
@@ -129,7 +136,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Step 2: Association between metabolites and exposures
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width='90%'}
 knitr::include_graphics(c('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkupset.png'))
 ```
 
@@ -137,7 +144,7 @@ knitr::include_graphics(c('https://raw.githubusercontent.com/yufree/presentation
 
 ## Step 3: Screen the network structure to discover gatekeeper
 
-```{r echo=FALSE}
+```{r echo=FALSE,out.width='90%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png')
 ```
 
@@ -148,7 +155,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 ## Step 3: Screen the network structure to discover gatekeeper
 
-```{r echo=FALSE,out.width='90%'}
+```{r echo=FALSE,out.width='70%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkall2.png')
 ```
 

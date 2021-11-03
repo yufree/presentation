@@ -58,7 +58,7 @@ class: center, middle, inverse, title-slide
 
 ## Gatekeeper theory for EMD model: active metabolites
 
-&lt;img src="https://yufree.github.io/presentation/figure/gkc.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/gkc.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 - Active metabolites will connect to other metabolites
 
@@ -66,7 +66,7 @@ class: center, middle, inverse, title-slide
 
 ## Gatekeeper theory for EMD model: gatekeeper
 
-&lt;img src="https://yufree.github.io/presentation/figure/gkc.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/gkc.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 - The small molecule linked both exposures and other small molecule should be the frontier of biological process
 
@@ -77,10 +77,16 @@ class: center, middle, inverse, title-slide
 ## Adolescent girls blood samples
 
 - Breast Cancer and the Environment Research Program (BCERP) 
-- 152 girls with data on exposure, health outcome, and potential confounding variables 
-- **Exposures**: PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA) and trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) were measured by CDC
-- **Metabolomics**: 18750 (ZHP) and 25937 (RPN) features were found in plasma samples by LC-Q-TOF-MS
-- **Health outcomes**: BMI, BMI group and age at menarche
+- 152 girls with data on exposures, health outcomes, and potential confounding variables 
+- **Exposures** measured by CDC
+  - PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA)
+  - trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) 
+- **Metabolomics** by LC-Q-TOF-MS
+  - 18750 (ZHP) and 25937 (RPN) features were found in plasma samples
+- **Health outcomes**
+  - BMI
+  - BMI group
+  - age at menarche
 
 ---
 
@@ -98,7 +104,7 @@ class: center, middle, inverse, title-slide
 
 ## Step 0: From metabolomics features to independent peaks
 
-&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" width="55%" style="display: block; margin: auto;" /&gt;
 
 - Remove redundant peaks by GlobalStd algorithm
 
@@ -112,7 +118,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Step 1: Correlation clusters among metabolites
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/mmnet.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 - Cutoff for correlation: Spearman’s rho &gt; 0.9
 - 62 (ZHP) and 98 (RPN) metabolites correlation network clusters found
@@ -122,13 +128,13 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Step 2: Association between metabolites and exposures
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkupset.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkupset.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Step 3: Screen the network structure to discover gatekeeper
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 - 28 (ZHP) and 43 (RPN) peaks connected with other peaks and exposures
 - 87 (ZHP) and 137 (RPN) peaks connected with exposures only
@@ -137,7 +143,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Step 3: Screen the network structure to discover gatekeeper
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkall2.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkall2.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 - 5 (ZHP) and 5 (RPN) annotated gatekeepers are associated with exposure
 - 2 annotated gatekeepers were associated with multiple environmental exposures
@@ -218,7 +224,8 @@ class: inverse, center, middle
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"ratio": "16:9"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
