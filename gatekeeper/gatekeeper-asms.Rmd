@@ -202,7 +202,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/g
 
 - #### National Center for Environmental Health Laboratories at CDC
 
-- ### Funding
+### Fundings
 
 - NIEHS P30ES23515
 - CHEAR pilot program
