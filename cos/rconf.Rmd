@@ -72,8 +72,8 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/yufree.cn/mast
 
 ### 完成注册
 
-```{r echo=FALSE,out.width='70%'}
-knitr::include_graphics('../figure/githubreg2.png')
+```{r echo=FALSE,out.width='50%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/githubreg2.png')
 ```
 
 ---
@@ -81,7 +81,7 @@ knitr::include_graphics('../figure/githubreg2.png')
 ## [投稿指南](https://cosx.org/contribute/)
 
 ```{r echo=FALSE,out.width='70%'}
-knitr::include_graphics('../figure/cosguide.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/cosguide.png')
 ```
 
 ---
@@ -89,7 +89,7 @@ knitr::include_graphics('../figure/cosguide.png')
 ## 月读投稿[演示](https://github.com/cosname/cosx.org/issues/980)
 
 ```{r echo=FALSE,out.width='70%'}
-knitr::include_graphics('../figure/monthly.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/monthly.png')
 ```
 
 ---
@@ -112,7 +112,7 @@ knitr::include_graphics('../figure/monthly.png')
 ## 开放式审稿[演示](https://github.com/cosname/cosx.org/pull/978/files)
 
 ```{r echo=FALSE,out.width='90%'}
-knitr::include_graphics('../figure/openreview.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/openreview.png')
 ```
 
 ---
