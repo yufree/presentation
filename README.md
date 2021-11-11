@@ -1,8 +1,8 @@
 # Presentation
 
-- Miao Yu, 2021, Molecular gatekeeper discovery to link exposome with health outcomes through metabolomics, 69th ASMS Conference, Pennsylvania, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-asms.html)
+- Miao Yu, 2021, Molecular gatekeeper discovery to link exposome with health outcomes through metabolomics, 69th ASMS Conference, Pennsylvania, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-asms.html))
 
-- Miao Yu, 2021, Molecular gatekeeper discovery for multiple exposure groups in adolescent girls, ACS spring 2021, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-acs.html)
+- Miao Yu, 2021, Molecular gatekeeper discovery for multiple exposure groups in adolescent girls, ACS spring 2021, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-acs.html))
 
 - Miao Yu, 2021, General reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data, Pittcon 2021, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-pittcon) , [video](https://youtu.be/xYHW5Z5q_A8))
 
