@@ -4,6 +4,7 @@
     <title>Reactomics and Paired Mass Distance Analysis</title>
     <meta charset="utf-8" />
     <meta name="author" content="Miao Yu" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
@@ -14,7 +15,7 @@ class: center, middle, inverse, title-slide
 
 # Reactomics and Paired Mass Distance Analysis
 ### Miao Yu
-### 2018/11/11 (updated: 2020-06-06)
+### 2018/11/11 (updated: 2021-09-15)
 
 ---
 
@@ -358,16 +359,16 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 - Static mass pairs: paired intensity ratio is stable across samples
 - Dynamic mass pairs: paired intensity ratio is not stable across samples
-- For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
 
 
-|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |
-|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|
-| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    |
-| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    |
+|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |  G  |  H  |
+|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|:---:|:---:|
+| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    | 100 | 100 |
+| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    | 100 | 200 |
 
 - [A,B] and [E,F] are static mass pairs so can be used in quantitative analysis, rsd cutoff 30%
-- [C,D] can be used to check dynamics of a specific reaction
+- reaction amounts for the sum of [A,B] (150, 1500) and [E,F] (70, 280) are [220, 1780] for group I and group II
 
 ???
 - Response factor is the slope of calibration curve for certain compound
@@ -375,6 +376,60 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 - Count once for ions involved in multiple reactions
 
 When we have the list of enriched PMDs, we need to define how to make quantitative analysis of the paired mass distance. Here I proposed to use static PMD pairs, which always show stable intensity ratios across samples, for quantitative analysis of reactions. After the discussion of concept and technique issues, now we could see some application of reactomics.
+
+---
+
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static v.s. dynamic 
+
+- Dynamic mass pairs scenario 1: one of the paired peaks is stable across samples
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+
+
+|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |  G  |  H  |
+|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|:---:|:---:|
+| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    | 100 | 100 |
+| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    | 100 | 200 |
+
+- [A,B] and [G,H] are dynamic mass pairs with the same initial responds, rsd cutoff 30%
+- [B,H] can be used to quantify certain reactions
+- reaction amounts for the sum of B (50,500) and H(100,200) are [150,700] for group I and group II
+
+---
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static v.s. dynamic 
+
+- Dynamic mass pairs scenario 2: none of the paired peaks is stable across samples
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+
+
+|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |  G  |  H  |
+|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|:---:|:---:|
+| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    | 100 | 100 |
+| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    | 100 | 200 |
+
+- [C,D] is dynamic mass pair
+- Normalization by the minimized intensity of C or D, then quantify certain reactions on D or C
+- Normalization on C, Group I has 0.5 for D, Group II has 9.5 for D, reaction amounts are [0.5,9.5] for group I and group II
+
+---
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static and dynamic 
+
+- Combine static and dynamic mass pairs by normalization
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+
+
+|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |  G  |  H  |
+|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|:---:|:---:|
+| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    | 100 | 100 |
+| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    | 100 | 200 |
+
+- Normalization by the minimized intensity of [A,C,E,F] or [B,D,F,H], then quantify certain reactions on [B,D,F,H] or [A,C,E,F]
+- Normalization on [A,C,E,F], Group I has [0.5, 0.5, 1.3, 1] for [B,D,F,H], Group II has [0.5, 9.5, 1.3, 2] for [B,D,F,H], reaction amounts are [3.3, 13.3] for group I and group II
 
 ---
 
@@ -438,14 +493,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### Retention time cluster analysis
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-18-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-21-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 2
 
 ### High frequency PMD analysis across RT clusters
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-19-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-22-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -455,21 +510,21 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-20-1.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-23-1.png" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-21-1.png" width="430px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-24-1.png" width="430px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection - example
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-22-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-25-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
@@ -759,6 +814,15 @@ class: inverse, center, middle
 ## Q&amp;A
 
 ## miao.yu@mssm.edu
+
+
+
+
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

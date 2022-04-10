@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mass spectrometry based metabolomics data analysis</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Miao Yu" />
+    <meta name="date" content="2021-11-16" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Mass spectrometry based metabolomics data analysis
+## From known to unknown
+### Miao Yu
+### 2021-11-16
+
+---
+
+
+
+
+## Self introduction
+
+### Miao Yu (于淼)
+
+### Education + Training
+
+- 2006 - 2010 B.S. Shandong University, Jinan, Shandong, China
+
+- 2010 - 2016 Ph.D. University of Chinese Academy of Sciences, Beijing, China
+
+- 2016 - 2018 PostDoc University of Waterloo, Waterloo, ON, Canada
+
+- 2018 - now PostDoc Icahn School of Medicine at Mount Sinai, New york, NY, USA
+
+---
+
+## Typical workflow for HRMS metabolomics
+
+- Sample Collection and Pretreatment
+
+- Instrumental Analysis
+
+- Data Analysis
+
+---
+
+## Sample Collection and Pretreatment
+
+### Quenching
+
+    - Instantaneous inactivation of metabolism
+    - rapid low/high temprature
+    - Organic solvent
+
+### Storage
+
+    - -80°C or -20°C
+    - Dry ice
+
+---
+
+### Sample Collection 
+
+&lt;img src="https://raw.githubusercontent.com/yufree/yufree.cn/master/static/images/TOC.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Lendor, S., Roszkowska, A., Olkowicz, M., Bragg, L., Servos, M., &amp; Pawliszyn, J. (2020). Metabolic profile of fish muscle tissue changes with sampling method, storage strategy and time. Analytica Chimica Acta, 1136, 42–50. doi:10.1016/j.aca.2020.08.050
+]
+
+---
+
+### Sample Pretreatment
+
+- From samples to injection vials
+
+- More **interesting** compounds, less **unrelated** interference (matrix effects)
+
+- Remove lipid
+
+  - Gel Permeation Chromatograph(GPC)
+  - Florisil
+  - Alumina
+  - Silica gel
+  
+- Protein denaturation
+  
+  - Alcohols
+  - Strong acid/base
+
+---
+
+### Sample Pretreatment
+
+- one-step extraction/clean up by accelerated solvent extraction (ASE)
+
+&lt;img src="https://yufree.github.io/presentation/figure/ASE.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Hou, X., Liu, Q., Wang, Y., Liu, J., &amp; Jiang, G. (2017). Evaluation and reduction of the analytical uncertainties in GC-MS analysis using a boundary regression model. Talanta, 164, 141–147. doi:10.1016/j.talanta.2016.11.046
+]
+
+---
+
+## Instrumental Analysis
+
+### Run order effects
+
+- `getpqsi` function in **enviGCMS** package
+
+&lt;img src="https://yufree.github.io/presentation/figure/pooledQC.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Instrumental Analysis
+
+### Batch effects
+
+&lt;img src="https://www.biorxiv.org/content/biorxiv/early/2019/12/17/2019.12.16.878637/F7.medium.gif" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Roszkowska, A., &amp; Pawliszyn, J. (2019). Simulation-based comprehensive study of batch effects in metabolomics studies. doi:10.1101/2019.12.16.878637
+]
+
+---
+
+## Data Analysis
+
+&gt; Features -&gt; Compounds -&gt; Relationship among compounds
+
+- Compounds/metabolites without standards
+
+&lt;img src="https://yufree.github.io/presentation/figure/TOC2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Liu, J., Wang, T., Zhang, A., Wang, Y., Zhou, Q., &amp; Jiang, G. (2016). Structure prediction of methyoxy-polybrominated diphenyl ethers (MeO-PBDEs) through GC–MS analysis of their corresponding PBDEs. Talanta, 152, 9–14. doi:10.1016/j.talanta.2016.01.047
+]
+
+---
+
+### Gap between features and compounds
+
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### How many real compounds among features?
+
+&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
+
+.half[
+Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. doi:10.1021/acs.analchem.7b02380
+]
+
+---
+### GlobalStd Algorithm
+
+&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
+]
+
+---
+### GlobalStd Algorithm Step 1
+
+- Retention time cluster analysis
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-9-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### GlobalStd Algorithm Step 2
+
+- High frequency PMD analysis across RT clusters
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-10-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### GlobalStd Algorithm Step 2
+
+- High frequency PMD analysis across RT clusters - example
+
+- Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-11-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### GlobalStd Algorithm Step 3
+
+- Independent peaks selection
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-12-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### GlobalStd Algorithm Step 3
+
+- Independent peaks selection - example
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-13-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### GlobalStd Algorithm Step 3
+
+- ~14.3% peaks can capture similar variances of all peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
+
+&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### PMDDA workflow
+
+&lt;img src="https://yufree.github.io/presentation/figure/PMDDAraw.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Dolios, G., &amp; Petrick, L. (2021). Reproducible Untargeted Metabolomics Data Analysis Workflow for Exhaustive MS/MS Annotation. doi:10.33774/chemrxiv-2021-fxw2c-v2
+]
+
+---
+
+### PMDDA workflow
+
+&lt;img src="https://yufree.github.io/presentation/figure/pmddacomp.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Reactomics
+
+&gt; Features -&gt; Compounds -&gt; Relationship among compounds
+
+- You ACTUALLY don't need people (compounds) name to know their relationship
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
+
+.half[
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+]
+
+---
+
+### Reactomics
+
+&gt; Sample -&gt; Peaks -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+
+- Mass spectrum could directly measure relationship (reactions)
+
+&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+### Why Reactions?
+
+&lt;img src="https://yufree.github.io/presentation/figure/database.png" style="display: block; margin: auto;" /&gt;
+
+- Unit: Gene (5) &lt; Protein (20+2) &lt; Metabolite (100K) &lt; Compound (100M)
+
+- Combination: Gene (20,000-25,000) &lt; Protein (20,000-25,000) &lt; Compound(???) 
+
+- Small molecule  **combination** is a chemical reaction or paired mass distance
+
+---
+
+### Why PMD?
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+`$$\Delta m = Zm_{H} + Nm_{n} - M$$`
+- The missing mass was converted into energy ( `\(E=mc^2\)` ) and emitted when the atom was made
+
+- Atoms -&gt; Compounds -&gt; Mass distances between compounds
+
+- **Paired Mass Distances (PMD)** is unique
+
+- **High resolution** mass spectrometry WINs
+
+---
+
+### Sources of PMDs in real data
+
+.pull-left[- Isotopologues 
+  
+  - `\([M]^+\)` `\([M+1]^+\)`
+  - 1.006 Da
+
+- in source reaction 
+
+  - `\([M+H]^+\)`  `\([M+Na]^+\)`
+  - 21.982 Da
+]
+
+.pull-right[
+- Homologous series
+
+  - Lipid `\(-[CH_2]-\)`
+  - 14.016 Da
+
+- Xenobiotic metabolism
+
+  - Phase I hydrolation
+  - 15.995 Da
+]  
+
+---
+
+### Quantitative and Qualitative analysis in Reactomics
+
+- Reaction: `\(S_1 + S_2 + … + S_n = P_1 + P_2 + … + P_m \ (n&gt;=1,m&gt;=1)\)`
+
+- PMD matrix
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(S_1\) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(S_2\) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; ... &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(S_n\) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \(P_1\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_1 - P_1|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_2 - P_1|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_n - P_1|\) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \(P_2\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_1 - P_2|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_2 - P_2|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_n - P_2|\) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \(P_m\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_1 - P_m|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_2 - P_m|\) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; \(|S_n - P_m|\) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+- Paired mass distances for certain parent compound:
+
+`$$PMD_{S_{k}} = min(|S_k-P_1|,|S_k-P_2|,...,|S_k-P_m|) (1 \le k \le n )$$`
+- Paired mass distances for certain reaction:
+
+`$$PMD_R = \{PMD_{S_{1}}, PMD_{S_{2}},...,PMD_{S_{n}}\}$$`
+
+---
+
+### Quantitative and Qualitative analysis in Reactomics (KEGG reaction database)
+
+
+|   PMD   | Freq | ExampleReactionClass | ExampleEnzyme |
+|:-------:|:----:|:--------------------:|:-------------:|
+|  2.016  | 1732 |       RC00095        |   1.3.1.84    |
+| 15.995  | 1169 |       RC00046        |   1.3.99.18   |
+| 79.966  | 729  |       RC00002        |    3.6.1.3    |
+| 14.016  | 594  |       RC00060        |    1.5.3.1    |
+|    0    | 532  |       RC00302        |    5.1.1.3    |
+| 18.011  | 359  |       RC00680        |    3.5.2.5    |
+| 162.053 | 365  |       RC00049        |   3.2.1.23    |
+| 159.933 | 243  |       RC02056        |   4.2.3.42    |
+|  1.032  | 262  |       RC00006        |    1.4.1.2    |
+| 42.011  | 237  |       RC00004        |   2.3.1.54    |
+
+---
+
+### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
+
+
+|       | C | H | O |
+|:------|:-:|:-:|:-:|
+|14.016 | 1 | 2 | 0 |
+|2.016  | 0 | 2 | 0 |
+|28.031 | 2 | 4 | 0 |
+|26.016 | 2 | 2 | 0 |
+|15.995 | 0 | 0 | 1 |
+|12     | 1 | 0 | 0 |
+|56.063 | 4 | 8 | 0 |
+|42.047 | 3 | 6 | 0 |
+|30.011 | 1 | 2 | 1 |
+|24     | 2 | 0 | 0 |
+
+- Dominated by C, H and O
+- Structure or reaction?
+
+---
+### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
+
+
+| Elemental Composition | PMD(digits = 3) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |     14.016      |   4934    |   0.98   |
+|          +2H          |      2.016      |   4909    |   0.97   |
+|         +2C4H         |     28.031      |   4878    |   0.99   |
+|         +2C2H         |     26.016      |   4229    |   0.98   |
+|          +O           |     15.995      |   4214    |   0.99   |
+|          +C           |     12.000      |   3861    |   0.99   |
+|         +4C8H         |     56.063      |   3861    |   0.97   |
+|         +3C6H         |     42.047      |   3771    |   0.98   |
+|         +C2HO         |     30.011      |   3698    |   0.95   |
+|          +2C          |     24.000      |   3689    |   0.99   |
+
+---
+### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
+
+
+| Elemental Composition | PMD(digits = 2) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |      14.02      |   8003    |   0.63   |
+|          +2H          |      2.02       |   7959    |   0.62   |
+|         +2C4H         |      28.03      |   7799    |   0.61   |
+|         +2C2H         |      26.02      |   7343    |   0.58   |
+|          +O           |      15.99      |   7731    |   0.56   |
+|          +C           |      12.00      |   7145    |   0.56   |
+|         +4C8H         |      56.06      |   6699    |   0.56   |
+|         +3C6H         |      42.05      |   6558    |   0.58   |
+|         +C2HO         |      30.01      |   6761    |   0.54   |
+|          +2C          |      24.00      |   6963    |   0.53   |
+
+---
+### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
+
+
+| Elemental Composition | PMD(digits = 1) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |      14.0       |   50419   |   0.10   |
+|          +2H          |       2.0       |   50467   |   0.10   |
+|         +2C4H         |      28.0       |   50797   |   0.09   |
+|         +2C2H         |      26.0       |   48517   |   0.09   |
+|          +O           |      16.0       |   51278   |   0.09   |
+|          +C           |      12.0       |   49335   |   0.08   |
+|         +4C8H         |      56.1       |   36417   |   0.10   |
+|         +3C6H         |      42.0       |   49808   |   0.08   |
+|         +C2HO         |      30.0       |   51241   |   0.07   |
+|          +2C          |      24.0       |   48099   |   0.08   |
+
+---
+### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
+
+
+| Elemental Composition | PMD(digits = 0) | Frequency | Accuracy |
+|:---------------------:|:---------------:|:---------:|:--------:|
+|         +C2H          |       14        |  156245   |   0.03   |
+|          +2H          |        2        |  156260   |   0.03   |
+|         +2C4H         |       28        |  155410   |   0.03   |
+|         +2C2H         |       26        |  154346   |   0.03   |
+|          +O           |       16        |  155811   |   0.03   |
+|          +C           |       12        |  155339   |   0.03   |
+|         +4C8H         |       56        |  151894   |   0.02   |
+|         +3C6H         |       42        |  153764   |   0.03   |
+|         +C2HO         |       30        |  154369   |   0.02   |
+|          +2C          |       24        |  154278   |   0.02   |
+
+---
+
+### Quantitative and Qualitative analysis in Reactomics (Static v.s. dynamic)
+
+- Static mass pairs: paired intensity ratio is stable across samples
+- Dynamic mass pairs: paired intensity ratio is not stable across samples
+- For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
+
+
+|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |
+|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|
+| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    |
+| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    |
+
+- [A,B] and [E,F] are static mass pairs so can be used in quantitative analysis, rsd cutoff 30%
+- [C,D] can be used to check dynamics of a specific reaction
+
+---
+class: inverse, center, middle
+
+## Reactomics Application 
+
+### Metabolites Discovery
+
+---
+
+## Metabolites of exogenous compound
+
+  - Environmental pollution metabolites
+  - Drug metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I
+    - Oxidation (R-H =&gt; R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O =&gt; R-C-OH, pmd 2.016 Da)
+    
+  - Phase II
+    - Methylation (R-OH =&gt; R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH =&gt; R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH =&gt; R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 =&gt; R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH =&gt; R-O-C6H11O5, pmd 162.053 Da)
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Confirmation by synthesized standards
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+]
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- TBBPA Metabolites PMD network
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+.half[
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+]
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Endogenous or Exogenous
+
+---
+
+## Endogenous vs Exogenous
+
+- T3DB Endogenous (255) vs Exogenous (705)
+
+- Use top 10 high frequency PMDs
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Gatekeepers for exposome
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Teitelbaum, S., Dolios, G., Dang, L.-H., Tu, P., Wolff, M., &amp; Petrick, L. (2021). Molecular Gatekeeper Discovery: Workflow for Linking Multiple Environmental Biomarkers to Metabolomics. doi:10.26434/chemrxiv.14781498.v1
+]
+
+---
+
+## KEGG reaction network
+
+- Metabolites of four compounds
+
+- Average network distance: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Follow up studies
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmdif.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Biomarker Reaction
+
+---
+
+## Lung cancer
+
+- MTBLS28 1005 human urine samples
+
+- PMD 2.02 Da show differences among control and diseases
+
+&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## How
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/owl.png" alt="Paper method v.s. Practical method in Metabolomics" width="50%" /&gt;
+&lt;p class="caption"&gt;Paper method v.s. Practical method in Metabolomics&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+
+## Software
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - GlobalStd algorithm
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network anaysis
+  - pmd MS/MS annotation algorithm
+  - GUI application based on shiny
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Rmarkdown template
+  - From raw data to report
+  - part of `xcmsrocker` docker image
+
+---
+
+## Take-home message
+
+### Reaction is the "base pair" for small molecules
+
+### Reactomics means the omics study at reaction or PMD level
+
+### Real data always enriched in few PMDs or reactions
+
+### Reaction level changes could be quantitative and predictable
+
+???
+Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&amp;A
+
+## miao.yu@mssm.edu
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

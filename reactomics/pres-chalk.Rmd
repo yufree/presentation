@@ -1,0 +1,244 @@
+---
+title: "Reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data"
+subtitle: "Miao Yu"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+## Typical workflow for HRMS metabolomics/NTA
+
+- Collect samples
+
+- Acquire data (peaks) using mass spectrometry
+
+- Annotate peaks for identification with compound name
+
+- Build links between compounds using pathway/network analysis
+
+> Sample -> Peaks -> Compounds -> Relationship among compounds
+
+- Problems
+
+    - Time consuming - too many peaks ~20k
+    - Standards coverage - unknown unknown
+
+---
+
+## Skip the annotation
+
+> Sample -> Peaks -> ~~Compounds~~ -> Relationship among compounds
+
+- Mass spectrum could directly measure relationship (reactions)
+
+```{r echo=FALSE, out.width= '100%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
+```
+
+---
+
+## Why Reactions?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/database.png')
+```
+
+- Unit: Gene (5) < Protein (20+2) < Metabolite (100K) < Compound (100M)
+
+- Combination: Gene (20,000-25,000) < Protein (20,000-25,000) < Compound(???) 
+
+- Small molecule  **combination** is a chemical reaction or paired mass distance
+
+- **Paired Mass Distances (PMD)** is unique for reactions
+
+---
+
+## Sources of PMDs in real data
+
+### Where is PMD?
+
+.pull-left[- Isotopologues 
+  
+  - $[M]^+$ $[M+1]^+$
+  - 1.006 Da
+
+- in source reaction 
+
+  - $[M+H]^+$  $[M+Na]^+$
+  - 21.982 Da
+]
+
+.pull-right[
+- Homologous series
+
+  - Lipid $-[CH_2]-$
+  - 14.016 Da
+
+- Xenobiotic metabolism
+
+  - Phase I hydrolation
+  - 15.995 Da
+]  
+
+---
+
+# Reactomics
+
+> Retrieving general chemical relationship 
+
+```{r echo=FALSE}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/cc2020.png')
+```
+
+---
+
+# General reactomics data analysis framework 
+
+## Step 1: Remove redundant peaks
+
+- regular metabolomics / NTA workflow
+
+## Step 2: Extract high frequency PMDs
+
+- reaction level evaluation
+
+## Step 3: Relationship network
+
+- network based evaluation
+
+---
+
+# General reactomics data analysis framework 
+
+## Demo data: [ST000560](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000560)
+
+- Immortalized immunoglobulin-producing cell lines
+
+- 4 replicates from 6 cell lines
+
+- 3 patients with IgA nephropathy and 3 healthy controls
+
+- 1918 features or peaks
+
+---
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP1: Remove redundant peaks
+
+---
+
+## Gap between features and compounds
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
+```
+
+---
+
+## GlobalStd Algorithm
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+---
+
+## GlobalStd Algorithm: before (1918) and after (196)
+
+
+```{r echo=FALSE}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/bags.png')
+```
+
+---
+
+## For annotation - PMDDA
+
+```{r echo=FALSE,out.width = "60%",fig.retina = 3}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/rpppmdda2.png')
+```
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP2: Extract high frequency PMDs
+
+---
+
+## High frequency PMDs for retrieving chemical relationship
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-6-1.png')
+```
+
+---
+
+## Reaction level changes
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png')
+```
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP3: Relationship network
+
+---
+
+## PMD Network
+
+```{r echo=FALSE,out.width = "100%",fig.retina = 3}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/netdemo.png')
+```
+
+---
+
+## Software
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - GlobalStd algorithm
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network analysis
+  - pmd MS/MS annotation algorithm
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Rmarkdown template for reactomics
+  - From raw data to report
+  - part of `xcmsrocker` docker image
+
+### enet package
+
+  - network analysis for relationships among small molecules 
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@mssm.edu

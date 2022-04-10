@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data
+## Miao Yu
+
+---
+
+
+
+
+## Typical workflow for HRMS metabolomics/NTA
+
+- Collect samples
+
+- Acquire data (peaks) using mass spectrometry
+
+- Annotate peaks for identification with compound name
+
+- Build links between compounds using pathway/network analysis
+
+&gt; Sample -&gt; Peaks -&gt; Compounds -&gt; Relationship among compounds
+
+- Problems
+
+    - Time consuming - too many peaks ~20k
+    - Standards coverage - unknown unknown
+
+---
+
+## Skip the annotation
+
+&gt; Sample -&gt; Peaks -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+
+- Mass spectrum could directly measure relationship (reactions)
+
+&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Why Reactions?
+
+&lt;img src="https://yufree.github.io/presentation/figure/database.png" style="display: block; margin: auto;" /&gt;
+
+- Unit: Gene (5) &lt; Protein (20+2) &lt; Metabolite (100K) &lt; Compound (100M)
+
+- Combination: Gene (20,000-25,000) &lt; Protein (20,000-25,000) &lt; Compound(???) 
+
+- Small molecule  **combination** is a chemical reaction or paired mass distance
+
+- **Paired Mass Distances (PMD)** is unique for reactions
+
+---
+
+## Sources of PMDs in real data
+
+### Where is PMD?
+
+.pull-left[- Isotopologues 
+  
+  - `\([M]^+\)` `\([M+1]^+\)`
+  - 1.006 Da
+
+- in source reaction 
+
+  - `\([M+H]^+\)`  `\([M+Na]^+\)`
+  - 21.982 Da
+]
+
+.pull-right[
+- Homologous series
+
+  - Lipid `\(-[CH_2]-\)`
+  - 14.016 Da
+
+- Xenobiotic metabolism
+
+  - Phase I hydrolation
+  - 15.995 Da
+]  
+
+---
+
+# Reactomics
+
+&gt; Retrieving general chemical relationship 
+
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/cc2020.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# General reactomics data analysis framework 
+
+## Step 1: Remove redundant peaks
+
+- regular metabolomics / NTA workflow
+
+## Step 2: Extract high frequency PMDs
+
+- reaction level evaluation
+
+## Step 3: Relationship network
+
+- network based evaluation
+
+---
+
+# General reactomics data analysis framework 
+
+## Demo data: [ST000560](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&amp;StudyID=ST000560)
+
+- Immortalized immunoglobulin-producing cell lines
+
+- 4 replicates from 6 cell lines
+
+- 3 patients with IgA nephropathy and 3 healthy controls
+
+- 1918 features or peaks
+
+---
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP1: Remove redundant peaks
+
+---
+
+## Gap between features and compounds
+
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## GlobalStd Algorithm
+
+&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## GlobalStd Algorithm: before (1918) and after (196)
+
+
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/bags.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## For annotation - PMDDA
+
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/rpppmdda2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP2: Extract high frequency PMDs
+
+---
+
+## High frequency PMDs for retrieving chemical relationship
+
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-6-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Reaction level changes
+
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP3: Relationship network
+
+---
+
+## PMD Network
+
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/netdemo.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Software
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - GlobalStd algorithm
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network analysis
+  - pmd MS/MS annotation algorithm
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Rmarkdown template for reactomics
+  - From raw data to report
+  - part of `xcmsrocker` docker image
+
+### enet package
+
+  - network analysis for relationships among small molecules 
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&amp;A
+
+## miao.yu@mssm.edu
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -312,18 +312,18 @@ knitr::kable(df4,align = 'c',format = 'markdown',col.names = NA)
 
 - Static mass pairs: paired intensity ratio is stable across samples
 - Dynamic mass pairs: paired intensity ratio is not stable across samples
-- For example, [A,B], [C,D] and [E,F] are involved in the same PMD:
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
 
 ```{r}
-GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4')
-GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4' )
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4', 100, 100)
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4', 100, 200)
 df <- rbind.data.frame(GroupI,GroupII)
-colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio')
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio','G','H')
 knitr::kable(df,align = 'c',format = 'markdown')
 ```
 
 - [A,B] and [E,F] are static mass pairs so can be used in quantitative analysis, rsd cutoff 30%
-- [C,D] can be used to check dynamics of a specific reaction
+- reaction amounts for the sum of [A,B] (150, 1500) and [E,F] (70, 280) are [220, 1780] for group I and group II
 
 ???
 - Response factor is the slope of calibration curve for certain compound
@@ -331,6 +331,66 @@ knitr::kable(df,align = 'c',format = 'markdown')
 - Count once for ions involved in multiple reactions
 
 When we have the list of enriched PMDs, we need to define how to make quantitative analysis of the paired mass distance. Here I proposed to use static PMD pairs, which always show stable intensity ratios across samples, for quantitative analysis of reactions. After the discussion of concept and technique issues, now we could see some application of reactomics.
+
+---
+
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static v.s. dynamic 
+
+- Dynamic mass pairs scenario 1: one of the paired peaks is stable across samples
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4', 100, 100)
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4', 100, 200)
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio','G','H')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- [A,B] and [G,H] are dynamic mass pairs with the same initial responds, rsd cutoff 30%
+- [B,H] can be used to quantify certain reactions
+- reaction amounts for the sum of B (50,500) and H(100,200) are [150,700] for group I and group II
+
+---
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static v.s. dynamic 
+
+- Dynamic mass pairs scenario 2: none of the paired peaks is stable across samples
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4', 100, 100)
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4', 100, 200)
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio','G','H')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- [C,D] is dynamic mass pair
+- Normalization by the minimized intensity of C or D, then quantify certain reactions on D or C
+- Normalization on C, Group I has 0.5 for D, Group II has 9.5 for D, reaction amounts are [0.5,9.5] for group I and group II
+
+---
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static and dynamic 
+
+- Combine static and dynamic mass pairs by normalization
+- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+
+```{r}
+GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4', 100, 100)
+GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4', 100, 200 )
+df <- rbind.data.frame(GroupI,GroupII)
+colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio','G','H')
+knitr::kable(df,align = 'c',format = 'markdown')
+```
+
+- Normalization by the minimized intensity of [A,C,E,F] or [B,D,F,H], then quantify certain reactions on [B,D,F,H] or [A,C,E,F]
+- Normalization on [A,C,E,F], Group I has [0.5, 0.5, 1.3, 1] for [B,D,F,H], Group II has [0.5, 9.5, 1.3, 2] for [B,D,F,H], reaction amounts are [3.3, 13.3] for group I and group II
 
 ---
 
