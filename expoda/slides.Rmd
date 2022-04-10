@@ -1,0 +1,272 @@
+---
+title: "暴露组学中的数据分析"
+subtitle: ""
+author: "于淼"
+date: " `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## 暴露组学
+
+- 生物表型或疾病是环境与基因在时间尺度上交互作用的结果
+
+$$P(t) = G(t) * E(t)$$
+
+- 核心概念：
+
+    - 时序-窗口期
+    - 组学-多暴露
+    - 定量-EMP模型
+
+---
+
+## 暴露组学背景
+
+- 2005年， C. P. Wild 在期刊 Cancer Epidemiol Biomarkers Prev 的社论上提出了[暴露组 (exposome)](https://cebp.aacrjournals.org/content/14/8/1847.short)的概念。
+
+- 2010年，Rappaport 与 Smith 在 Science 上发表了题为 Environment and Disease Risks 的展望[文章](https://science.sciencemag.org/content/330/6003/460)，认为暴露不应限制在直接接触到的化学物质，也要考虑更广义的暴露，例如微生物暴露与生活压力等。
+
+- 2016年，Global Burden of Disease (GBD) 项目估计全球59.9%的死亡来自各类[外部风险](https://doi.org/10.1016/S0140-6736%2817%2932366-8)
+
+- 16%的[全球死亡](https://pubmed.ncbi.nlm.nih.gov/29056410/)来自于水、大气、土壤污染，其造成的健康相关开支每年约4.6万亿美金（16%的全球经济产出）。
+
+- 方法学借鉴全基因组关联分析研究（GWAS）发展为[全暴露组关联分析研究（EWAS）](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0010746)
+
+---
+
+class: inverse, center, middle
+
+# 窗口期
+
+---
+
+## 窗口期
+
+- 发育窗口期：表型出现的时间段，复杂的表型会出现多个反应时间段
+
+- 人类发育是基因表达的时间函数
+
+        - 语言学习期：1-11岁
+        - 失语症：语言学习期被暴露因素干扰
+        
+- 关键暴露期：表型对内外因素作出反应的时间段，通常位于关键的发育窗口期
+
+- 类似生物可塑性，生物对环境做出的适应与变化
+
+---
+
+## 人类大脑发育
+
+```{r echo=FALSE, out.width= '90%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/braindev.jpg')
+```
+
+
+---
+
+## 如何发现窗口期？
+
+- 时间序列分析-被观察者时间尺度上的变化
+
+- 显著性差异分析-实验设计中被观察者在单暴露因素下的变化
+
+- 窗口期 = 时间序列分析中被观察者在单暴露因素下的变化
+
+- 统计语言
+
+        - 相关系数在时间尺度上的变化
+        - 回归因子在时间尺度上的变化
+
+---
+
+## 分布滞后模型 Distributed Lag Models (DLM)
+
+$$Y_i = \alpha_0 + \sum_{t=1}^T\alpha_tX_{i,t}+\lambda z_i + \epsilon_i$$
+
+- 因变量受自变量的时序分布影响的模型
+
+- 时序测量：污染物暴露的时间序列
+
+- 暴露终点：是否生病、是否存活、死亡率
+
+- 存在协变量
+
+- 系数 $\alpha_t = f(t)$ 用时间的样条函数来建模
+
+- 系数总和就是效应总和
+
+---
+
+## Functional Distributed Lag Models 
+
+$$\alpha_t = \alpha(t)$$
+
+- DLM 不同时间点系数是拟合出的
+- Functional DLM 系数是时间的函数
+
+$$\alpha(t) = \beta \omega(t) $$
+
+- $\beta$ 代表净效应
+
+- $\omega(t)$ 代表时间趋势，也就是要找的窗口期
+
+---
+
+## Bayesian distributed lag interaction models (BDLIMs)
+
+- 研究窗口期内不同的效应
+
+- 不同分组窗口期内可能延迟不同
+
+- 不同分组窗口期内可能效应方向不同
+
+- 先进行探索分析再建模
+
+---
+
+## Reverse Distributed Lag Models (rDLM)
+
+- 将DLM的X与Y对调，含义变为X在时间尺度上与Y相关性的变化
+
+- 混合效应模型
+
+- 系数 $\beta(t) = f(t)$ 用时间的样条函数来建模
+
+
+$$X_i(t) = \beta_0(t) + \beta_1(t)Y_i +\gamma(t)z_i + u_i + \epsilon _i(t)$$
+
+---
+
+## 系数置信区间
+
+- piecewise confidence intervals
+
+    - 每个时间点上求区间
+
+$$\hat \beta_1(t_j) \pm t_{n-p;1-\alpha} SE(\hat\beta_1(t_j))$$
+- family-wise confidence interval (Holm-Bonferroni)
+    
+    - 对时序对比进行错误发现率矫正
+
+---
+
+class: inverse, center, middle
+
+# 多暴露
+
+---
+
+## 多暴露
+
+- 问卷
+      
+    - 流行病学调查
+    - 人群画像
+    - 心理学量表
+    - 社交关系
+    
+- 生物样品（偏内暴露）
+    
+    - 血样、尿样、粪便
+    - 基因组、表观基因组、转录组、蛋白组、暴露组、微生物组
+      
+- 环境样品（偏外暴露）
+    
+    - 室内灰尘、饮用水、大气、可穿戴设备
+    - 遥感数据、环境监测数据、个人被动采样、气候变化
+
+> 单样本单时间点暴露组维度上万
+
+---
+
+## 多暴露
+
+- 组学讨论单一变量的系统影响
+
+- 单一变量指表型或疾病
+
+- 系统影响通常是指分子层面的暴露浓度
+
+- 测量上是几百上千的小分子浓度
+
+---
+
+## 如何评价多暴露？
+
+- 构建一个整体影响指标指代不同污染物
+
+- 该指标为不同污染物的加权，可回溯单一污染物影响
+
+- 统计语言
+
+    - 构建潜在变量
+    - 计算不同污染物在该变量上的投影
+
+---
+
+## Weighted Quantile Sum (WQS) regression
+
+$$Y_i = \beta_0+\beta(\sum_{t=1}^T w_t q_{i,t}) + \gamma z_i + \epsilon$$
+
+- $q_t$ 代表不同种类污染物或暴露水平，通常四分
+
+- 存在协变量
+
+- $w_t\geq0$
+
+- $\sum_tw_t = 1$
+
+- 可以得到污染物整体效应及其对系数的贡献
+
+---
+
+class: inverse, center, middle
+
+# 定量
+
+---
+
+## 定量
+
+- 表型多为定性描述
+
+- 暴露为外源化合物
+
+- GEMP 机理模型
+
+> Gene/Exposure -> Metabolites -> Phenotype
+
+---
+
+## 暴露灵敏度
+
+```{r echo=FALSE, out.width= '90%'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/emp.png')
+```
+
+---
+
+## 未知物溯源
+
+- 利用 pmd 网络区分样品来源
+
+```{r echo=FALSE,out.width = "450px"}
+knitr::include_graphics("https://yufree.github.io/presentation/figure/t3db2.png")
+```
+
+---
+
+## 软件
+
+- `regimes` 包：BDLIM 与DLM 模型
+
+- `gWQS` 包：WQS 模型
+
+- `pmd` 包：未知物溯源
