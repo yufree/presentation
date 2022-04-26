@@ -38,9 +38,47 @@ class: center, middle, inverse, title-slide
     - Standards coverage - unknown unknown
 
 ---
-class: inverse, center, middle
 
-## PMDDA Workflow
+## Quanlity control during injections
+
+### Run order effects
+
+- `getpqsi` function in **enviGCMS** package
+
+&lt;img src="https://yufree.github.io/presentation/figure/pooledQC.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Quanlity control during injections
+
+### Total usable signal
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Quanlity control during injections
+
+### RLE plot
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Quanlity control during injections
+
+### PCA
+
+&lt;img src="pres_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## PMDDA workflow
+
+&lt;img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1186%2Fs13321-022-00586-8/MediaObjects/13321_2022_586_Figa_HTML.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+.half[
+
+]
 
 ---
 
@@ -56,22 +94,6 @@ class: inverse, center, middle
 
 ---
 
-## How many real compounds among features?
-
-&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
-
-.half[
-
-]
-
----
-
-## Gap between features and compounds
-
-&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
-
----
-
 ## GlobalStd Algorithm
 
 &lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" style="display: block; margin: auto;" /&gt;
@@ -81,105 +103,10 @@ class: inverse, center, middle
 ]
 
 ---
-## GlobalStd Algorithm Step 1
 
-### Retention time cluster analysis
+## PMDDA workflow
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-5-1.png" width="450px" style="display: block; margin: auto;" /&gt;
-
----
-## GlobalStd Algorithm Step 2
-
-### High frequency PMD analysis across RT clusters
-
-&lt;img src="pres_files/figure-html/unnamed-chunk-6-1.png" width="450px" style="display: block; margin: auto;" /&gt;
-
----
-
-## GlobalStd Algorithm Step 2
-
-### High frequency PMD analysis across RT clusters - example
-
-- Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
-
-&lt;img src="pres_files/figure-html/unnamed-chunk-7-1.png" width="300px" style="display: block; margin: auto;" /&gt;
-
----
-## GlobalStd Algorithm Step 3
-
-### Independent peaks selection
-
-&lt;img src="pres_files/figure-html/unnamed-chunk-8-1.png" width="430px" style="display: block; margin: auto;" /&gt;
-
----
-## GlobalStd Algorithm Step 3
-
-### Why redundant?
-
-- ~14.3% peaks can capture similar variances of all peaks
-- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
-
-&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="500px" style="display: block; margin: auto;" /&gt;
-
-???
-- Similar to isotope labeled results (5% peaks)
-- Untargeted analysis does not mean big data
-
----
-
-## Target compounds validation
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Independent peaks &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Target compounds found &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; pmd &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 985 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; CAMERA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1297 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; RAMclust &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 461 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; profinder &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 6628 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-- 103 compounds for validation
-- 36 compounds could be found by xcms 6885 features
-- 7 could be found by profinder untargeted analysis 6628 features
-
----
-## Untargeted MS/MS analysis - PMDDA
-
-- Only use GlobalStd peaks for MS/MS analysis
-    - Multiple injections
-
-- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
-
-- Compare with Data Dependent Acquisition (DDA) (173 compounds)
-    - Annotated 235 extra compounds and overlap 59 compounds
-    - Less contaminant ions
-
-???
-- GNPS MS/MS annotation
-- 235:59:114 PMDDS:overlap:DDA
+&lt;img src="https://yufree.github.io/presentation/figure/pmddacomp.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -205,16 +132,6 @@ class: inverse, center, middle
 
 
 &lt;img src="https://yufree.github.io/presentation/figure/pmmd.png" width="400px" style="display: block; margin: auto;" /&gt;
-
----
-
-## How
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://yufree.github.io/presentation/figure/owl.png" alt="Paper method v.s. Practical method in Metabolomics" width="72%" /&gt;
-&lt;p class="caption"&gt;Paper method v.s. Practical method in Metabolomics&lt;/p&gt;
-&lt;/div&gt;
-
 
 ---
 
