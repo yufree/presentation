@@ -1,0 +1,271 @@
+---
+title: "Reproducible R-based metabolomics workflow"
+subtitle: ""
+author: "Miao Yu"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "my-theme.css", "middlebury"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
+```
+
+
+## Typical workflow for HRMS metabolomics
+
+- Collect samples
+
+- Acquire data (peaks) using mass spectrometry
+
+- Annotate peaks for identification with compound name
+
+- Problems
+
+    - Time consuming - too many peaks ~20k
+    - Standards coverage - unknown unknown
+
+---
+class: inverse, center, middle
+
+## PMDDA Workflow
+
+---
+
+## Sensitivity matters
+
+- Target analysis could capture peaks with low intensity
+
+- Untargeted analysis (DDA/DIA) would loss sensitivity to capture all peaks 
+
+- Send unknown while independent peaks for MS/MS
+
+```{r echo=FALSE,out.width = "300px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/missxcms.png')
+```
+
+---
+
+## How many real compounds among features?
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/gapfc.jpg')
+```
+
+.half[
+```{r ref1,results = 'asis'}
+doi <- c('10.1021/acs.analchem.7b02380')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+## Gap between features and compounds
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
+```
+
+---
+
+## GlobalStd Algorithm
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/GlobalStd.png')
+```
+
+.half[
+```{r ref2,results = 'asis'}
+doi <- c('10.1016/j.aca.2018.10.062')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+## GlobalStd Algorithm Step 1
+
+### Retention time cluster analysis
+
+```{r echo=FALSE,out.width = "450px"}
+library(rmwf)
+data(mzrt)
+mzrtm <- enviGCMS::getdoe(mzrt)
+gm <- mzrtm$groupmean
+gr <- mzrtm$grouprsd
+# filter data
+srm <- grepl('NIST',colnames(gm))
+blk <- grepl('Matrix',colnames(gm))
+indexmean <- apply(gm,1,function(x) all(x[srm]>= 3*x[blk]))
+mzrtfilter <- enviGCMS::getfilter(mzrt,rowindex = indexmean)
+mzrtnist <- enviGCMS::getfilter(mzrt,rowindex = indexmean,colindex = grepl('NIST',colnames(mzrt$data)))
+pmd <- pmd::getpaired(mzrt)
+pmd::plotrtg(pmd)
+```
+
+---
+## GlobalStd Algorithm Step 2
+
+### High frequency PMD analysis across RT clusters
+
+```{r echo=FALSE,out.width = "450px"}
+pmd::plotpaired(pmd)
+```
+
+---
+
+## GlobalStd Algorithm Step 2
+
+### High frequency PMD analysis across RT clusters - example
+
+- Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
+
+```{r echo=FALSE,out.width = "300px"}
+index <- pmd$paired$diff2 == 21.98
+pmd::plotpaired(pmd,index)
+```
+
+---
+## GlobalStd Algorithm Step 3
+
+### Independent peaks selection
+
+```{r echo=FALSE,out.width = "430px"}
+std <- pmd::getstd(pmd)
+pmd::plotstd(std)
+```
+
+---
+## GlobalStd Algorithm Step 3
+
+### Why redundant?
+
+- ~14.3% peaks can capture similar variances of all peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
+
+```{r echo=FALSE,out.width = "500px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/software.png')
+```
+
+???
+- Similar to isotope labeled results (5% peaks)
+- Untargeted analysis does not mean big data
+
+---
+
+## Target compounds validation
+
+```{r echo=F}
+pmd <- c(985,18)
+CAMERA <- c(1297,15)
+RAMclust <- c(461,12)
+profinder <- c(6628,7)
+comp <- rbind.data.frame(pmd,CAMERA,RAMclust,profinder)
+colnames(comp) <- c('Independent peaks','Target compounds found')
+rownames(comp) <- c('pmd','CAMERA','RAMclust','profinder')
+knitr::kable(comp, format = 'html')
+```
+
+- 103 compounds for validation
+- 36 compounds could be found by xcms 6885 features
+- 7 could be found by profinder untargeted analysis 6628 features
+
+---
+## Untargeted MS/MS analysis - PMDDA
+
+- Only use GlobalStd peaks for MS/MS analysis
+    - Multiple injections
+
+- MS/MS spectral library annotation on [GNPS](https://gnps.ucsd.edu)
+
+- Compare with Data Dependent Acquisition (DDA) (173 compounds)
+    - Annotated 235 extra compounds and overlap 59 compounds
+    - Less contaminant ions
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Untargeted MS/MS analysis - PMDDA
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda.png')
+```
+
+???
+- GNPS MS/MS annotation
+- 235:59:114 PMDDS:overlap:DDA
+
+---
+
+## Untargeted MS/MS analysis - PMMD Annotation
+
+- Use pmd and rank of pmd for annotation
+
+- Intensity filter(10%) and robust for noise
+
+- 957/1098 PMDR/HMDB QqQ data
+
+- some compounds share the same pmd 87%
+
+
+```{r echo=FALSE,out.width="400px"}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmmd.png')
+```
+
+---
+
+## How
+
+```{r echo=FALSE,out.width='72%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
+```
+
+
+---
+
+## Software
+
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - GlobalStd algorithm
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network anaysis
+  - pmd MS/MS annotation algorithm
+  - GUI application based on shiny
+
+### [rmwf package](https://github.com/yufree/rmwf)
+
+  - NIST 1950 data 
+  - Rmarkdown template
+  - From raw data to report
+  - part of `xcmsrocker` docker image
+
+???
+Here I show three application of reactomics and you might find more. So what I did is write a R package to include all the functions for pmd analysis or reactomics analysis such as the pmd-reaction database based on KEGG/HMDB, quantitative pmd analysis, PMD network analysis. To make it clear, I only cover the reaction between different compounds instead of reactions from one compound. However, we do have functions to make MS/MS annotation based on pmd and you could check poster 304118 for details.
+
+Meanwhile, to make reactomics fully reproducible at the very beginning, I developed another R package called rmwf, which means reproducible metabolomics work flow. I included our lab data from NIST 1950, which is standard reference material. I included lots of R code and template to help the user to process the raw data into a report. This package is also part of xcmsrocker project, which try to creat a docker image for fully reproducible metabolomics data analysis environemnt based on RStudio.
+
+---
+
+class: inverse, center, middle
+
+# Thanks 
+
+## Q&A
+
+## miao.yu@jax.org
+
+```{r cache=FALSE}
+knitr::knit_exit() 
+```
