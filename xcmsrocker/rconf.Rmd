@@ -219,6 +219,8 @@ knitr::include_graphics('images/xcmsdiagram.png')
 
 class: center, middle
 
-## 谢谢！
+# 谢谢！
 
 ## yufree@live.cn
+
+## http://yufree.github.io/presentation/xcmsrocker/rconf.html
