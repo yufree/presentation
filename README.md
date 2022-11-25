@@ -1,5 +1,7 @@
 # Presentation
 
+- 于淼, 2022, 科研用开源数据分析平台的搭建与部署, 第十五届中国R语言会议. ([幻灯片](https://yufree.github.io/presentation/xcmsrocker/rconf))
+
 - Miao Yu, 2021, Molecular gatekeeper discovery to link exposome with health outcomes through metabolomics, 69th ASMS Conference, Pennsylvania, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-asms.html))
 
 - Miao Yu, 2021, Molecular gatekeeper discovery for multiple exposure groups in adolescent girls, ACS spring 2021, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-acs.html))
