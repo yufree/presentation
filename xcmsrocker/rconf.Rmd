@@ -1,5 +1,6 @@
 ---
-title: "科研用开源数据分析平台的搭建与部署——以xcmsrocker为例"
+title: "科研用开源数据分析平台的搭建与部署"
+subtitle: 以xcmsrocker为例
 author: "于淼"
 date: "2022-11-20"
 output:
@@ -26,7 +27,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ### 科研开源数据分析平台
 
-### 小结
+### 展示与小结
 
 ---
 
@@ -48,6 +49,14 @@ knitr::include_graphics('images/NIH_Data_Book_Report_155.png')
 
 ---
 
+## 科学研究的趋势 - 高成本
+
+```{r echo=FALSE,out.width = "350px", fig.cap="中国统计年鉴（2021）"}
+knitr::include_graphics('images/salary2021.png')
+```
+
+---
+
 ## 科学研究的趋势 - 云实验室
 
 ```{r echo=FALSE,out.width = "800px"}
@@ -58,7 +67,7 @@ knitr::include_graphics('images/cloudwetlab.png')
 
 ## 科学研究的趋势 - 开放数据
 
-```{r echo=FALSE,fig.cap="Growth in Figshare, Dryad, Dataverse, Mendeley Data, Open Science Framework and Vivli DOIs in the published literature (2011-2021)",out.width = "800px"}
+```{r echo=FALSE,fig.cap="Growth in Figshare, Dryad, Dataverse, Mendeley Data, Open Science Framework and Vivli DOIs in the published literature (2011-2021) (From Dimensions.ai)",out.width = "800px"}
 knitr::include_graphics('images/Figure-1-Number-of-Data-Repository-DOIs.jpg')
 ```
 
@@ -80,15 +89,27 @@ sci_figure(exps)
 
 ## 科研数据分析的需求
 
-### 科学问题导向 -- 不关心软件工程
+.pull-left[
 
-### 统计功能全 -- 应对审稿人补充分析
+- 科学问题导向 -- 不关心软件工程
 
-### 可复用 -- 技能有传承
+- 统计功能全 -- 应对审稿人补充分析
 
-### 开放 -- 开源且最好免费
+- 可复用 -- 技能有传承
 
-### 出图漂亮 -- 自定义要求高
+- 开放 -- 开源且最好免费
+
+- 出图漂亮 -- 自定义要求高
+
+]
+
+.pull-right[
+
+```{r echo=FALSE,out.width='100%', fig.cap='Paper method v.s. Practical method in Metabolomics'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/owl.png')
+```
+
+]
 
 ---
 
@@ -180,7 +201,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/yufree/yufree.cn/mast
 
 ---
 
-## 科研开源数据分析平台 xcmsrocker - [shiny](https://shiny-xcms-uds7muwila-uc.a.run.app/pmd/)
+## 科研开源数据分析平台 xcmsrocker - [Shiny](https://shiny-xcms-uds7muwila-uc.a.run.app/pmd/)
 
 ```{r echo=FALSE,out.width = "800px"}
 knitr::include_graphics('images/shinyxcms.png')
@@ -210,6 +231,8 @@ knitr::include_graphics('images/xcmsdiagram.png')
 
 class: center, middle
 
-## 谢谢！
+# 谢谢！
 
 ## yufree@live.cn
+
+## http://yufree.github.io/presentation/xcmsrocker/rconf.html
