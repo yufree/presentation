@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<title>学术期刊编辑与审稿人入门</title>
+
+
+
+
+
+<style type="text/css">
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+body, .footnotes, code, li li { font-size: .9em; }
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+pre, img { max-width: 100%; }
+pre, pre:hover {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+pre code { display: block; }
+code { font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace; }
+:not(pre) > code, code[class] { background-color: #F8F8F8; }
+code.language-undefined, pre > code:not([class]) {
+  background-color: inherit;
+  border: 1px solid #eee;
+}
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee; }
+blockquote {
+  color: #666;
+  margin: 0;
+  padding-left: 1em;
+  border-left: 0.5em solid #eee;
+}
+hr { border: 1px #ddd dashed; }
+.footnotes > hr {
+  max-width: 20em;
+  margin-left: 0;
+}
+.frontmatter { text-align: center; }
+#TOC .numbered li { list-style: none; }
+#TOC .numbered, #TOC .numbered ul { padding-left: 1em; }
+table, .body h2 { border-bottom: 1px solid #666; }
+
+@media print {
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+  tr, img { page-break-inside: avoid; }
+}
+@media only screen and (min-width: 992px) {
+  pre { white-space: pre; }
+}
+</style>
+<style type="text/css">
+:root { --slide-width: 100%; }
+html { scroll-snap-type: y mandatory; }
+th, td { padding: .2em .5em; }
+.slide {
+  padding: 1em;
+  position: relative;
+}
+.slide > h2, .slide > h3 { margin-top: unset; }
+body {
+  max-width: fit-content;
+  padding: 0;
+}
+a { color: #eb4a47; }
+:not(pre) > code { background-color: #fdfded; }
+#TOC { columns: 2; }
+#TOC::before {
+  font-size: 1.3em;
+  font-weight: bold;
+  display: block;
+  border-bottom: 1px solid #666;
+}
+.frontmatter, .middle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.page-number, .timer, .footnote {
+  position: absolute;
+  bottom: 0;
+  opacity: .5;
+}
+.page-number, .timer { font: .7em monospace; }
+.page-number { right: 0; }
+.timer { left: 0; }
+.footnote { bottom: 1em; font-size: .8em; }
+.inverse {
+  background-color: #eee;
+  filter: invert(1);
+}
+.fade {
+  background: repeating-linear-gradient(135deg, white, white 30px, #ddd 32px, #ddd 32px);
+  opacity: 0.6;
+}
+.center { text-align: center; }
+.slide-container h2 .section-number {
+  display: inline-block;
+  background-color: #666;
+  color: white;
+  padding: 0 .1em;
+  margin-right: .3em;
+}
+.overview {
+  font-size: .8em;
+  max-width: none;
+}
+.overview .slide {
+  min-height: unset;
+  scroll-snap-align: unset;
+}
+.overview .slide-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.overview .slide-container .slide {
+  width: var(--slide-width);
+  border: 1px dotted #ccc;
+  margin-bottom: 0.5em;
+}
+.mirrored { transform: scale(-1, 1); }
+.spacer { height: 50vh; }
+.overview .timer, .overview .spacer { display: none; }
+.overview .footnote { position: unset; }
+html:fullscreen::-webkit-scrollbar { display: none; }
+html:fullscreen {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+@media (min-width: 992px) {
+ :root { --slide-width: 49%; }
+  body { font-size: 2em; }
+  .slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+  }
+}
+@media (min-width: 1400px) {
+ :root { --slide-width: 33%; }
+}
+@media (min-width: 1800px) {
+ :root { --slide-width: 24.67%; }
+}
+@media print, (max-width: 991.98px) {
+  .timer, .spacer { display: none; }
+  .footnote { position: unset; }
+}
+</style>
+
+
+</head>
+
+<body>
+<div class="include-before">
+
+</div>
+
+<div class="frontmatter">
+<div class="title"><h1>学术期刊编辑与审稿人入门</h1></div>
+<div class="author"><h2>于淼</h2></div>
+<div class="date"><h3>2023-03-18</h3></div>
+</div>
+
+<div class="body">
+<h2><span class="section-number">1.</span> 自我介绍</h2>
+<ul>
+<li>
+<p>2010 年本科毕业于山东大学</p>
+</li>
+<li>
+<p>2016 年博士延期毕业于中科院某所</p>
+</li>
+<li>
+<p>2016 - 2018 加拿大滑铁卢大学遛鹅</p>
+</li>
+<li>
+<p>2018 - 2022 美国纽约西奈山医学院抗疫</p>
+</li>
+<li>
+<p>2022 - 至今 美国杰克森实验室捕鼠</p>
+</li>
+</ul>
+<h2><span class="section-number">2.</span> 从投胎到投稿</h2>
+<ul>
+<li>
+<p>一作11篇 🆚 一稿七拒</p>
+<pre><code>  - 没有人天生会写论文
+  - 投稿存在运气成分
+  - 职业规划
+</code></pre>
+</li>
+<li>
+<p>英文表述</p>
+<pre><code>  - ChatGPT
+</code></pre>
+</li>
+<li>
+<p>售后服务</p>
+<pre><code>  - 发表跟一辈子
+  - 引用&gt;&gt;影响因子
+</code></pre>
+</li>
+</ul>
+<h2><span class="section-number">3.</span> 学术出版现状</h2>
+<ul>
+<li>
+<p>开放科学 FAIR</p>
+<pre><code>  - Findable Accessible Interoperable Reusable
+</code></pre>
+</li>
+<li>
+<p>向作者收费，向读者免费</p>
+</li>
+<li>
+<p>期刊矩阵</p>
+</li>
+<li>
+<p>开放审稿/互动式审稿</p>
+</li>
+</ul>
+<h2><span class="section-number">4.</span> 学术编辑与职业编辑</h2>
+<ul>
+<li>
+<p>学术编辑是兼职，大多数无薪，效率<del>低</del></p>
+</li>
+<li>
+<p>职业编辑是专职，博士就业好方向，效率高</p>
+</li>
+<li>
+<p>学术编辑有荣誉属性</p>
+</li>
+<li>
+<p>职业编辑普遍懂推广</p>
+</li>
+</ul>
+<h2><span class="section-number">5.</span> 问题期刊特征</h2>
+<ul>
+<li>
+<p>年发文量</p>
+</li>
+<li>
+<p>编辑数目</p>
+</li>
+<li>
+<p>论文类型</p>
+</li>
+<li>
+<p>收费合理</p>
+</li>
+<li>
+<p>喜欢宣传ISSN与自己计算的影响因子</p>
+</li>
+</ul>
+<h2><span class="section-number">6.</span> 从投稿到审稿</h2>
+<ul>
+<li>
+<p>博士阶段0审稿</p>
+</li>
+<li>
+<p>博后阶段-青椒审稿主力</p>
+</li>
+<li>
+<p>审稿属于终身（不付费）学习</p>
+<pre><code>  - 费曼学习法
+</code></pre>
+</li>
+</ul>
+<h2><span class="section-number">7.</span> 审稿格式</h2>
+<ul>
+<li>
+<p>第一段</p>
+<pre><code>  - 中心思想
+  - 核心故事/亮点
+  - 定性评价
+</code></pre>
+</li>
+<li>
+<p>第二段</p>
+<pre><code>  - 主要问题
+  - 伤筋动骨级别
+</code></pre>
+</li>
+<li>
+<p>第三段</p>
+<pre><code>  - 次要问题：错别字/语法/表述
+  - 按行号来
+</code></pre>
+</li>
+</ul>
+<h2><span class="section-number">8.</span> 审稿注意事项</h2>
+<ul>
+<li>
+<p>尽快，将心比心</p>
+</li>
+<li>
+<p>是否值得发表</p>
+<pre><code>  - 值：提改进意见
+  - 不值：直接拒，不浪费时间
+</code></pre>
+</li>
+<li>
+<p>不要夹带私货</p>
+</li>
+<li>
+<p>留好记录 ORCID</p>
+</li>
+</ul>
+<h2><span class="section-number">9.</span> 编辑视角</h2>
+<ul>
+<li>
+<p>推荐审稿人最多选一个</p>
+</li>
+<li>
+<p>审稿人不是校稿编辑，不需要折腾格式</p>
+</li>
+<li>
+<p>审稿人有系统记录（平均审稿时间/打分/黑名单/拒绝审稿率）</p>
+</li>
+</ul>
+<h2><span class="section-number">10.</span> 从审稿到编委</h2>
+<ul>
+<li>
+<p>审稿人可以自荐，但基本无效</p>
+</li>
+<li>
+<p>出版集团可注册成为带关键词审稿人，可能被系统自动推荐</p>
+</li>
+<li>
+<p>带英风格的编辑</p>
+</li>
+<li>
+<p>树立自己关键词</p>
+</li>
+<li>
+<p>年度审稿人奖</p>
+</li>
+</ul>
+<h2><span class="section-number">11.</span> 从编委到编辑</h2>
+<ul>
+<li>
+<p>特刊</p>
+</li>
+<li>
+<p>太平天国式副主编</p>
+</li>
+<li>
+<p>副高职称或博导</p>
+</li>
+<li>
+<p>结仇结怨</p>
+</li>
+<li>
+<p>了解前沿</p>
+</li>
+</ul>
+<h2><span class="section-number">12.</span> 利益冲突</h2>
+<ul>
+<li>
+<p>3-5年合作过文章/项目</p>
+</li>
+<li>
+<p>竞争关系</p>
+</li>
+<li>
+<p>第一时间报告</p>
+</li>
+</ul>
+<h2><span class="section-number">13.</span> 拒稿后反驳</h2>
+<ul>
+<li>
+<p>个人体会成功率0</p>
+</li>
+<li>
+<p>不浪费时间</p>
+</li>
+<li>
+<p>不要尝试重投换编辑（有查重）</p>
+</li>
+</ul>
+<h2><span class="section-number">14.</span> 总结</h2>
+<ul>
+<li>
+<p>没有捷径</p>
+</li>
+<li>
+<p>个人学术品牌</p>
+</li>
+<li>
+<p>顺应时代</p>
+<pre><code>  - 机器审稿？
+  - 开放科学
+</code></pre>
+</li>
+</ul>
+<h2><span class="section-number">15.</span> 谢谢</h2>
+<ul>
+<li>
+<p><a href="mailto:yufree@live.cn">yufree@live.cn</a></p>
+</li>
+<li>
+<p>Q&amp;A</p>
+</li>
+</ul>
+
+</div>
+
+<div class="include-after">
+
+</div>
+
+<script>
+(function(d) {
+  const n = 3; // find a container that has at least n "slides"
+  let p = d.body;  // container of slides; assume <body> for now
+  const s1 = ':scope > hr:not([class])', s2 = ':scope > h2';
+  function findContainer(s) {
+    if (p.querySelectorAll(s).length >= n) return true;
+    // if body doesn't contain headers or <hr>s, look into children
+    for (let i = 0; i < p.children.length; i++) {
+      if (p.children[i].querySelectorAll(s).length >= n) {
+        p = p.children[i]; break;
+      }
+    }
+    return false;
+  }
+  function newEl(tag, cls) {
+    const el = d.createElement(tag);
+    if (cls) el.className = cls;
+    return el;
+  }
+  if (!findContainer(s1)) {
+    // if not enough <hr>s found in children; look for <h2> instead
+    if (p.tagName === 'BODY') {
+      // not enough h2 found, this page is not appropriate for slides
+      if (!findContainer(s2) && p.tagName === 'BODY') return;
+      p.querySelectorAll(s2).forEach(h2 => h2.before(newEl('hr')));
+    }
+  }
+  p.classList.add('slide-container');
+  // add 'slide' class to the frontmatter div and toc
+  ['.frontmatter', '#TOC'].forEach(s => {
+    d.body.querySelector(s)?.classList.add('slide');
+  });
+
+  function newSlide() {
+    return newEl('div', 'slide');
+  }
+  function isSep(el) {
+    return el.tagName === 'HR' && el.attributes.length === 0;
+  }
+  let el = p.firstElementChild; if (isSep(el)) el.remove();
+  el = p.firstElementChild; if (!el) return;
+  let s = newSlide(); el.before(s);
+  while (true) {
+    let el = s.nextSibling;
+    if (!el) break;
+    // remove slide separators (<hr>) and create new slide
+    if (isSep(el)) {
+      s = newSlide(); el.before(s); el.remove();
+    } else if (el.classList?.contains('slide')) {
+      if (s.innerText !== '') s = newSlide();
+      el.after(s);
+    } else {
+      s.append(el);
+    }
+  }
+  function setAttr(el, attr) {
+    const m = newEl('div');
+    m.innerHTML = `<div ${attr}></div>`;
+    const attrs = m.firstElementChild.attributes;
+    for (let i = 0; i < attrs.length; i++) {
+      let a = attrs[i];
+      el.setAttribute(a.name, a.value);
+    }
+    m.remove();
+  }
+  const slides = d.querySelectorAll('div.slide'), N = slides.length,
+        tm = d.querySelector('span.timer'), fn = d.querySelector('.footnotes');
+  slides.forEach((s, i) => {
+    // append footnotes
+    if (fn) s.querySelectorAll('a.footnote-ref[href^="#fn"]').forEach(a => {
+      const li = fn.querySelector('li' + a.getAttribute('href'));
+      if (!li) return;
+      let f = s.querySelector('div.footnote');
+      if (!f) {
+        f = newEl('div', 'footnote'); s.append(f);
+      }
+      f.append(li);
+      li.outerHTML = li.innerHTML.replace('>', `>${a.innerHTML} `)
+        .replace(/^<p>([\s\S]*)<\/p>$/, '<div>$1</div>');
+    });
+    // add a timer
+    s.append(tm ? tm.cloneNode() : newEl('span', 'timer'));
+    // add page numbers
+    const n = newEl('span', 'page-number');
+    n.innerText = i + 1 + '/' + N;
+    n.onclick = e => location.hash = i + 1;
+    s.append(n);
+    // apply slide attributes in <!--# -->
+    for (let k in s.childNodes) {
+      const node = s.childNodes[k];
+      if (node.nodeType !== Node.COMMENT_NODE) continue;
+      let t = node.textContent;
+      if (!/^#/.test(t)) continue;
+      t = t.replace(/^#/, '');
+      const r = /[\s\n]class="([^"]+)"/, m = t.match(r);
+      if (m) {
+        t = t.replace(r, '').trim();
+        s.className += ' ' + m[1];
+      }
+      if (t) setAttr(s, t);
+      break;
+    }
+    s.classList.contains('extend') && s.append(newEl('div', 'spacer fade'));
+    location.hash === ('#' + (i + 1)) && s.scrollIntoView();
+    s.addEventListener('click', e => {
+      if (!e.altKey) return;
+      d.body.classList.toggle('overview');
+      setTimeout(() => e.target.scrollIntoView(), 100);
+    });
+  });
+  [...d.querySelectorAll('a.footnote-back'), fn, tm].forEach(el => el?.remove());
+  const tms = d.querySelectorAll('span.timer'), t1 = 1000 * tms[0].dataset.total;
+  let t0;
+  function startTimers() {
+    t0 = new Date();
+    setInterval(setTimers, 1000);
+  }
+  function setTimers() {
+    let t = (new Date() - t0);
+    if (t1) t = t1 - t;
+    const t2 = new Date(Math.abs(t)).toISOString().substr(11, 8).replace(/^00:/, '');
+    tms.forEach(el => {
+      el.innerText = t2;
+      if (t < 0) el.style.display = el.style.display === 'none' ? '' : 'none';
+    });
+  }
+  // press f for fullscreen mode
+  d.addEventListener('keyup', (e) => {
+    if (e.target !== d.body) return;
+    e.key === 'f' && d.documentElement.requestFullscreen();
+    e.key === 'o' && d.body.classList.toggle('overview');
+    e.key === 'm' && d.body.classList.toggle('mirrored');
+    sessionStorage.setItem('body-class', d.body.className);
+  });
+  // start timer on fullscreen
+  d.onfullscreenchange = (e) => d.fullscreenElement && !t0 && startTimers();
+  tms.forEach(el => el.addEventListener('click', e => startTimers()));
+  // restore previsouly saved body class
+  const bc = sessionStorage.getItem('body-class');
+  if (bc) d.body.className += ' ' + bc;
+})(document);
+</script>
+</body>
+
+</html>
