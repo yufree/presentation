@@ -47,6 +47,8 @@ output:
 
 - 向作者收费，向读者免费
 
+        - 预印本服务器
+
 - 期刊矩阵
 
 - 开放审稿/互动式审稿
@@ -136,9 +138,7 @@ output:
 
 ## 从编委到编辑
 
-- 特刊
-
-- 太平天国式副主编
+- 申请特刊
 
 - 副高职称或博导
 
@@ -148,7 +148,7 @@ output:
 
 ## 利益冲突
 
-- 3-5年合作过文章/项目
+- 3-5年内合作过文章/项目
 
 - 竞争关系
 
@@ -178,3 +178,5 @@ output:
 - yufree@live.cn
 
 - Q&A
+
+- https://yufree.github.io/presentation/sciwriting/review
