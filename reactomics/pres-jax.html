@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Reactomics and Paired Mass Distance Analysis</title>
+    <title>REACTOMICS IN BRIEF</title>
     <meta charset="utf-8" />
     <meta name="author" content="Miao Yu" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -14,13 +14,13 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Reactomics and Paired Mass Distance Analysis
+# REACTOMICS IN BRIEF
 ]
 .author[
 ### Miao Yu
 ]
 .date[
-### 2018/11/11 (updated: 2023-03-06)
+### 2018/11/11 (updated: 2023-03-07)
 ]
 
 ---
@@ -61,7 +61,7 @@ However, there are some problems at current stage. The first one is time consumi
 
 - You ACTUALLY don't need people (compounds) name to know their relationship
 
-&lt;img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" width="500px" style="display: block; margin: auto;" /&gt;
 
 From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
 
@@ -78,7 +78,7 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 
 - Mass spectrum could directly measure relationship (reactions)
 
-&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/srda.png" style="display: block; margin: auto;" /&gt;
 
 ???
 - Annotation is not really necessary for certain scientific problem
@@ -92,7 +92,7 @@ The answer should be yes. Let's take oxidation process as an example. If it happ
 
 ## Why Reactions?
 
-&lt;img src="https://yufree.github.io/presentation/figure/cas.jpg" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/cas.jpg" width="800px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Why Reactions?
@@ -504,7 +504,7 @@ As I mentioned in the quanlitative analysis of reactomics, only the pairs with s
 
 - PMD 14.02 Da show differences among control and diseases
 
-&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, center, middle
@@ -581,9 +581,10 @@ class: inverse, center, middle
 
 ## Why
 
-- Display the location of parent metabolites and product metabolites of the same reaction
-- Group metabolites within major reaction network
-- Show the spatial information of certain reaction or reaction networks
+- Aggregate the information of parent metabolites and product metabolites of the same reaction
+- Build data-driven pathway by PMD-based reactomics network
+- Display the spatial distribution of certain reaction or reaction networks
+- Link location with reaction and biological information
 
 ---
 
@@ -653,6 +654,8 @@ Meanwhile, to make reactomics fully reproducible at the very beginning, I develo
 
 ### Reaction level changes could be quantitative and predictable
 
+### Reaction activity could be tracked by spatial and temporal distribution of samples
+
 ???
 Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
 
@@ -673,7 +676,8 @@ class: inverse, center, middle
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"ratio": "16:9"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

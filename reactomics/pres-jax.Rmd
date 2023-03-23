@@ -1,5 +1,5 @@
 ---
-title: "Reactomics and Paired Mass Distance Analysis"
+title: "REACTOMICS IN BRIEF"
 subtitle: ""
 author: "Miao Yu"
 date: "2018/11/11 (updated: `r Sys.Date()`)"
@@ -11,6 +11,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      ratio: '16:9'
 ---
 
 ```{r setup, include=FALSE}
@@ -51,7 +52,7 @@ However, there are some problems at current stage. The first one is time consumi
 
 - You ACTUALLY don't need people (compounds) name to know their relationship
 
-```{r echo=FALSE, out.width= '70%'}
+```{r echo=FALSE, out.width= '500px'}
 knitr::include_graphics('https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg')
 ```
 
@@ -70,7 +71,7 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 
 - Mass spectrum could directly measure relationship (reactions)
 
-```{r echo=FALSE, out.width= '100%'}
+```{r echo=FALSE}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
 ```
 
@@ -86,7 +87,7 @@ The answer should be yes. Let's take oxidation process as an example. If it happ
 
 ## Why Reactions?
 
-```{r echo=FALSE}
+```{r echo=FALSE, out.width= '800px'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/cas.jpg')
 ```
 
@@ -468,7 +469,7 @@ As I mentioned in the quanlitative analysis of reactomics, only the pairs with s
 
 - PMD 14.02 Da show differences among control and diseases
 
-```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+```{r echo=FALSE,out.width = "500px",fig.retina = 3}
 knitr::include_graphics('https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png')
 ```
 
@@ -557,9 +558,10 @@ class: inverse, center, middle
 
 ## Why
 
-- Display the location of parent metabolites and product metabolites of the same reaction
-- Group metabolites within major reaction network
-- Show the spatial information of certain reaction or reaction networks
+- Aggregate the information of parent metabolites and product metabolites of the same reaction
+- Build data-driven pathway by PMD-based reactomics network
+- Display the spatial distribution of certain reaction or reaction networks
+- Link location with reaction and biological information
 
 ---
 
@@ -638,6 +640,8 @@ Meanwhile, to make reactomics fully reproducible at the very beginning, I develo
 ### Real data always enriched in few PMDs or reactions
 
 ### Reaction level changes could be quantitative and predictable
+
+### Reaction activity could be tracked by spatial and temporal distribution of samples
 
 ???
 Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
