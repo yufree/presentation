@@ -13,9 +13,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Reactomics and Paired Mass Distance Analysis
+]
+.author[
 ### Miao Yu
-### 2018/11/11 (updated: 2021-09-15)
+]
+.date[
+### 2018/11/11 (updated: 2023-03-23)
+]
 
 ---
 
@@ -25,11 +31,11 @@ class: center, middle, inverse, title-slide
 
 ## Typical workflow for HRMS metabolomics
 
-- Collect samples
+- Sample collection
 
 - Acquire data (peaks) using mass spectrometry
 
-- Annotate peaks for identification with compound name
+- Annotate peaks to get the compound name
 
 - Build links between compounds using pathway/network analysis
 
@@ -132,7 +138,7 @@ So why PMD? The best feature for PMD is that it comes from the nuclear binding e
 &lt;img src="https://yufree.github.io/presentation/figure/massdefect.jpg" style="display: block; margin: auto;" /&gt;
 
 .half[
-Hall, M. P., Ashrafi, S., Obegi, I., Petesch, R., Peterson, J. N., &amp; Schneider, L. V. (2003). ?Mass defect? tags for biomolecular mass spectrometry. Journal of Mass Spectrometry, 38(8), 809–816. doi:10.1002/jms.493
+Hall, M. P., Ashrafi, S., Obegi, I., Petesch, R., Peterson, J. N., &amp; Schneider, L. V. (2003). ?Mass defect? tags for biomolecular mass spectrometry. Journal of Mass Spectrometry, 38(8), 809–816. https://doi.org/10.1002/jms.493
 ]
 
 ---
@@ -232,22 +238,39 @@ However, not all of the PMD is linked to reaction among compounds. Some of the P
 
 ### KEGG reaction database
 
-
-|   PMD   | Freq | ExampleReactionClass | ExampleEnzyme |
-|:-------:|:----:|:--------------------:|:-------------:|
-|  2.016  | 1732 |       RC00095        |   1.3.1.84    |
-| 15.995  | 1169 |       RC00046        |   1.3.99.18   |
-| 79.966  | 729  |       RC00002        |    3.6.1.3    |
-| 14.016  | 594  |       RC00060        |    1.5.3.1    |
-|    0    | 532  |       RC00302        |    5.1.1.3    |
-| 18.011  | 359  |       RC00680        |    3.5.2.5    |
-| 162.053 | 365  |       RC00049        |   3.2.1.23    |
-| 159.933 | 243  |       RC02056        |   4.2.3.42    |
-|  1.032  | 262  |       RC00006        |    1.4.1.2    |
-| 42.011  | 237  |       RC00004        |   2.3.1.54    |
+| Chemical Composition |   PMD   | Freq | Example Reaction Class |        Example Enzyme       |
+|:--------------------:|:-------:|:----:|:----------------------:|:---------------------------:|
+|          +2H         |  2.016  | 1732 |         RC00095        |    acrylyl-CoA reductase    |
+|          +O          |  15.995 | 1169 |         RC00046        | quinaldate 4-oxidoreductase |
+|         +HP3O        |  79.966 |  729 |         RC00002        |   Phosphorus-oxygen lyases  |
+|         +C2H         |  14.016 |  594 |         RC00060        |   lipid methyl transferase  |
+|        Isomer        |    0    |  532 |         RC00302        |      glutamate racemase     |
+|         +2HO         |  18.011 |  359 |         RC00680        |         allantoinase        |
+|       +6C10H5O       | 162.053 |  365 |         RC00049        |       beta-lactosidase      |
 
 ???
 In this case, though we don't need to annotate all the compounds, a PMD database are still needed for PMD annotate as element composition and their corresponding reaction class or enzyme. Here, I analyzed all the reactions PMD from KEGG reaction database and removed the ions related PMD, which is not detectable by mass spectrometry. I found our known reactions are actually highly enriched by a few PMDs. The double bonds formation or broken reaction appeared in 1732 reactions, almost fifteen percent of the reactions in KEGG. In this case, for reactomics we could skip quantitative analysis of endless unknown compounds and focus on the changes of those enriched PMDs.
+
+---
+
+### KEGG reaction database
+
+
+|   PMD   | Freq |                        Example                        |
+|:-------:|:----:|:-----------------------------------------------------:|
+|  2.016  | 1459 |     NAD(+) + succinate &lt;=&gt; fumarate + H(+) + NADH     |
+| 15.995  | 1033 | NAD(+) + propanoyl-CoA &lt;=&gt; acryloyl-CoA + H(+) + NADH |
+| 79.966  | 664  |                ATP + GDP &lt;=&gt; ADP + GTP                |
+| 14.016  | 585  |   deoxynogalonate + O2 &lt;=&gt; H(+) + H2O + nogalonate    |
+|    0    | 495  | H2O + hypotaurine + NAD(+) &lt;=&gt; H(+) + NADH + taurine  |
+| 18.011  | 344  |         ATP + H2O &lt;=&gt; ADP + H(+) + phosphate          |
+| 162.053 | 276  |  acetyl-CoA + propanoate &lt;=&gt; acetate + propanoyl-CoA  |
+| 159.933 | 251  |              L-glutamate &lt;=&gt; D-glutamate              |
+|  1.032  | 246  |       H2O + lactose &lt;=&gt; D-galactose + D-glucose       |
+| 42.011  | 224  |        L-serine &lt;=&gt; 2-aminoprop-2-enoate + H2O        |
+
+- Real reactions contain ions
+- Biased by known reactions
 
 ---
 
@@ -352,6 +375,13 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 |          +2C          |       24        |  154278   |   0.02   |
 
 ---
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static and dynamic
+
+&lt;img src="https://yufree.github.io/presentation/figure/qreaction.png" style="display: block; margin: auto;" /&gt;
+
+---
 
 ## Quantitative and Qualitative analysis in Reactomics
 
@@ -378,30 +408,11 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 When we have the list of enriched PMDs, we need to define how to make quantitative analysis of the paired mass distance. Here I proposed to use static PMD pairs, which always show stable intensity ratios across samples, for quantitative analysis of reactions. After the discussion of concept and technique issues, now we could see some application of reactomics.
 
 ---
-
 ## Quantitative and Qualitative analysis in Reactomics
 
 ### Static v.s. dynamic 
 
-- Dynamic mass pairs scenario 1: one of the paired peaks is stable across samples
-- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
-
-
-|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |  G  |  H  |
-|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|:---:|:---:|
-| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    | 100 | 100 |
-| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    | 100 | 200 |
-
-- [A,B] and [G,H] are dynamic mass pairs with the same initial responds, rsd cutoff 30%
-- [B,H] can be used to quantify certain reactions
-- reaction amounts for the sum of B (50,500) and H(100,200) are [150,700] for group I and group II
-
----
-## Quantitative and Qualitative analysis in Reactomics
-
-### Static v.s. dynamic 
-
-- Dynamic mass pairs scenario 2: none of the paired peaks is stable across samples
+- Dynamic mass pairs scenario: none of the paired peaks is stable across samples
 - For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
 
 
@@ -415,21 +426,98 @@ When we have the list of enriched PMDs, we need to define how to make quantitati
 - Normalization on C, Group I has 0.5 for D, Group II has 9.5 for D, reaction amounts are [0.5,9.5] for group I and group II
 
 ---
-## Quantitative and Qualitative analysis in Reactomics
 
-### Static and dynamic 
+# General reactomics data analysis framework 
 
-- Combine static and dynamic mass pairs by normalization
-- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+## Step 1: Remove redundant peaks
+
+- regular metabolomics / NTA workflow
+
+## Step 2: Extract high frequency PMDs
+
+- reaction level evaluation
+
+## Step 3: Relationship network
+
+- network based evaluation
+
+---
+
+# General reactomics data analysis framework 
+
+## Demo data: [ST000560](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&amp;StudyID=ST000560)
+
+- Immortalized immunoglobulin-producing cell lines
+
+- 4 replicates from 6 cell lines
+
+- 3 patients with IgA nephropathy and 3 healthy controls
+
+- 1918 features or peaks
+
+---
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP1: Remove redundant peaks
+
+---
+
+## Gap between features and compounds
+
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## GlobalStd Algorithm: before (1918) and after (196)
 
 
-|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |  G  |  H  |
-|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|:---:|:---:|
-| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    | 100 | 100 |
-| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    | 100 | 200 |
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/bags.png" style="display: block; margin: auto;" /&gt;
 
-- Normalization by the minimized intensity of [A,C,E,F] or [B,D,F,H], then quantify certain reactions on [B,D,F,H] or [A,C,E,F]
-- Normalization on [A,C,E,F], Group I has [0.5, 0.5, 1.3, 1] for [B,D,F,H], Group II has [0.5, 9.5, 1.3, 2] for [B,D,F,H], reaction amounts are [3.3, 13.3] for group I and group II
+---
+
+## For annotation - PMDDA
+
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/rpppmdda2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Dolios, G., &amp; Petrick, L. (2021). Reproducible Untargeted Metabolomics Data Analysis Workflow for Exhaustive MS/MS Annotation. https://doi.org/10.26434/chemrxiv.13565159.v1
+]
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP2: Extract high frequency PMDs
+
+---
+
+## High frequency PMDs for retrieving chemical relationship
+
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-6-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Reaction level changes
+
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP3: Relationship network
+
+---
+
+## PMD Network
+
+&lt;img src="https://gitee.com/yufree/ihs/raw/master/netdemo.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -469,12 +557,16 @@ class: inverse, center, middle
 &lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
 
 .half[
-Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. doi:10.1021/acs.analchem.7b02380
+Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. https://doi.org/10.1021/acs.analchem.7b02380
 ]
 
 ---
 
-## Gap between features and compounds
+## Redundant peaks
+
+- Untargeted analysis would loss sensitivity to capture all peaks 
+
+- Send unknown while independent peaks for MS/MS
 
 &lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
 
@@ -485,22 +577,23 @@ Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolo
 &lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
+Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. https://doi.org/10.1016/j.aca.2018.10.062
 ]
 
 ---
+
 ## GlobalStd Algorithm Step 1
 
 ### Retention time cluster analysis
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-21-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-26-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 2
 
 ### High frequency PMD analysis across RT clusters
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-22-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-27-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -510,21 +603,21 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-23-1.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-28-1.png" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-24-1.png" width="430px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-29-1.png" width="430px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection - example
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-25-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-30-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
@@ -665,7 +758,7 @@ Metabolites discovery is commen in two types of studies: environmental pollution
 &lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
 
 .half[
-Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., Schnoor, J. L., &amp; Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp;amp; Technology, 53(15), 8805–8812. https://doi.org/10.1021/acs.est.9b02122
 ]
 
 ???
@@ -681,7 +774,7 @@ Here I will use an example to demo such process. Here is a study to find the met
 
 
 .half[
-Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., Schnoor, J. L., &amp; Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp;amp; Technology, 53(15), 8805–8812. https://doi.org/10.1021/acs.est.9b02122
 ]
 
 ???
@@ -870,6 +963,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

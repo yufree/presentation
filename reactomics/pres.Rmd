@@ -21,11 +21,11 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ## Typical workflow for HRMS metabolomics
 
-- Collect samples
+- Sample collection
 
 - Acquire data (peaks) using mass spectrometry
 
-- Annotate peaks for identification with compound name
+- Annotate peaks to get the compound name
 
 - Build links between compounds using pathway/network analysis
 
@@ -213,18 +213,35 @@ $$PMD_R = \{PMD_{S_{1}}, PMD_{S_{2}},...,PMD_{S_{n}}\}$$
 
 ### KEGG reaction database
 
-```{r}
-example = data.frame(
-  stringsAsFactors = FALSE,
-                       PMD=c("2.016", "15.995", "79.966", "14.016", "0", "18.011", "162.053", "159.933", "1.032", "42.011"),
-  Freq= c(1732L, 1169L, 729L, 594L, 532L, 359L, 365L, 243L, 262L, 237L),
-  ExampleReactionClass=c("RC00095", "RC00046 ", "RC00002", "RC00060", "RC00302", "RC00680", "RC00049", "RC02056", "RC00006", "RC00004"),
-  ExampleEnzyme = c("1.3.1.84", "1.3.99.18", "3.6.1.3", "1.5.3.1", "5.1.1.3", "3.5.2.5", "3.2.1.23", "4.2.3.42", "1.4.1.2", "2.3.1.54"))
-knitr::kable(example,align = 'c',format = 'markdown')
-```
+| Chemical Composition |   PMD   | Freq | Example Reaction Class |        Example Enzyme       |
+|:--------------------:|:-------:|:----:|:----------------------:|:---------------------------:|
+|          +2H         |  2.016  | 1732 |         RC00095        |    acrylyl-CoA reductase    |
+|          +O          |  15.995 | 1169 |         RC00046        | quinaldate 4-oxidoreductase |
+|         +HP3O        |  79.966 |  729 |         RC00002        |   Phosphorus-oxygen lyases  |
+|         +C2H         |  14.016 |  594 |         RC00060        |   lipid methyl transferase  |
+|        Isomer        |    0    |  532 |         RC00302        |      glutamate racemase     |
+|         +2HO         |  18.011 |  359 |         RC00680        |         allantoinase        |
+|       +6C10H5O       | 162.053 |  365 |         RC00049        |       beta-lactosidase      |
 
 ???
 In this case, though we don't need to annotate all the compounds, a PMD database are still needed for PMD annotate as element composition and their corresponding reaction class or enzyme. Here, I analyzed all the reactions PMD from KEGG reaction database and removed the ions related PMD, which is not detectable by mass spectrometry. I found our known reactions are actually highly enriched by a few PMDs. The double bonds formation or broken reaction appeared in 1732 reactions, almost fifteen percent of the reactions in KEGG. In this case, for reactomics we could skip quantitative analysis of endless unknown compounds and focus on the changes of those enriched PMDs.
+
+---
+
+### KEGG reaction database
+
+```{r}
+library(pmd)
+data("omics")
+top10 <- table(omics$pmd)[order(table(omics$pmd),decreasing = T)][1:10]
+example <- c('NAD(+) + succinate <=> fumarate + H(+) + NADH', 'NAD(+) + propanoyl-CoA <=> acryloyl-CoA + H(+) + NADH', 'ATP + GDP <=> ADP + GTP', 'deoxynogalonate + O2 <=> H(+) + H2O + nogalonate', 'H2O + hypotaurine + NAD(+) <=> H(+) + NADH + taurine', 'ATP + H2O <=> ADP + H(+) + phosphate','acetyl-CoA + propanoate <=> acetate + propanoyl-CoA', 'L-glutamate <=> D-glutamate','H2O + lactose <=> D-galactose + D-glucose','L-serine <=> 2-aminoprop-2-enoate + H2O')
+react <- cbind.data.frame(pmd = top10,example)
+colnames(react) <- c('PMD','Freq','Example')
+knitr::kable(react,align = 'c',format = 'markdown')
+```
+
+- Real reactions contain ions
+- Biased by known reactions
 
 ---
 
@@ -305,6 +322,15 @@ knitr::kable(df4,align = 'c',format = 'markdown',col.names = NA)
 ```
 
 ---
+## Quantitative and Qualitative analysis in Reactomics
+
+### Static and dynamic
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/qreaction.png')
+```
+
+---
 
 ## Quantitative and Qualitative analysis in Reactomics
 
@@ -333,32 +359,11 @@ knitr::kable(df,align = 'c',format = 'markdown')
 When we have the list of enriched PMDs, we need to define how to make quantitative analysis of the paired mass distance. Here I proposed to use static PMD pairs, which always show stable intensity ratios across samples, for quantitative analysis of reactions. After the discussion of concept and technique issues, now we could see some application of reactomics.
 
 ---
-
 ## Quantitative and Qualitative analysis in Reactomics
 
 ### Static v.s. dynamic 
 
-- Dynamic mass pairs scenario 1: one of the paired peaks is stable across samples
-- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
-
-```{r}
-GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4', 100, 100)
-GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4', 100, 200)
-df <- rbind.data.frame(GroupI,GroupII)
-colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio','G','H')
-knitr::kable(df,align = 'c',format = 'markdown')
-```
-
-- [A,B] and [G,H] are dynamic mass pairs with the same initial responds, rsd cutoff 30%
-- [B,H] can be used to quantify certain reactions
-- reaction amounts for the sum of B (50,500) and H(100,200) are [150,700] for group I and group II
-
----
-## Quantitative and Qualitative analysis in Reactomics
-
-### Static v.s. dynamic 
-
-- Dynamic mass pairs scenario 2: none of the paired peaks is stable across samples
+- Dynamic mass pairs scenario: none of the paired peaks is stable across samples
 - For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
 
 ```{r}
@@ -374,23 +379,113 @@ knitr::kable(df,align = 'c',format = 'markdown')
 - Normalization on C, Group I has 0.5 for D, Group II has 9.5 for D, reaction amounts are [0.5,9.5] for group I and group II
 
 ---
-## Quantitative and Qualitative analysis in Reactomics
 
-### Static and dynamic 
+# General reactomics data analysis framework 
 
-- Combine static and dynamic mass pairs by normalization
-- For example, [A,B], [C,D], [E,F] and [G,H] are involved in the same PMD:
+## Step 1: Remove redundant peaks
 
-```{r}
-GroupI <- c(100,50,'2:1',100,50,'2:1', 30,40, '3:4', 100, 100)
-GroupII <- c(1000,500,'2:1',10,95,'2:19',120,160,'3:4', 100, 200 )
-df <- rbind.data.frame(GroupI,GroupII)
-colnames(df) <- c('A','B','Ins ratio','C','D','Ins ratio','E','F','Ins ratio','G','H')
-knitr::kable(df,align = 'c',format = 'markdown')
+- regular metabolomics / NTA workflow
+
+## Step 2: Extract high frequency PMDs
+
+- reaction level evaluation
+
+## Step 3: Relationship network
+
+- network based evaluation
+
+---
+
+# General reactomics data analysis framework 
+
+## Demo data: [ST000560](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Study&StudyID=ST000560)
+
+- Immortalized immunoglobulin-producing cell lines
+
+- 4 replicates from 6 cell lines
+
+- 3 patients with IgA nephropathy and 3 healthy controls
+
+- 1918 features or peaks
+
+---
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP1: Remove redundant peaks
+
+---
+
+## Gap between features and compounds
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
 ```
 
-- Normalization by the minimized intensity of [A,C,E,F] or [B,D,F,H], then quantify certain reactions on [B,D,F,H] or [A,C,E,F]
-- Normalization on [A,C,E,F], Group I has [0.5, 0.5, 1.3, 1] for [B,D,F,H], Group II has [0.5, 9.5, 1.3, 2] for [B,D,F,H], reaction amounts are [3.3, 13.3] for group I and group II
+---
+
+## GlobalStd Algorithm: before (1918) and after (196)
+
+
+```{r echo=FALSE}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/bags.png')
+```
+
+---
+
+## For annotation - PMDDA
+
+```{r echo=FALSE,out.width = "60%",fig.retina = 3}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/rpppmdda2.png')
+```
+
+.half[
+```{r refpre,results = 'asis'}
+doi <- c('10.26434/chemrxiv.13565159.v1')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP2: Extract high frequency PMDs
+
+---
+
+## High frequency PMDs for retrieving chemical relationship
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-6-1.png')
+```
+
+---
+
+## Reaction level changes
+
+```{r echo=FALSE,out.width = "87%",fig.retina = 3}
+knitr::include_graphics('https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png')
+```
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Workflow 
+
+## STEP3: Relationship network
+
+---
+
+## PMD Network
+
+```{r echo=FALSE,out.width = "100%",fig.retina = 3}
+knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/netdemo.png')
+```
 
 ---
 
@@ -442,7 +537,11 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 ---
 
-## Gap between features and compounds
+## Redundant peaks
+
+- Untargeted analysis would loss sensitivity to capture all peaks 
+
+- Send unknown while independent peaks for MS/MS
 
 ```{r echo=FALSE}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.png')
@@ -464,6 +563,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 ]
 
 ---
+
 ## GlobalStd Algorithm Step 1
 
 ### Retention time cluster analysis

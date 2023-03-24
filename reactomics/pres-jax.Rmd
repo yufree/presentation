@@ -26,7 +26,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 - Acquire data (peaks) using mass spectrometry
 
-- Annotate peaks for identification with compound name
+- Annotate peaks to get the compound name
 
 - Build links between compounds using pathway/network analysis
 
@@ -212,23 +212,6 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 ---
 
-## Quantitative and Qualitative analysis in Reactomics
-
-### HMDB compounds database
-
-```{r}
-library(pmd)
-top10 <- head(hmdb,10)
-knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
-```
-
-- Dominated by C, H and O
-- Structure or reaction?
-
-???
-- We need quantitative mass ready database for PMD annotation
-
----
 ## Quantitative and Qualitative analysis in Reactomics
 
 ### HMDB compounds database
