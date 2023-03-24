@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Active Molecular Network based Exposomics</title>
+    <title>Mass spectrometry based metabolomics/exposomics data analysis</title>
     <meta charset="utf-8" />
     <meta name="author" content="Miao Yu" />
-    <meta name="date" content="2022-03-31" />
+    <meta name="date" content="2022-03-18" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
@@ -14,9 +14,10 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Active Molecular Network based Exposomics
+# Mass spectrometry based metabolomics/exposomics data analysis
+## From known to unknown
 ### Miao Yu
-### 2022-03-31
+### 2022-03-18
 
 ---
 
@@ -35,68 +36,120 @@ class: center, middle, inverse, title-slide
 
 - 2016 - 2018 PostDoc University of Waterloo, Waterloo, ON, Canada
 
-- 2018 - Now PostDoc Icahn School of Medicine at Mount Sinai, New York, NY, USA
+- 2018 - now PostDoc Icahn School of Medicine at Mount Sinai, New york, NY, USA
 
 ---
 
-## Mediation Model for Exposomics
+## Typical workflow for HRMS metabolomics
 
-&lt;script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;mermaid.initialize({startOnLoad:true});&lt;/script&gt;
+- Sample Collection and Pretreatment
 
-&lt;div class="mermaid"&gt;
-flowchart LR
-	        subgraph Biomolecules
-                        O(genes) --&gt; P(proteins)
-                        P --&gt; Q(metabolites)
-          end
-	        A(exposures) --&gt; Biomolecules
-	        Biomolecules --&gt; C(health outcomes)
-	        F([social]) --- A
-	        N[education] --- F
-	        M[income] --- F
-	        G([lifestyles]) --- A
-	        K[Diet] --- G
-	        L[Smoking] --- G
-	        H([ecosystem]) --- A
-	        I[contamination] --- H
-	        J[climate change] --- H
-	        C --- D([diseases]) --- R[cancer]
-	        D --- S[depression]
-	        C --- E([benefits]) --- T[happiness]
-	        E --- U[longevity]
-&lt;/div&gt;
+- Instrumental Analysis
+
+- Data Analysis
 
 ---
 
-## Gap of Mediation Model for Exposomics
+## Sample Collection and Pretreatment
 
-### Omics enable the analysis of multiple molecules at the same time
+### Quenching
 
-### Redundant information matters
+    - Instantaneous inactivation of metabolism
+    - rapid low/high temprature
+    - Organic solvent
 
-- For analytical chemists, not all measured molecules can be identified
+### Storage
 
-- For biochemist, not all identified compounds are related to each other
-
-- For environmental scientist, not all molecules are related to exposures or health outcomes
-
-&gt; We can't build a model with better accuracy than measurement
-
----
-class: inverse, center, middle
-
-# Analytical chemists
+    - -80°C or -20°C
+    - Dry ice
 
 ---
 
-## Gap between features and compounds
+### Sample Collection 
+
+&lt;img src="https://raw.githubusercontent.com/yufree/yufree.cn/master/static/images/TOC.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Lendor, S., Roszkowska, A., Olkowicz, M., Bragg, L., Servos, M., &amp; Pawliszyn, J. (2020). Metabolic profile of fish muscle tissue changes with sampling method, storage strategy and time. Analytica Chimica Acta, 1136, 42–50. https://doi.org/10.1016/j.aca.2020.08.050
+]
+
+---
+
+### Sample Pretreatment
+
+- From samples to injection vials
+
+- More **interesting** compounds, less **unrelated** interference (matrix effects)
+
+- Remove lipid
+
+  - Gel Permeation Chromatograph(GPC)
+  - Florisil
+  - Alumina
+  - Silica gel
+  
+- Protein denaturation
+  
+  - Alcohols
+  - Strong acid/base
+
+---
+
+### Sample Pretreatment
+
+- one-step extraction/clean up by accelerated solvent extraction (ASE)
+
+&lt;img src="https://yufree.github.io/presentation/figure/ASE.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Hou, X., Liu, Q., Wang, Y., Liu, J., &amp; Jiang, G. (2017). Evaluation and reduction of the analytical uncertainties in GC-MS analysis using a boundary regression model. Talanta, 164, 141–147. https://doi.org/10.1016/j.talanta.2016.11.046
+]
+
+---
+
+## Instrumental Analysis
+
+### Run order effects
+
+- `getpqsi` function in **enviGCMS** package
+
+&lt;img src="https://yufree.github.io/presentation/figure/pooledQC.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Instrumental Analysis
+
+### Batch effects
+
+&lt;img src="https://www.biorxiv.org/content/biorxiv/early/2019/12/17/2019.12.16.878637/F7.medium.gif" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Roszkowska, A., &amp; Pawliszyn, J. (2019). Simulation-based comprehensive study of batch effects in metabolomics studies. https://doi.org/10.1101/2019.12.16.878637
+]
+
+---
+
+## Data Analysis
+
+&gt; Features -&gt; Compounds -&gt; Relationship among compounds
+
+- Compounds/metabolites without standards
+
+&lt;img src="https://yufree.github.io/presentation/figure/TOC2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Liu, J., Wang, T., Zhang, A., Wang, Y., Zhou, Q., &amp; Jiang, G. (2016). Structure prediction of methyoxy-polybrominated diphenyl ethers (MeO-PBDEs) through GC–MS analysis of their corresponding PBDEs. Talanta, 152, 9–14. https://doi.org/10.1016/j.talanta.2016.01.047
+]
+
+---
+
+### Gap between features and compounds
 
 &lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## How many real compounds among features?
+### How many real compounds among features?
 
 &lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
 
@@ -105,7 +158,7 @@ Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolo
 ]
 
 ---
-## GlobalStd Algorithm
+### GlobalStd Algorithm
 
 &lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" width="70%" style="display: block; margin: auto;" /&gt;
 
@@ -118,14 +171,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Retention time cluster analysis
 
-&lt;img src="pres-AMN_files/figure-html/unnamed-chunk-4-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-9-1.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 ### GlobalStd Algorithm Step 2
 
 - High frequency PMD analysis across RT clusters
 
-&lt;img src="pres-AMN_files/figure-html/unnamed-chunk-5-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-10-1.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -135,46 +188,49 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
-&lt;img src="pres-AMN_files/figure-html/unnamed-chunk-6-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-11-1.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 ### GlobalStd Algorithm Step 3
 
 - Independent peaks selection
 
-&lt;img src="pres-AMN_files/figure-html/unnamed-chunk-7-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-12-1.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
 ### GlobalStd Algorithm Step 3
 
 - Independent peaks selection - example
 
-&lt;img src="pres-AMN_files/figure-html/unnamed-chunk-8-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-13-1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### GlobalStd Algorithm Step 3
+
+- ~14.3% peaks can capture similar variances of all peaks
+- For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
+
+&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="600px" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## PMDDA workflow
+### PMDDA workflow
 
-&lt;img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1186%2Fs13321-022-00586-8/MediaObjects/13321_2022_586_Figa_HTML.png" width="800px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/PMDDAraw.png" width="600px" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., Dolios, G., &amp; Petrick, L. (2022). Reproducible untargeted metabolomics workflow for exhaustive MS2 data acquisition of MS1 features. Journal of Cheminformatics, 14(1). https://doi.org/10.1186/s13321-022-00586-8
+Yu, M., Dolios, G., &amp; Petrick, L. (2021). Reproducible Untargeted Metabolomics Data Analysis Workflow for Exhaustive MS/MS Annotation. https://doi.org/10.26434/chemrxiv-2021-fxw2c-v2
 ]
 
 ---
 
-## PMDDA workflow
+### PMDDA workflow
 
 &lt;img src="https://yufree.github.io/presentation/figure/pmddacomp.png" width="500px" style="display: block; margin: auto;" /&gt;
 
 ---
-class: inverse, center, middle
 
-# Biochemist
-
----
-
-## Do names matter?
+### Reactomics
 
 &gt; Features -&gt; Compounds -&gt; Relationship among compounds
 
@@ -190,7 +246,16 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 
 ---
 
-## Reaction matters
+### Reactomics
+
+&gt; Sample -&gt; Peaks -&gt; ~~Compounds~~ -&gt; Relationship among compounds
+
+- Mass spectrum could directly measure relationship (reactions)
+
+&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+### Why Reactions?
 
 &lt;img src="https://yufree.github.io/presentation/figure/database.png" style="display: block; margin: auto;" /&gt;
 
@@ -202,7 +267,22 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 
 ---
 
-## Sources of PMDs in real data
+### Why PMD?
+
+- [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+`$$\Delta m = Zm_{H} + Nm_{n} - M$$`
+- The missing mass was converted into energy ( `\(E=mc^2\)` ) and emitted when the atom was made
+
+- Atoms -&gt; Compounds -&gt; Mass distances between compounds
+
+- **Paired Mass Distances (PMD)** is unique
+
+- **High resolution** mass spectrometry WINs
+
+---
+
+### Sources of PMDs in real data
 
 .pull-left[- Isotopologues 
   
@@ -229,7 +309,7 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 
 ---
 
-## Quantitative and Qualitative analysis in Reactomics
+### Quantitative and Qualitative analysis in Reactomics
 
 - Reaction: `\(S_1 + S_2 + … + S_n = P_1 + P_2 + … + P_m \ (n&gt;=1,m&gt;=1)\)`
 
@@ -324,7 +404,6 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 - Structure or reaction?
 
 ---
-
 ### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
 
 
@@ -342,7 +421,6 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 |          +2C          |     24.000      |   3689    |   0.99   |
 
 ---
-
 ### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
 
 
@@ -377,7 +455,6 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 |          +2C          |      24.0       |   48099   |   0.08   |
 
 ---
-
 ### Quantitative and Qualitative analysis in Reactomics (HMDB compounds database)
 
 
@@ -412,18 +489,110 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 - [C,D] can be used to check dynamics of a specific reaction
 
 ---
+class: inverse, center, middle
+
+## Reactomics Application 
+
+### Metabolites Discovery
+
+---
+
+## Metabolites of exogenous compound
+
+  - Environmental pollution metabolites
+  - Drug metabolites
+
+### Xenobiotic metabolism
+
+  - Phase I
+    - Oxidation (R-H =&gt; R-OH, pmd 15.995 Da)
+    - Reduction (R-C=O =&gt; R-C-OH, pmd 2.016 Da)
+    
+  - Phase II
+    - Methylation (R-OH =&gt; R-O-C,pmd 14.016 Da)
+    - Sulfation (R-OH =&gt; R-SO4, pmd 46.976 Da)
+    - Acetylation (R-OH =&gt; R-O-COCH3, pmd 42.011 Da)
+    - Glucuronidation (R-NH2 =&gt; R-NH-C6H9O7, pmd 192.027 Da)
+    - Glycosylation (R-OH =&gt; R-O-C6H11O5, pmd 162.053 Da)
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- Mass defect analysis to screen Brominated Compounds 
+
+- Confirmation by synthesized standards
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., Schnoor, J. L., &amp; Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. https://doi.org/10.1021/acs.est.9b02122
+]
+
+---
+
+## Metabolites of TBBPA in Pumpkin
+
+- TBBPA Metabolites PMD network
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+.half[
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., Schnoor, J. L., &amp; Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. https://doi.org/10.1021/acs.est.9b02122
+]
+
+---
+class: inverse, center, middle
+
+# Reactomics Application 
 
 ## Endogenous or Exogenous
+
+---
+
+## Endogenous vs Exogenous
 
 - T3DB Endogenous (255) vs Exogenous (705)
 
 - Use top 10 high frequency PMDs
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Gatekeepers for exposome
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
+Yu, M., Teitelbaum, S., Dolios, G., Dang, L.-H., Tu, P., Wolff, M., &amp; Petrick, L. (2021). Molecular Gatekeeper Discovery: Workflow for Linking Multiple Environmental Biomarkers to Metabolomics. https://doi.org/10.26434/chemrxiv.14781498.v1
 ]
+
+---
+
+## KEGG reaction network
+
+- Metabolites of four compounds
+
+- Average network distance: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Follow up studies
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmdif.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Reactomics Application 
+
+## Biomarker Reaction
 
 ---
 
@@ -435,230 +604,53 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 
 &lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="500px" style="display: block; margin: auto;" /&gt;
 
-.half[
-Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
-]
-
----
-class: inverse, center, middle
-
-# Environmental scientist
-
 ---
 
-## Exposures-Metabolites-Disease model
+## How
 
-&lt;img src="https://yufree.github.io/presentation/figure/EMD.png" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/owl.png" alt="Paper method v.s. Practical method in Metabolomics" width="50%" /&gt;
+&lt;p class="caption"&gt;Paper method v.s. Practical method in Metabolomics&lt;/p&gt;
+&lt;/div&gt;
 
-- Which metabolites might contain biological information?
-
-- Which metabolites are sensitive to exposures?
-
----
-
-## Gatekeeper discovery
-
-&lt;img src="https://yufree.github.io/presentation/figure/gatekeeper.jpeg" width="700px" style="display: block; margin: auto;" /&gt;
-
-.half[
-Yu, M., Teitelbaum, S. L., Dolios, G., Dang, L.-H. T., Tu, P., Wolff, M. S., &amp; Petrick, L. M. (2022). Molecular Gatekeeper Discovery: Workflow for Linking Multiple Exposure Biomarkers to Metabolomics. Environmental Science &amp;amp; Technology. https://doi.org/10.1021/acs.est.1c04039
-]
-
----
-
-## Adolescent girls blood samples
-
-- #### Breast Cancer and the Environment Research Program (BCERP) 
-
-- #### 152 girls with data on exposures, health outcomes, and potential confounding variables 
-
-- #### **Exposures** measured by CDC
-  - PFCs (n-PFOS, Sm-PFOS, n-PFOA, PFHxS, PFNA)
-  - trace elements (BCD, Cadmium; BMN, Manganese; BPBLead, Lead; BSE, Selenium; THG, Mercury) 
-
-- #### **Metabolomics** by LC-Q-TOF-MS
-  - 18750 (ZHP) and 25937 (RPN) features were found in plasma samples
-
-- #### **Health outcomes**
-  - BMI/BMI group
-  - age at menarche
-
----
-
-### Step 1: Correlation clusters among metabolites
-
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/cutoffselection.png" width="70%" style="display: block; margin: auto;" /&gt;
-
-- Remove redundant peaks by GlobalStd algorithm (18750 to 964)
-- 0.82 was selected as cutoff for AMN
-
----
-
-### Step 1: Correlation clusters among metabolites
-
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/amn2.png" width="60%" style="display: block; margin: auto;" /&gt;
-
-- 109 metabolites correlation network clusters found
-- 555 out of 964 metabolites have no correlation with other metabolites 
-
----
-
-### Step 2: Association between metabolites and exposures
-
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/zhpset2.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-### Step 3: Screen the network structure to discover gatekeeper
-
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkp.png" width="60%" style="display: block; margin: auto;" /&gt;
-
-- 28 peaks connected with other peaks and exposures
-- 87 peaks connected with exposures only
-
----
-
-### Step 4: Association between exposure and health outcome
-
-|            Exposure            | BMI (β±SE) | BMI group (β±SE) | Age at menarche in years (β±SE) | Associated exposure(s) |
-|:------------------------------:|:----------:|:----------------:|:-------------------------------:|:----------------------:|
-| n-PFOA                         | -4.5±3.1   | -0.3±0.2         | 1.2±1.5                         | -                      |
-| n-PFOS                         | **-4.2±2.1**   | -0.3±0.2         | -0.2±1                          | -                      |
-|           **Gatekeeper**           |            |                  |                                 |                        |
-| SM(d18:2/14:0)                 | **30.5 ±5.2**  | **2.2 ±0.5**         | **0.8 ±0.2**                        | n-PFOS                 |
-| Dehydroepiandrosterone sulfate | **6.0 ±2.5**   | **0.5 ±0.2**         | -0.1 ±0.1                       | n-PFOA                 |
-| Androsterone sulfate           | **10.8 ±2.4**  | **1.0 ±0.2**         | -0.1 ±0.1                       | n-PFOA                 |
-| taurodeoxycholate              | **-3.9 ±1.6**  | **-0.3 ±0.1**        | 0.1 ±0.1                        | n-PFOA, n-PFOS         |
-| GPC(P-18:0/20:4)               | **-13.4 ±5.1** | **-1.2 ±0.4**        | -0.1 ±0.2                       | n-PFOS                 |
-
----
-
-## Active molecular network
-
-&lt;img src="https://yufree.github.io/presentation/figure/amn.png" width="700px" style="display: block; margin: auto;" /&gt;
-
----
-
-## The Long Island Breast Cancer Study Project
-
-- #### 100 plasma samples with data on lifestyle, health outcomes, and potential confounding variables 
-
-- #### **lifestyle** is from questionnaire
-  - Alcohol, smoking, meat consumption, vegetable, fruit, physical activity, supplementary
-  
-- #### **Metabolomics** by LC-Q-TOF-MS
-  - 6615 (ZHP) and 5171 (RPN) features were found in plasma samples
-  - 1797 peaks were selected as surrogate peaks for metabolites
-
-- #### **Health outcomes** with co-variables
-  - 50 cases and 50 controls 
-  - BMI, income, education, reproductive variables
-
----
-
-## Active molecular network for both modes
-
-&lt;img src="https://yufree.github.io/presentation/figure/allion.png" width="700px" style="display: block; margin: auto;" /&gt;
-  
----
-
-## Active molecular network in LIBC cohort
-
-&lt;img src="https://yufree.github.io/presentation/figure/amnall.png" width="700px" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse, center, middle
-
-# Summary
-
----
-
-## Summary
-
-### Molecular can mediate the influnces from exposure to health conditions
-
-### Mass sepctrometry based molecular data contain reduncdant features
-
-### Paired mass distances can be used to filter reaction level information
-
-### Correlation based network can be used to filter metabolites sensitive to exposure
-
-### Active molecular network can be used reveal the mechanism between exposures and health outcomes
-
----
-
-## Papers
-
-- Yu, M., Teitelbaum, S.L., Dolios, G., Dang, L.-H.T., Tu, P., Wolff, M.S., Petrick, L.M., 2022. Molecular Gatekeeper Discovery: Workflow for Linking Multiple Exposure Biomarkers to Metabolomics. Environ. Sci. Technol. &lt;https://doi.org/10.1021/acs.est.1c04039&gt;
-- Yu, M., Dolios, G., Petrick, L., 2022. Reproducible untargeted metabolomics workflow for exhaustive MS2 data acquisition of MS1 features. Journal of Cheminformatics 14, 6. &lt;https://doi.org/10.1186/s13321-022-00586-8&gt;
-- Yu, M., Tu, P., Dolios, G., Dassanayake, P.S., Volk, H., Newschaffer, C., Fallin, M.D., Croen, L., Lyall, K., Schmidt, R., Hertz-Piccioto, I., Austin, C., Arora, M., Petrick, L.M., 2021. Tooth biomarkers to characterize the temporal dynamics of the fetal and early-life exposome. Environment International 157, 106849. &lt;https://doi.org/10.1016/j.envint.2021.106849&gt;
-- Yu, M., Petrick, L., 2020. Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry 3, 1--6. &lt;https://doi.org/10.1038/s42004-020-00403-z&gt;
-- Yu, M., Dolios, G., Yong-Gonzalez, V., Björkqvist, O., Colicino, E., Halfvarson, J., Petrick, L., 2020. Untargeted metabolomics profiling and hemoglobin normalization for archived newborn dried blood spots from a refrigerated biorepository. Journal of Pharmaceutical and Biomedical Analysis 191, 113574. &lt;https://doi.org/10.1016/j.jpba.2020.113574&gt;
-- Hu, J., Lesseur, C., Yu, M., Manservisi, F., Panzacchi, S., Mandrioli, D., Belpoggi, F., Chen, J., Petrick, L., 2021. Low-dose exposure of glyphosate-based herbicides disrupt the urine metabolome and its interaction with gut microbiota. Scientific Reports 11, 3265. &lt;https://doi.org/10.1038/s41598-021-82552-2&gt;
-
----
-
-## Presentations
-
-- Miao Yu, 2021, Molecular gatekeeper discovery to link exposome with health outcomes through metabolomics, 69th ASMS Conference, Pennsylvania, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-asms.html) 
-- Miao Yu, 2021, Molecular gatekeeper discovery for multiple exposure groups in adolescent girls, ACS Spring 2021, USA. ([slides](http://yufree.github.io/presentation/gatekeeper/gatekeeper-acs.html)
-- Miao Yu, 2021, General reactomics data analysis framework for retrieving chemical relationship from untargeted mass-spectrometry data, Pittcon 2021, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-pittcon.html) and [video](https://youtu.be/xYHW5Z5q_A8))
-- Miao Yu, 2020, reactomics: using mass sepctrometry as chemical reaction detector ASMS 2020 Reboot, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-asms.html) and [video](https://youtu.be/-mT3HcVygHE))
-- Miao Yu, 2019, Reactomics: possibility of using mass spectrometry as reaction detector, Materials Energy EnvironmenT Seminar, University at Buffalo, Buffalo, NY, USA. ([slides](http://yufree.github.io/presentation/reactomics/pres-UB.html))
-- Miao Yu, 2019, Structure/reaction directed analysis for environmental metabolites, ACS Fall 2019 National Meeting &amp; Expo, San Diego, CA, USA. ([slides](http://yufree.github.io/presentation/srda/acs-MiaoYu.html))
 
 ---
 
 ## Software
 
--   [R package - rgabriel](http://cran.r-project.org/web/packages/rgabriel/index.html) [![](https://cranlogs.r-pkg.org/badges/grand-total/rgabriel)](https://cran.r-project.org/package=rgabriel) 
+### [pmd package](http://yufree.github.io/pmd/)
+  
+  - GlobalStd algorithm
+  - pmd-reaction database based on KEGG/HMDB
+  - quantitative pmd analysis
+  - pmd network anaysis
+  - pmd MS/MS annotation algorithm
+  - GUI application based on shiny
 
-        - Gabriel Multiple Comparison Test and Plot the Confidence Interval on Barplot
+### [rmwf package](https://github.com/yufree/rmwf)
 
--   [R package - enviGCMS](http://cran.r-project.org/web/packages/enviGCMS/index.html) [![](https://cranlogs.r-pkg.org/badges/grand-total/enviGCMS)](https://cran.r-project.org/package=enviGCMS) 
-
-        - LC/GC-MS Data Analysis for Environmental Science
-
--   [R package - pmd](http://cran.r-project.org/web/packages/pmd/index.html) [![](https://cranlogs.r-pkg.org/badges/grand-total/pmd)](https://cran.r-project.org/package=pmd) 
-
-        - Paired Mass Distance Analysis for GC/LC-MS Based Non-Targeted Analysis
-
--   [R package - enet](https://github.com/yufree/enet) network analysis for exposure study
-
--   [R package - rmwf](https://github.com/yufree/rmwf) Reproducilble Metabolomics Workflow
-
--   [Docker image - xcmsrocker](https://github.com/yufree/xcmsrocker) Rocker image for metabolomics data analysis 
+  - NIST 1950 data 
+  - Rmarkdown template
+  - From raw data to report
+  - part of `xcmsrocker` docker image
 
 ---
 
-## Acknowledgement
+## Take-home message
 
-.pull-left[
+### Reaction is the "base pair" for small molecules
 
-- #### Dr. Petrick's research group
+### Reactomics means the omics study at reaction or PMD level
 
-- #### Prof. Jia Chen
+### Real data always enriched in few PMDs or reactions
 
-- #### Prof. Mary Wolff
+### Reaction level changes could be quantitative and predictable
 
-- #### Prof. Susan Teitelbaum
-
-- #### Lisa Cole and all EMPH postdoc 
-
-- #### The Senator Frank R. Lautenberg Environmental Health Sciences Laboratory
-
-- #### Leadership of Department of Environmental Medicine and Public Health
-
-]
-
-
-.pull-right[
-
-&lt;img src="../figure/mssmlabmember.jpg" width="300px" style="display: block; margin: auto;" /&gt;
-
-]
+???
+Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
 
 ---
+
 class: inverse, center, middle
 
 # Thanks 
@@ -666,8 +658,6 @@ class: inverse, center, middle
 ## Q&amp;A
 
 ## miao.yu@mssm.edu
-
-## yufreecas@gmail.com
 
 
     </textarea>

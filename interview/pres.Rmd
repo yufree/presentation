@@ -1,5 +1,5 @@
 ---
-title: "Mass spectrometry based metabolomics data analysis"
+title: "Mass spectrometry based metabolomics/exposomics data analysis"
 subtitle: "From known to unknown"
 author: "Miao Yu"
 date: "`r Sys.Date()`"
@@ -19,9 +19,9 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning=FALSE,comment=NA)
 ```
 
-## Self introduction
+## Self-introduction
 
-### Miao Yu (于淼)
+### Miao Yu
 
 ### Education + Training
 
@@ -62,7 +62,7 @@ knitr::opts_chunk$set(fig.align='center',echo = F, cache=T,message=FALSE,warning
 
 ### Sample Collection 
 
-```{r echo=FALSE, out.width= '100%'}
+```{r echo=FALSE, out.width= '90%'}
 knitr::include_graphics('https://raw.githubusercontent.com/yufree/yufree.cn/master/static/images/TOC.png')
 ```
 
@@ -323,7 +323,7 @@ cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
 
 - Mass spectrum could directly measure relationship (reactions)
 
-```{r echo=FALSE, out.width= '100%'}
+```{r echo=FALSE, out.width= '90%'}
 knitr::include_graphics('https://yufree.github.io/presentation/figure/srda.png')
 ```
 
@@ -431,8 +431,10 @@ knitr::kable(example,align = 'c',format = 'markdown')
 
 ```{r}
 library(pmd)
-top10 <- head(hmdb,10)
-knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
+top10 <- cbind(c(1,0,2,2,0,1,4,3,1,2),c(2,2,4,2,0,0,8,6,2,0),c(0,0,0,0,1,0,0,0,1,0))
+colnames(top10) <- c('C','H','O')
+rownames(top10) <- c(14.016,2.016,28.031,26.016,15.995,12,56.063,42.047,30.011,24)
+knitr::kable(top10,align = 'c',format = 'markdown')
 ```
 
 - Dominated by C, H and O
@@ -594,6 +596,21 @@ knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/g
 
 ---
 
+## Gatekeepers for exposome
+
+```{r echo=FALSE,out.width='90%'}
+knitr::include_graphics('https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/gkpnp.png')
+```
+
+.half[
+```{r refgk,results = 'asis'}
+doi <- c('10.26434/chemrxiv.14781498.v1')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
+
 ## KEGG reaction network
 
 - Metabolites of four compounds
@@ -607,9 +624,9 @@ knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/g
 
 ---
 
-# Follow up
+# Follow up studies
 
-```{r echo=FALSE,out.width = "450px"}
+```{r echo=FALSE,out.width = "800px"}
 knitr::include_graphics("https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/pmdif.png")
 ```
 
