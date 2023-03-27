@@ -228,6 +228,8 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 ---
 
+## Quantitative and Qualitative analysis in Reactomics
+
 ### KEGG reaction database
 
 ```{r}
@@ -242,24 +244,6 @@ knitr::kable(react,align = 'c',format = 'markdown')
 
 - Real reactions contain ions
 - Biased by known reactions
-
----
-
-## Quantitative and Qualitative analysis in Reactomics
-
-### HMDB compounds database
-
-```{r}
-library(pmd)
-top10 <- head(hmdb,10)
-knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
-```
-
-- Dominated by C, H and O
-- Structure or reaction?
-
-???
-- We need quantitative mass ready database for PMD annotation
 
 ---
 ## Quantitative and Qualitative analysis in Reactomics
@@ -429,7 +413,7 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/peakcom.pn
 
 
 ```{r echo=FALSE}
-knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/bags.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/bags.png')
 ```
 
 ---
@@ -437,7 +421,7 @@ knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/bags.png')
 ## For annotation - PMDDA
 
 ```{r echo=FALSE,out.width = "60%",fig.retina = 3}
-knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/rpppmdda2.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/rpppmdda2.png')
 ```
 
 .half[
@@ -484,7 +468,7 @@ class: inverse, center, middle
 ## PMD Network
 
 ```{r echo=FALSE,out.width = "100%",fig.retina = 3}
-knitr::include_graphics('https://gitee.com/yufree/ihs/raw/master/netdemo.png')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/netdemo.png')
 ```
 
 ---
@@ -980,3 +964,20 @@ knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdcoverag
 knitr::include_graphics('https://yufree.github.io/presentation/figure/top100.png')
 ```
 
+---
+
+## Quantitative and Qualitative analysis in Reactomics
+
+### HMDB compounds database
+
+```{r}
+library(pmd)
+top10 <- head(hmdb,10)
+knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
+```
+
+- Dominated by C, H and O
+- Structure or reaction?
+
+???
+- We need quantitative mass ready database for PMD annotation
