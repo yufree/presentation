@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Miao Yu
 ]
 .date[
-### 2018/11/11 (updated: 2023-03-23)
+### 2018/11/11 (updated: 2023-03-26)
 ]
 
 ---
@@ -253,6 +253,8 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 ---
 
+## Quantitative and Qualitative analysis in Reactomics
+
 ### KEGG reaction database
 
 
@@ -271,32 +273,6 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 - Real reactions contain ions
 - Biased by known reactions
-
----
-
-## Quantitative and Qualitative analysis in Reactomics
-
-### HMDB compounds database
-
-
-| C  | H  | O  |
-|:--:|:--:|:--:|
-| -3 | 4  | 2  |
-| 1  | 4  | -1 |
-| 5  | 4  | -4 |
-| 2  | 8  | -2 |
-| 6  | 8  | -5 |
-| -1 | 12 | 0  |
-| 3  | 12 | -3 |
-| 0  | 16 | -1 |
-| 4  | 16 | -4 |
-| 8  | 16 | -7 |
-
-- Dominated by C, H and O
-- Structure or reaction?
-
-???
-- We need quantitative mass ready database for PMD annotation
 
 ---
 ## Quantitative and Qualitative analysis in Reactomics
@@ -473,13 +449,13 @@ class: inverse, center, middle
 ## GlobalStd Algorithm: before (1918) and after (196)
 
 
-&lt;img src="https://gitee.com/yufree/ihs/raw/master/bags.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/bags.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## For annotation - PMDDA
 
-&lt;img src="https://gitee.com/yufree/ihs/raw/master/rpppmdda2.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda2.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 .half[
 Yu, M., Dolios, G., &amp; Petrick, L. (2021). Reproducible Untargeted Metabolomics Data Analysis Workflow for Exhaustive MS/MS Annotation. https://doi.org/10.26434/chemrxiv.13565159.v1
@@ -517,7 +493,7 @@ class: inverse, center, middle
 
 ## PMD Network
 
-&lt;img src="https://gitee.com/yufree/ihs/raw/master/netdemo.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/netdemo.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -586,14 +562,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### Retention time cluster analysis
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-26-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-25-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 2
 
 ### High frequency PMD analysis across RT clusters
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-27-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-26-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -603,21 +579,21 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-28-1.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-27-1.png" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-29-1.png" width="430px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-28-1.png" width="430px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection - example
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-30-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-29-1.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
@@ -907,6 +883,8 @@ class: inverse, center, middle
 ## Q&amp;A
 
 ## miao.yu@mssm.edu
+
+
 
 
 

@@ -902,7 +902,7 @@ class: inverse, center, middle
 
 ## Q&A
 
-## miao.yu@mssm.edu
+## miao.yu@jax.org
 
 ```{r cache=FALSE}
 knitr::knit_exit() 
