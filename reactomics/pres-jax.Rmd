@@ -84,14 +84,6 @@ Here is my idea to those problems. Let's review the information flow. Samples, p
 The answer should be yes. Let's take oxidation process as an example. If it happens, no matter which compounds are involved, there should always be a mass differnces of sixteen dalton between those compounds. Since our mass spectrometry could detect their mass to charge ratio, we actually could directly extract all those relationship by checking paired mass distance among the unknown peaks. The unit of the relationship between compounds should be chemical reactions.
 
 ---
-
-## Why Reactions?
-
-```{r echo=FALSE, out.width= '800px'}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/cas.jpg')
-```
-
----
 ## Why Reactions?
 
 ```{r echo=FALSE}
@@ -504,26 +496,6 @@ To be honest, there is no hard cut off for whether a compound is endogenous or e
 
 ---
 
-## Exposures-Metabolites-Disease model
-
-```{r echo=FALSE}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/EMD.png')
-```
-
-- Which metabolites might contain biological information?
-
-- Which metabolites are sensitive to exposures?
-
----
-
-## Active Molecular Network
-
-```{r echo=FALSE, out.width='700px'}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/allion.png')
-```
-
----
-
 ## Active molecular network in LIBC cohort
 
 ```{r echo=FALSE, out.width='700px'}
@@ -539,15 +511,6 @@ class: inverse, center, middle
 
 ---
 
-## Why
-
-- Aggregate the information of parent metabolites and product metabolites of the same reaction
-- Build data-driven pathway by PMD-based reactomics network
-- Display the spatial distribution of certain reaction or reaction networks
-- Link location with reaction and biological information
-
----
-
 ## Kidney
 
 ```{r echo=FALSE, out.width='700px'}
@@ -556,20 +519,15 @@ knitr::include_graphics('https://lh5.googleusercontent.com/RILy-2-Y0-bUUDj6VvGQ-
 
 ---
 
-## PMD 14.02Da (26 pairs, Methylation)
+## PMD 15.97Da (15 pairs, Thiosulfotransferase)
 
-```{r echo=FALSE, out.width='250px'}
-knitr::include_graphics(c('https://lh6.googleusercontent.com/mCPNAyJfdgKQxKC05kl0pAR_UlWXR6kIXrJxzN4WpiPj-SjzsGN9kDO7c4QdhQYbhimUtBE4Q41bo5zNJQUISmXVfOA2ts3Owd2P79zbQVWjJsJP79a5ANmg6xMQO2Y6mz6gg5TE7E0zv1UCgZxw4biqPw=s2048','https://lh4.googleusercontent.com/qqEuD_FtrPp7ylowGjDu6QXuo0ASQP4PBorolHBjK2viF_1_jTbgz5WKsVrL_j_pL0njleqmcE863zzKtk3gn5OgGMwxTh4CAYX57kwuMW6TylYRAdjQrOU_pyjR8PJ1O8ySNQZjNTppqJLiVcFaoLgWCA=s2048'))
+```{r echo=FALSE, out.width='800px'}
+knitr::include_graphics(c('https://lh6.googleusercontent.com/a-MgeYahNfyxQotcGIF55BOGdreaJD5d5dM8HZjULo4GyfoaC1ofY6NwRDYh7QxRfg-3HXe7vRS5O19nEm0pyAvSYdxjMgSMoA4V49rIiT1tlO0ARBLwqUSstZGSh69avEqGYPO_cl9s2GjI0KR2f_c8pg=s2048'))
 ```
 
----
-
-## PMD 15.995Da (32 pairs, Oxydation)
-
-```{r echo=FALSE, out.width='250px'}
-knitr::include_graphics(c('https://lh6.googleusercontent.com/vZuSnreo5VAwApMJAdeLF2tEOCxKiuM6Odsuu8b37S4qVcpQaYHqhLWWx8O7cfF-XKztIOcNs4r5iWLHFPj60UCaSF68pio6PaIh-YlszIdDUmDiQ1JFFsP029TatKwTlGLn_198S9HZbRvLnCLI8s3NBw=s2048','https://lh4.googleusercontent.com/kpLRCm_yuXk2eOIQqKZiBkIZqsdwN4Vi_FwWoXFdYji7YcA2G2iitpOi2qVuahRXmzyAjPQPOFXcJMRtPPr--nR_Gk1igbyqWOy9C3Cbq3MZouIS2ivASDPR6RC_0uRpv0YsVU6DHnyI7IZELwM6YqBYLw=s2048'))
-```
-
+- Screen peaks associated with aging
+- Check paired mass distances of those peaks
+- Thiosulfotransferase decreasing with aging process is also reported in PMID: 34320608
 
 ---
 

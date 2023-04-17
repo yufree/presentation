@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Miao Yu
 ]
 .date[
-### 2018/11/11 (updated: 2023-03-07)
+### 2018/11/11 (updated: 2023-04-16)
 ]
 
 ---
@@ -35,7 +35,7 @@ class: center, middle, inverse, title-slide
 
 - Acquire data (peaks) using mass spectrometry
 
-- Annotate peaks for identification with compound name
+- Annotate peaks to get the compound name
 
 - Build links between compounds using pathway/network analysis
 
@@ -87,12 +87,6 @@ From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_
 Here is my idea to those problems. Let's review the information flow. Samples, peaks, compounds, relationship among compounds... Wait, if we try to find the relationship among compounds, is there a way to skip the compounds identification phase?
 
 The answer should be yes. Let's take oxidation process as an example. If it happens, no matter which compounds are involved, there should always be a mass differnces of sixteen dalton between those compounds. Since our mass spectrometry could detect their mass to charge ratio, we actually could directly extract all those relationship by checking paired mass distance among the unknown peaks. The unit of the relationship between compounds should be chemical reactions.
-
----
-
-## Why Reactions?
-
-&lt;img src="https://yufree.github.io/presentation/figure/cas.jpg" width="800px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Why Reactions?
@@ -241,31 +235,6 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 ---
 
-## Quantitative and Qualitative analysis in Reactomics
-
-### HMDB compounds database
-
-
-| C  | H  | O  |
-|:--:|:--:|:--:|
-| -3 | 4  | 2  |
-| 1  | 4  | -1 |
-| 5  | 4  | -4 |
-| 2  | 8  | -2 |
-| 6  | 8  | -5 |
-| -1 | 12 | 0  |
-| 3  | 12 | -3 |
-| 0  | 16 | -1 |
-| 4  | 16 | -4 |
-| 8  | 16 | -7 |
-
-- Dominated by C, H and O
-- Structure or reaction?
-
-???
-- We need quantitative mass ready database for PMD annotation
-
----
 ## Quantitative and Qualitative analysis in Reactomics
 
 ### HMDB compounds database
@@ -550,22 +519,6 @@ To be honest, there is no hard cut off for whether a compound is endogenous or e
 
 ---
 
-## Exposures-Metabolites-Disease model
-
-&lt;img src="https://yufree.github.io/presentation/figure/EMD.png" style="display: block; margin: auto;" /&gt;
-
-- Which metabolites might contain biological information?
-
-- Which metabolites are sensitive to exposures?
-
----
-
-## Active Molecular Network
-
-&lt;img src="https://yufree.github.io/presentation/figure/allion.png" width="700px" style="display: block; margin: auto;" /&gt;
-
----
-
 ## Active molecular network in LIBC cohort
 
 &lt;img src="https://yufree.github.io/presentation/figure/amnall.png" width="700px" style="display: block; margin: auto;" /&gt;
@@ -579,31 +532,19 @@ class: inverse, center, middle
 
 ---
 
-## Why
-
-- Aggregate the information of parent metabolites and product metabolites of the same reaction
-- Build data-driven pathway by PMD-based reactomics network
-- Display the spatial distribution of certain reaction or reaction networks
-- Link location with reaction and biological information
-
----
-
 ## Kidney
 
 &lt;img src="https://lh5.googleusercontent.com/RILy-2-Y0-bUUDj6VvGQ-HVLpQeW3LeHnzsQEAVk-UWA6m0d_MVF8eE3mv20fFOdsCBj2ZGJnZ8FZlpCl1S4CCzsu5oFKQ1V43F8XiASNWbGgZCeWqCkfT9FcDDeSzxly2VvlgENsAyiaP1EJd216JyogQ=s2048" width="700px" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## PMD 14.02Da (26 pairs, Methylation)
+## PMD 15.97Da (15 pairs, Thiosulfotransferase)
 
-&lt;img src="https://lh6.googleusercontent.com/mCPNAyJfdgKQxKC05kl0pAR_UlWXR6kIXrJxzN4WpiPj-SjzsGN9kDO7c4QdhQYbhimUtBE4Q41bo5zNJQUISmXVfOA2ts3Owd2P79zbQVWjJsJP79a5ANmg6xMQO2Y6mz6gg5TE7E0zv1UCgZxw4biqPw=s2048" width="250px" style="display: block; margin: auto;" /&gt;&lt;img src="https://lh4.googleusercontent.com/qqEuD_FtrPp7ylowGjDu6QXuo0ASQP4PBorolHBjK2viF_1_jTbgz5WKsVrL_j_pL0njleqmcE863zzKtk3gn5OgGMwxTh4CAYX57kwuMW6TylYRAdjQrOU_pyjR8PJ1O8ySNQZjNTppqJLiVcFaoLgWCA=s2048" width="250px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://lh6.googleusercontent.com/a-MgeYahNfyxQotcGIF55BOGdreaJD5d5dM8HZjULo4GyfoaC1ofY6NwRDYh7QxRfg-3HXe7vRS5O19nEm0pyAvSYdxjMgSMoA4V49rIiT1tlO0ARBLwqUSstZGSh69avEqGYPO_cl9s2GjI0KR2f_c8pg=s2048" width="800px" style="display: block; margin: auto;" /&gt;
 
----
-
-## PMD 15.995Da (32 pairs, Oxydation)
-
-&lt;img src="https://lh6.googleusercontent.com/vZuSnreo5VAwApMJAdeLF2tEOCxKiuM6Odsuu8b37S4qVcpQaYHqhLWWx8O7cfF-XKztIOcNs4r5iWLHFPj60UCaSF68pio6PaIh-YlszIdDUmDiQ1JFFsP029TatKwTlGLn_198S9HZbRvLnCLI8s3NBw=s2048" width="250px" style="display: block; margin: auto;" /&gt;&lt;img src="https://lh4.googleusercontent.com/kpLRCm_yuXk2eOIQqKZiBkIZqsdwN4Vi_FwWoXFdYji7YcA2G2iitpOi2qVuahRXmzyAjPQPOFXcJMRtPPr--nR_Gk1igbyqWOy9C3Cbq3MZouIS2ivASDPR6RC_0uRpv0YsVU6DHnyI7IZELwM6YqBYLw=s2048" width="250px" style="display: block; margin: auto;" /&gt;
-
+- Screen peaks associated with aging
+- Check paired mass distances of those peaks
+- Thiosulfotransferase decreasing with aging process is also reported in PMID: 34320608
 
 ---
 
