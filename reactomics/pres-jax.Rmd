@@ -449,6 +449,21 @@ knitr::include_graphics('https://yufree.cn/en/2021/02/09/reactomics-workflow-tem
 ```
 
 ---
+
+## Reaction in sewage sludge
+
+```{r echo=FALSE, out.width='700px'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/rbss.png')
+```
+
+.half[
+```{r ref5,results = 'asis'}
+doi <- c('10.1021/acs.est.1c02584')
+cat(unlist(rcrossref::cr_cn(dois = doi, format = "text", style = 'apa')))
+```
+]
+
+---
 class: inverse, center, middle
 
 # Reactomics Application 
@@ -494,13 +509,6 @@ OK, we could not always use our eye to make annotation of endogenous or exogenou
 
 To be honest, there is no hard cut off for whether a compound is endogenous or exogenous. Some compounds will be endogenous for plant sample while exogenous for animal sample. In terms of reactomics, I suggest such cutoff should be generated from the samples themselves. Using the high freqency PMDs of your samples to get the PMD network for your specific samples. In my experience, you will always see few large clusters and lots of smaller clusters. Then when you find some compounds of your interests, check if this compound is on the larger PMD cluster or smaller cluster to guess whether this compound is from environment or not. Based on known compounds or T3DB, this method works in most cases.
 
----
-
-## Active molecular network in LIBC cohort
-
-```{r echo=FALSE, out.width='700px'}
-knitr::include_graphics('https://yufree.github.io/presentation/figure/amnall.png')
-```
 
 ---
 class: inverse, center, middle
