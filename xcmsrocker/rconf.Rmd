@@ -196,7 +196,7 @@ knitr::include_graphics('images/rmwf.png')
 ## 科研开源数据分析平台 xcmsrocker - 安装
 
 ```{r echo=FALSE,out.width = "800px"}
-knitr::include_graphics('https://raw.githubusercontent.com/yufree/yufree.cn/master/static/images/pmdda.gif')
+knitr::include_graphics('https://yufree.github.io/presentation/figure/pmdda.gif')
 ```
 
 ---
