@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>基于高分辨质谱的暴露组学</title>
+    <title>数据驱动的暴露组学</title>
     <meta charset="utf-8" />
     <meta name="author" content="于淼" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -14,7 +14,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 基于高分辨质谱的暴露组学
+# 数据驱动的暴露组学
 ]
 .author[
 ### 于淼
@@ -73,23 +73,37 @@ class: center, middle, inverse, title-slide
 
 ## 研究方向
 
-### 科学问题
+#### 科学问题
 
-- 环境污染物暴露对生物的影响
+- 已知/未知小分子环境污染物暴露对生物已知/未知代谢物的影响
 
-### 研究目标
+#### 研究瓶颈
 
-- 已知/未知小分子污染物或代谢物
+- 数据量大且复杂（冗余与噪音）
+- 组学机理模型未知 
+- 动态过程未知
 
-### 特色研究手段
+#### 特色研究手段
 
 - 活体微萃取采样
-
-- 基于高分辨质谱的组学
+- 知识辅助算法/模型 （AI for Science）
+- 可复算性研究 （Reproducible Research）
 
 ---
 
-## 活体固相微萃取
+## 研究框架
+
+&lt;img src="https://yufree.github.io/presentation/figure/plan.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# 活体固相微萃取 
+
+---
+
+## 固相微萃取家族
 
 &lt;img src="https://yufree.github.io/presentation/figure/spmegeo.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
 
@@ -99,67 +113,37 @@ Yu, M., Roszkowska, A., &amp; Pawliszyn, J. (2021). In Vivo Solid-Phase Microext
 
 ---
 
-# 反应组学
+## 活体固相微萃取环境监测应用
 
-## 传统非目的分析/代谢组学流程
+&lt;img src="https://yufree.github.io/presentation/figure/fish.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-- 样品收集
-
-- 质谱全扫描峰数据采集
-
-- 质谱峰鉴定为物质
-
-- 研究物质间关系
-
-&gt; 样品 -&gt; 质谱峰 -&gt; 物质 -&gt; 物质间关系
-
-- 问题
-
-  - 单样本峰数过万，信息冗余，鉴定耗时
-  - 无法覆盖“未知的未知”物质
-
----
-
-## 思路
-
-&gt; 样品 -&gt; 质谱峰 -&gt; ~~物质~~ -&gt; 物质间关系
-
-- 质谱可以直接测量物质关系 (质量差反应组学)
-
-&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-
-## 质谱峰质量差来源
-
-.pull-left[- 同位素峰 
-  
-  - `\([M]^+\)` `\([M+1]^+\)`
-  - 1.006 Da
-
-- 离子源反应 
-
-  - `\([M+H]^+\)`  `\([M+Na]^+\)`
-  - 21.982 Da
+.half[
+Roszkowska, A., Yu, M., Bessonneau, V., Bragg, L., Servos, M., &amp; Pawliszyn, J. (2018). Metabolome Profiling of Fish Muscle Tissue Exposed to Benzo[a]pyrene Using in Vivo Solid-Phase Microextraction. Environmental Science &amp;amp; Technology Letters, 5(7), 431–435. https://doi.org/10.1021/acs.estlett.8b00272
 ]
 
-.pull-right[
-- 同系物
+---
 
-  - 脂肪 `\(-[CH_2]-\)`
-  - 14.016 Da
+class: inverse, center, middle
 
-- 外源代谢
-
-  - I相反应
-  - 15.995 Da
-]  
+# 知识辅助算法/模型
 
 ---
 
-## 消除冗余峰
+## AI for Science
 
-### GlobalStd 算法
+- 用科学知识来改善与开发人工智能模型
+
+&lt;img src="https://yufree.github.io/presentation/figure/alphafold2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Jumper, J., Evans, R., Pritzel, A., Green, T., Figurnov, M., Ronneberger, O., Tunyasuvunakool, K., Bates, R., Žídek, A., Potapenko, A., Bridgland, A., Meyer, C., Kohl, S. A. A., Ballard, A. J., Cowie, A., Romera-Paredes, B., Nikolov, S., Jain, R., Adler, J., … Hassabis, D. (2021). Highly accurate protein structure prediction with AlphaFold. Nature, 596(7873), 583–589. https://doi.org/10.1038/s41586-021-03819-2
+]
+
+---
+
+## 消除质谱数据冗余信息
+
+- GlobalStd 算法
 
 &lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" width="62%" style="display: block; margin: auto;" /&gt;
 
@@ -169,7 +153,21 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ---
 
-## KEGG 反应数据库
+## 竭泽而渔式非目的分析
+
+- PMDDA工作流
+
+&lt;img src="https://yufree.github.io/presentation/figure/pmdda.png" width="62%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Dolios, G., &amp; Petrick, L. (2022). Reproducible untargeted metabolomics workflow for exhaustive MS2 data acquisition of MS1 features. Journal of Cheminformatics, 14(1). https://doi.org/10.1186/s13321-022-00586-8
+]
+
+---
+
+## 已知生化反应数据挖掘
+
+- KEGG 反应数据库
 
 | 元素变化 |   质量差   | 频率 | 反应类型 |        相关酶       |
 |:--------------------:|:-------:|:----:|:----------------------:|:---------------------------:|
@@ -181,42 +179,9 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 |         +2HO         |  18.011 |  359 |         RC00680        |         allantoinase        |
 |       +6C10H5O       | 162.053 |  365 |         RC00049        |       beta-lactosidase      |
 
----
-
-## 定量质量差
-
-### 动态与静态质量差
-
-&lt;img src="https://yufree.github.io/presentation/figure/qreaction.png" style="display: block; margin: auto;" /&gt;
-
----
-
-## 反应组学
-
-### 质量差相当于小分子的碱基对
-
-### GlobalStd 算法利用质量差去除冗余峰
-
-### 有机物质量差存在富集现象
-
-### 质量差可定量指示反应层变化
-
----
-
-## 应用：污染物代谢产物筛查
-
-### 外源代谢
-
-  - I相反应
-    - 氧化 (R-H =&gt; R-OH, pmd 15.995 Da)
-    - 还原 (R-C=O =&gt; R-C-OH, pmd 2.016 Da)
-    
-  - II相反应
-    - 甲基化 (R-OH =&gt; R-O-C,pmd 14.016 Da)
-    - 硫酸化 (R-OH =&gt; R-SO4, pmd 46.976 Da)
-    - 乙酰化 (R-OH =&gt; R-O-COCH3, pmd 42.011 Da)
-    - 葡萄糖醛酸化 (R-NH2 =&gt; R-NH-C6H9O7, pmd 192.027 Da)
-    - 糖基化 (R-OH =&gt; R-O-C6H11O5, pmd 162.053 Da)
+.half[
+Yu, M., &amp; Petrick, L. (2021). Author Correction: Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 4(1). https://doi.org/10.1038/s42004-021-00479-1
+]
 
 ---
 
@@ -247,7 +212,7 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 
 ---
 
-## 内源产物 vs 外源产物
+## 区分内源代谢物与外源产物
 
 - T3DB 数据库 （频率前十的质量差）
 
@@ -256,6 +221,7 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 .half[
 Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
+
 ---
 
 ## KEGG 反应网
@@ -267,6 +233,15 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 .half[
 Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
+
+---
+
+## 定量反应活性（质量差）
+
+- 动态与静态质量差
+
+&lt;img src="https://yufree.github.io/presentation/figure/qreaction.png" style="display: block; margin: auto;" /&gt;
+
 ---
 
 ## 肺癌数据集
@@ -280,41 +255,60 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 .half[
 Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
+
 ---
 
-## 反应组学工具开发
+## 暴露-活性分子网络-健康效应模型
 
-### [pmd 包](http://yufree.github.io/pmd/)
+- 分子看门人与机器学习
+
+&lt;img src="https://yufree.github.io/presentation/figure/mgatekeeper.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Teitelbaum, S. L., Dolios, G., Dang, L.-H. T., Tu, P., Wolff, M. S., &amp; Petrick, L. M. (2022). Molecular Gatekeeper Discovery: Workflow for Linking Multiple Exposure Biomarkers to Metabolomics. Environmental Science &amp;amp; Technology, 56(10), 6162–6171. https://doi.org/10.1021/acs.est.1c04039
+]
+
+---
+
+class: inverse, center, middle
+
+# 可复算性研究
+
+---
+
+## 软件 -&gt; 模版 -&gt; 系统镜像
+
+#### [pmd 包](http://yufree.github.io/pmd/)
   
   - GlobalStd 算法
   - KEGG/HMDB pmd-reaction 数据库 
   - pmd 反应定量分析
   - pmd 网络分析
 
-### [rmwf 包](https://github.com/yufree/rmwf)
+#### [rmwf 包](https://github.com/yufree/rmwf)
 
   - NIST 1950 数据 
   - Rmarkdown 模版
   - 从原始数据到结果报告
   - 属于 `xcmsrocker` docker 镜像
+  
+#### [xcmsrocker镜像](https://github.com/yufree/xcmsrocker)
 
----
-
-## 技术路线
-
-&lt;img src="https://yufree.github.io/presentation/figure/plan.png" width="60%" style="display: block; margin: auto;" /&gt;
+  - 质谱数据分析软件
+  - 数据处理模版
+  - 云部署
 
 ---
 
 ## 发展规划
 
-### 1-2年：理论研究与数据挖掘为主，搭建实验室平台
+#### 1-2年：理论研究与数据挖掘为主，搭建实验室平台
 
-### 3-5年：实验室研究为主，面向具体环境问题的研究
+#### 3-5年：实验室研究为主，基于具体环境健康问题设计模型
 
-### 6-10年：组建暴露组学团队，追踪人群队列，面向具体环境与疾病
+#### 6-10年：长期追踪人群队列，不预设环境变量与疾病
 
-### 环境健康数据分析中心
+#### 环境健康数据分析中心
 
         - 不同实验可重复性数据分析工作流
         - 基于容器技术的云数据处理平台
@@ -325,6 +319,9 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 class: center, middle
 
 # 欢迎各位老师批评指正!
+
+
+
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
