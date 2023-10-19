@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>基于高分辨质谱的反应组学</title>
+    <title>基于高分辨质谱的暴露组学</title>
     <meta charset="utf-8" />
     <meta name="author" content="于淼" />
-    <meta name="date" content="2021-12-15" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
@@ -14,9 +13,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# 基于高分辨质谱的反应组学
+.title[
+# 基于高分辨质谱的暴露组学
+]
+.author[
 ### 于淼
-### 2021-12-15
+]
+.date[
+### 2023-10
+]
 
 ---
 
@@ -37,22 +42,28 @@ class: center, middle, inverse, title-slide
   - 活体固相微萃取在代谢组学中的应用
   - 导师：Janusz Pawliszyn 院士
 
-- 2018 至今 美国西奈山伊坎医学院暴露组学研究所 博士后
+- 2018 - 2022 美国西奈山伊坎医学院暴露组学研究所 博士后
 
   - 暴露组学数据分析
   - 导师：Lauren Petrick 副教授
+  
+- 2022 至今 美国杰克森实验室 副计算科学家
+
+  - 组学数据分析
 
 ---
 
 ## 科研产出
 
-- 10篇一作或共同一作文章，39 篇期刊论文，两篇封面，一篇ES&amp;T Letter年度文章，～900 引用，h-index 19
+- 12篇一作或共同一作文章，47 篇期刊论文，两篇封面，一篇ES&amp;T Letter年度文章，～1300 引用，h-index 26
 
-- 发表期刊分布 Communications Chemistry(1) Environ. Sci. Technol.(10) Environ. Pollut.(4) Talanta(4) Environ. Sci. Technol. Lett.(3) Sci. Rep.(3) Anal. Chem.(3) ACS Environ. Au(1) Anal. Chim. Acta(2) Environ. Int. (1) Chemosphare(1) Environ. Sci. Pollut. Res.(1) J. Chromatogr. A(1) Analyst(1) ACS Chem. Neurosci.(1) J. Pharm. Biomed. Anal.(1) Metabolomics(1)
+- 发表期刊分布 Environ. Sci. Technol.(12) Environ. Pollut.(4) Talanta(4) Environ. Sci. Technol. Lett.(3) Sci. Rep.(3) Anal. Chem.(3) Anal. Chim. Acta(2) Journal of Pharmaceutical Analysis.(2) Environ. Int. (2) Journal of Hazardous Materials(1) ACS Environ. Au(1) Communications Chemistry(1) J Cheminform (1) Chemosphare(1) Environ. Sci. Pollut. Res.(1) J. Chromatogr. A(1) Analyst(1) ACS Chem. Neurosci.(1) J. Pharm. Biomed. Anal.(1) Metabolomics(1) Frontiers in Immunology (1)
+
+- 客座编辑 Chemosphare 特刊 *Human Health Effects of Chemical Mixture Exposures*
+
+- 青年编委 Environment &amp; Health
 
 - 3 个开源软件包，CRAN 下载量累计超过 5 万次
-
-- 期刊审稿 J. Hazard. Mater., Anal. Chim. Acta, Talanta, Environ. Pollut., Sci. Total Environ.
 
 - 1 本书章节 *A New Paradigm for Environmental Chemistry and Toxicology: From Concepts to Insights.* Springer Singapore, Singapore, pp. 23–31
 
@@ -60,21 +71,31 @@ class: center, middle, inverse, title-slide
 
 ---
 
-## 主要研究创新
+## 研究方向
 
 ### 科学问题
 
-- 非目的分析或代谢组学的标准缺失问题
+- 环境污染物暴露对生物的影响
 
-### 基于高分辨质谱的反应组学（reactomics）
+### 研究目标
 
-- 基于生化反应数据库的数据挖掘
+- 已知/未知小分子污染物或代谢物
 
-- 基于质量差定性定量样品中化学反应层的变化
+### 特色研究手段
 
-- 开发了相关软件与数据库
+- 活体微萃取采样
 
-- 可应用于活体研究、环境非目的分析、未知污染物溯源与疾病诊断
+- 基于高分辨质谱的组学
+
+---
+
+## 活体固相微萃取
+
+&lt;img src="https://yufree.github.io/presentation/figure/spmegeo.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Roszkowska, A., &amp; Pawliszyn, J. (2021). In Vivo Solid-Phase Microextraction and Applications in Environmental Sciences. ACS Environmental Au, 2(1), 30–41. https://doi.org/10.1021/acsenvironau.1c00024
+]
 
 ---
 
@@ -94,9 +115,9 @@ class: center, middle, inverse, title-slide
 
 - 问题
 
-  - 单样本峰数过万，鉴定耗时
+  - 单样本峰数过万，信息冗余，鉴定耗时
   - 无法覆盖“未知的未知”物质
-  
+
 ---
 
 ## 思路
@@ -106,45 +127,6 @@ class: center, middle, inverse, title-slide
 - 质谱可以直接测量物质关系 (质量差反应组学)
 
 &lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-
-## 质量差定性
-
-### KEGG 反应数据库
-
-
-|   PMD   | Freq | ExampleReactionClass | ExampleEnzyme |
-|:-------:|:----:|:--------------------:|:-------------:|
-|  2.016  | 1732 |       RC00095        |   1.3.1.84    |
-| 15.995  | 1169 |       RC00046        |   1.3.99.18   |
-| 79.966  | 729  |       RC00002        |    3.6.1.3    |
-| 14.016  | 594  |       RC00060        |    1.5.3.1    |
-|    0    | 532  |       RC00302        |    5.1.1.3    |
-| 18.011  | 359  |       RC00680        |    3.5.2.5    |
-| 162.053 | 365  |       RC00049        |   3.2.1.23    |
-| 159.933 | 243  |       RC02056        |   4.2.3.42    |
-|  1.032  | 262  |       RC00006        |    1.4.1.2    |
-| 42.011  | 237  |       RC00004        |   2.3.1.54    |
-
----
-
-## 质量差定量
-
-### 静态 v.s. 动态
-
-- 静态质量差: 质量对响应比在样本中相对稳定
-- 动态质量差: 质量对响应比在样本中持续变化
-- [A,B], [C,D] [E,F] 有相同质量差:
-
-
-|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |
-|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|
-| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    |
-| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    |
-
-- [A,B] 与 [E,F] 属于静态质量差可用来定量, rsd% 阈值 30%
-- [C,D] 可用来研究反应动态过程
 
 ---
 
@@ -182,8 +164,30 @@ class: center, middle, inverse, title-slide
 &lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" width="62%" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
+Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. https://doi.org/10.1016/j.aca.2018.10.062
 ]
+
+---
+
+## KEGG 反应数据库
+
+| 元素变化 |   质量差   | 频率 | 反应类型 |        相关酶       |
+|:--------------------:|:-------:|:----:|:----------------------:|:---------------------------:|
+|          +2H         |  2.016  | 1732 |         RC00095        |    acrylyl-CoA reductase    |
+|          +O          |  15.995 | 1169 |         RC00046        | quinaldate 4-oxidoreductase |
+|         +HP3O        |  79.966 |  729 |         RC00002        |   Phosphorus-oxygen lyases  |
+|         +C2H         |  14.016 |  594 |         RC00060        |   lipid methyl transferase  |
+|        Isomer        |    0    |  532 |         RC00302        |      glutamate racemase     |
+|         +2HO         |  18.011 |  359 |         RC00680        |         allantoinase        |
+|       +6C10H5O       | 162.053 |  365 |         RC00049        |       beta-lactosidase      |
+
+---
+
+## 定量质量差
+
+### 动态与静态质量差
+
+&lt;img src="https://yufree.github.io/presentation/figure/qreaction.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -191,11 +195,11 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### 质量差相当于小分子的碱基对
 
+### GlobalStd 算法利用质量差去除冗余峰
+
 ### 有机物质量差存在富集现象
 
-### 质量差可定性定量指示反应层变化
-
-### GlobalStd 算法利用质量差去除冗余峰
+### 质量差可定量指示反应层变化
 
 ---
 
@@ -225,7 +229,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 &lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
 
 .half[
-Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., Schnoor, J. L., &amp; Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp;amp; Technology, 53(15), 8805–8812. https://doi.org/10.1021/acs.est.9b02122
 ]
 
 ---
@@ -238,7 +242,7 @@ Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glyco
 
 
 .half[
-Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
 
 ---
@@ -250,7 +254,7 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 &lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3dbnew.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
 ---
 
@@ -261,7 +265,7 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 &lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/keggnew.png" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
 ---
 
@@ -274,7 +278,7 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 &lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="450px" style="display: block; margin: auto;" /&gt;
 
 .half[
-Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). https://doi.org/10.1038/s42004-020-00403-z
 ]
 ---
 
@@ -296,15 +300,9 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 
 ---
 
-## 未来研究思路
+## 技术路线
 
-- 完善反应组学的理论基础
-
-- 活体固相微萃取技术在环境研究中的应用
-
-- 反应组学在环境暴露组学中的应用
-
-- 人群开源数据库的挖掘
+&lt;img src="https://yufree.github.io/presentation/figure/plan.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -315,6 +313,12 @@ Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distanc
 ### 3-5年：实验室研究为主，面向具体环境问题的研究
 
 ### 6-10年：组建暴露组学团队，追踪人群队列，面向具体环境与疾病
+
+### 环境健康数据分析中心
+
+        - 不同实验可重复性数据分析工作流
+        - 基于容器技术的云数据处理平台
+        - 数据复用与二次挖掘平台
 
 ---
 
@@ -370,6 +374,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
