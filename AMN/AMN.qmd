@@ -2,10 +2,11 @@
 title: "活性分子网络在环境暴露与健康研究中的应用"
 subtitle: ""
 author: "于淼"
-date: "`r Sys.Date()`"
+date: "2024-07-03"
 format:
   revealjs: 
     theme: simple
+    slide-number: true
 editor: visual
 ---
 
@@ -59,7 +60,7 @@ style 生物 fill:#fffafa
         - 找到生活方式影响乳腺癌的分子机制
 
 ::: footer
-- Qian, L. et al. 2022 doi:10.1007/s12282-022-01374-w
+- Li, Q. et al. 2022 doi:10.1007/s12282-022-01374-w
 :::
 
 ## 思路与假设
@@ -234,13 +235,21 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 ## 展望
 
-- 活性分子网络有助于发现与解释响应多暴露的代谢网络及酶
+- 发现与解释响应多暴露的代谢网络及酶
 
-- 活性分子网络可拓展到大分子并考虑大小分子间的互相作用
+- 分子可拓展到大分子并考虑大小分子间的互相作用
 
-- 机器学习里的特征工程可以用来构建暴露/疾病与分子关系
+- 特征工程可以用来构建暴露/疾病与分子关系
 
 - 质量差可以协助解释基于相关性构建的活性分子网络
+
+## 可重复性
+
+- 数据涉及隐私目前不公开
+
+- 数据处理代码在论文支持信息里
+
+- enet包 <https://github.com/yufree/enet>
 
 ## 结语
 
@@ -250,7 +259,8 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 - 存在未知物不代表无法讨论
 
-![](https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0006.gif)
+![](https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0006.gif){.r-stretch}
+
 
 ## 致谢
 
@@ -278,3 +288,8 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 ::::
 
+# 欢迎各位老师批评指正!
+
+::: footer
+miao.yu@jax.org
+:::
