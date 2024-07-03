@@ -304,6 +304,7 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 # 欢迎各位老师批评指正!
 
-::: footer
-miao.yu@jax.org
-:::
+- https://yufree.github.io/presentation/AMN/AMN.html
+
+- miao.yu@jax.org
+
