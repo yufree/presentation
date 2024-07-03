@@ -47,9 +47,9 @@ style 生物 fill:#fffafa
 
 - 长岛乳腺癌研究队列
 
-        - 血样：患病组（50）v.s. 对照组（50）
+        - 血样：患病组（50） 对照组（50）
         - 人群背景调查：年龄、BMI、收入、教育等
-        - 人群营养调查：抽烟、饮酒、保健品等
+        - 人群营养调查：抽烟、饮酒、饮食习惯、保健品等
         
 - 前置研究
 
@@ -67,30 +67,43 @@ style 生物 fill:#fffafa
 
 ### 生活方式影响乳腺癌的分子机制
 
+- 影响 ≈ 构建分子与多暴露/乳腺癌的联系（预测性）
+
+        - 疾病与小分子
+        - 暴露与小分子
+
 - 分子机制 ≈ 分子间相互作用网络（可解释性）
 
         - 响应相关
         - 质量差
 
-- 影响 ≈ 构建分子与多暴露/乳腺癌的联系（预测性）
-
-        - 疾病与小分子
-        - 暴露与小分子
-        
 - 难点
 
         - 未知物
         - 冗余信息
         - 多暴露
+
+## 思路与假设 - 影响
+
+- 小样本，高维度
+
+- 只保留可能有联系的分子 -> 降维
+
+- 特征工程（L1正则化）
+
+$$生活方式 = f(活性分子)$$
+        
+$$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
+
         
 ## 思路与假设 - 分子机制
 
-> 孤岛分子与大陆分子
+> 响应相关但不同的分子会形成网络
 
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3dbnew.png)
+![](https://yufree.cn/images/cnet.png)
 
 ::: footer
-- Yu, M. et al. 2020 doi:10.1038/s42004-020-00403-z
+- Yu, M. et al. 2022 doi:10.1021/envhealth.3c00218
 :::
 
 ## 思路与假设 - 分子机制
@@ -112,18 +125,6 @@ style 生物 fill:#fffafa
 ::: footer
 - Yu, M. et al. 2022 doi:10.1021/acs.est.1c04039
 :::
-
-## 思路与假设 - 影响
-
-- 小样本，高维度
-
-- 只保留可能有联系的分子
-
-- 特征工程（L1正则化）
-
-$$生活方式 = f(活性分子)$$
-        
-$$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 ## 思路与假设 - 整合
 
@@ -221,17 +222,17 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 ## 结果 - 未知物鉴定
 
+- DiHODE 与β胡萝卜素、叶酸、饮酒和肉类摄入有关系
+
 - DiHODE 属于环氧脂肪酸降解产物
 
-- DiHODE 与β胡萝卜素、叶酸和肉类摄入有关系
+- 环氧水解酶（epoxide hydrolases）可能跟炎症有关 
 
 - β胡萝卜素补充可提高DiHODE脱水产物进而提高DiHODE
 
 - 提高的DiHODE与癌症发病率负相关
 
-- 环氧水解酶（epoxide hydrolases）可能跟炎症有关 
-
-- 饮食引发的炎症可能与乳腺癌有关联
+- 生活方式引发的炎症可能与乳腺癌有关联
 
 ## 展望
 
@@ -243,6 +244,16 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 - 质量差可以协助解释基于相关性构建的活性分子网络
 
+## 局限性
+
+- 样品量小、采集时间长
+
+- 探索性研究非验证性研究
+
+- 未知物半定性
+
+- 活性分子网络构建过程没考虑质量差
+
 ## 可重复性
 
 - 数据涉及隐私目前不公开
@@ -253,14 +264,15 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 ## 结语
 
-- 分子间相互关系可用来解释暴露导致疾病的分子机制
+- 数据中分子间相互关系可用来解释暴露导致疾病的分子机制
 
 - 活性分子网络本质就是通过分子间相互关系降维
+
+- 小样本上机器学习更适用于降维
 
 - 存在未知物不代表无法讨论
 
 ![](https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0006.gif){.r-stretch}
-
 
 ## 致谢
 
@@ -268,15 +280,17 @@ $$RSS + \lambda \sum_{j = 1}^{p} |\beta_j|$$
 
 ::: {.column width="50%"}
 
-- #### Dr. Petrick's research group
+- Dr. Petrick's research group
 
-- #### Prof. Jia Chen
+- Dr. Qian Li
 
-- #### Prof. Mary Wolff
+- Prof. Jia Chen
 
-- #### Prof. Susan Teitelbaum
+- Prof. Mary Wolff
 
-- #### The Senator Frank R. Lautenberg Environmental Health Sciences Laboratory
+- Prof. Susan Teitelbaum
+
+- The Senator Frank R. Lautenberg Environmental Health Sciences Laboratory
 
 :::
 

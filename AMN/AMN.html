@@ -388,9 +388,9 @@ style 生物 fill:#fffafa
 <h2>科学问题</h2>
 <ul>
 <li><p>长岛乳腺癌研究队列</p>
-<pre><code>  - 血样：患病组（50）v.s. 对照组（50）
+<pre><code>  - 血样：患病组（50） 对照组（50）
   - 人群背景调查：年龄、BMI、收入、教育等
-  - 人群营养调查：抽烟、饮酒、保健品等</code></pre></li>
+  - 人群营养调查：抽烟、饮酒、饮食习惯、保健品等</code></pre></li>
 <li><p>前置研究</p>
 <pre><code>  - 健康生活指数（Health Life Index, HLI）与乳腺癌有关 </code></pre></li>
 <li><p>研究目标</p>
@@ -406,27 +406,37 @@ style 生物 fill:#fffafa
 <h2>思路与假设</h2>
 <h3 id="生活方式影响乳腺癌的分子机制">生活方式影响乳腺癌的分子机制</h3>
 <ul>
-<li><p>分子机制 ≈ 分子间相互作用网络（可解释性）</p>
-<pre><code>  - 响应相关
-  - 质量差</code></pre></li>
 <li><p>影响 ≈ 构建分子与多暴露/乳腺癌的联系（预测性）</p>
 <pre><code>  - 疾病与小分子
   - 暴露与小分子</code></pre></li>
+<li><p>分子机制 ≈ 分子间相互作用网络（可解释性）</p>
+<pre><code>  - 响应相关
+  - 质量差</code></pre></li>
 <li><p>难点</p>
 <pre><code>  - 未知物
   - 冗余信息
   - 多暴露</code></pre></li>
 </ul>
 </section>
+<section id="思路与假设---影响" class="slide level2">
+<h2>思路与假设 - 影响</h2>
+<ul>
+<li><p>小样本，高维度</p></li>
+<li><p>只保留可能有联系的分子 -&gt; 降维</p></li>
+<li><p>特征工程（L1正则化）</p></li>
+</ul>
+<p><span class="math display">\[生活方式 = f(活性分子)\]</span></p>
+<p><span class="math display">\[RSS + \lambda \sum_{j = 1}^{p} |\beta_j|\]</span></p>
+</section>
 <section id="思路与假设---分子机制" class="slide level2">
 <h2>思路与假设 - 分子机制</h2>
 <blockquote>
-<p>孤岛分子与大陆分子</p>
+<p>响应相关但不同的分子会形成网络</p>
 </blockquote>
 
-<img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3dbnew.png" class="r-stretch"><div class="footer">
+<img data-src="https://yufree.cn/images/cnet.png" class="r-stretch"><div class="footer">
 <ul>
-<li>Yu, M. et al.&nbsp;2020 doi:10.1038/s42004-020-00403-z</li>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/envhealth.3c00218</li>
 </ul>
 </div>
 </section>
@@ -447,16 +457,6 @@ style 生物 fill:#fffafa
 <li>Yu, M. et al.&nbsp;2022 doi:10.1021/acs.est.1c04039</li>
 </ul>
 </div>
-</section>
-<section id="思路与假设---影响" class="slide level2">
-<h2>思路与假设 - 影响</h2>
-<ul>
-<li><p>小样本，高维度</p></li>
-<li><p>只保留可能有联系的分子</p></li>
-<li><p>特征工程（L1正则化）</p></li>
-</ul>
-<p><span class="math display">\[生活方式 = f(活性分子)\]</span></p>
-<p><span class="math display">\[RSS + \lambda \sum_{j = 1}^{p} |\beta_j|\]</span></p>
 </section>
 <section id="思路与假设---整合" class="slide level2">
 <h2>思路与假设 - 整合</h2>
@@ -546,12 +546,12 @@ style 生物 fill:#fffafa
 <section id="结果---未知物鉴定-2" class="slide level2">
 <h2>结果 - 未知物鉴定</h2>
 <ul>
+<li><p>DiHODE 与β胡萝卜素、叶酸、饮酒和肉类摄入有关系</p></li>
 <li><p>DiHODE 属于环氧脂肪酸降解产物</p></li>
-<li><p>DiHODE 与β胡萝卜素、叶酸和肉类摄入有关系</p></li>
+<li><p>环氧水解酶（epoxide hydrolases）可能跟炎症有关</p></li>
 <li><p>β胡萝卜素补充可提高DiHODE脱水产物进而提高DiHODE</p></li>
 <li><p>提高的DiHODE与癌症发病率负相关</p></li>
-<li><p>环氧水解酶（epoxide hydrolases）可能跟炎症有关</p></li>
-<li><p>饮食引发的炎症可能与乳腺癌有关联</p></li>
+<li><p>生活方式引发的炎症可能与乳腺癌有关联</p></li>
 </ul>
 </section>
 <section id="展望" class="slide level2">
@@ -561,6 +561,15 @@ style 生物 fill:#fffafa
 <li><p>分子可拓展到大分子并考虑大小分子间的互相作用</p></li>
 <li><p>特征工程可以用来构建暴露/疾病与分子关系</p></li>
 <li><p>质量差可以协助解释基于相关性构建的活性分子网络</p></li>
+</ul>
+</section>
+<section id="局限性" class="slide level2">
+<h2>局限性</h2>
+<ul>
+<li><p>样品量小、采集时间长</p></li>
+<li><p>探索性研究非验证性研究</p></li>
+<li><p>未知物半定性</p></li>
+<li><p>活性分子网络构建过程没考虑质量差</p></li>
 </ul>
 </section>
 <section id="可重复性" class="slide level2">
@@ -574,8 +583,9 @@ style 生物 fill:#fffafa
 <section id="结语" class="slide level2">
 <h2>结语</h2>
 <ul>
-<li><p>分子间相互关系可用来解释暴露导致疾病的分子机制</p></li>
+<li><p>数据中分子间相互关系可用来解释暴露导致疾病的分子机制</p></li>
 <li><p>活性分子网络本质就是通过分子间相互关系降维</p></li>
+<li><p>小样本上机器学习更适用于降维</p></li>
 <li><p>存在未知物不代表无法讨论</p></li>
 </ul>
 <img data-src="https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0006.gif" class="r-stretch">
@@ -585,11 +595,12 @@ style 生物 fill:#fffafa
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><h4 id="dr.-petricks-research-group">Dr.&nbsp;Petrick’s research group</h4></li>
-<li><h4 id="prof.-jia-chen">Prof.&nbsp;Jia Chen</h4></li>
-<li><h4 id="prof.-mary-wolff">Prof.&nbsp;Mary Wolff</h4></li>
-<li><h4 id="prof.-susan-teitelbaum">Prof.&nbsp;Susan Teitelbaum</h4></li>
-<li><h4 id="the-senator-frank-r.-lautenberg-environmental-health-sciences-laboratory">The Senator Frank R. Lautenberg Environmental Health Sciences Laboratory</h4></li>
+<li><p>Dr.&nbsp;Petrick’s research group</p></li>
+<li><p>Dr.&nbsp;Qian Li</p></li>
+<li><p>Prof.&nbsp;Jia Chen</p></li>
+<li><p>Prof.&nbsp;Mary Wolff</p></li>
+<li><p>Prof.&nbsp;Susan Teitelbaum</p></li>
+<li><p>The Senator Frank R. Lautenberg Environmental Health Sciences Laboratory</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><img data-src="../figure/mssmlabmember.jpg"></p>
