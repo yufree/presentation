@@ -10,9 +10,9 @@
 <link href="AMN_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.554">
 
-  <meta name="author" content="Miao Yu (The Jackson Laboratory)">
-  <meta name="dcterms.date" content="2024-07-29">
-  <title>The Molucular Bridge</title>
+  <meta name="author" content="于淼">
+  <meta name="dcterms.date" content="2024-07-03">
+  <title>活性分子网络在环境暴露与健康研究中的应用</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -330,62 +330,54 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">The Molucular Bridge</h1>
-  <p class="subtitle">Linking environmental exposure to health outcomes via high resolution mass spectrometry</p>
+  <h1 class="title">活性分子网络在环境暴露与健康研究中的应用</h1>
+  <p class="subtitle">E&amp;H 论文导读</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Miao Yu (The Jackson Laboratory) 
+于淼 
 </div>
 </div>
 </div>
 
-  <p class="date">2024-07-29</p>
+  <p class="date">2024-07-03</p>
 </section>
-<section id="disclaimers" class="slide level2">
-<h2>Disclaimers</h2>
-<ul>
-<li><p>Some contents are not peer-reviewed</p></li>
-<li><p>No conflict of interest</p></li>
-<li><p>Open to question during presentation</p></li>
-</ul>
-</section>
-<section id="central-dogma-for-health" class="slide level2">
-<h2>Central Dogma for Health</h2>
-<ul>
-<li><p>Health = Environmental Exposures (Exposome) * Genome</p></li>
-<li><p>Diversity of Exposome/Genome contributions for diseases</p>
-<ul>
-<li><p>Health insurance claims and twins study</p>
-<p><img data-src="images/Screenshot%202024-07-21%20at%203.47.07%20PM.png"></p>
-<div class="footer">
-<p>Nature Genetics https://doi.org/10.1038/s41588-018-0313-7</p>
-</div></li>
-</ul></li>
-</ul>
-</section>
-<section id="the-molecular-bridge" class="slide level2">
-<h2>The molecular bridge</h2>
-<ul>
-<li>How to explain the linkage between exposome and health?</li>
-</ul>
+<section id="环境暴露与健康" class="slide level2">
+<h2>环境暴露与健康</h2>
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-            subgraph Human
-                        X(Xenobiotic Compounds) --&gt; W(Metabolites)
-                        O(Genome) --&gt; P(Proteome)
-                        P --&gt; Q(Metabolome)
+            subgraph 生物
+                        X(外源污染物) --&gt; W(外源代谢物)
+                        O(基因) --&gt; P(蛋白质)
+                        P --&gt; Q(内源代谢物)
             end
             
-            A(Environmental Exposures) ==&gt; Human
-            Human ==&gt; C(Health)
+            A(环境暴露) ==&gt; 生物
+            生物 ==&gt; C(健康)
+            H([生态系统]) --- A
+        F([社会因素]) --- A
+            G([个人生活]) --- A
+            
+            C --- D([疾病])
+            C --- E([福利])
+        D --- I[生理疾病]
+        D --- J[心理疾病]
+        E --- K[长寿]
+            E --- L[幸福感]
+            M[污染物] --- H
+            N[气候变化] --- H
+            R[教育水平] --- F
+            S[收入水平] --- F
+            T[烟酒毒品] --- G
+            U[饮食习惯] --- G
+            V[保健品/健身] --- G
 
-style Human fill:#fffafa
+style 生物 fill:#fffafa
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -393,140 +385,234 @@ style Human fill:#fffafa
 </div>
 </div>
 </section>
-<section id="questions" class="slide level2">
-<h2>Questions</h2>
-<p>Based on data collected from high resolution mass spectrometry:</p>
+<section id="科学问题" class="slide level2">
+<h2>科学问题</h2>
 <ul>
-<li><p>How to assign the sources of molecular in samples?</p></li>
-<li><p>How to build the explainable molecular bridge?</p></li>
-<li><p>How to make quantitative analysis of the molecular bridge?</p></li>
+<li><p>研究目标</p>
+<pre><code>  - 找到生活方式影响乳腺癌的分子机制</code></pre></li>
+<li><p>前置研究</p>
+<pre><code>  - 健康生活指数（Health Life Index, HLI）与乳腺癌有关 </code></pre></li>
+<li><p>长岛乳腺癌研究队列</p>
+<pre><code>  - 血样：患病组（50） 对照组（50）
+  - 人群背景调查：年龄、BMI、收入、教育等
+  - 人群营养调查：抽烟、饮酒、饮食习惯、保健品等</code></pre></li>
 </ul>
-</section>
-<section id="task-1-source-appointment-of-unknown-molecular" class="slide level2">
-<h2>Task 1: source appointment of unknown molecular</h2>
+<div class="footer">
 <ul>
-<li>T3DB Endogenous (255) vs Exogenous (705)</li>
+<li>Li, Q. et al.&nbsp;2022 doi:10.1007/s12282-022-01374-w</li>
 </ul>
-
-<img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3dbnew.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
 </div>
 </section>
-<section id="task-1-source-appointment-of-unknown-molecular-1" class="slide level2">
-<h2>Task 1: source appointment of unknown molecular</h2>
+<section id="思路与假设" class="slide level2">
+<h2>思路与假设</h2>
+<h3 id="生活方式影响乳腺癌的分子机制">生活方式影响乳腺癌的分子机制</h3>
 <ul>
-<li>Confirmation with known biological reactions</li>
+<li><p>影响 ≈ 构建分子与多暴露/乳腺癌的联系（预测性）</p>
+<pre><code>  - 疾病与小分子
+  - 暴露与小分子</code></pre></li>
+<li><p>分子机制 ≈ 分子间相互作用网络（可解释性）</p>
+<pre><code>  - 响应相关
+  - 质量差</code></pre></li>
+<li><p>难点</p>
+<pre><code>  - 未知物
+  - 冗余信息
+  - 多暴露</code></pre></li>
 </ul>
+</section>
+<section id="思路与假设---影响" class="slide level2">
+<h2>思路与假设 - 影响</h2>
+<ul>
+<li><p>小样本，高维度</p></li>
+<li><p>只保留可能有联系的分子 -&gt; 降维</p></li>
+<li><p>特征工程（L1正则化）</p></li>
+</ul>
+<p><span class="math display">\[生活方式 = f(活性分子)\]</span></p>
+<p><span class="math display">\[RSS + \lambda \sum_{j = 1}^{p} |\beta_j|\]</span></p>
+</section>
+<section id="思路与假设---分子机制" class="slide level2">
+<h2>思路与假设 - 分子机制</h2>
+<blockquote>
+<p>响应相关但不同的分子会形成网络</p>
+</blockquote>
 
-<img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/keggnew.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
+<img data-src="https://yufree.cn/images/cnet.png" class="r-stretch"><div class="footer">
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/envhealth.3c00218</li>
+</ul>
 </div>
 </section>
-<section id="task-1-source-appointment-of-unknown-molecular-2" class="slide level2">
-<h2>Task 1: source appointment of unknown molecular</h2>
-<ul>
-<li><p>Endogenous compounds: 4.5 (95% CI [4.3, 4.8])</p></li>
-<li><p>Exogenous compounds: 1.7 (95% CI [1.2, 2.2])</p></li>
-<li><p>Assumptions</p>
-<ul>
-<li><p>Paired mass distances (PMD) contain bio-reaction information</p></li>
-<li><p>“Foreign” molecular is hard to be attacked by endogenous enzyme</p></li>
-<li><p>Pay attention to “fake” endogenous compounds</p></li>
-</ul></li>
-</ul>
-</section>
-<section id="task-2-build-the-explainable-molecular-bridge" class="slide level2">
-<h2>Task 2: build the explainable molecular bridge</h2>
-<ul>
-<li><p>PMD can link compounds</p></li>
-<li><p>High resolution mass spectrometry measures peaks</p></li>
-<li><p>Peaks are not equal to compounds</p></li>
-</ul>
-
-<img data-src="https://yufree.github.io/presentation/figure/peakcom.png" class="quarto-figure quarto-figure-center r-stretch" width="426"></section>
-<section id="task-2-build-the-explainable-molecular-bridge-1" class="slide level2">
-<h2>Task 2: build the explainable molecular bridge</h2>
-<ul>
-<li>Algorithm to remove peaks from the same compounds</li>
-</ul>
-
-<img data-src="https://yufree.github.io/presentation/figure/GlobalStd.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Analytica Chimica Acta https://doi.org/10.1016/j.aca.2018.10.062</p>
-</div>
-</section>
-<section id="task-2-build-the-explainable-molecular-bridge-2" class="slide level2">
-<h2>Task 2: build the explainable molecular bridge</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/TBBPA.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
-</div>
-</section>
-<section id="task-3-quantitative-analysis-of-pmds" class="slide level2">
-<h2>Task 3: quantitative analysis of PMDs</h2>
-<ul>
-<li><p>Measure the changes at reaction level</p></li>
-<li><p>Skip the annotation of unknown compounds</p></li>
-</ul>
-
-<img data-src="images/Screenshot%202024-07-21%20at%204.59.18%20PM.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
-</div>
-</section>
-<section id="task-3-quantitative-analysis-of-pmds-1" class="slide level2">
-<h2>Task 3: quantitative analysis of PMDs</h2>
-<ul>
-<li><p>Qualification of reactions will involved paired ions</p>
-<ul>
-<li><p>Response factors are different</p></li>
-<li><p>Paired ions have different changing profiles within samples</p></li>
-</ul></li>
-</ul>
-
-<img data-src="https://yufree.github.io/presentation/figure/qreaction.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="task-3-quantitative-analysis-of-pmds-2" class="slide level2">
-<h2>Task 3: quantitative analysis of PMDs</h2>
-<ul>
-<li>Normalization the stable ions and use unstable ions for quantitative analysis</li>
-</ul>
-
-<img data-src="images/reaction.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="task-3-quantitative-analysis-of-pmds-3" class="slide level2">
-<h2>Task 3: quantitative analysis of PMDs</h2>
-<ul>
-<li>Double bonds reactions in lung/breast cancer</li>
-</ul>
+<section id="思路与假设---分子机制-1" class="slide level2">
+<h2>思路与假设 - 分子机制</h2>
+<blockquote>
+<p>相关性阈值 - 包括尽量多的分子，形成尽量多的子网络</p>
+</blockquote>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="https://yufree.github.io/presentation/figure/mtbls28.png"></p>
+<p><img data-src="https://github.com/yufree/yufree.cn/blob/master/static/images/cf.gif?raw=true"></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="images/libc.png"></p>
+<p><img data-src="https://github.com/yufree/yufree.cn/blob/master/static/images/cutoff.png?raw=true"></p>
 </div>
 </div>
 <div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/acs.est.1c04039</li>
+</ul>
 </div>
 </section>
-<section id="take-home-message" class="slide level2">
-<h2>Take-home message</h2>
+<section id="思路与假设---整合" class="slide level2">
+<h2>思路与假设 - 整合</h2>
+
+<img data-src="https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0002.gif" class="r-stretch"><div class="footer">
 <ul>
-<li><p>Molecular information will fill the gap between exposures and diseases</p></li>
-<li><p>Network property can be used to distinguish sources of peaks</p></li>
-<li><p>Removal of redundant peaks is crucial for molecular level discussion</p></li>
-<li><p>Quantitation of molecular relations is possible for mass spectrometry</p></li>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/envhealth.3c00218</li>
+</ul>
+</div>
+</section>
+<section id="结果---活性分子网络构建" class="slide level2">
+<h2>结果 - 活性分子网络构建</h2>
+<ul>
+<li><p>代谢组学分析得到 6615 (HILIC) 正离子与 5171 (RP) 负离子</p></li>
+<li><p>去除冗余峰后得到 913 (HILIC) 正离子与 890 (RP) 负离子</p></li>
+<li><p>合并正负离子得到 1790 个独立离子</p></li>
+<li><p>活性分子网络相关性阈值 0.84</p></li>
+<li><p>851个分子属于197个活性分子网络</p></li>
+</ul>
+<div class="footer">
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1186/s13321-022-00586-8</li>
+</ul>
+</div>
+</section>
+<section id="结果---活性分子网络与暴露疾病关系" class="slide level2">
+<h2>结果 - 活性分子网络与暴露/疾病关系</h2>
+<ul>
+<li><p>乳腺癌与13个小分子有关</p></li>
+<li><p>13个小分子通过活性分子网络拓展到71个小分子</p></li>
+<li><p>71个小分子与5种暴露相关</p></li>
+</ul>
+
+<img data-src="https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0004.gif" class="r-stretch"><div class="footer">
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/envhealth.3c00218</li>
+</ul>
+</div>
+</section>
+<section id="结果---活性分子网络适用性" class="slide level2">
+<h2>结果 - 活性分子网络适用性</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>活性分子网络（851）对比全分子网络（1790）</p></li>
+<li><p>71组分子-暴露关系对比300组分子-暴露关系</p></li>
+<li><p>大多数分子-暴露关系 (207/300)是单暴露关系</p></li>
+<li><p>活性分子网络更适合发现“分子看门人”</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0003.gif"></p>
+</div>
+</div>
+<div class="footer">
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/acs.est.1c04039</li>
+</ul>
+</div>
+</section>
+<section id="结果---未知物鉴定" class="slide level2">
+<h2>结果 - 未知物鉴定</h2>
+
+<img data-src="https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0005.gif" class="r-stretch"><div class="footer">
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/envhealth.3c00218</li>
+</ul>
+</div>
+</section>
+<section id="结果---未知物鉴定-1" class="slide level2">
+<h2>结果 - 未知物鉴定</h2>
+<ul>
+<li><p>母离子：m/z 311.2220 保留时间 6.8 min</p></li>
+<li><p>碎片离子：m/z 293.166, 197.0273, 183.0118</p></li>
+<li><p>数据库匹配（GNPS, MS-DIAL）：13-HPODE</p></li>
+<li><p>标准验证：母离子匹配，保留时间 7.5 min</p></li>
+<li><p>分析 9-HPODE, 12,13-DiHOME, 9,10-DiHOME 碎片离子</p></li>
+<li><p>12,13-DiHOME 9,10-DiHOME 保留时间接近，推测含有两个羟基</p></li>
+<li><p>碎片离子含有9个碳</p></li>
+<li><p>推测为 dihydroxyoctadeca dienoate (DiHODE)</p></li>
+</ul>
+<div class="footer">
+<ul>
+<li>Yu, M. et al.&nbsp;2022 doi:10.1021/envhealth.3c00218</li>
+</ul>
+</div>
+</section>
+<section id="结果---未知物鉴定-2" class="slide level2">
+<h2>结果 - 未知物鉴定</h2>
+<ul>
+<li><p>DiHODE 与β胡萝卜素、叶酸、饮酒和肉类摄入有关系</p></li>
+<li><p>DiHODE 属于环氧脂肪酸降解产物</p></li>
+<li><p>环氧水解酶（epoxide hydrolases）可能跟炎症有关</p></li>
+<li><p>β胡萝卜素补充可提高DiHODE脱水产物进而提高DiHODE</p></li>
+<li><p>提高的DiHODE与癌症发病率负相关</p></li>
+<li><p>生活方式引发的炎症可能与乳腺癌有关联</p></li>
 </ul>
 </section>
-<section id="acknowledgement" class="slide level2">
-<h2>Acknowledgement</h2>
+<section id="展望" class="slide level2">
+<h2>展望</h2>
 <ul>
-<li><p>Prof.&nbsp;Lauren Petrick’s Group @ Mount Sinai</p></li>
-<li><p>Prof.&nbsp;Janusz Pawliszyn’s Group @ UWaterloo</p></li>
-<li><p>Data Science @ The Jackson Laboratory</p></li>
+<li><p>发现与解释响应多暴露的代谢网络及酶</p></li>
+<li><p>分子可拓展到大分子并考虑大小分子间的互相作用</p></li>
+<li><p>特征工程可以用来构建暴露/疾病与分子关系</p></li>
+<li><p>质量差可以协助解释基于相关性构建的活性分子网络</p></li>
 </ul>
 </section>
-<section id="qa" class="slide level2">
-<h2>Q&amp;A</h2>
+<section id="局限性" class="slide level2">
+<h2>局限性</h2>
 <ul>
-<li>miao.yu@jax.org</li>
+<li><p>样品量小、采集时间长</p></li>
+<li><p>探索性研究非验证性研究</p></li>
+<li><p>未知物半定性</p></li>
+<li><p>活性分子网络构建过程没考虑质量差</p></li>
+</ul>
+</section>
+<section id="可重复性" class="slide level2">
+<h2>可重复性</h2>
+<ul>
+<li><p>数据涉及隐私目前不公开</p></li>
+<li><p>数据处理代码在论文支持信息里</p></li>
+<li><p>enet包 <a href="https://github.com/yufree/enet" class="uri">https://github.com/yufree/enet</a></p></li>
+</ul>
+</section>
+<section id="结语" class="slide level2">
+<h2>结语</h2>
+<ul>
+<li><p>数据中分子间相互关系可用来解释暴露导致疾病的分子机制</p></li>
+<li><p>活性分子网络本质就是通过分子间相互关系降维</p></li>
+<li><p>小样本上机器学习更适用于降维</p></li>
+<li><p>存在未知物不代表无法讨论</p></li>
+</ul>
+<img data-src="https://pubs.acs.org/cms/10.1021/envhealth.3c00218/asset/images/medium/eh3c00218_0006.gif" class="r-stretch">
+</section>
+<section id="致谢" class="slide level2">
+<h2>致谢</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Dr.&nbsp;Petrick’s research group</p></li>
+<li><p>Dr.&nbsp;Qian Li</p></li>
+<li><p>Prof.&nbsp;Jia Chen</p></li>
+<li><p>Prof.&nbsp;Mary Wolff</p></li>
+<li><p>Prof.&nbsp;Susan Teitelbaum</p></li>
+<li><p>The Senator Frank R. Lautenberg Environmental Health Sciences Laboratory</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../figure/mssmlabmember.jpg"></p>
+</div>
+</div>
+</section>
+<section id="欢迎各位老师批评指正" class="title-slide slide level1 center">
+<h1>欢迎各位老师批评指正!</h1>
+<ul>
+<li><p>https://yufree.github.io/presentation/AMN/AMN.html</p></li>
+<li><p>miao.yu@jax.org</p></li>
 </ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
