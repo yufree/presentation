@@ -13,6 +13,18 @@ output:
       countIncrementalSlides: false
 ---
 
+## Central Dogma for Health
+
+Health = Environmental Exposures (Exposome) * Genome
+
+Diversity of Exposome/Genome contributions for diseases
+
+Health insurance claims and twins study
+
+![](images/ctb.png)
+
+<Nature Genetics https://doi.org/10.1038/s41588-018-0313-7>
+
 ## 暴露组学
 
 - 生物表型或疾病是环境与基因在时间尺度上交互作用的结果

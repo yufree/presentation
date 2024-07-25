@@ -114,7 +114,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 -   Skip the annotation of unknown compounds
 
-![](images/Screenshot%202024-07-21%20at%204.59.18%20PM.png){fig-align="center"}
+![](images/kegg.png){fig-align="center"}
 
 ::: footer
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z

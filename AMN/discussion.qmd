@@ -1,0 +1,83 @@
+---
+title: "Group Discussion"
+subtitle: "Health risks of new pollutants"
+format:
+  revealjs: 
+    theme: simple
+    slide-number: true
+editor: visual
+---
+
+## Agenda
+
+-   Introduce topics
+
+-   Select or propose a topic for group discussion
+
+-   Summary for each group
+
+## Topic 1
+
+-   How to define "emerging" compounds for health risk?
+
+    -   Unknown or unlisted
+
+    -   Detection frequency
+
+    -   Predicted toxicity
+
+    -   Effect-directed analysis
+
+## Topic 2
+
+-   How to define health risk as a chemist?
+
+    -   Transformation products (TPs)
+
+    -   Phenotype
+
+    -   Molecular biomarkers for certain health endpoint
+
+    -   Molecular descriptors
+
+## Topic 3
+
+-   Chemical mixture exposures
+
+    -   Micro(nano)plastics / Airborne particulate matter / Tire wear particles
+
+    -   Bioactive congeners/metabolites
+
+    -   Synergistic/Antagonistic effect
+
+    -   Contributions
+
+## Trends
+
+-   AI for science
+
+    -   Encoding knowledge into the model
+
+-   Climate change
+
+    -   Temperature / Extreme weather
+
+-   Aging
+
+    -   Demographic structure
+
+-   Precision medicine
+
+    -   Digital wearable technologies
+
+## Topics
+
+-   How to define "emerging" compounds for health risk?
+
+-   How to define health risk as a chemist?
+
+-   Chemical mixture exposures
+
+-   ...
+
+## Summary
