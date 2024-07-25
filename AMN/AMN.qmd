@@ -18,20 +18,6 @@ editor: visual
 
 -   Open to question during presentation
 
-## Central Dogma for Health
-
--   Health = Environmental Exposures (Exposome) \* Genome
-
--   Diversity of Exposome/Genome contributions for diseases
-
-    -   Health insurance claims and twins study
-
-        ![](images/Screenshot%202024-07-21%20at%203.47.07%20PM.png)
-
-        ::: footer
-        Nature Genetics https://doi.org/10.1038/s41588-018-0313-7
-        :::
-
 ## The molecular bridge
 
 -   How to explain the linkage between exposome and health?
