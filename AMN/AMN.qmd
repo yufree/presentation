@@ -50,7 +50,7 @@ Based on data collected from high resolution mass spectrometry:
 
 -   T3DB Endogenous (255) vs Exogenous (705)
 
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3dbnew.png){fig-align="center"}
+![](images/t3dbnew.png){fig-align="center"}
 
 ::: footer
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
@@ -60,7 +60,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 -   Confirmation with known biological reactions
 
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/keggnew.png){fig-align="center"}
+![](images/keggnew.png){fig-align="center"}
 
 ::: footer
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
@@ -88,7 +88,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 -   Peaks are not equal to compounds
 
-![](https://yufree.github.io/presentation/figure/peakcom.png){fig-align="center" width="426"}
+![](images/peakcom.png){fig-align="center"}
 
 ## Task 2: build the explainable molecular bridge
 
