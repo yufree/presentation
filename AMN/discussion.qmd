@@ -58,7 +58,7 @@ editor: visual
 
     -   Encoding knowledge into the model
 
--   Climate change
+-   Climate change for extractables and leachables
 
     -   Temperature / Extreme weather
 
