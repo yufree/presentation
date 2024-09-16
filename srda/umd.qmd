@@ -18,6 +18,8 @@ editor: visual
 
 -   Slides is available for everyone
 
+    -   \<<http://yufree.github.io/presentation/srda/umd.html>\>
+
 ## Metabolites discovery
 
 -   Metabolites of endogenous compounds
@@ -290,7 +292,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 -   Reaction is the "base pair" for small molecules
 
--   Real data always enriched in few a PMDs or reactions
+-   Real data always enriched in few PMDs or reactions
 
 -   PMD network analysis can accelerate metabolites discovery
 
