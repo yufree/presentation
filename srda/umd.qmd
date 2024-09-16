@@ -1,0 +1,299 @@
+---
+title: "REACTOMICS IN BRIEF"
+subtitle: "Data-driven untargeted metabolites discovery"
+author: "Miao Yu"
+date: "2024-09-17"
+format:
+  revealjs: 
+    theme: simple
+    slide-number: true
+editor: visual
+---
+
+## Disclaimers
+
+-   No conflict of interest
+
+-   Open to question during presentation
+
+-   Slides is available for everyone
+
+## Metabolites discovery
+
+-   Metabolites of endogenous compounds
+
+    -   Activation/Inhibition of certain pathway
+
+    -   Excretion from the biological system
+
+-   Biotransformation of man-made compounds
+
+    -   Drug
+    -   Food additives
+    -   Pesticides
+    -   Flame retardant
+
+-   Evaluation of their toxicity and risk
+
+## Principle of metabolites discovery
+
+-   Xenobiotics metabolism[^1]
+
+[^1]: By TimVickers - Own work, Public Domain, <https://commons.wikimedia.org/w/index.php?curid=4549628>
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png)
+
+## Problems
+
+|                | **Aware**             | **Not aware**     |
+|----------------|-----------------------|-------------------|
+| Identified     | Known metabolites     | Unknown compounds |
+| Not identified | Potential metabolites | Unknown unknowns  |
+
+-   Standards for unknown compounds
+
+-   Identification of potential metabolites
+
+-   Unknown unknowns
+
+## Current Solution
+
+### *in silico* prediction of potential metabolites
+
+-   Biotransformer 3.0[^2]
+
+-   EAWAG-BBD Pathway Prediction System[^3]
+
+[^2]: <https://doi.org/10.1093/nar/gkac313>
+
+[^3]: <http://eawag-bbd.ethz.ch/index.html>
+
+SMILES string or molecular structures as input
+
+Limited by Number of Reaction Iterations (3)
+
+## My solution
+
+> Focused on relationship among compounds
+
+![](https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg){fig-align="center"}
+
+From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
+
+## My solution
+
+> Mass spectrometry can measure relationship (reactions)
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png){fig-align="center"}
+
+## Why Reactions?
+
+![](https://yufree.github.io/presentation/figure/database.png){fig-align="center"}
+
+-   Unit: Gene (5) \< Protein (20+2) \< Metabolite (100K) \< Compound (100M)
+
+-   Combination: Gene (20,000-25,000) \< Protein (20,000-25,000) \< Compound(???)
+
+-   Small molecule **combination** is a chemical reaction or paired mass distance
+
+## Why PMD?
+
+-   [Nuclear Binding Energy](https://en.wikipedia.org/wiki/Nuclear_binding_energy)
+
+$$\Delta m = Zm_{H} + Nm_{n} - M$$
+
+-   The missing mass was converted into energy ( $E=mc^2$ ) and emitted when the atom was made
+
+-   Atoms -\> Compounds -\> Mass distances between compounds
+
+-   **Paired Mass Distances (PMD)** is unique
+
+-   **High resolution** mass spectrometry is required
+
+## PMDs in KEGG database
+
+-   Top 10 high frequency PMDs cover 68% known reactions
+
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/AMN/images/kegg.png){fig-align="center"}
+
+::: footer
+Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
+:::
+
+## PMDs in real data
+
+::: columns
+::: {.column width="50%"}
+-   Isotopologues
+
+    -   $[M]^+$ $[M+1]^+$
+    -   1.006 Da
+
+-   in source reaction
+
+    -   $[M+H]^+$ $[M+Na]^+$
+    -   21.982 Da
+:::
+
+::: {.column width="50%"}
+-   Homologous series
+
+    -   Lipid $-[CH_2]-$
+    -   14.016 Da
+
+-   Xenobiotic metabolism
+
+    -   Phase I hydrolation
+    -   15.995 Da
+:::
+:::
+
+## PMD-based reactomics workflow
+
+-   STEP1: Remove redundant peaks
+
+-   STEP2: Extract high frequency PMDs
+
+-   STEP3: Relationship network
+
+## How many real compounds among features?
+
+![](https://yufree.github.io/presentation/figure/gapfc.jpg){fig-align="center"}
+
+::: footer
+Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380
+:::
+
+## Redundant peaks
+
+-   Untargeted analysis would loss sensitivity to capture all peaks
+
+-   Send unknown while independent peaks for MS/MS
+
+![](https://yufree.github.io/presentation/figure/peakcom.png){fig-align="center"}
+
+## GlobalStd Algorithm
+
+![](https://yufree.github.io/presentation/figure/GlobalStd.png){fig-align="center"}
+
+::: footer
+Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S0003267018313047
+:::
+
+## GlobalStd Algorithm Step 1
+
+### Retention time cluster analysis
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png){fig-align="center"}
+
+## GlobalStd Algorithm Step 2
+
+### High frequency PMD analysis across RT clusters
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png){fig-align="center"}
+
+## GlobalStd Algorithm Step 2
+
+### High frequency PMD analysis across RT clusters - example
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png){fig-align="center"}
+
+## GlobalStd Algorithm Step 3
+
+### Independent peaks selection
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png){fig-align="center"}
+
+## PMDDA workflow
+
+![](https://yufree.github.io/presentation/figure/PMDDAraw.png){fig-align="center"}
+
+::: footer
+Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00586-8
+:::
+
+## PMDDA workflow
+
+![](https://yufree.github.io/presentation/figure/pmddacomp.png){fig-align="center"}
+
+## Extract high frequency PMDs
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png){fig-align="center"}
+
+## Relationship network
+
+![](https://yufree.github.io/pmd/articles/reactomics_files/figure-html/net-1.png){fig-align="center"}
+
+## Reactomics for metabolites discovery
+
+-   Knowledge driven - custom PMDs lists
+
+-   Data driven - high frequency PMDs list
+
+-   Case study : Metabolites of TBBPA in Pumpkin
+
+    -   Mass defect analysis to screen Brominated Compounds
+
+    -   Confirmation by synthesized standards
+
+## Case study
+
+![](https://yufree.github.io/presentation/figure/TBBPAmet.jpeg){fig-align="center"}
+
+::: footer
+Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122
+:::
+
+## Case study
+
+-   TBBPA Metabolites PMD network
+
+![](https://yufree.github.io/presentation/figure/TBBPA.png){fig-align="center"}
+
+::: footer
+Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
+:::
+
+## How to define high frequency?
+
+::: columns
+::: {.column width="50%"}
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/networkgen.gif)
+:::
+
+::: {.column width="50%"}
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/dis.png)
+:::
+:::
+
+## Endogenous vs Exogenous
+
+-   T3DB Endogenous (255) vs Exogenous (705)
+
+-   Use top 10 high frequency PMDs
+
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png){fig-align="center"}
+
+## Biomarker Reaction
+
+-   Double bonds reactions in lung cancer
+
+![](https://yufree.github.io/presentation/figure/mtbls28.png){fig-align="center"}
+
+## Shiny application
+
+<https://yufree.shinyapps.io/pmdnet/>
+
+## Take-home message
+
+-   Metabolites discovery can be data driven
+
+-   Reaction is the "base pair" for small molecules
+
+-   Real data always enriched in few a PMDs or reactions
+
+-   PMD network analysis can accelerate metabolites discovery
+
+## Q&A
+
+-   miao.yu\@jax.org
