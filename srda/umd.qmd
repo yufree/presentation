@@ -18,7 +18,7 @@ editor: visual
 
 -   Slides is available for everyone
 
-    -   \<<http://yufree.github.io/presentation/srda/umd.html>\>
+    -   <http://yufree.github.io/presentation/srda/umd.html>
 
 ## Metabolites discovery
 
