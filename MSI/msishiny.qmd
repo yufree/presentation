@@ -1,0 +1,153 @@
+---
+title: "Exploring Kidney Metabolism: An Interactive Network Tool"
+format: revealjs
+editor: visual
+---
+
+## The Challenge: Making Sense of Complex Metabolic Data
+
+-   Kidneys perform countless chemical reactions involving many small molecules (metabolites).
+-   Modern techniques like Mass Spectrometry generate huge amounts of data about these metabolites.
+-   Mass Spectrometry Imaging (MSI) even shows us *where* these metabolites are located in the tissue.
+-   **Challenge:** How do we see the relationships *between* these metabolites and understand potential reaction pathways within this complex data?
+
+------------------------------------------------------------------------
+
+## Our Solution: An Interactive Metabolic Network Tool
+
+-   We've built a web-based tool to help visualize and explore these relationships.
+-   Think of it as an **interactive map** of potential metabolic connections in *your* kidney data.
+-   **Goal:** To help you generate hypotheses, explore connections, and understand your data better, without needing to code!
+
+------------------------------------------------------------------------
+
+## What You're Looking At: The Basics
+
+-   **Dots (Nodes):** Represent individual **Metabolites**.
+    -   Labeled with their chemical name if identified.
+    -   Labeled with `m/z_ccs` (mass/charge and collision cross-section) if unidentified.
+-   **Lines (Edges):** Represent a potential **Relationship** or **Reaction** between two metabolites.
+
+------------------------------------------------------------------------
+
+## How Are Metabolites Linked?
+
+1.  **Paired Mass Differences (PMDs):**
+    -   Many biochemical reactions involve adding or removing small, common chemical groups (like water, methyl, phosphate).
+    -   The *difference in mass* between two connected metabolites often matches the mass of these common groups.
+    -   We call this difference a PMD. It suggests a potential biochemical transformation.
+
+------------------------------------------------------------------------
+
+## How Are Metabolites Linked?
+
+2.  **Spatial Correlation (from MSI):**
+    -   Metabolites involved in the same pathway or located in the same cell type often appear in *similar locations* in the kidney tissue image.
+    -   The lines also reflect this spatial co-localization – stronger correlation means they are found together more often.
+
+------------------------------------------------------------------------
+
+## Let's Tour the Tool: Main Sections
+
+1.  **Information Panel:** Instructions and contact info.
+2.  **Data Exploration Tabs:** Where you find reactions and search.
+    -   `Reactions (PMDs) Table`
+    -   `Sample PMD Search`
+    -   `KEGG PMD Search`
+3.  **Network Visualization:** The main interactive map area.
+4.  **Metabolite Information:** Shows details (like MSI images) for selected metabolites.
+
+------------------------------------------------------------------------
+
+## Step 1: Explore Potential Reactions (PMD Table)
+
+-   Go to the `Data Exploration` -\> `Reactions (PMDs) Table` tab.
+-   This table shows common **Mass Differences (PMDs)** found frequently in *your* kidney dataset.
+
+## Step 1: Explore Potential Reactions (PMD Table)
+
+-   **Key Columns:**
+    -   `pmd`: The mass difference value.
+    -   `freq`: How many metabolite pairs in *your data* have this mass difference.
+    -   `reaction`: The likely biochemical reaction type.
+    -   `freq_kegg`: How common this PMD is in known biological reactions (KEGG database).
+-   **ACTION:** Select rows corresponding to reactions you want to investigate further. Click on the rows.
+
+------------------------------------------------------------------------
+
+## Step 2: View the Network
+
+-   Once you've selected one or more rows (reactions) in the table...
+
+-   **ACTION:** Click the big blue **"Show Network"** button above the network panel.
+
+-   The network map will appear, showing ONLY the metabolites and relationships corresponding to the reactions you selected.
+
+------------------------------------------------------------------------
+
+## Step 3: Explore the Interactive Network
+
+-   **Interact:** Zoom in/out, pan around, drag metabolites (dots) to rearrange the view.
+-   **Hover over a Line (Edge):** A tooltip appears showing the exact PMD value and the spatial correlation score between the two connected metabolites.
+-   **ACTION:** Click on a **Dot (Metabolite)** that interests you.
+
+------------------------------------------------------------------------
+
+## Step 4: See Where Metabolites Are Located (MSI View)
+
+-   When you click on a metabolite (dot) in the network...
+-   Look at the **right-hand panel**.
+-   An **MSI Image** appears, showing the spatial distribution of that *specific metabolite* across the kidney tissue slice.
+-   A **color bar** (White -\> Red) indicates low to high abundance.
+
+------------------------------------------------------------------------
+
+## Step 5: Find a Specific Metabolite
+
+-   Want to find a known metabolite (e.g., Citrate) or an unidentified feature (`m/z_ccs`) in the *current* network view?
+-   **ACTION:** Use the **"Select or Search Node (Metabolite)" dropdown menu** above the MSI image.
+-   Start typing the name or `m/z_ccs`.
+-   Select it from the list. The tool will highlight it in the network and show its MSI image.
+-   *(Note: It only finds metabolites present in the network you generated in Step 2)*
+
+------------------------------------------------------------------------
+
+## Bonus Feature: Deeper Dive with PMD Search
+
+-   Want to investigate a *specific* mass difference (PMD) that wasn't in the main table, or explore it more?
+-   Use the `Data Exploration` tabs:
+    1.  **`Sample PMD Search`:**
+        -   Enter a PMD value (e.g., 14.016 for Methylation) and a tolerance (e.g., 0.001).
+        -   Click Search.
+        -   Result: Shows all metabolite pairs *in your kidney data* with that mass difference.
+
+------------------------------------------------------------------------
+
+## Bonus Feature: Deeper Dive with PMD Search
+
+-   Use the `Data Exploration` tabs:
+
+    2.  **`KEGG PMD Search`:**
+        -   Enter a PMD value and tolerance.
+        -   Click Search.
+        -   Result: Shows known biochemical reactions from the KEGG database that match this mass difference. Useful for identifying potential reaction types.
+
+-   **ACTION:** You can **Download** these search results as CSV files.
+
+------------------------------------------------------------------------
+
+## Why is This Tool Useful for Biologists?
+
+-   **Visualize Connections:** See potential metabolic pathways and relationships directly from your data.
+-   **Generate Hypotheses:** Identify candidate reactions occurring in your kidney samples (e.g., "Is hydroxylation active here?").
+-   **Explore Neighbors:** Find out what other metabolites are related (by PMD or location) to a metabolite you're studying.
+-   **Link Unknowns:** Connect unidentified features (`m/z_ccs`) to known metabolites through shared PMDs.
+-   **Spatial Context:** Instantly see *where* metabolites in the network are located in the tissue via MSI.
+
+------------------------------------------------------------------------
+
+## Questions? {.center}
+
+<https://thejacksonlaboratory.shinyapps.io/kidneyshiny/>
+
+**Contact:** miao.yu\@jax.org

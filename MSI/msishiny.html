@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="msishiny_files/libs/clipboard/clipboard.min.js"></script>
+<script src="msishiny_files/libs/quarto-html/tabby.min.js"></script>
+<script src="msishiny_files/libs/quarto-html/popper.min.js"></script>
+<script src="msishiny_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="msishiny_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="msishiny_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="msishiny_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
+
+  <title>Exploring Kidney Metabolism: An Interactive Network Tool</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="msishiny_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="msishiny_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="msishiny_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link href="msishiny_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="msishiny_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="msishiny_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="msishiny_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Exploring Kidney Metabolism: An Interactive Network Tool</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="the-challenge-making-sense-of-complex-metabolic-data" class="slide level2">
+<h2>The Challenge: Making Sense of Complex Metabolic Data</h2>
+<ul>
+<li>Kidneys perform countless chemical reactions involving many small molecules (metabolites).</li>
+<li>Modern techniques like Mass Spectrometry generate huge amounts of data about these metabolites.</li>
+<li>Mass Spectrometry Imaging (MSI) even shows us <em>where</em> these metabolites are located in the tissue.</li>
+<li><strong>Challenge:</strong> How do we see the relationships <em>between</em> these metabolites and understand potential reaction pathways within this complex data?</li>
+</ul>
+</section>
+<section id="our-solution-an-interactive-metabolic-network-tool" class="slide level2">
+<h2>Our Solution: An Interactive Metabolic Network Tool</h2>
+<ul>
+<li>We’ve built a web-based tool to help visualize and explore these relationships.</li>
+<li>Think of it as an <strong>interactive map</strong> of potential metabolic connections in <em>your</em> kidney data.</li>
+<li><strong>Goal:</strong> To help you generate hypotheses, explore connections, and understand your data better, without needing to code!</li>
+</ul>
+</section>
+<section id="what-youre-looking-at-the-basics" class="slide level2">
+<h2>What You’re Looking At: The Basics</h2>
+<ul>
+<li><strong>Dots (Nodes):</strong> Represent individual <strong>Metabolites</strong>.
+<ul>
+<li>Labeled with their chemical name if identified.</li>
+<li>Labeled with <code>m/z_ccs</code> (mass/charge and collision cross-section) if unidentified.</li>
+</ul></li>
+<li><strong>Lines (Edges):</strong> Represent a potential <strong>Relationship</strong> or <strong>Reaction</strong> between two metabolites.</li>
+</ul>
+</section>
+<section id="how-are-metabolites-linked" class="slide level2">
+<h2>How Are Metabolites Linked?</h2>
+<ol type="1">
+<li><strong>Paired Mass Differences (PMDs):</strong>
+<ul>
+<li>Many biochemical reactions involve adding or removing small, common chemical groups (like water, methyl, phosphate).</li>
+<li>The <em>difference in mass</em> between two connected metabolites often matches the mass of these common groups.</li>
+<li>We call this difference a PMD. It suggests a potential biochemical transformation.</li>
+</ul></li>
+</ol>
+</section>
+<section id="how-are-metabolites-linked-1" class="slide level2">
+<h2>How Are Metabolites Linked?</h2>
+<ol start="2" type="1">
+<li><strong>Spatial Correlation (from MSI):</strong>
+<ul>
+<li>Metabolites involved in the same pathway or located in the same cell type often appear in <em>similar locations</em> in the kidney tissue image.</li>
+<li>The lines also reflect this spatial co-localization – stronger correlation means they are found together more often.</li>
+</ul></li>
+</ol>
+</section>
+<section id="lets-tour-the-tool-main-sections" class="slide level2">
+<h2>Let’s Tour the Tool: Main Sections</h2>
+<ol type="1">
+<li><strong>Information Panel:</strong> Instructions and contact info.</li>
+<li><strong>Data Exploration Tabs:</strong> Where you find reactions and search.
+<ul>
+<li><code>Reactions (PMDs) Table</code></li>
+<li><code>Sample PMD Search</code></li>
+<li><code>KEGG PMD Search</code></li>
+</ul></li>
+<li><strong>Network Visualization:</strong> The main interactive map area.</li>
+<li><strong>Metabolite Information:</strong> Shows details (like MSI images) for selected metabolites.</li>
+</ol>
+</section>
+<section id="step-1-explore-potential-reactions-pmd-table" class="slide level2">
+<h2>Step 1: Explore Potential Reactions (PMD Table)</h2>
+<ul>
+<li>Go to the <code>Data Exploration</code> -&gt; <code>Reactions (PMDs) Table</code> tab.</li>
+<li>This table shows common <strong>Mass Differences (PMDs)</strong> found frequently in <em>your</em> kidney dataset.</li>
+</ul>
+</section>
+<section id="step-1-explore-potential-reactions-pmd-table-1" class="slide level2">
+<h2>Step 1: Explore Potential Reactions (PMD Table)</h2>
+<ul>
+<li><strong>Key Columns:</strong>
+<ul>
+<li><code>pmd</code>: The mass difference value.</li>
+<li><code>freq</code>: How many metabolite pairs in <em>your data</em> have this mass difference.</li>
+<li><code>reaction</code>: The likely biochemical reaction type.</li>
+<li><code>freq_kegg</code>: How common this PMD is in known biological reactions (KEGG database).</li>
+</ul></li>
+<li><strong>ACTION:</strong> Select rows corresponding to reactions you want to investigate further. Click on the rows.</li>
+</ul>
+</section>
+<section id="step-2-view-the-network" class="slide level2">
+<h2>Step 2: View the Network</h2>
+<ul>
+<li><p>Once you’ve selected one or more rows (reactions) in the table…</p></li>
+<li><p><strong>ACTION:</strong> Click the big blue <strong>“Show Network”</strong> button above the network panel.</p></li>
+<li><p>The network map will appear, showing ONLY the metabolites and relationships corresponding to the reactions you selected.</p></li>
+</ul>
+</section>
+<section id="step-3-explore-the-interactive-network" class="slide level2">
+<h2>Step 3: Explore the Interactive Network</h2>
+<ul>
+<li><strong>Interact:</strong> Zoom in/out, pan around, drag metabolites (dots) to rearrange the view.</li>
+<li><strong>Hover over a Line (Edge):</strong> A tooltip appears showing the exact PMD value and the spatial correlation score between the two connected metabolites.</li>
+<li><strong>ACTION:</strong> Click on a <strong>Dot (Metabolite)</strong> that interests you.</li>
+</ul>
+</section>
+<section id="step-4-see-where-metabolites-are-located-msi-view" class="slide level2">
+<h2>Step 4: See Where Metabolites Are Located (MSI View)</h2>
+<ul>
+<li>When you click on a metabolite (dot) in the network…</li>
+<li>Look at the <strong>right-hand panel</strong>.</li>
+<li>An <strong>MSI Image</strong> appears, showing the spatial distribution of that <em>specific metabolite</em> across the kidney tissue slice.</li>
+<li>A <strong>color bar</strong> (White -&gt; Red) indicates low to high abundance.</li>
+</ul>
+</section>
+<section id="step-5-find-a-specific-metabolite" class="slide level2">
+<h2>Step 5: Find a Specific Metabolite</h2>
+<ul>
+<li>Want to find a known metabolite (e.g., Citrate) or an unidentified feature (<code>m/z_ccs</code>) in the <em>current</em> network view?</li>
+<li><strong>ACTION:</strong> Use the <strong>“Select or Search Node (Metabolite)” dropdown menu</strong> above the MSI image.</li>
+<li>Start typing the name or <code>m/z_ccs</code>.</li>
+<li>Select it from the list. The tool will highlight it in the network and show its MSI image.</li>
+<li><em>(Note: It only finds metabolites present in the network you generated in Step 2)</em></li>
+</ul>
+</section>
+<section id="bonus-feature-deeper-dive-with-pmd-search" class="slide level2">
+<h2>Bonus Feature: Deeper Dive with PMD Search</h2>
+<ul>
+<li>Want to investigate a <em>specific</em> mass difference (PMD) that wasn’t in the main table, or explore it more?</li>
+<li>Use the <code>Data Exploration</code> tabs:
+<ol type="1">
+<li><strong><code>Sample PMD Search</code>:</strong>
+<ul>
+<li>Enter a PMD value (e.g., 14.016 for Methylation) and a tolerance (e.g., 0.001).</li>
+<li>Click Search.</li>
+<li>Result: Shows all metabolite pairs <em>in your kidney data</em> with that mass difference.</li>
+</ul></li>
+</ol></li>
+</ul>
+</section>
+<section id="bonus-feature-deeper-dive-with-pmd-search-1" class="slide level2">
+<h2>Bonus Feature: Deeper Dive with PMD Search</h2>
+<ul>
+<li><p>Use the <code>Data Exploration</code> tabs:</p>
+<ol start="2" type="1">
+<li><strong><code>KEGG PMD Search</code>:</strong>
+<ul>
+<li>Enter a PMD value and tolerance.</li>
+<li>Click Search.</li>
+<li>Result: Shows known biochemical reactions from the KEGG database that match this mass difference. Useful for identifying potential reaction types.</li>
+</ul></li>
+</ol></li>
+<li><p><strong>ACTION:</strong> You can <strong>Download</strong> these search results as CSV files.</p></li>
+</ul>
+</section>
+<section id="why-is-this-tool-useful-for-biologists" class="slide level2">
+<h2>Why is This Tool Useful for Biologists?</h2>
+<ul>
+<li><strong>Visualize Connections:</strong> See potential metabolic pathways and relationships directly from your data.</li>
+<li><strong>Generate Hypotheses:</strong> Identify candidate reactions occurring in your kidney samples (e.g., “Is hydroxylation active here?”).</li>
+<li><strong>Explore Neighbors:</strong> Find out what other metabolites are related (by PMD or location) to a metabolite you’re studying.</li>
+<li><strong>Link Unknowns:</strong> Connect unidentified features (<code>m/z_ccs</code>) to known metabolites through shared PMDs.</li>
+<li><strong>Spatial Context:</strong> Instantly see <em>where</em> metabolites in the network are located in the tissue via MSI.</li>
+</ul>
+</section>
+<section id="questions" class="slide level2 center">
+<h2>Questions?</h2>
+<p><a href="https://thejacksonlaboratory.shinyapps.io/kidneyshiny/" class="uri">https://thejacksonlaboratory.shinyapps.io/kidneyshiny/</a></p>
+<p><strong>Contact:</strong> miao.yu@jax.org</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="msishiny_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="msishiny_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="msishiny_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="msishiny_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
