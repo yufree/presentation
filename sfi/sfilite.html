@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="umd_files/libs/clipboard/clipboard.min.js"></script>
-<script src="umd_files/libs/quarto-html/tabby.min.js"></script>
-<script src="umd_files/libs/quarto-html/popper.min.js"></script>
-<script src="umd_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="umd_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="umd_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="umd_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="sfilite_files/libs/clipboard/clipboard.min.js"></script>
+<script src="sfilite_files/libs/quarto-html/tabby.min.js"></script>
+<script src="sfilite_files/libs/quarto-html/popper.min.js"></script>
+<script src="sfilite_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="sfilite_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="sfilite_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="sfilite_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Miao Yu">
-  <meta name="dcterms.date" content="2025-12-12">
-  <title>Data-driven untargeted metabolites discovery</title>
+  <title>Single File Injections (SFI)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="umd_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="umd_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="sfilite_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="sfilite_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -30,11 +29,11 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="umd_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
-  <link href="umd_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="umd_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="umd_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="umd_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="sfilite_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
+  <link href="sfilite_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="sfilite_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="sfilite_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="sfilite_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -128,7 +127,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Data-driven untargeted metabolites discovery</h1>
+  <h1 class="title">Single File Injections (SFI)</h1>
+  <p class="subtitle">High-Throughput Non-Targeted LC-MS Analysis</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -138,283 +138,9 @@ Miao Yu
 </div>
 </div>
 
-  <p class="date">2025-12-12</p>
 </section>
-<section id="disclaimers" class="slide level2">
-<h2>Disclaimers</h2>
-<ul>
-<li><p>No conflict of interest</p></li>
-<li><p>Open to question during presentation</p></li>
-<li><p>Slides is available online</p>
-<ul>
-<li><a href="http://yufree.github.io/presentation/srda/umd.html" class="uri">http://yufree.github.io/presentation/srda/umd.html</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="metabolites-discovery" class="slide level2">
-<h2>Metabolites discovery</h2>
-<ul>
-<li><p>Metabolites of endogenous compounds</p>
-<ul>
-<li><p>Activation/Inhibition of certain pathway</p></li>
-<li><p>Excretion from the biological system</p></li>
-</ul></li>
-<li><p>Biotransformation of man-made compounds</p>
-<ul>
-<li>Drug</li>
-<li>Food additives</li>
-<li>Pesticides</li>
-<li>Flame retardant</li>
-</ul></li>
-<li><p>Evaluation of their toxicity and risk</p></li>
-</ul>
-</section>
-<section id="principle-of-metabolites-discovery" class="slide level2">
-<h2>Principle of metabolites discovery</h2>
-<ul>
-<li>Xenobiotics metabolism<sup>1</sup></li>
-</ul>
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png"></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>By TimVickers - Own work, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=4549628" class="uri">https://commons.wikimedia.org/w/index.php?curid=4549628</a></p></li></ol></aside></section>
-<section id="problems" class="slide level2">
-<h2>Problems</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th><strong>Aware</strong></th>
-<th><strong>Not aware</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Identified</td>
-<td>Known metabolites</td>
-<td>Unknown compounds</td>
-</tr>
-<tr class="even">
-<td>Not identified</td>
-<td>Potential metabolites</td>
-<td>Unknown unknowns</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>Standards for unknown compounds</p></li>
-<li><p>Identification of potential metabolites</p></li>
-<li><p>Unknown unknowns</p></li>
-</ul>
-</section>
-<section id="current-solution" class="slide level2">
-<h2>Current Solution</h2>
-<h3 id="in-silico-prediction-of-potential-metabolites"><em>in silico</em> prediction of potential metabolites</h3>
-<ul>
-<li><p>Biotransformer 3.0<sup>1</sup></p></li>
-<li><p>EAWAG-BBD Pathway Prediction System<sup>2</sup></p></li>
-</ul>
-<p>SMILES string or molecular structures as input</p>
-<p>Limited by Number of Reaction Iterations (3)</p>
-<aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://doi.org/10.1093/nar/gkac313" class="uri">https://doi.org/10.1093/nar/gkac313</a></p></li><li id="fn3"><p><a href="http://eawag-bbd.ethz.ch/index.html" class="uri">http://eawag-bbd.ethz.ch/index.html</a></p></li></ol></aside></section>
-<section id="my-solution" class="slide level2">
-<h2>My solution</h2>
-<blockquote>
-<p>Focused on relationship among compounds</p>
-</blockquote>
-
-<img data-src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" class="quarto-figure quarto-figure-center r-stretch"><p>From <a href="https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg">Wikipedia Commons</a>:A Sunday on La Grande Jatte, Georges Seurat</p>
-</section>
-<section id="why-reactions" class="slide level2">
-<h2>Why Reactions?</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/database.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
-<li><p>Unit: Gene (5) &lt; Protein (20+2) &lt; Metabolite (100K) &lt; Compound (100M)</p></li>
-<li><p>Combination: Gene (20,000-25,000) &lt; Protein (20,000-25,000) &lt; Compound(???)</p></li>
-<li><p>Small molecule <strong>combination</strong> is a chemical reaction or paired mass distance</p></li>
-</ul>
-</section>
-<section id="why-pmd" class="slide level2">
-<h2>Why PMD?</h2>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Nuclear_binding_energy">Nuclear Binding Energy</a></li>
-</ul>
-<p><span class="math display">\[\Delta m = Zm_{H} + Nm_{n} - M\]</span></p>
-<ul>
-<li><p>The missing mass was converted into energy ( <span class="math inline">\(E=mc^2\)</span> ) and emitted when the atom was made</p></li>
-<li><p>Atoms -&gt; Compounds -&gt; Mass distances between compounds</p></li>
-<li><p><strong>Paired Mass Distances (PMD)</strong> is unique</p></li>
-<li><p><strong>High resolution</strong> mass spectrometry is required</p></li>
-</ul>
-</section>
-<section id="pmds-in-kegg-database" class="slide level2">
-<h2>PMDs in KEGG database</h2>
-<ul>
-<li>Top 10 high frequency PMDs cover 68% known reactions</li>
-</ul>
-
-<img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/AMN/images/kegg.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
-</div>
-</section>
-<section id="pmds-in-real-data" class="slide level2">
-<h2>PMDs in real data</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><p>Isotopologues</p>
-<ul>
-<li><span class="math inline">\([M]^+\)</span> <span class="math inline">\([M+1]^+\)</span></li>
-<li>1.006 Da</li>
-</ul></li>
-<li><p>in source reaction</p>
-<ul>
-<li><span class="math inline">\([M+H]^+\)</span> <span class="math inline">\([M+Na]^+\)</span></li>
-<li>21.982 Da</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<ul>
-<li><p>Homologous series</p>
-<ul>
-<li>Lipid <span class="math inline">\(-[CH_2]-\)</span></li>
-<li>14.016 Da</li>
-</ul></li>
-<li><p>Xenobiotic metabolism</p>
-<ul>
-<li>Phase I hydrolation</li>
-<li>15.995 Da</li>
-</ul></li>
-</ul>
-</div></div>
-</section>
-<section id="pmd-based-reactomics-workflow" class="slide level2">
-<h2>PMD-based reactomics workflow</h2>
-<ul>
-<li><p>STEP1: Remove redundant peaks</p></li>
-<li><p>STEP2: Extract high frequency PMDs</p></li>
-<li><p>STEP3: Relationship network</p></li>
-</ul>
-</section>
-<section id="how-many-real-compounds-among-features" class="slide level2">
-<h2>How many real compounds among features?</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/gapfc.jpg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380</p>
-</div>
-</section>
-<section id="redundant-peaks" class="slide level2">
-<h2>Redundant peaks</h2>
-<ul>
-<li><p>Untargeted analysis would loss sensitivity to capture all peaks</p></li>
-<li><p>Send unknown while independent peaks for MS/MS</p></li>
-</ul>
-
-<img data-src="https://yufree.github.io/presentation/figure/peakcom.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="globalstd-algorithm" class="slide level2">
-<h2>GlobalStd Algorithm</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/GlobalStd.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S0003267018313047</p>
-</div>
-</section>
-<section id="globalstd-algorithm-step-1" class="slide level2">
-<h2>GlobalStd Algorithm Step 1</h2>
-<h3 id="retention-time-cluster-analysis">Retention time cluster analysis</h3>
-
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="globalstd-algorithm-step-2" class="slide level2">
-<h2>GlobalStd Algorithm Step 2</h2>
-<h3 id="high-frequency-pmd-analysis-across-rt-clusters">High frequency PMD analysis across RT clusters</h3>
-
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="globalstd-algorithm-step-2-1" class="slide level2">
-<h2>GlobalStd Algorithm Step 2</h2>
-<h3 id="high-frequency-pmd-analysis-across-rt-clusters---example">High frequency PMD analysis across RT clusters - example</h3>
-
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="globalstd-algorithm-step-3" class="slide level2">
-<h2>GlobalStd Algorithm Step 3</h2>
-<h3 id="independent-peaks-selection">Independent peaks selection</h3>
-
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="extract-high-frequency-pmds" class="slide level2">
-<h2>Extract high frequency PMDs</h2>
-
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="how-to-define-high-frequency" class="slide level2">
-<h2>How to define high frequency?</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/networkgen.gif"></p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/dis.png"></p>
-</div></div>
-</section>
-<section id="relationship-network" class="slide level2">
-<h2>Relationship network</h2>
-
-<img data-src="https://yufree.github.io/pmd/articles/reactomics_files/figure-html/net-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="pmdda-workflow" class="slide level2">
-<h2>PMDDA workflow</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/PMDDAraw.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00586-8</p>
-</div>
-</section>
-<section id="pmdda-workflow-1" class="slide level2">
-<h2>PMDDA workflow</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/pmddacomp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="reactomics-for-metabolites-discovery" class="slide level2">
-<h2>Reactomics for metabolites discovery</h2>
-<ul>
-<li><p>Knowledge driven - custom PMDs lists</p></li>
-<li><p>Data driven - high frequency PMDs list</p></li>
-<li><p>Case study : Metabolites of TBBPA in Pumpkin</p>
-<ul>
-<li><p>Mass defect analysis to screen Brominated Compounds</p></li>
-<li><p>Confirmation by synthesized standards</p></li>
-</ul></li>
-</ul>
-</section>
-<section id="case-study" class="slide level2">
-<h2>Case study</h2>
-
-<img data-src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Environmental Science &amp; Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122</p>
-</div>
-</section>
-<section id="case-study-1" class="slide level2">
-<h2>Case study</h2>
-<ul>
-<li>TBBPA Metabolites PMD network</li>
-</ul>
-
-<img data-src="https://yufree.github.io/presentation/figure/TBBPA.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
-<p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
-</div>
-</section>
-<section id="biomarker-reaction" class="slide level2">
-<h2>Biomarker Reaction</h2>
-<ul>
-<li>Double bonds reactions in lung cancer</li>
-</ul>
-
-<img data-src="https://yufree.github.io/presentation/figure/mtbls28.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="shiny-application" class="slide level2">
-<h2>Shiny application</h2>
-<p><a href="https://yufree.shinyapps.io/pmdnet/" class="uri">https://yufree.shinyapps.io/pmdnet/</a></p>
-</section>
-<section id="take-home-message" class="slide level2">
-<h2>Take-home message</h2>
-<ul>
-<li><p>Metabolites discovery can be data driven</p></li>
-<li><p>Reaction is the “base pair” for small molecules</p></li>
-<li><p>Real data always enriched in few PMDs or reactions</p></li>
-<li><p>PMD network analysis can accelerate metabolites discovery</p></li>
-</ul>
-</section>
-<section id="one-more-thing" class="slide level2">
-<h2>One More Thing …</h2>
+<section id="challenges" class="slide level2">
+<h2>Challenges</h2>
 <p><strong>The Bottleneck:</strong> Insufficient Throughput</p>
 <ul>
 <li><strong>Throughput Gap:</strong> Current output (thousands/year) lags behind genomics by an order of magnitude.</li>
@@ -424,28 +150,89 @@ Miao Yu
 <li>Retention Time (RT) Shifts.</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<p><strong>Time: 0:00 - 0:45</strong> Start by highlighting the pain point. While genomics has scaled up massively, LC-MS is still relatively slow. Conventional sequential injection creates batch effects and RT shifts that make large-scale data merging difficult.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="single-file-injection-sfi" class="slide level2">
-<h2>Single File Injection (SFI)</h2>
+<section id="the-single-file-injections-sfi" class="slide level2">
+<h2>The Single File Injections (SFI)</h2>
+<ul>
+<li><p><strong>Concept:</strong> Continuous <strong>isocratic elution</strong> for <em>non-targeted</em> analysis.</p></li>
+<li><p><strong>Efficiency:</strong> Marginal time cost = injection interval.</p></li>
+<li><p><strong>Simplicity:</strong> All samples generated in <strong>one single file</strong>.</p></li>
+<li><p><strong>Compatibility:</strong> No physical instrument modifications required.</p></li>
+</ul>
+<aside class="notes">
+<p><strong>Time: 0:45 - 1:30</strong> Briefly mention that current solutions exist (like MISER) but are mostly for targeted analysis. Introduce SFI: we are extending the fixed-interval concept to non-targeted analysis. The key takeaway: No hardware changes needed, and everything goes into one file.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="sfi-workflow-sequence-design" class="slide level2">
+<h2>SFI Workflow: Sequence Design</h2>
+<p><strong>1. Reference Peak Acquisition:</strong></p>
 
-<img data-src="images/SFI.jpg" class="r-stretch"></section>
-<section id="future-applications" class="slide level2">
-<h2>Future Applications</h2>
+<img data-src="images/demo.png" class="r-stretch"></section>
+<section id="sfi-workflow-sequence-design-1" class="slide level2">
+<h2>SFI Workflow: Sequence Design</h2>
+<p><strong>2. Real Sample Acquisition:</strong></p>
+
+<img data-src="images/demosfi.png" class="r-stretch"><aside class="notes">
+<p><strong>Time: 1:30 - 2:15</strong> Explain the two-step process. First, we run a reference sequence to “map” the compounds. Second, we run the real samples in a rapid, continuous stream using isocratic elution.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="data-analysis-support" class="slide level2">
+<h2>Data Analysis Support</h2>
+<p><strong>Open Source R Package:</strong> <code>sfi</code> <em>(https://github.com/yufree/sfi)</em></p>
 <ul>
-<li><strong>Large-Scale Cohorts:</strong> Ideal for biobanking and database construction.</li>
-<li><strong>Dynamic Monitoring:</strong> Combine with <em>in vivo</em> sampling for real-time biological processes.</li>
-<li><strong>Clinical Potential:</strong>
+<li><strong>Core Function:</strong> Automated data processing and peak recovery.</li>
+<li><strong>Mechanism:</strong>
 <ul>
-<li>Sample cost <strong>&lt; $10 USD</strong>.</li>
-<li>High throughput targeted/non-targeted screening.</li>
+<li>Aligns continuous stream data against the Reference Peaks.</li>
+<li>Handles the “Single File” structure effectively.</li>
 </ul></li>
 </ul>
-</section>
-<section id="qa" class="slide level2">
-<h2>Q&amp;A</h2>
-<ul>
-<li>miao.yu@jax.org</li>
-</ul>
+<aside class="notes">
+<p><strong>Time: 2:15 - 2:45</strong> Don’t get bogged down in code. Just mention that you have developed an open-source tool (<code>sfi</code>) that handles the complex part: recovering individual peaks from the continuous data stream.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="validation-experimental-setup" class="slide level2">
 <h2>Validation: Experimental Setup</h2>
@@ -485,6 +272,19 @@ Miao Yu
 </ul></li>
 <li><p><strong>Dynamic Range:</strong> Preserved quantitative capabilities.</p></li>
 </ul>
+<aside class="notes">
+<p><strong>Time: 3:15 - 4:00</strong> This is the “money slide.” Emphasize the speed—under 6 hours for work that usually takes days. Highlight that despite the speed, the RSD (Relative Standard Deviation) remains low for hundreds of compounds.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="limitations" class="slide level2">
 <h2>Limitations</h2>
@@ -504,17 +304,34 @@ Miao Yu
 <li>1.5 GB per 100 samples.</li>
 </ul></li>
 </ul>
+<p><strong>Time: 4:00 - 4:30</strong> Be transparent. Isomers are the main challenge. However, explain that because the drift check window is tight (10s), the actual impact on data is very low (less than 2%). Acknowledge that isocratic is less powerful than gradient, but the speed trade-off is worth it. :::</p>
 </section>
-<section id="endogenous-vs-exogenous" class="slide level2">
-<h2>Endogenous vs Exogenous</h2>
+<section id="future-applications" class="slide level2">
+<h2>Future Applications</h2>
 <ul>
-<li><p>T3DB Endogenous (255) vs Exogenous (705)</p></li>
-<li><p>Use top 10 high frequency PMDs</p></li>
+<li><strong>Large-Scale Cohorts:</strong> Ideal for biobanking and database construction.</li>
+<li><strong>Dynamic Monitoring:</strong> Combine with <em>in vivo</em> sampling for real-time biological processes.</li>
+<li><strong>Clinical Potential:</strong>
+<ul>
+<li>Sample cost <strong>&lt; $10 USD</strong>.</li>
+<li>High throughput targeted/non-targeted screening.</li>
+</ul></li>
 </ul>
+<aside class="notes">
+<p><strong>Time: 4:30 - 5:00</strong> Conclude with the vision. SFI brings the cost down to under $10 and allows for massive scaling. It closes the gap between metabolomics and genomics.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
-
-<img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -523,19 +340,19 @@ Miao Yu
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="umd_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="sfilite_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="umd_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="umd_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="umd_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="sfilite_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -676,7 +493,7 @@ Miao Yu
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

@@ -1,0 +1,148 @@
+---
+title: "Single File Injections (SFI)"
+subtitle: "High-Throughput Non-Targeted LC-MS Analysis"
+author: "Miao Yu"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+editor: visual
+---
+
+## Challenges
+
+**The Bottleneck:** Insufficient Throughput
+
+* **Throughput Gap:** Current output (thousands/year) lags behind genomics by an order of magnitude.
+* **Data Quality Issues:**
+    * Severe Batch Effects.
+    * Retention Time (RT) Shifts.
+
+::: notes
+**Time: 0:00 - 0:45**
+Start by highlighting the pain point. While genomics has scaled up massively, LC-MS is still relatively slow. Conventional sequential injection creates batch effects and RT shifts that make large-scale data merging difficult.
+:::
+
+---
+
+## The Single File Injections (SFI)
+
+* **Concept:** Continuous **isocratic elution** for *non-targeted* analysis.
+
+* **Efficiency:** Marginal time cost = injection interval.
+
+* **Simplicity:** All samples generated in **one single file**.
+
+* **Compatibility:** No physical instrument modifications required.
+
+::: notes
+**Time: 0:45 - 1:30**
+Briefly mention that current solutions exist (like MISER) but are mostly for targeted analysis. Introduce SFI: we are extending the fixed-interval concept to non-targeted analysis. The key takeaway: No hardware changes needed, and everything goes into one file.
+:::
+
+---
+
+## SFI Workflow: Sequence Design
+
+**1. Reference Peak Acquisition:**
+
+![](images/demo.png)
+
+## SFI Workflow: Sequence Design
+
+**2. Real Sample Acquisition:**
+
+![](images/demosfi.png)
+
+::: notes
+**Time: 1:30 - 2:15**
+Explain the two-step process. First, we run a reference sequence to "map" the compounds. Second, we run the real samples in a rapid, continuous stream using isocratic elution.
+:::
+
+---
+
+## Data Analysis Support
+
+**Open Source R Package:** `sfi`
+*(https://github.com/yufree/sfi)*
+
+* **Core Function:** Automated data processing and peak recovery.
+* **Mechanism:**
+    * Aligns continuous stream data against the Reference Peaks.
+    * Handles the "Single File" structure effectively.
+
+::: notes
+**Time: 2:15 - 2:45**
+Don't get bogged down in code. Just mention that you have developed an open-source tool (`sfi`) that handles the complex part: recovering individual peaks from the continuous data stream.
+:::
+
+---
+
+## Validation: Experimental Setup
+
+* **Sample Set:** 158 human plasma samples.
+* **Dynamic Range:** Simulated across 7 orders of magnitude.
+* **Columns:** HILIC (Hydrophilic Interaction) & RP (Reverse Phase).
+* **Modes:** Positive (+) and Negative (-) Ion modes.
+
+::: notes
+**Time: 2:45 - 3:15**
+Describe the robust validation. You didn't just test it theoretically; you ran 158 plasma samples across both major column types and ionization modes.
+:::
+
+---
+
+## Validation: Key Results
+
+**Speed:**
+
+* Total analysis time for 158 samples: **< 6 hours**.
+
+**Qualitative & Quantitative Success:**
+
+* **Peak Recovery:** >2 million peaks matched to reference (per mode).
+
+* **Stability (RSD < 30%):**
+
+    * **HILIC:** 506 (+) / 572 (-) reference peaks.
+    * **RP:** 450 (+) / 738 (-) reference peaks.
+
+* **Dynamic Range:** Preserved quantitative capabilities.
+
+::: notes
+**Time: 3:15 - 4:00**
+This is the "money slide." Emphasize the speed—under 6 hours for work that usually takes days. Highlight that despite the speed, the RSD (Relative Standard Deviation) remains low for hundreds of compounds.
+:::
+
+---
+
+## Limitations
+
+* **Isomers:**
+    * Same $m/z$, different RT.
+    * *Mitigation:* Algorithm checks RT drift within 10s.
+    * *Impact:* < 2% of aligned reference peaks affected.
+* **Separation Efficiency:**
+    * Isocratic elution is inherently less efficient than gradient elution.
+* **File size**
+     * 1.5 GB per 100 samples.
+     
+**Time: 4:00 - 4:30**
+Be transparent. Isomers are the main challenge. However, explain that because the drift check window is tight (10s), the actual impact on data is very low (less than 2%). Acknowledge that isocratic is less powerful than gradient, but the speed trade-off is worth it.
+:::
+
+---
+
+## Future Applications
+
+* **Large-Scale Cohorts:** Ideal for biobanking and database construction.
+* **Dynamic Monitoring:** Combine with *in vivo* sampling for real-time biological processes.
+* **Clinical Potential:**
+    * Sample cost **< $10 USD**.
+    * High throughput targeted/non-targeted screening.
+
+::: notes
+**Time: 4:30 - 5:00**
+Conclude with the vision. SFI brings the cost down to under $10 and allows for massive scaling. It closes the gap between metabolomics and genomics.
+:::

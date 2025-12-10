@@ -1,8 +1,8 @@
 ---
-title: "REACTOMICS IN BRIEF"
-subtitle: "Data-driven untargeted metabolites discovery"
+title: "Data-driven untargeted metabolites discovery"
+subtitle: ""
 author: "Miao Yu"
-date: "2024-09-17"
+date: "2025-12-12"
 format:
   revealjs: 
     theme: simple
@@ -16,7 +16,7 @@ editor: visual
 
 -   Open to question during presentation
 
--   Slides is available for everyone
+-   Slides is available online
 
     -   <http://yufree.github.io/presentation/srda/umd.html>
 
@@ -82,12 +82,6 @@ Limited by Number of Reaction Iterations (3)
 
 From [Wikipedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):A Sunday on La Grande Jatte, Georges Seurat
 
-## My solution
-
-> Mass spectrometry can measure relationship (reactions)
-
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png){fig-align="center"}
-
 ## Why Reactions?
 
 ![](https://yufree.github.io/presentation/figure/database.png){fig-align="center"}
@@ -124,7 +118,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 ## PMDs in real data
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Isotopologues
 
@@ -148,7 +142,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
     -   Phase I hydrolation
     -   15.995 Da
 :::
-:::
+:::::
 
 ## PMD-based reactomics workflow
 
@@ -206,6 +200,26 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png){fig-align="center"}
 
+## Extract high frequency PMDs
+
+![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png){fig-align="center"}
+
+## How to define high frequency?
+
+::::: columns
+::: {.column width="50%"}
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/networkgen.gif)
+:::
+
+::: {.column width="50%"}
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/dis.png)
+:::
+:::::
+
+## Relationship network
+
+![](https://yufree.github.io/pmd/articles/reactomics_files/figure-html/net-1.png){fig-align="center"}
+
 ## PMDDA workflow
 
 ![](https://yufree.github.io/presentation/figure/PMDDAraw.png){fig-align="center"}
@@ -218,13 +232,6 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
 ![](https://yufree.github.io/presentation/figure/pmddacomp.png){fig-align="center"}
 
-## Extract high frequency PMDs
-
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png){fig-align="center"}
-
-## Relationship network
-
-![](https://yufree.github.io/pmd/articles/reactomics_files/figure-html/net-1.png){fig-align="center"}
 
 ## Reactomics for metabolites discovery
 
@@ -256,26 +263,6 @@ Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 :::
 
-## How to define high frequency?
-
-::: columns
-::: {.column width="50%"}
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/networkgen.gif)
-:::
-
-::: {.column width="50%"}
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/dis.png)
-:::
-:::
-
-## Endogenous vs Exogenous
-
--   T3DB Endogenous (255) vs Exogenous (705)
-
--   Use top 10 high frequency PMDs
-
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png){fig-align="center"}
-
 ## Biomarker Reaction
 
 -   Double bonds reactions in lung cancer
@@ -296,6 +283,81 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 -   PMD network analysis can accelerate metabolites discovery
 
+## One More Thing ...
+
+**The Bottleneck:** Insufficient Throughput
+
+* **Throughput Gap:** Current output (thousands/year) lags behind genomics by an order of magnitude.
+* **Data Quality Issues:**
+    * Severe Batch Effects.
+    * Retention Time (RT) Shifts.
+
+## Single File Injection (SFI)
+
+![](images/SFI.jpg)
+
+## Future Applications
+
+* **Large-Scale Cohorts:** Ideal for biobanking and database construction.
+* **Dynamic Monitoring:** Combine with *in vivo* sampling for real-time biological processes.
+* **Clinical Potential:**
+    * Sample cost **< $10 USD**.
+    * High throughput targeted/non-targeted screening.
+
 ## Q&A
 
 -   miao.yu\@jax.org
+
+
+---
+
+## Validation: Experimental Setup
+
+* **Sample Set:** 158 human plasma samples.
+* **Dynamic Range:** Simulated across 7 orders of magnitude.
+* **Columns:** HILIC (Hydrophilic Interaction) & RP (Reverse Phase).
+* **Modes:** Positive (+) and Negative (-) Ion modes.
+
+::: notes
+**Time: 2:45 - 3:15**
+Describe the robust validation. You didn't just test it theoretically; you ran 158 plasma samples across both major column types and ionization modes.
+:::
+
+---
+
+## Validation: Key Results
+
+**Speed:**
+
+* Total analysis time for 158 samples: **< 6 hours**.
+
+**Qualitative & Quantitative Success:**
+
+* **Peak Recovery:** >2 million peaks matched to reference (per mode).
+
+* **Stability (RSD < 30%):**
+
+    * **HILIC:** 506 (+) / 572 (-) reference peaks.
+    * **RP:** 450 (+) / 738 (-) reference peaks.
+
+* **Dynamic Range:** Preserved quantitative capabilities.
+
+
+## Limitations
+
+* **Isomers:**
+    * Same $m/z$, different RT.
+    * *Mitigation:* Algorithm checks RT drift within 10s.
+    * *Impact:* < 2% of aligned reference peaks affected.
+* **Separation Efficiency:**
+    * Isocratic elution is inherently less efficient than gradient elution.
+* **File size**
+     * 1.5 GB per 100 samples.
+
+## Endogenous vs Exogenous
+
+-   T3DB Endogenous (255) vs Exogenous (705)
+
+-   Use top 10 high frequency PMDs
+
+![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png){fig-align="center"}
