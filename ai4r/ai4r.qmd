@@ -1,0 +1,82 @@
+---
+title: "AI 辅助科研"
+author: "于淼"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+editor: visual
+---
+
+## 目录
+
+-   文献调研 -\> 文本理解
+
+-   数据分析 -\> 文件操作
+
+-   自动化 -\> 物理操作
+
+## 文献调研
+
+-   autoaiscore <https://github.com/yufree/autoaiscore>
+
+    ```         
+      - AI 辅助关键词生成 
+      - RSS 订阅
+      - 提示词筛选
+      - 自动化推送
+      - 案例 <https://github.com/yufree/hjhbb/issues>
+    ```
+
+-   Consensus <https://consensus.app/>
+
+-   Google Scholar Scholar Labs <https://scholar.google.com/scholar_labs/search?hl=en>
+
+-   NotebookLM <https://notebooklm.google/>
+
+## 数据分析
+
+-   对话式
+
+    ```         
+      - Copilot
+    ```
+
+-   集成式IDE
+
+    ```         
+      - Cursor <https://cursor.com/cn>
+      - trae <https://www.trae.cn/>
+    ```
+
+-   命令行
+
+    ```         
+      - Gemini CLI
+      - Claude Code
+      - Codex
+    ```
+
+-   国内模型
+
+    ```         
+      - GLM 4.6
+      - MiniMax M2
+    ```
+
+## 常见提示词
+
+> I have two datasets in this folder. Check their data structure and help me create an automl model to predict case control via autogluon/tabpfn. You should use docker image to avoid installation issues. Then create a html webpage to present model performance and variable importance.
+
+## 自动化
+
+-   Opentrons flex <https://opentrons.com/flex>
+
+-   pylabrobot <https://docs.pylabrobot.org/index.html>
+
+## 云计算
+
+-   阿里无影云电脑
+
+-   Google Colab
