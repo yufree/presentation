@@ -202,7 +202,11 @@ style 生物 fill:#fffafa
 
 -   典型环境来源疾病的多暴露活性分子网络构建
 
-## 致谢
+## 欢迎各位老师同学批评指正!
+
+### 致谢
+
+-   **江老师团队** \@ RCEES, CAS
 
 -   Prof. Janusz Pawliszyn's Group \@ UWaterloo
 
@@ -210,4 +214,3 @@ style 生物 fill:#fffafa
 
 -   Data Science \@ The Jackson Laboratory
 
-### 欢迎各位老师同学批评指正! {style="text-align: center"}
