@@ -232,7 +232,6 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
 ![](https://yufree.github.io/presentation/figure/pmddacomp.png){fig-align="center"}
 
-
 ## Reactomics for metabolites discovery
 
 -   Knowledge driven - custom PMDs lists
@@ -253,6 +252,10 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122
 :::
 
+## Shiny application
+
+<https://yufree.shinyapps.io/pmdnet/>
+
 ## Case study
 
 -   TBBPA Metabolites PMD network
@@ -269,9 +272,35 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 ![](https://yufree.github.io/presentation/figure/mtbls28.png){fig-align="center"}
 
-## Shiny application
+## Quantitative analysis of PMDs
 
-<https://yufree.shinyapps.io/pmdnet/>
+-   Normalization the stable ions and use unstable ions for quantitative analysis
+
+![](images/reaction.png){fig-align="center"}
+
+## Gatekeeper discovery
+
+![](images/gatekeeper.jpeg)
+
+::: footer
+ES&T https://pubs.acs.org/doi/abs/10.1021/acs.est.1c04039
+:::
+
+## Active molecular network
+
+![](images/amn.jpeg)
+
+::: footer
+E&H doi:10.1186/s13321-022-00586-8
+:::
+
+## Active molecular network
+
+![](images/amncancer.gif)
+
+::: footer
+E&H doi:10.1186/s13321-022-00586-8
+:::
 
 ## Take-home message
 
@@ -287,10 +316,10 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 **The Bottleneck:** Insufficient Throughput
 
-* **Throughput Gap:** Current output (thousands/year) lags behind genomics by an order of magnitude.
-* **Data Quality Issues:**
-    * Severe Batch Effects.
-    * Retention Time (RT) Shifts.
+-   **Throughput Gap:** Current output (thousands/year) lags behind genomics by an order of magnitude.
+-   **Data Quality Issues:**
+    -   Severe Batch Effects.
+    -   Retention Time (RT) Shifts.
 
 ## Single File Injection (SFI)
 
@@ -298,61 +327,58 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 ## Future Applications
 
-* **Large-Scale Cohorts:** Ideal for biobanking and database construction.
-* **Dynamic Monitoring:** Combine with *in vivo* sampling for real-time biological processes.
-* **Clinical Potential:**
-    * Sample cost **< $10 USD**.
-    * High throughput targeted/non-targeted screening.
+-   **Large-Scale Cohorts:** Ideal for biobanking and database construction.
+-   **Dynamic Monitoring:** Combine with *in vivo* sampling for real-time biological processes.
+-   **Clinical Potential:**
+    -   Sample cost **\< \$10 USD**.
+    -   High throughput targeted/non-targeted screening.
 
 ## Q&A
 
 -   miao.yu\@jax.org
 
-
----
+------------------------------------------------------------------------
 
 ## Validation: Experimental Setup
 
-* **Sample Set:** 158 human plasma samples.
-* **Dynamic Range:** Simulated across 7 orders of magnitude.
-* **Columns:** HILIC (Hydrophilic Interaction) & RP (Reverse Phase).
-* **Modes:** Positive (+) and Negative (-) Ion modes.
+-   **Sample Set:** 158 human plasma samples.
+-   **Dynamic Range:** Simulated across 7 orders of magnitude.
+-   **Columns:** HILIC (Hydrophilic Interaction) & RP (Reverse Phase).
+-   **Modes:** Positive (+) and Negative (-) Ion modes.
 
 ::: notes
-**Time: 2:45 - 3:15**
-Describe the robust validation. You didn't just test it theoretically; you ran 158 plasma samples across both major column types and ionization modes.
+**Time: 2:45 - 3:15** Describe the robust validation. You didn't just test it theoretically; you ran 158 plasma samples across both major column types and ionization modes.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Validation: Key Results
 
 **Speed:**
 
-* Total analysis time for 158 samples: **< 6 hours**.
+-   Total analysis time for 158 samples: **\< 6 hours**.
 
 **Qualitative & Quantitative Success:**
 
-* **Peak Recovery:** >2 million peaks matched to reference (per mode).
+-   **Peak Recovery:** \>2 million peaks matched to reference (per mode).
 
-* **Stability (RSD < 30%):**
+-   **Stability (RSD \< 30%):**
 
-    * **HILIC:** 506 (+) / 572 (-) reference peaks.
-    * **RP:** 450 (+) / 738 (-) reference peaks.
+    -   **HILIC:** 506 (+) / 572 (-) reference peaks.
+    -   **RP:** 450 (+) / 738 (-) reference peaks.
 
-* **Dynamic Range:** Preserved quantitative capabilities.
-
+-   **Dynamic Range:** Preserved quantitative capabilities.
 
 ## Limitations
 
-* **Isomers:**
-    * Same $m/z$, different RT.
-    * *Mitigation:* Algorithm checks RT drift within 10s.
-    * *Impact:* < 2% of aligned reference peaks affected.
-* **Separation Efficiency:**
-    * Isocratic elution is inherently less efficient than gradient elution.
-* **File size**
-     * 1.5 GB per 100 samples.
+-   **Isomers:**
+    -   Same $m/z$, different RT.
+    -   *Mitigation:* Algorithm checks RT drift within 10s.
+    -   *Impact:* \< 2% of aligned reference peaks affected.
+-   **Separation Efficiency:**
+    -   Isocratic elution is inherently less efficient than gradient elution.
+-   **File size**
+    -   1.5 GB per 100 samples.
 
 ## Endogenous vs Exogenous
 

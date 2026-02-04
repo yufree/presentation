@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>基于高分辨质谱的反应组学</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="于淼" />
+    <meta name="date" content="2021-12-15" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 基于高分辨质谱的反应组学
+### 于淼
+### 2021-12-15
+
+---
+
+
+
+
+## 教研经历
+
+- 2006 - 2010 山东大学 环境科学学士 
+
+- 2010 - 2016 中国科学院生态环境研究中心 环境科学博士
+
+  - 多溴联苯醚的植物代谢
+  - 导师：江桂斌院士
+
+- 2016 - 2018 加拿大滑铁卢大学化学系 博士后
+
+  - 活体固相微萃取在代谢组学中的应用
+  - 导师：Janusz Pawliszyn 院士
+
+- 2018 至今 美国西奈山伊坎医学院暴露组学研究所 博士后
+
+  - 暴露组学数据分析
+  - 导师：Lauren Petrick 副教授
+
+---
+
+## 科研产出
+
+- 10篇一作或共同一作文章，39 篇期刊论文，两篇封面，一篇ES&amp;T Letter年度文章，～900 引用，h-index 19
+
+- 发表期刊分布 Communications Chemistry(1) Environ. Sci. Technol.(10) Environ. Pollut.(4) Talanta(4) Environ. Sci. Technol. Lett.(3) Sci. Rep.(3) Anal. Chem.(3) ACS Environ. Au(1) Anal. Chim. Acta(2) Environ. Int. (1) Chemosphare(1) Environ. Sci. Pollut. Res.(1) J. Chromatogr. A(1) Analyst(1) ACS Chem. Neurosci.(1) J. Pharm. Biomed. Anal.(1) Metabolomics(1)
+
+- 3 个开源软件包，CRAN 下载量累计超过 5 万次
+
+- 期刊审稿 J. Hazard. Mater., Anal. Chim. Acta, Talanta, Environ. Pollut., Sci. Total Environ.
+
+- 1 本书章节 *A New Paradigm for Environmental Chemistry and Toxicology: From Concepts to Insights.* Springer Singapore, Singapore, pp. 23–31
+
+- 十几次会议口头报告或邀请报告
+
+---
+
+## 主要研究创新
+
+### 科学问题
+
+- 非目的分析或代谢组学的标准缺失问题
+
+### 基于高分辨质谱的反应组学（reactomics）
+
+- 基于生化反应数据库的数据挖掘
+
+- 基于质量差定性定量样品中化学反应层的变化
+
+- 开发了相关软件与数据库
+
+- 可应用于活体研究、环境非目的分析、未知污染物溯源与疾病诊断
+
+---
+
+# 反应组学
+
+## 传统非目的分析/代谢组学流程
+
+- 样品收集
+
+- 质谱全扫描峰数据采集
+
+- 质谱峰鉴定为物质
+
+- 研究物质间关系
+
+&gt; 样品 -&gt; 质谱峰 -&gt; 物质 -&gt; 物质间关系
+
+- 问题
+
+  - 单样本峰数过万，鉴定耗时
+  - 无法覆盖“未知的未知”物质
+  
+---
+
+## 思路
+
+&gt; 样品 -&gt; 质谱峰 -&gt; ~~物质~~ -&gt; 物质间关系
+
+- 质谱可以直接测量物质关系 (质量差反应组学)
+
+&lt;img src="https://yufree.github.io/presentation/figure/srda.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## 质量差定性
+
+### KEGG 反应数据库
+
+
+|   PMD   | Freq | ExampleReactionClass | ExampleEnzyme |
+|:-------:|:----:|:--------------------:|:-------------:|
+|  2.016  | 1732 |       RC00095        |   1.3.1.84    |
+| 15.995  | 1169 |       RC00046        |   1.3.99.18   |
+| 79.966  | 729  |       RC00002        |    3.6.1.3    |
+| 14.016  | 594  |       RC00060        |    1.5.3.1    |
+|    0    | 532  |       RC00302        |    5.1.1.3    |
+| 18.011  | 359  |       RC00680        |    3.5.2.5    |
+| 162.053 | 365  |       RC00049        |   3.2.1.23    |
+| 159.933 | 243  |       RC02056        |   4.2.3.42    |
+|  1.032  | 262  |       RC00006        |    1.4.1.2    |
+| 42.011  | 237  |       RC00004        |   2.3.1.54    |
+
+---
+
+## 质量差定量
+
+### 静态 v.s. 动态
+
+- 静态质量差: 质量对响应比在样本中相对稳定
+- 动态质量差: 质量对响应比在样本中持续变化
+- [A,B], [C,D] [E,F] 有相同质量差:
+
+
+|  A   |  B  | Ins ratio |  C  | D  | Ins ratio |  E  |  F  | Ins ratio |
+|:----:|:---:|:---------:|:---:|:--:|:---------:|:---:|:---:|:---------:|
+| 100  | 50  |    2:1    | 100 | 50 |    2:1    | 30  | 40  |    3:4    |
+| 1000 | 500 |    2:1    | 10  | 95 |   2:19    | 120 | 160 |    3:4    |
+
+- [A,B] 与 [E,F] 属于静态质量差可用来定量, rsd% 阈值 30%
+- [C,D] 可用来研究反应动态过程
+
+---
+
+## 质谱峰质量差来源
+
+.pull-left[- 同位素峰 
+  
+  - `\([M]^+\)` `\([M+1]^+\)`
+  - 1.006 Da
+
+- 离子源反应 
+
+  - `\([M+H]^+\)`  `\([M+Na]^+\)`
+  - 21.982 Da
+]
+
+.pull-right[
+- 同系物
+
+  - 脂肪 `\(-[CH_2]-\)`
+  - 14.016 Da
+
+- 外源代谢
+
+  - I相反应
+  - 15.995 Da
+]  
+
+---
+
+## 消除冗余峰
+
+### GlobalStd 算法
+
+&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" width="62%" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. doi:10.1016/j.aca.2018.10.062
+]
+
+---
+
+## 反应组学
+
+### 质量差相当于小分子的碱基对
+
+### 有机物质量差存在富集现象
+
+### 质量差可定性定量指示反应层变化
+
+### GlobalStd 算法利用质量差去除冗余峰
+
+---
+
+## 应用：污染物代谢产物筛查
+
+### 外源代谢
+
+  - I相反应
+    - 氧化 (R-H =&gt; R-OH, pmd 15.995 Da)
+    - 还原 (R-C=O =&gt; R-C-OH, pmd 2.016 Da)
+    
+  - II相反应
+    - 甲基化 (R-OH =&gt; R-O-C,pmd 14.016 Da)
+    - 硫酸化 (R-OH =&gt; R-SO4, pmd 46.976 Da)
+    - 乙酰化 (R-OH =&gt; R-O-COCH3, pmd 42.011 Da)
+    - 葡萄糖醛酸化 (R-NH2 =&gt; R-NH-C6H9O7, pmd 192.027 Da)
+    - 糖基化 (R-OH =&gt; R-O-C6H11O5, pmd 162.053 Da)
+
+---
+
+## 四溴双酚A (TBBPA) 植物代谢
+
+- 质量亏损技术筛选溴代污染物 
+
+- 合成标准验证
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., … Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp; Technology, 53(15), 8805–8812. doi:10.1021/acs.est.9b02122
+]
+
+---
+
+## 四溴双酚A (TBBPA) 植物代谢
+
+- 质量差网络分析
+
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+
+.half[
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+]
+
+---
+
+## 内源产物 vs 外源产物
+
+- T3DB 数据库 （频率前十的质量差）
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3dbnew.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+]
+---
+
+## KEGG 反应网
+
+- 平均网络距离: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
+
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/keggnew.png" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+]
+---
+
+## 肺癌数据集
+
+- MTBLS28 1005 人尿样
+
+- PMD 2.02 Da 可用来区别是否得病
+
+&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+.half[
+Yu, M., &amp; Petrick, L. (2020). Untargeted high-resolution paired mass distance data mining for retrieving general chemical relationships. Communications Chemistry, 3(1). doi:10.1038/s42004-020-00403-z
+]
+---
+
+## 反应组学工具开发
+
+### [pmd 包](http://yufree.github.io/pmd/)
+  
+  - GlobalStd 算法
+  - KEGG/HMDB pmd-reaction 数据库 
+  - pmd 反应定量分析
+  - pmd 网络分析
+
+### [rmwf 包](https://github.com/yufree/rmwf)
+
+  - NIST 1950 数据 
+  - Rmarkdown 模版
+  - 从原始数据到结果报告
+  - 属于 `xcmsrocker` docker 镜像
+
+---
+
+## 未来研究思路
+
+- 完善反应组学的理论基础
+
+- 活体固相微萃取技术在环境研究中的应用
+
+- 反应组学在环境暴露组学中的应用
+
+- 人群开源数据库的挖掘
+
+---
+
+## 发展规划
+
+### 1-2年：理论研究与数据挖掘为主，搭建实验室平台
+
+### 3-5年：实验室研究为主，面向具体环境问题的研究
+
+### 6-10年：组建暴露组学团队，追踪人群队列，面向具体环境与疾病
+
+---
+
+class: center, middle
+
+# 欢迎各位老师批评指正!
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

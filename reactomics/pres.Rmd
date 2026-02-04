@@ -981,3 +981,43 @@ knitr::kable(top10[,c(1,2,3)],align = 'c',format = 'markdown')
 
 ???
 - We need quantitative mass ready database for PMD annotation
+
+---
+
+## Exposures-Metabolites-Disease model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/EMD.png')
+```
+
+- Which metabolites might contain biological information?
+
+- Which metabolites are sensitive to exposures?
+
+---
+
+## Active Molecular Network
+
+```{r echo=FALSE, out.width='700px'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/allion.png')
+```
+
+---
+
+## Exposures-Metabolites-Disease model
+
+```{r echo=FALSE}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/EMD.png')
+```
+
+- Which metabolites might contain biological information?
+
+- Which metabolites are sensitive to exposures?
+
+---
+
+## Active Molecular Network
+
+```{r echo=FALSE, out.width='700px'}
+knitr::include_graphics('https://yufree.github.io/presentation/figure/allion.png')
+```

@@ -1,0 +1,276 @@
+---
+title: "Batch Report"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## IPO
+
+```{r eval=FALSE}
+library(IPO)
+library(xcms)
+peakpickingParameters <- getDefaultXcmsSetStartingParams('centWave')
+# Uncomment this line to use your own data(suggested 3-5 pooled QC samples)
+files <- list.files('LQC_mzXML_PMDDA/ZHP/IPO/',full.names = T,recursive = T)
+# change to 5 for obitrap
+peakpickingParameters$ppm <- 10
+resultPeakpicking <- 
+  optimizeXcmsSet(files = files[sample(1:length(files),3)], 
+                  params = peakpickingParameters,
+                  plot = F,
+                  subdir = NULL)
+optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset
+retcorGroupParameters <- getDefaultRetGroupStartingParams()
+retcorGroupParameters$minfrac <- 1
+resultRetcorGroup <-
+  optimizeRetGroup(xset = optimizedXcmsSetObject, 
+                   params = retcorGroupParameters, 
+                   plot = F,
+                   subdir = NULL)
+para <- c(resultPeakpicking$best_settings$parameters, 
+          resultRetcorGroup$best_settings)
+save(para,file = 'para.RData')
+```
+
+```{r}
+library(xcms)
+load('para.RData')
+getrtmz <- function(path,index = NULL){
+  files <- list.files(path,pattern = ".CDF|.mzXML|.mzML",full.names = T,recursive = T)
+  if(!is.null(index)){
+    files<- files[index]
+    }
+  group <- xcms:::phenoDataFromPaths(files)
+  if(NCOL(group)==1){
+      sample_group <- group$class
+  }else{
+      cols <- colnames(group)
+      sample_group <-  do.call(paste,c(group[cols],sep='_'))
+  }
+  sample_name=sub(basename(files),pattern = ".CDF|.mzXML|.mzML",replacement = '')
+  pd <- cbind.data.frame(sample_name, sample_group)
+  
+  raw_data <- readMSData(files = files, pdata = new("NAnnotatedDataFrame", pd),
+                       mode = "onDisk")
+  # remove co-elution and column wash phase
+  # filter_data <- filterRt(raw_data,rt = c(100,900))
+  cwp <- CentWaveParam(peakwidth = c(para$min_peakwidth,para$max_peakwidth), 
+                       ppm             = para$ppm,
+                       noise           = para$noise,
+                       snthresh        = para$snthresh,
+                       mzdiff          = para$mzdiff,
+                       prefilter       = c(para$prefilter,para$value_of_prefilter),
+                       mzCenterFun     = para$mzCenterFun,
+                       integrate       = para$integrate,
+                       fitgauss        = para$fitgauss,
+                       verboseColumns  = para$verbose.columns)
+  owp <- ObiwarpParam(binSize        = para$profStep,
+                      centerSample   = para$center,
+                      response       = para$response,
+                      distFun        = para$distFunc,
+                      gapInit        = para$gapInit,
+                      gapExtend      = para$gapExtend,
+                      factorDiag     = para$factorDiag,
+                      factorGap      = para$factorGap,
+                      localAlignment = ifelse(para$localAlignment==0,F,T))
+  pdp <- PeakDensityParam(sampleGroups = pd$sample_group,
+                        bw      = para$bw,
+                        minFraction = 0.9,
+                        minSamples = para$minsamp,
+                        maxFeatures = para$max,
+                        binSize = para$mzwid)
+
+  xdata <- findChromPeaks(raw_data, param = cwp)
+  # xdata <- findChromPeaks(filter_data, param = cwp)
+  xdata <- adjustRtime(xdata, param = owp)
+  xdata <- groupChromPeaks(xdata, param = pdp)
+  xdata <- fillChromPeaks(xdata)
+  return(xdata)
+}
+```
+
+## Batch Report
+
+```{r}
+srm <- getrtmz('Acquisition/mzXML/ZHP')
+srm2 <- as(srm,'xcmsSet')
+saveRDS(srm2,file=paste0('NAME','xset.rds'))
+mzrt <- enviGCMS::getmzrt(srm, name = 'NAME',eic = F)
+## check cv
+pos <- enviGCMS::getdoe(mzrt)
+## plot CVs from smallest to largest
+posqc <- pos$grouprsd[,grepl('qc',colnames(pos$grouprsd))]
+plot(posqc[order(posqc)], xlab="Number of Features", ylab="% CV")
+abline(h=25)
+## peaks below 25% threshold
+sum(posqc <= 25,na.rm = T)
+## filter by QC
+posfilter <- enviGCMS::getfilter(pos,rowindex = posqc<=25&!is.na(posqc))
+## Calculate TUS
+TUS <- apply(posfilter$data,2,sum,na.rm=T)
+## Run order and batch
+name <- strsplit(colnames(mzrt$data),split = '\\_')
+batch <- sapply(name,function(x) x[2])
+runorder <- as.numeric(sapply(name, function(x) x[3]))
+batchnum <- as.numeric(unlist(strsplit(batch,split = 'B'))[c(F,T)])
+runorderB <- batchnum*1000+runorder
+## sample index
+pqc <- grepl('qc',pos$group$sample_group)
+sample <- grepl('sample',pos$group$sample_group)
+## plot on pooled QCs
+plot(runorder[pqc],TUS[pqc], xlab="Run Order", ylab="TUS",col=as.factor(batch[pqc]),pch=19)
+title(main="Total Usable Signal: LQCs")
+legend('topright',legend = unique(as.factor(batch[pqc])),col=unique(as.factor(batch[pqc])),pch=19)
+## plot on samples
+plot(runorder[sample],TUS[sample], xlab="Run Order", ylab="TUS",col=as.factor(batch[sample]),pch=19)
+title(main="Total Usable Signal: Samples")
+legend('topright',legend = unique(as.factor(batch[sample])),col=unique(as.factor(batch[sample])),pch=19)
+## RLE Plots
+enviGCMS::plotridges(posfilter$data[,pqc],lv=as.factor(batch[pqc]),type = 'a')
+enviGCMS::plotridges(posfilter$data[,sample],lv=factor(posfilter$group$sample_group[sample]),type = 'a')
+## Calculate Min / Max of LQCs (column conditioning exlcuded). Calculate correlation between LQCs and correlation between samples.
+min(TUS[pqc])/max(TUS[pqc])
+print(min(TUS[pqc&batchnum==i])/max(TUS[pqc&batchnum==i]))
+## LQC correlation
+QC.cor <- cor(posfilter$data[,pqc])
+min(QC.cor)
+QC.cor <- cor(posfilter$data[,pqc&batchnum==i])
+print(range(QC.cor))
+## sample correlation
+sample.cor <- cor(posfilter$data[,sample])
+min(sample.cor)
+## PCA for all
+enviGCMS::plotpca(log(posfilter$data+1),lv=batchnum,col=as.numeric(as.factor(posfilter$group$sample_group)));legend("top", horiz = T,inset=c(0, -0.2),xpd=TRUE,bty='n', legend=unique(posfilter$group$sample_group),col=unique(as.numeric(as.factor(posfilter$group$sample_group))), pch=19, title="")
+## PCA for samples and LQCs
+enviGCMS::plotpca(log(posfilter$data[,pqc|sample]+1),lv=batchnum[pqc|sample],col=as.numeric(as.factor(posfilter$group$sample_group[pqc|sample])))
+```
+
+## PMDDA MS2 data collection
+
+### Function for PMDDA
+
+```{r}
+pmdtarget <- function(list,Dppm = 10,Drt = 0.3,ce = NA, name = 'target',n=NULL){
+        head <-  c('On', 'Prec. m/z', 'Z','Ret. Time (min)', 'Delta Ret. Time (min)', 'Iso. Width', 'Collision Energy')
+        mz <- list$mz[list$stdmassindex]
+        rt <- round(list$rt[list$stdmassindex]/60,3)
+        temp = cbind('TRUE',mz,1,rt,Drt,'Narrow (~1.3 m/z)',ce)
+        data <- rbind(head,temp)
+        colnames(data) <- c('TargetedMSMSTable',rep('',6))
+
+        if(is.null(n)){
+                name2 <- paste0(name,'.csv')
+                utils::write.table(data,file = name2,row.names = F,col.names = F,sep=",")
+
+        }else{
+                idx <- targetsep(list$rt[list$stdmassindex],Drt,n)
+                for(i in 1:length(table(idx))){
+                        namei <- paste0(name,i,'.csv')
+                        idx2 <- idx == i
+                        idx3 <- c(T,idx2)
+                        datai <- data[idx3,]
+                        utils::write.table(datai,file = namei,row.names = F,col.names = F,sep=",")
+                }
+        }
+
+        return(data)
+}
+
+gettarget <- function(mz,rt,Drt=0.5,Dppm=20,ce=NA,name,n=NULL){
+  head <-  c('On', 'Prec. m/z', 'Z','Ret. Time (min)', 'Delta Ret. Time (min)', 'Iso. Width', 'Collision Energy')
+        rtn <- round(rt/60,3)
+        temp = cbind('TRUE',mz,1,rtn,Drt,'Narrow (~1.3 m/z)',ce)
+        data <- rbind(head,temp)
+        colnames(data) <- c('TargetedMSMSTable',rep('',6))
+
+        if(is.null(n)){
+                name2 <- paste0(name,'.csv')
+                utils::write.table(data,file = name2,row.names = F,col.names = F,sep=",")
+
+        }else{
+                idx <- targetsep(rt,Drt,n)
+                for(i in 1:length(table(idx))){
+                        namei <- paste0(name,i,'.csv')
+                        idx2 <- idx == i
+                        idx3 <- c(T,idx2)
+                        datai <- data[idx3,]
+                        utils::write.table(datai,file = namei,row.names = F,col.names = F,sep=",")
+                }
+        }
+
+        return(data)
+}
+
+targetsep <- function(rt,Drt,n=6,seed=42){
+        set.seed(seed)
+        D <- Drt*60
+        dis <- stats::dist(rt, method = "manhattan")
+        fit <- stats::hclust(dis)
+        inji <- rtcluster <- stats::cutree(fit, h = D)
+        maxd <- max(table(rtcluster))
+        m <- length(unique(rtcluster))
+        inj <- ceiling(maxd/n)
+        message(paste('You need',inj,'injections!'))
+        for(i in c(1:m)) {
+                z = 1:inj
+                x <- rt[rtcluster==i]
+                while(length(x) > inj & length(x)>n){
+                        t <- sample(x,n)
+                        w <- sample(z,1)
+                        inji[rt %in% t] <- w
+                        z <- z[!(z%in%w)]
+                        x <- x[!(x %in% t)]
+                }
+                inji[rtcluster==i & rt %in% x] <- sample(z,sum(rtcluster==i & rt %in% x),replace = T)
+        }
+        return(inji)
+}
+```
+
+### Generate MS/MS peaks list
+
+Generate targeted list for MS/MS analysis from pmd analysis
+
+```{r}
+# PMD
+pos <- enviGCMS::getmzrtcsv('rpnmzrt.csv')
+pospmd <- pmd::globalstd(pos,sda=F,ng = NULL)
+pre <- cbind.data.frame(mz=pospmd$mz[pospmd$stdmassindex],rt=pospmd$rt[pospmd$stdmassindex])
+write.csv(pre,'pretar.csv')
+# generate the precursor ions list for multiple injections, Change ‘Drt = 0.2’ to ‘Drt = 0.5’ for ZHP mode.
+pt <- gettarget(pre$mz,pre$rt,n=6,Drt = 0.2,ce=20,name = 'pmdrpn')
+# After collect MS/MS data, upload the mzXML files to GNPS for annotation
+```
+
+## Batch correction (optional)
+
+```{r}
+# read the peaks list data
+zhp <- enviGCMS::getmzrtcsv('rpnmzrt.csv')
+all <- strsplit(colnames(zhp$data),'\\_')
+batchx <- sapply(all,function(x) x[2])
+batch <- as.numeric(sapply(strsplit(batchx,'B'), function(x) x[2]))
+order <- as.numeric(sapply(all,function(x) x[3]))+batch*100
+order <- as.numeric(as.factor(order))
+class <- ifelse(grepl('QC',colnames(zhp$data)),'QC',zhp$group$sample_group)
+# ComBat batch correction
+zhp <- enviGCMS::getimputation(zhp)
+dataCorrected <- sva::ComBat(zhp$data,batch)
+pqc <- grepl('qc',zhp$group$sample_group)
+sample <- grepl('sample',zhp$group$sample_group)
+enviGCMS::plotridges(zhp$data[,pqc],lv=as.factor(batch[pqc]),type = 'a')
+enviGCMS::plotridges(dataCorrected[,pqc],lv=as.factor(batch[pqc]),type = 'a')
+enviGCMS::plotridges(dataCorrected[,sample],lv=factor(batch[pqc]),type = 'a')
+zhp$data <- dataCorrected
+enviGCMS::getcsv(zhp,'rpncor')
+rpn <- enviGCMS::getmzrtcsv('rpncormzrt.csv')
+rpnnew <- cbind.data.frame(rpn$mz,rpn$rt,rpn$data)
+x <- strsplit(colnames(rpn$data),'\\.')
+y <- sapply(x,function(x) x[1])
+colnames(rpnnew) <- c('mz','rt',y)
+write.csv(rpnnew,'rpncor.csv')
+```
+

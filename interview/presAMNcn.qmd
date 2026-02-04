@@ -1,0 +1,215 @@
+---
+title: "环境生物样品中的动态活性分子网络"
+subtitle: ""
+author: "于淼"
+date: "2026-02-04"
+format:
+  revealjs: 
+    theme: simple
+    slide-number: true
+editor: visual
+---
+
+## 环境暴露与健康
+
+```{mermaid}
+flowchart LR
+            subgraph 生物
+                        X(外源污染物) --> W(外源代谢物)
+                        O(基因) --> P(蛋白质)
+                        P --> Q(内源代谢物)
+            end
+            
+            A(环境暴露) ==> 生物
+            生物 ==> C(健康)
+            H([生态系统]) --- A
+	    F([社会因素]) --- A
+            G([个人生活]) --- A
+            
+            C --- D([疾病])
+            C --- E([福利])
+	    D --- I[生理疾病]
+	    D --- J[心理疾病]
+	    E --- K[长寿]
+            E --- L[幸福感]
+            M[污染物] --- H
+            N[气候变化] --- H
+            R[教育水平] --- F
+            S[收入水平] --- F
+            T[烟酒毒品] --- G
+            U[饮食习惯] --- G
+            V[保健品/健身] --- G
+
+style 生物 fill:#fffafa
+```
+
+## 科学问题
+
+-   研究目标
+
+    ```         
+      - 揭示已知/未知污染物影响健康的动态分子网络机制
+    ```
+
+-   研究手段
+
+    ```         
+      - 高分辨质谱分析生物样品
+      - 可解释性机器学习与网络分析
+    ```
+
+-   当前难点
+
+    ```         
+      - 已知未知污染物及其代谢物的动态变化
+            - 活体采样
+            - 高通量仪器分析
+            - 代谢物穷举
+            
+      - 污染物影响的内源代谢物/分子通路
+            - 未知物来源推测
+            - 暴露看门人分子发现
+            - 疾病的活性分子网络
+    ```
+
+## 污染物及其代谢物的动态变化
+
+### 活体采样 - 固相微萃取
+
+![](https://yufree.github.io/presentation/figure/spmegeo.jpeg){fig-align="center"}
+
+::: footer
+-  Yu, M. et al. 2022 doi:10.1021/acsenvironau.1c00024
+:::
+
+## 污染物及其代谢物的动态变化
+
+### 活体采样 - 储存影响
+
+![](https://yufree.cn/images/TOC.png){fig-align="center"}
+
+::: footer
+-  Yu, M. et al. 2020 doi:10.1016/j.aca.2020.08.050
+:::
+
+## 污染物及其代谢物的动态变化
+
+### 高通量仪器分析 - 单文件进样
+
+![](https://yufree.github.io/presentation/sfi/images/demosfi.png){fig-align="center"}
+
+::: footer
+-  Yu, M. et al. 2025 doi:10.26434/chemrxiv-2025-3qx3t
+:::
+
+## 污染物及其代谢物的动态变化
+
+### 穷举代谢物 - 反应组学
+
+![](https://yufree.github.io/presentation/figure/TBBPA.png){fig-align="center"}
+
+::: footer
+-  Yu, M. et al. 2020 doi:10.1038/s42004-020-00403-z
+:::
+
+## 污染物影响的内源代谢物/分子通路
+
+### 内源污染物与外源化合物区分 - 反应组学
+
+![](https://yufree.github.io/presentation/figure/t3db3.png){fig-align="center"}
+
+::: footer
+-  Yu, M. et al. 2020 doi:10.1038/s42004-020-00403-z
+:::
+
+## 污染物影响的内源代谢物/分子通路
+
+### 小网络假设 - 反应组学
+
+![](https://yufree.github.io/presentation/AMN/images/keggnew.png){fig-align="center"}
+
+- 内源化合物 4.5 (95% CI \[4.3, 4.8\])
+
+- 外源化合物 1.7 (95% CI \[1.2, 2.2\])
+
+- 注意“假”内源化合物
+
+::: footer
+-  Yu, M. et al. 2020 doi:10.1038/s42004-020-00403-z
+:::
+
+## 污染物影响的内源代谢物/分子通路
+
+### 污染物影响的内源分子 - 看门人分子
+
+::: {style="text-align: center"}
+![](https://yufree.github.io/presentation/figure/gkall2.png){width=80%}
+:::
+
+::: footer
+-  Yu, M. et al. 2022 doi:10.1021/acs.est.1c04039
+:::
+
+## 污染物影响的内源代谢物/分子通路
+
+### 分子机制探索 - 疾病的活性分子网络
+
+![](https://yufree.github.io/presentation/AMN/images/amn.gif){fig-align="center"}
+
+::: footer
+-   Yu, M. et al. 2024 doi:10.1021/envhealth.3c00218
+:::
+
+## 小结
+
+![](https://yufree.github.io/presentation/figure/damn.png){fig-align="center"}
+
+-   活体固相微萃取可以用来捕捉未知化合物
+
+-   单文件进样可以提高数据通量关注动态过程
+
+-   反应组学分析可以穷举代谢物区别内外源化合物
+
+-   看门人分子可以用来发现暴露影响的内源分子
+
+-   活性分子网络可以解释暴露导致疾病的分子机制
+
+## 相关软件
+
+- Package rgabriel：Gabriel 多重比较
+
+- Package enviGCMS：环境科学质谱色谱联用数据分析
+
+- Package pmd：质谱色谱联用数据质量差与反应组学分析
+
+- Package enet：环境暴露网络分析
+
+- Package mzrtsim：质谱色谱联用数据仿真模拟
+
+- Package mzrt2h5 ：质谱数据张量化转换
+
+- xcmsrocker：代谢组学数据分析系统镜像
+
+## 展望
+
+### 关注分子间关系而非分子本身
+
+-   结合固相微萃取与单文件进样进行环境/生物信息高通量动态分析
+
+-   整合多组学数据与机器学习算法完善活性分子网络
+
+-   典型污染物的分子看门人数据库构建
+
+-   典型环境来源疾病的多暴露活性分子网络构建
+
+
+
+## 致谢
+
+-   Prof. Janusz Pawliszyn's Group \@ UWaterloo
+
+-   Prof. Lauren Petrick's Group \@ Mount Sinai
+
+-   Data Science \@ The Jackson Laboratory
+
+### 欢迎各位老师同学批评指正! {style="text-align: center"}

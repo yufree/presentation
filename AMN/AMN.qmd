@@ -140,7 +140,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 -   Double bonds reactions in lung/breast cancer
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![](https://yufree.github.io/presentation/figure/mtbls28.png)
 :::
@@ -148,7 +148,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 ::: {.column width="50%"}
 ![](images/libc.png)
 :::
-:::
+:::::
 
 ::: footer
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
