@@ -8,3 +8,6 @@ presentation.Rproj
 *cache
 test.Rmd
 test.html
+/.cache/
+/.quarto/
+**/*.quarto_ipynb
