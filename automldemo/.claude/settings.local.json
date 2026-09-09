@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(pip install:*)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(source:*)",
+      "Bash(conda:*)",
+      "Bash(brew install:*)",
+      "Bash(pyenv install:*)",
+      "Bash(docker:*)",
+      "Bash(python:*)",
+      "Bash(cat:*)",
+      "Bash(tee:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

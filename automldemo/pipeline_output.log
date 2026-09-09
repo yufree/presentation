@@ -1,0 +1,225 @@
+
+============================================================
+METABOLOMICS AUTOML PIPELINE
+============================================================
+
+============================================================
+Loading and Combining Datasets
+============================================================
+
+============================================================
+Processing Negative Mode
+============================================================
+Dataset shape: (1005, 1364)
+Case/Control distribution:
+case_control
+Control    536
+Case       469
+Name: count, dtype: int64
+
+============================================================
+Processing Positive Mode
+============================================================
+Dataset shape: (1005, 1812)
+Case/Control distribution:
+case_control
+Control    536
+Case       469
+Name: count, dtype: int64
+
+Combined dataset shape: (2010, 3170)
+Total samples: 2010
+Case/Control distribution:
+case_control
+Control    1072
+Case        938
+Name: count, dtype: int64
+
+Feature matrix shape: (2010, 3164)
+Number of features: 3164
+
+============================================================
+Training AutoGluon Model
+============================================================
+Training set size: 1608
+Validation set size: 402
+Presets specified: ['best_quality']
+Beginning AutoGluon training ... Time limit = 600s
+AutoGluon will save models to "/app/output/autogluon_model"
+=================== System Info ===================
+AutoGluon Version:  1.1.0
+Python Version:     3.9.25
+Operating System:   Linux
+Platform Machine:   aarch64
+Platform Version:   #1 SMP Tue Nov  4 21:21:47 UTC 2025
+CPU Count:          8
+Memory Avail:       4.05 GB / 15.60 GB (25.9%)
+Disk Space Avail:   91.98 GB / 118.00 GB (77.9%)
+===================================================
+Train Data Rows:    1608
+Train Data Columns: 3164
+Label Column:       case_control
+Problem Type:       binary
+Preprocessing data ...
+Selected class <--> label mapping:  class 1 = Control, class 0 = Case
+	Note: For your binary classification, AutoGluon arbitrarily selected which label-value represents positive (Control) vs negative (Case) class.
+	To explicitly set the positive_class, either rename classes to 1 and 0, or specify positive_class in Predictor init.
+Using Feature Generators to preprocess the data ...
+Fitting AutoMLPipelineFeatureGenerator...
+	Available Memory:                    4067.50 MB
+	Train Data (Original)  Memory Usage: 38.82 MB (1.0% of available memory)
+	Inferring data type of each feature based on column values. Set feature_metadata_in to manually specify special dtypes of the features.
+	Stage 1 Generators:
+		Fitting AsTypeFeatureGenerator...
+	Stage 2 Generators:
+		Fitting FillNaFeatureGenerator...
+	Stage 3 Generators:
+		Fitting IdentityFeatureGenerator...
+	Stage 4 Generators:
+		Fitting DropUniqueFeatureGenerator...
+	Stage 5 Generators:
+		Fitting DropDuplicatesFeatureGenerator...
+	Types of features in original data (raw dtype, special dtypes):
+		('float', []) : 3164 | ['100.0032_126.6532', '100.0032_190.6867', '100.0032_247.7814', '100.0760_48.1822', '102.0553_48.2211', ...]
+	Types of features in processed data (raw dtype, special dtypes):
+		('float', []) : 3164 | ['100.0032_126.6532', '100.0032_190.6867', '100.0032_247.7814', '100.0760_48.1822', '102.0553_48.2211', ...]
+	6.7s = Fit runtime
+	3164 features in original data used to generate 3164 features in processed data.
+	Train Data (Processed) Memory Usage: 38.82 MB (1.3% of available memory)
+Data preprocessing and feature engineering runtime = 7.75s ...
+AutoGluon will gauge predictive performance using evaluation metric: 'roc_auc'
+	This metric expects predicted probabilities rather than predicted class labels, so you'll need to use predict_proba() instead of predict()
+	To change this, specify the eval_metric parameter of Predictor()
+Automatically generating train/validation split with holdout_frac=0.2, Train Rows: 1286, Val Rows: 322
+Large model count detected (112 configs) ... Only displaying the first 3 models of each family. To see all, set `verbosity=3`.
+User-specified model hyperparameters to be fit:
+{
+	'NN_TORCH': [{}, {'activation': 'elu', 'dropout_prob': 0.10077639529843717, 'hidden_size': 108, 'learning_rate': 0.002735937344002146, 'num_layers': 4, 'use_batchnorm': True, 'weight_decay': 1.356433327634438e-12, 'ag_args': {'name_suffix': '_r79', 'priority': -2}}, {'activation': 'elu', 'dropout_prob': 0.11897478034205347, 'hidden_size': 213, 'learning_rate': 0.0010474382260641949, 'num_layers': 4, 'use_batchnorm': False, 'weight_decay': 5.594471067786272e-10, 'ag_args': {'name_suffix': '_r22', 'priority': -7}}],
+	'GBM': [{'extra_trees': True, 'ag_args': {'name_suffix': 'XT'}}, {}, 'GBMLarge'],
+	'CAT': [{}, {'depth': 6, 'grow_policy': 'SymmetricTree', 'l2_leaf_reg': 2.1542798306067823, 'learning_rate': 0.06864209415792857, 'max_ctr_complexity': 4, 'one_hot_max_size': 10, 'ag_args': {'name_suffix': '_r177', 'priority': -1}}, {'depth': 8, 'grow_policy': 'Depthwise', 'l2_leaf_reg': 2.7997999596449104, 'learning_rate': 0.031375015734637225, 'max_ctr_complexity': 2, 'one_hot_max_size': 3, 'ag_args': {'name_suffix': '_r9', 'priority': -5}}],
+	'XGB': [{}, {'colsample_bytree': 0.6917311125174739, 'enable_categorical': False, 'learning_rate': 0.018063876087523967, 'max_depth': 10, 'min_child_weight': 0.6028633586934382, 'ag_args': {'name_suffix': '_r33', 'priority': -8}}, {'colsample_bytree': 0.6628423832084077, 'enable_categorical': False, 'learning_rate': 0.08775715546881824, 'max_depth': 5, 'min_child_weight': 0.6294123374222513, 'ag_args': {'name_suffix': '_r89', 'priority': -16}}],
+	'FASTAI': [{}, {'bs': 256, 'emb_drop': 0.5411770367537934, 'epochs': 43, 'layers': [800, 400], 'lr': 0.01519848858318159, 'ps': 0.23782946566604385, 'ag_args': {'name_suffix': '_r191', 'priority': -4}}, {'bs': 2048, 'emb_drop': 0.05070411322605811, 'epochs': 29, 'layers': [200, 100], 'lr': 0.08974235041576624, 'ps': 0.10393466140748028, 'ag_args': {'name_suffix': '_r102', 'priority': -11}}],
+	'RF': [{'criterion': 'gini', 'ag_args': {'name_suffix': 'Gini', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'entropy', 'ag_args': {'name_suffix': 'Entr', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'squared_error', 'ag_args': {'name_suffix': 'MSE', 'problem_types': ['regression', 'quantile']}}],
+	'XT': [{'criterion': 'gini', 'ag_args': {'name_suffix': 'Gini', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'entropy', 'ag_args': {'name_suffix': 'Entr', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'squared_error', 'ag_args': {'name_suffix': 'MSE', 'problem_types': ['regression', 'quantile']}}],
+	'KNN': [{'weights': 'uniform', 'ag_args': {'name_suffix': 'Unif'}}, {'weights': 'distance', 'ag_args': {'name_suffix': 'Dist'}}],
+}
+Fitting 110 L1 models ...
+Fitting model: KNeighborsUnif ... Training model for up to 592.25s of the 592.15s of remaining time.
+	0.5405	 = Validation score   (roc_auc)
+	6.64s	 = Training   runtime
+	0.78s	 = Validation runtime
+Fitting model: KNeighborsDist ... Training model for up to 584.7s of the 584.59s of remaining time.
+	0.544	 = Validation score   (roc_auc)
+	0.9s	 = Training   runtime
+	0.37s	 = Validation runtime
+Fitting model: LightGBMXT ... Training model for up to 583.21s of the 583.1s of remaining time.
+	0.8142	 = Validation score   (roc_auc)
+	79.54s	 = Training   runtime
+	0.13s	 = Validation runtime
+Fitting model: LightGBM ... Training model for up to 503.34s of the 503.19s of remaining time.
+	0.8092	 = Validation score   (roc_auc)
+	77.84s	 = Training   runtime
+	0.08s	 = Validation runtime
+Fitting model: RandomForestGini ... Training model for up to 425.22s of the 425.13s of remaining time.
+	0.7335	 = Validation score   (roc_auc)
+	4.81s	 = Training   runtime
+	0.19s	 = Validation runtime
+Fitting model: RandomForestEntr ... Training model for up to 420.02s of the 419.93s of remaining time.
+	0.7524	 = Validation score   (roc_auc)
+	5.12s	 = Training   runtime
+	0.14s	 = Validation runtime
+Fitting model: CatBoost ... Training model for up to 414.57s of the 414.48s of remaining time.
+Warning: Large model size may cause OOM error if training continues
+Warning: Early stopped model prior to optimal result to avoid OOM error. Please increase available memory to avoid subpar model quality.
+Available Memory: 1521 MB, Estimated Model size: 1603 MB
+	Ran low on memory, early stopping on iteration 13.
+	0.728	 = Validation score   (roc_auc)
+	14.57s	 = Training   runtime
+	0.1s	 = Validation runtime
+Fitting model: ExtraTreesGini ... Training model for up to 399.79s of the 399.7s of remaining time.
+	0.7081	 = Validation score   (roc_auc)
+	3.16s	 = Training   runtime
+	0.14s	 = Validation runtime
+Fitting model: ExtraTreesEntr ... Training model for up to 396.33s of the 396.25s of remaining time.
+	0.7125	 = Validation score   (roc_auc)
+	2.83s	 = Training   runtime
+	0.16s	 = Validation runtime
+Fitting model: NeuralNetFastAI ... Training model for up to 393.19s of the 393.04s of remaining time.
+No improvement since epoch 1: early stopping
+	0.7386	 = Validation score   (roc_auc)
+	40.5s	 = Training   runtime
+	0.17s	 = Validation runtime
+Fitting model: XGBoost ... Training model for up to 352.26s of the 352.17s of remaining time.
+	0.7816	 = Validation score   (roc_auc)
+	55.18s	 = Training   runtime
+	0.14s	 = Validation runtime
+Fitting model: NeuralNetTorch ... Training model for up to 296.81s of the 296.73s of remaining time.
+	Ran out of time, stopping training early. (Stopping on epoch 50)
+	0.8246	 = Validation score   (roc_auc)
+	296.89s	 = Training   runtime
+	1.69s	 = Validation runtime
+Fitting model: WeightedEnsemble_L2 ... Training model for up to 360.0s of the -10.66s of remaining time.
+	Ensemble Weights: {'NeuralNetTorch': 0.571, 'LightGBM': 0.214, 'LightGBMXT': 0.143, 'CatBoost': 0.071}
+	0.8389	 = Validation score   (roc_auc)
+	0.15s	 = Training   runtime
+	0.0s	 = Validation runtime
+AutoGluon training complete, total runtime = 611.25s ... Best model: "WeightedEnsemble_L2"
+TabularPredictor saved. To load, use: predictor = TabularPredictor.load("/app/output/autogluon_model")
+
+============================================================
+Evaluating Model Performance
+============================================================
+
+ROC AUC Score: 0.9531
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        Case       0.89      0.85      0.87       938
+     Control       0.87      0.91      0.89      1072
+
+    accuracy                           0.88      2010
+   macro avg       0.88      0.88      0.88      2010
+weighted avg       0.88      0.88      0.88      2010
+
+
+Confusion Matrix:
+[[798 140]
+ [100 972]]
+
+============================================================
+Extracting Feature Importance (Fast Method)
+============================================================
+Computing feature importance based on variance...
+
+Top 10 Most Important Features (by variance):
+          feature  importance
+187.0073_182.3883    0.595134
+ 178.0507_46.7570    0.063691
+ 230.0127_81.9268    0.062492
+212.0020_128.3515    0.043767
+ 229.9959_73.6495    0.025963
+105.0343_154.5457    0.016397
+172.0977_130.9439    0.015188
+ 144.1029_23.8842    0.013598
+287.1009_164.0682    0.012905
+263.1031_159.1227    0.012329
+
+============================================================
+Creating Visualizations
+============================================================
+
+============================================================
+Generating HTML Report
+============================================================
+
+HTML report saved to: /app/output/automl_report.html
+
+============================================================
+PIPELINE COMPLETE!
+============================================================
+
+Results saved to: /app/output
+Main report: /app/output/automl_report.html
+
+Open the HTML report in a web browser to view results.

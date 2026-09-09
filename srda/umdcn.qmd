@@ -14,22 +14,18 @@ format:
 
 - 无利益冲突
 
-- 报告过程中欢迎随时提问
+- 报告过程中欢迎随时打断提问
 
 - 幻灯片可在线获取
 
   - <http://yufree.github.io/presentation/srda/umdcn.html>
 
-::: notes
-【0:00-1:00】开场:自我介绍,说明本次报告主题为"数据驱动的非靶向污染物代谢物发现方法",时长约40分钟,分背景问题、方法原理、分析流程、案例研究四个部分。
-:::
 
 ## 代谢物发现
 
 - 内源性化合物的代谢物
 
   - 特定代谢通路的激活/抑制
-
   - 从生物体系中排出
 
 - 人工化合物的生物转化
@@ -37,42 +33,15 @@ format:
   - 药物
   - 食品添加剂
   - 农药
-  - 阻燃剂
 
-- 毒性与风险评估
-
-::: notes
-【1:00-3:00】介绍代谢物发现的两大来源,强调本次报告聚焦污染物(农药、阻燃剂等人工化合物)在生物体内的生物转化及其代谢物的毒性风险。
-:::
 
 ## 代谢物发现原理
 
-- 外源化合物代谢[^1]
+- 外源代谢通路[^1]
 
 [^1]: By TimVickers - Own work, Public Domain, <https://commons.wikimedia.org/w/index.php?curid=4549628>
 
 ![](https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png)
-
-::: notes
-【3:00-5:00】结合外源化合物代谢图讲解I相/II相反应:污染物进入体内后经氧化、还原、水解及结合反应生成代谢物,这是代谢物发现的理论基础。
-:::
-
-## 问题
-
-|        | **已知**   | **未知**   |
-|--------|------------|------------|
-| 已鉴定 | 已知代谢物 | 未知化合物 |
-| 未鉴定 | 潜在代谢物 | 未知的未知 |
-
-- 未知化合物缺乏标准品
-
-- 潜在代谢物的鉴定
-
-- 未知的未知
-
-::: notes
-【5:00-7:00】用二维表说明代谢物发现的困难:已知代谢物仅是冰山一角,未知化合物没有标准品,潜在代谢物无法穷举,最大的挑战是"未知的未知"。
-:::
 
 ## 现有方案
 
@@ -90,11 +59,23 @@ format:
 
 受反应迭代次数限制(3 次)
 
-::: notes
-【7:00-9:00】介绍现有软件的预测逻辑:基于已知反应规则枚举可能结构。局限:预测结果数量爆炸、受迭代次数限制、脱离真实数据,难以判断哪些代谢物真实存在。
-:::
+## 非靶向分析的定性问题
 
-## 我的方案
+|        | **理论存在**   | **理论未知**   |
+|--------|----------------|----------------|
+| 谱库匹配 | 已知代谢物 | 未知化合物 |
+| 谱库不匹配 | 潜在代谢物 | 未知的未知 |
+
+- 已知代谢物可用标准品定性且理论上也应该存在
+
+- 未知的未知化合物无法定性
+
+- 未知化合物可以用标准品定性但说不清代谢来源（非法添加）
+
+- **潜在代谢物理论上存在但没有二级谱图**
+
+
+## 转换思路
 
 > 关注化合物之间的关系
 
@@ -102,9 +83,6 @@ format:
 
 来自 [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):大碗岛的星期天下午,乔治·修拉
 
-::: notes
-【9:00-10:30】用修拉的点彩画类比:单个色点无意义,点与点的关系才构成图像。同理,不应孤立地预测单个化合物,而应从数据中挖掘化合物之间的关系(反应)。
-:::
 
 ## 为什么用反应?
 
@@ -116,9 +94,6 @@ format:
 
 - 小分子的**组合**就是化学反应或配对质量距离
 
-::: notes
-【10:30-12:30】类比组学层级:基因/蛋白有明确单元与组合(序列),小分子化学空间近乎无限,其"组合"就是反应。以反应为单元可以将海量化合物组织起来。
-:::
 
 ## 为什么用 PMD?
 
@@ -134,10 +109,6 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 - 需要**高分辨**质谱
 
-::: notes
-【12:30-15:00】用核结合能类比:元素周期表由质量关系组织,化合物之间的质量距离(PMD)同样能编码化学关系。PMD 对应确定的化学转变,且高分辨质谱可以精确测量。
-:::
-
 ## KEGG 数据库中的 PMD
 
 - 频率最高的前 10 个 PMD 覆盖了 68% 的已知反应
@@ -148,9 +119,6 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 :::
 
-::: notes
-【15:00-16:30】展示 KEGG 已知反应的 PMD 统计:分布高度不均,前10个高频PMD覆盖68%反应,说明少数反应主导了化学空间,这是数据驱动方法可行的前提。
-:::
 
 ## 真实数据中的 PMD
 
@@ -180,32 +148,13 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 :::
 :::::
 
-::: notes
-【16:30-18:00】真实质谱数据中同样存在高频PMD:同位素、源内加成、同系物、I相羟基化(加氧15.995 Da)等,污染物代谢转化直接体现在PMD上。
-:::
 
-## 基于 PMD 的反应组学流程
-
-- 第 1 步:去除冗余峰
-
-- 第 2 步:提取高频 PMD
-
-- 第 3 步:构建关系网络
-
-::: notes
-【18:00-19:00】给出完整分析流程概览,后面逐步展开三步:GlobalStd去除冗余峰、提取高频PMD、构建反应关系网络。
-:::
-
-## 峰中有多少真实化合物?
+## 质谱峰中有多少真实化合物?
 
 ![](https://yufree.github.io/presentation/figure/gapfc.jpg){fig-align="center"}
 
 ::: footer
 Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380
-:::
-
-::: notes
-【19:00-20:00】指出非靶向数据的痛点:检出峰数量远超真实化合物数量,大量峰为加合、碎片、同位素等冗余峰。
 :::
 
 ## 冗余峰
@@ -216,9 +165,6 @@ Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380
 
 ![](https://yufree.github.io/presentation/figure/peakcom.png){fig-align="center"}
 
-::: notes
-【20:00-21:00】解释冗余峰的来源与影响:冗余峰浪费MS/MS采集资源,需要先去除冗余、筛选独立峰再做后续分析。
-:::
 
 ## GlobalStd 算法
 
@@ -228,19 +174,12 @@ Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380
 Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S0003267018313047
 :::
 
-::: notes
-【21:00-22:00】介绍GlobalStd算法整体思路:利用保留时间聚类与高频PMD,自动识别并去除冗余峰,保留独立峰。
-:::
-
 ## GlobalStd 算法 第 1 步
 
 ### 保留时间聚类分析
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png){fig-align="center"}
 
-::: notes
-【22:00-23:00】第1步:同一化合物及其冗余峰保留时间接近,通过RT聚类将峰分组。
-:::
 
 ## GlobalStd 算法 第 2 步
 
@@ -248,9 +187,6 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png){fig-align="center"}
 
-::: notes
-【23:00-24:00】第2步:在不同RT聚类间统计PMD频率,识别跨聚类出现的高频PMD。
-:::
 
 ## GlobalStd 算法 第 2 步
 
@@ -258,51 +194,12 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png){fig-align="center"}
 
-::: notes
-【24:00-24:30】结合示例图讲解如何在具体聚类中定位高频PMD对应的峰对。
-:::
 
 ## GlobalStd 算法 第 3 步
 
 ### 独立峰筛选
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png){fig-align="center"}
-
-::: notes
-【24:30-25:30】第3步:去除由高频PMD关联的冗余峰,得到独立峰列表,大幅压缩后续分析规模。
-:::
-
-## 提取高频 PMD
-
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png){fig-align="center"}
-
-::: notes
-【25:30-26:00】在独立峰基础上提取高频PMD,作为数据驱动反应组学的"反应列表"。
-:::
-
-## 如何定义"高频"?
-
-::::: columns
-::: {.column width="50%"}
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/networkgen.gif)
-:::
-
-::: {.column width="50%"}
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/dis.png)
-:::
-:::::
-
-::: notes
-【26:00-27:00】说明高频PMD的判定:通过随机网络模拟得到PMD频率分布,以分布尾部作为高频阈值,避免主观设定。
-:::
-
-## 关系网络
-
-![](https://yufree.github.io/pmd/articles/reactomics_files/figure-html/net-1.png){fig-align="center"}
-
-::: notes
-【27:00-28:00】以高频PMD为边、独立峰为节点构建关系网络,网络中的连通结构即候选代谢物家族。
-:::
 
 ## PMDDA 工作流程
 
@@ -312,23 +209,15 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00586-8
 :::
 
-::: notes
-【28:00-29:00】介绍PMD导向数据采集(PMDDA):将高频PMD纳入采集策略,优先对独立峰进行MS/MS。
-:::
-
 ## PMDDA 工作流程
 
 ![](https://yufree.github.io/presentation/figure/pmddacomp.png){fig-align="center"}
 
-::: notes
-【29:00-30:00】展示PMDDA在化合物层面的效果:以更少的MS/MS采集覆盖更多真实化合物,缓解冗余峰带来的资源浪费。
-:::
+## 代谢物发现
 
-## 反应组学用于代谢物发现
+- 设定种子代谢物或污染物
 
-- 知识驱动 - 自定义 PMD 列表
-
-- 数据驱动 - 高频 PMD 列表
+- 自定义 PMD 列表作为反应集合递归式寻找污染物
 
 - 案例:四溴双酚 A (TBBPA) 在南瓜中的代谢物
 
@@ -336,9 +225,6 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
   - 合成标准品确证
 
-::: notes
-【30:00-31:00】说明两条路线:可用知识(已知反应规则)或数据(高频PMD)定义反应列表,下面以污染物TBBPA为例演示完整流程。
-:::
 
 ## 案例研究
 
@@ -346,10 +232,6 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
 ::: footer
 Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122
-:::
-
-::: notes
-【31:00-32:30】讲解TBBPA案例:南瓜暴露实验,利用质量亏损锁定含溴化合物,发现新代谢物并合成标准品确证。
 :::
 
 ## 案例研究
@@ -362,11 +244,7 @@ Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 :::
 
-::: notes
-【33:00-34:00】展示TBBPA代谢物的PMD网络:网络结构直观呈现母体-代谢物关系,加速非靶向发现。
-:::
-
-## 案例研究
+## 合作案例研究
 
 - 全谷物小麦摄入后一次性鉴定并定量人尿液中 76 种小麦来源代谢物
 
@@ -376,7 +254,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 Molecular Nutrition & Food Research  https://doi.org/10.1002/mnfr.202000615
 :::
 
-## 要点总结
+## 小结
 
 - 代谢物发现可以是数据驱动的
 
@@ -386,23 +264,12 @@ Molecular Nutrition & Food Research  https://doi.org/10.1002/mnfr.202000615
 
 - PMD 网络分析可以加速代谢物发现
 
-::: notes
-【37:00-39:00】总结四点核心信息,强调从"知识穷举"转向"数据驱动"的范式变化,呼应主题。
-:::
-
-
 ## Shiny 应用
 
 <https://yufree.shinyapps.io/pmdnet/>
 
-::: notes
-【32:30-33:00】演示在线Shiny工具pmdnet,听众可上传数据在线体验PMD网络分析。
-:::
 
 ## Q&A
 
 - yumiao\@rcees.ac.cn
 
-::: notes
-【39:00-40:00】致谢并进入问答环节。
-:::

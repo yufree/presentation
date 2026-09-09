@@ -148,119 +148,36 @@
 <h2>声明</h2>
 <ul>
 <li><p>无利益冲突</p></li>
-<li><p>报告过程中欢迎随时提问</p></li>
+<li><p>报告过程中欢迎随时打断提问</p></li>
 <li><p>幻灯片可在线获取</p>
 <ul>
 <li><a href="http://yufree.github.io/presentation/srda/umdcn.html" class="uri">http://yufree.github.io/presentation/srda/umdcn.html</a></li>
 </ul></li>
 </ul>
-<aside class="notes">
-<p>【0:00-1:00】开场:自我介绍,说明本次报告主题为”数据驱动的非靶向污染物代谢物发现方法”,时长约40分钟,分背景问题、方法原理、分析流程、案例研究四个部分。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="代谢物发现" class="slide level2">
 <h2>代谢物发现</h2>
 <ul>
 <li><p>内源性化合物的代谢物</p>
 <ul>
-<li><p>特定代谢通路的激活/抑制</p></li>
-<li><p>从生物体系中排出</p></li>
+<li>特定代谢通路的激活/抑制</li>
+<li>从生物体系中排出</li>
 </ul></li>
 <li><p>人工化合物的生物转化</p>
 <ul>
 <li>药物</li>
 <li>食品添加剂</li>
 <li>农药</li>
-<li>阻燃剂</li>
 </ul></li>
-<li><p>毒性与风险评估</p></li>
 </ul>
-<aside class="notes">
-<p>【1:00-3:00】介绍代谢物发现的两大来源,强调本次报告聚焦污染物(农药、阻燃剂等人工化合物)在生物体内的生物转化及其代谢物的毒性风险。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="代谢物发现原理" class="slide level2">
 <h2>代谢物发现原理</h2>
 <ul>
-<li>外源化合物代谢<sup>1</sup></li>
+<li>外源代谢通路<sup>1</sup></li>
 </ul>
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png"></p>
-<aside class="notes">
-<p>【3:00-5:00】结合外源化合物代谢图讲解I相/II相反应:污染物进入体内后经氧化、还原、水解及结合反应生成代谢物,这是代谢物发现的理论基础。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>By TimVickers - Own work, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=4549628" class="uri">https://commons.wikimedia.org/w/index.php?curid=4549628</a></p></li></ol></aside></section>
-<section id="问题" class="slide level2">
-<h2>问题</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th><strong>已知</strong></th>
-<th><strong>未知</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>已鉴定</td>
-<td>已知代谢物</td>
-<td>未知化合物</td>
-</tr>
-<tr class="even">
-<td>未鉴定</td>
-<td>潜在代谢物</td>
-<td>未知的未知</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>未知化合物缺乏标准品</p></li>
-<li><p>潜在代谢物的鉴定</p></li>
-<li><p>未知的未知</p></li>
-</ul>
-<aside class="notes">
-<p>【5:00-7:00】用二维表说明代谢物发现的困难:已知代谢物仅是冰山一角,未知化合物没有标准品,潜在代谢物无法穷举,最大的挑战是”未知的未知”。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="现有方案" class="slide level2">
 <h2>现有方案</h2>
 <h3 id="潜在代谢物的计算机in-silico预测">潜在代谢物的计算机(<em>in silico</em>)预测</h3>
@@ -270,40 +187,44 @@
 </ul>
 <p>以 SMILES 字符串或分子结构为输入</p>
 <p>受反应迭代次数限制(3 次)</p>
-<aside class="notes">
-<p>【7:00-9:00】介绍现有软件的预测逻辑:基于已知反应规则枚举可能结构。局限:预测结果数量爆炸、受迭代次数限制、脱离真实数据,难以判断哪些代谢物真实存在。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 <aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://doi.org/10.1093/nar/gkac313" class="uri">https://doi.org/10.1093/nar/gkac313</a></p></li><li id="fn3"><p><a href="http://eawag-bbd.ethz.ch/index.html" class="uri">http://eawag-bbd.ethz.ch/index.html</a></p></li></ol></aside></section>
-<section id="我的方案" class="slide level2">
-<h2>我的方案</h2>
+<section id="非靶向分析的定性问题" class="slide level2">
+<h2>非靶向分析的定性问题</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>理论存在</strong></th>
+<th><strong>理论未知</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>谱库匹配</td>
+<td>已知代谢物</td>
+<td>未知化合物</td>
+</tr>
+<tr class="even">
+<td>谱库不匹配</td>
+<td>潜在代谢物</td>
+<td>未知的未知</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>已知代谢物可用标准品定性且理论上也应该存在</p></li>
+<li><p>未知的未知化合物无法定性</p></li>
+<li><p>未知化合物可以用标准品定性但说不清代谢来源（非法添加）</p></li>
+<li><p><strong>潜在代谢物理论上存在但没有二级谱图</strong></p></li>
+</ul>
+</section>
+<section id="转换思路" class="slide level2">
+<h2>转换思路</h2>
 <blockquote>
 <p>关注化合物之间的关系</p>
 </blockquote>
 
 <img data-src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" class="quarto-figure quarto-figure-center r-stretch"><p>来自 <a href="https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg">Wikimedia Commons</a>:大碗岛的星期天下午,乔治·修拉</p>
-<aside class="notes">
-<p>【9:00-10:30】用修拉的点彩画类比:单个色点无意义,点与点的关系才构成图像。同理,不应孤立地预测单个化合物,而应从数据中挖掘化合物之间的关系(反应)。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="为什么用反应" class="slide level2">
 <h2>为什么用反应?</h2>
@@ -313,19 +234,6 @@
 <li><p>组合:基因 (2万-2.5万) &lt; 蛋白质 (2万-2.5万) &lt; 化合物 (???)</p></li>
 <li><p>小分子的<strong>组合</strong>就是化学反应或配对质量距离</p></li>
 </ul>
-<aside class="notes">
-<p>【10:30-12:30】类比组学层级:基因/蛋白有明确单元与组合(序列),小分子化学空间近乎无限,其”组合”就是反应。以反应为单元可以将海量化合物组织起来。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="为什么用-pmd" class="slide level2">
 <h2>为什么用 PMD?</h2>
@@ -339,19 +247,6 @@
 <li><p><strong>配对质量距离 (Paired Mass Distance, PMD)</strong> 是唯一的</p></li>
 <li><p>需要<strong>高分辨</strong>质谱</p></li>
 </ul>
-<aside class="notes">
-<p>【12:30-15:00】用核结合能类比:元素周期表由质量关系组织,化合物之间的质量距离(PMD)同样能编码化学关系。PMD 对应确定的化学转变,且高分辨质谱可以精确测量。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="kegg-数据库中的-pmd" class="slide level2">
 <h2>KEGG 数据库中的 PMD</h2>
@@ -362,19 +257,6 @@
 <img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/AMN/images/kegg.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
 </div>
-<aside class="notes">
-<p>【15:00-16:30】展示 KEGG 已知反应的 PMD 统计:分布高度不均,前10个高频PMD覆盖68%反应,说明少数反应主导了化学空间,这是数据驱动方法可行的前提。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="真实数据中的-pmd" class="slide level2">
 <h2>真实数据中的 PMD</h2>
@@ -406,60 +288,13 @@
 </ul></li>
 </ul>
 </div></div>
-<aside class="notes">
-<p>【16:30-18:00】真实质谱数据中同样存在高频PMD:同位素、源内加成、同系物、I相羟基化(加氧15.995 Da)等,污染物代谢转化直接体现在PMD上。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
-<section id="基于-pmd-的反应组学流程" class="slide level2">
-<h2>基于 PMD 的反应组学流程</h2>
-<ul>
-<li><p>第 1 步:去除冗余峰</p></li>
-<li><p>第 2 步:提取高频 PMD</p></li>
-<li><p>第 3 步:构建关系网络</p></li>
-</ul>
-<aside class="notes">
-<p>【18:00-19:00】给出完整分析流程概览,后面逐步展开三步:GlobalStd去除冗余峰、提取高频PMD、构建反应关系网络。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="峰中有多少真实化合物" class="slide level2">
-<h2>峰中有多少真实化合物?</h2>
+<section id="质谱峰中有多少真实化合物" class="slide level2">
+<h2>质谱峰中有多少真实化合物?</h2>
 
 <img data-src="https://yufree.github.io/presentation/figure/gapfc.jpg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380</p>
 </div>
-<aside class="notes">
-<p>【19:00-20:00】指出非靶向数据的痛点:检出峰数量远超真实化合物数量,大量峰为加合、碎片、同位素等冗余峰。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="冗余峰" class="slide level2">
 <h2>冗余峰</h2>
@@ -488,209 +323,49 @@
 <img data-src="https://yufree.github.io/presentation/figure/GlobalStd.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S0003267018313047</p>
 </div>
-<aside class="notes">
-<p>【21:00-22:00】介绍GlobalStd算法整体思路:利用保留时间聚类与高频PMD,自动识别并去除冗余峰,保留独立峰。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="globalstd-算法-第-1-步" class="slide level2">
 <h2>GlobalStd 算法 第 1 步</h2>
 <h3 id="保留时间聚类分析">保留时间聚类分析</h3>
 
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【22:00-23:00】第1步:同一化合物及其冗余峰保留时间接近,通过RT聚类将峰分组。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
+<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="globalstd-算法-第-2-步" class="slide level2">
 <h2>GlobalStd 算法 第 2 步</h2>
 <h3 id="跨-rt-聚类的高频-pmd-分析">跨 RT 聚类的高频 PMD 分析</h3>
 
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【23:00-24:00】第2步:在不同RT聚类间统计PMD频率,识别跨聚类出现的高频PMD。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
+<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="globalstd-算法-第-2-步-1" class="slide level2">
 <h2>GlobalStd 算法 第 2 步</h2>
 <h3 id="跨-rt-聚类的高频-pmd-分析---示例">跨 RT 聚类的高频 PMD 分析 - 示例</h3>
 
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【24:00-24:30】结合示例图讲解如何在具体聚类中定位高频PMD对应的峰对。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
+<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="globalstd-算法-第-3-步" class="slide level2">
 <h2>GlobalStd 算法 第 3 步</h2>
 <h3 id="独立峰筛选">独立峰筛选</h3>
 
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【24:30-25:30】第3步:去除由高频PMD关联的冗余峰,得到独立峰列表,大幅压缩后续分析规模。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="提取高频-pmd" class="slide level2">
-<h2>提取高频 PMD</h2>
-
-<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdsda-1.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【25:30-26:00】在独立峰基础上提取高频PMD,作为数据驱动反应组学的”反应列表”。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="如何定义高频" class="slide level2">
-<h2>如何定义”高频”?</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/networkgen.gif"></p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/dis.png"></p>
-</div></div>
-<aside class="notes">
-<p>【26:00-27:00】说明高频PMD的判定:通过随机网络模拟得到PMD频率分布,以分布尾部作为高频阈值,避免主观设定。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="关系网络" class="slide level2">
-<h2>关系网络</h2>
-
-<img data-src="https://yufree.github.io/pmd/articles/reactomics_files/figure-html/net-1.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【27:00-28:00】以高频PMD为边、独立峰为节点构建关系网络,网络中的连通结构即候选代谢物家族。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
+<img data-src="https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="pmdda-工作流程" class="slide level2">
 <h2>PMDDA 工作流程</h2>
 
 <img data-src="https://yufree.github.io/presentation/figure/PMDDAraw.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00586-8</p>
 </div>
-<aside class="notes">
-<p>【28:00-29:00】介绍PMD导向数据采集(PMDDA):将高频PMD纳入采集策略,优先对独立峰进行MS/MS。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="pmdda-工作流程-1" class="slide level2">
 <h2>PMDDA 工作流程</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/pmddacomp.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
-<p>【29:00-30:00】展示PMDDA在化合物层面的效果:以更少的MS/MS采集覆盖更多真实化合物,缓解冗余峰带来的资源浪费。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="反应组学用于代谢物发现" class="slide level2">
-<h2>反应组学用于代谢物发现</h2>
+<img data-src="https://yufree.github.io/presentation/figure/pmddacomp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="代谢物发现-1" class="slide level2">
+<h2>代谢物发现</h2>
 <ul>
-<li><p>知识驱动 - 自定义 PMD 列表</p></li>
-<li><p>数据驱动 - 高频 PMD 列表</p></li>
+<li><p>设定种子代谢物或污染物</p></li>
+<li><p>自定义 PMD 列表作为反应集合递归式寻找污染物</p></li>
 <li><p>案例:四溴双酚 A (TBBPA) 在南瓜中的代谢物</p>
 <ul>
 <li><p>质量亏损分析筛选溴代化合物</p></li>
 <li><p>合成标准品确证</p></li>
 </ul></li>
 </ul>
-<aside class="notes">
-<p>【30:00-31:00】说明两条路线:可用知识(已知反应规则)或数据(高频PMD)定义反应列表,下面以污染物TBBPA为例演示完整流程。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="案例研究" class="slide level2">
 <h2>案例研究</h2>
@@ -698,19 +373,6 @@
 <img data-src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Environmental Science &amp; Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122</p>
 </div>
-<aside class="notes">
-<p>【31:00-32:30】讲解TBBPA案例:南瓜暴露实验,利用质量亏损锁定含溴化合物,发现新代谢物并合成标准品确证。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="案例研究-1" class="slide level2">
 <h2>案例研究</h2>
@@ -721,22 +383,9 @@
 <img data-src="https://yufree.github.io/presentation/figure/TBBPA.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
 </div>
-<aside class="notes">
-<p>【33:00-34:00】展示TBBPA代谢物的PMD网络:网络结构直观呈现母体-代谢物关系,加速非靶向发现。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
-<section id="案例研究-2" class="slide level2">
-<h2>案例研究</h2>
+<section id="合作案例研究" class="slide level2">
+<h2>合作案例研究</h2>
 <ul>
 <li>全谷物小麦摄入后一次性鉴定并定量人尿液中 76 种小麦来源代谢物</li>
 </ul>
@@ -745,63 +394,24 @@
 <p>Molecular Nutrition &amp; Food Research https://doi.org/10.1002/mnfr.202000615</p>
 </div>
 </section>
-<section id="要点总结" class="slide level2">
-<h2>要点总结</h2>
+<section id="小结" class="slide level2">
+<h2>小结</h2>
 <ul>
 <li><p>代谢物发现可以是数据驱动的</p></li>
 <li><p>反应是小分子的”碱基对”</p></li>
 <li><p>真实数据总是富集于少数 PMD 或反应</p></li>
 <li><p>PMD 网络分析可以加速代谢物发现</p></li>
 </ul>
-<aside class="notes">
-<p>【37:00-39:00】总结四点核心信息,强调从”知识穷举”转向”数据驱动”的范式变化,呼应主题。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="shiny-应用" class="slide level2">
 <h2>Shiny 应用</h2>
 <p><a href="https://yufree.shinyapps.io/pmdnet/" class="uri">https://yufree.shinyapps.io/pmdnet/</a></p>
-<aside class="notes">
-<p>【32:30-33:00】演示在线Shiny工具pmdnet,听众可上传数据在线体验PMD网络分析。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="qa" class="slide level2">
 <h2>Q&amp;A</h2>
 <ul>
 <li>yumiao@rcees.ac.cn</li>
 </ul>
-<aside class="notes">
-<p>【39:00-40:00】致谢并进入问答环节。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 
 </section>
 
