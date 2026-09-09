@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Miao Yu
 ]
 .date[
-### 2018/11/11 (updated: 2023-03-26)
+### 2018/11/11 (updated: 2026-08-27)
 ]
 
 ---
@@ -140,6 +140,79 @@ So why PMD? The best feature for PMD is that it comes from the nuclear binding e
 .half[
 Hall, M. P., Ashrafi, S., Obegi, I., Petesch, R., Peterson, J. N., &amp; Schneider, L. V. (2003). ?Mass defect? tags for biomolecular mass spectrometry. Journal of Mass Spectrometry, 38(8), 809–816. https://doi.org/10.1002/jms.493
 ]
+
+---
+## Why PMD? PMDs are quantized shells
+
+&lt;img src="https://yufree.github.io/reactomics/assets/pmd-orbitals.png" alt="" width="60%" style="display: block; margin: auto;" /&gt;
+
+*Like electron orbitals, paired mass distances are not continuous — they are quantized. Each shell encodes one biochemical transformation.*
+
+???
+- Real datasets are dominated by a countable set of discrete PMDs, not a continuum
+- This orbital picture is more than a metaphor: the discreteness follows from structural constraints rooted in physics and evolution
+- Two questions follow: where do the shells come from, and why can mass spectrometry read them?
+
+---
+
+## Where the quantization comes from
+
+- Quantum mechanics: the constraint is the Schrödinger equation — every bound electron occupies one of countable eigenstates, shared by every atom
+
+- Metabolism: the constraint is the **early cofactor budget** — almost every reaction transfers a group from a small pre-LUCA cofactor set
+
+| Cofactor (or oxidant)   | Group transferred | PMD (Da) | Reaction class          |
+| ----------------------- | ----------------- | -------- | ----------------------- |
+| NAD(P)H                 | H₂                | 2.0157   | Reduction               |
+| SAM                     | CH₂ (methyl)      | 14.0157  | Methylation             |
+| O₂ / Fe–O / cytochromes | O                 | 15.9949  | Oxidation               |
+| (same systems)          | OH                | 17.0027  | Hydroxylation           |
+| (same systems)          | H₂O               | 18.0106  | Hydration / dehydration |
+| Acetyl-CoA              | C₂H₂O             | 42.0106  | Acetylation             |
+| ATP / kinases           | HPO₃              | 79.9663  | Phosphorylation         |
+| UDP-glucose             | C₆H₁₀O₅           | 162.0528 | Glycosylation           |
+
+- The PMDs dominating real data are exactly the ones this cofactor–enzyme infrastructure delivers cheaply
+
+???
+- Every cofactor delivers a fixed mass increment — that increment is the PMD
+- Chemically interesting PMDs requiring unavailable cofactors or higher activation barriers never show up at high frequency
+- The discreteness is the shadow of which transformations early life could afford
+
+---
+
+## Why mass spectrometry can read the shells
+
+- PMDs are not integer masses — +CH₂ is 14.0157 Da while +N is 14.0031 Da; those fractional offsets come from **nuclear binding energy**, not organic chemistry
+
+- The same physical quantization that gives atoms discrete energy levels gives molecular reactions discrete mass signatures
+
+&gt; Quantization at the electronic level made the chemistry possible; quantization at the nuclear level made it readable.
+
+- HRMS (Orbitrap, FT-ICR) is essentially a nuclear-binding-energy detector dressed up as a chemistry instrument
+
+???
+- Nucleons binding into a nucleus release energy; through E = mc² it registers as a mass deficit
+- Carbon-12 is 12 by convention; H-1 is 1.00783 Da, O-16 is 15.9949 Da, N-14 is 14.0031 Da
+- Without this layer the PMD shells would collapse onto the integer-mass axis and reactomics would be impossible
+
+---
+
+## The evolutionary freeze
+
+- Once a cofactor becomes central to metabolism, it cannot be removed — every downstream pathway reads it, the same logic that froze the genetic code
+
+- The high-frequency PMD spectrum is **conserved across all domains of life**
+
+- Bacteria, plants and humans share roughly the same dominant PMDs because they share the same cofactor set
+
+- What differs between organisms is the *intensity* of each shell — which reactions are up- or down-regulated
+
+&gt; Universality through a common underlying constraint: every atom obeys the same Schrödinger equation; every organism inherited the same frozen cofactor set.
+
+???
+- Chemistry has its own genuine quantization principle: cofactor inheritance plus evolutionary lock-in
+- No need to borrow the prestige of physics — the discreteness of the metabolic reaction set is a phenomenon in its own right, with its own physical mechanism and its own conservation law
 
 ---
 
@@ -355,7 +428,7 @@ In this case, though we don't need to annotate all the compounds, a PMD database
 
 ### Static and dynamic
 
-&lt;img src="https://yufree.github.io/presentation/figure/qreaction.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/qreaction.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -402,6 +475,42 @@ When we have the list of enriched PMDs, we need to define how to make quantitati
 - Normalization on C, Group I has 0.5 for D, Group II has 9.5 for D, reaction amounts are [0.5,9.5] for group I and group II
 
 ---
+## Two regulation regimes, two readouts
+
+- **Static PMD ⇒ upstream/downstream control** — the enzyme runs stably; what changes is substrate supply or product removal. Quantify by intensity **sum**
+
+- **Dynamic PMD ⇒ enzyme-level control** — enzyme activity is the variable; substrate supply is roughly constant. Quantify by **ratio** (stable peak as internal reference)
+
+- Conceptually parallel to metabolic control analysis (MCA), but read directly from untargeted LC-MS data
+
+    - No kinetic measurements
+    - No isotopically labelled tracers
+    - No compound identification
+
+???
+- Static pairs mean the enzyme is not the rate-limiting step — total throughput (sum) tracks upstream supply and downstream demand
+- Dynamic pairs mean the enzyme itself is regulated — the ratio isolates catalytic activity from sample-level abundance drift
+
+---
+
+## Reaction-level quantification: `getreact()`
+
+- The unit of analysis is the **reaction, not the molecule**
+
+- One PMD (e.g. 15.9949 Da, +O) can appear thousands of times — every occurrence is one observation of that reaction happening
+
+- `getreact()` in the `pmd` package returns a **reaction × sample matrix** for statistical comparison
+
+
+
+&gt; Building networks alone does not free the analysis from identification — reaction-level quantification is what separates reactomics from yet another network method
+
+???
+- Reactions are the analytes: quantify oxidation, methylation or glycosylation activity directly, with no compound list
+- This is the most under-appreciated feature of reactomics and the reason it deserves the omics suffix
+
+---
+[pres.Rmd#420D]
 
 # General reactomics data analysis framework 
 
@@ -416,6 +525,12 @@ When we have the list of enriched PMDs, we need to define how to make quantitati
 ## Step 3: Relationship network
 
 - network based evaluation
+
+## Step 4: Quantify reactions
+
+- `getreact()` returns a reaction × sample matrix
+
+- Static mode (intensity sum) or dynamic mode (stable/variable ratio)
 
 ---
 
@@ -442,20 +557,20 @@ class: inverse, center, middle
 
 ## Gap between features and compounds
 
-&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## GlobalStd Algorithm: before (1918) and after (196)
 
 
-&lt;img src="https://yufree.github.io/presentation/figure/bags.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/bags.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## For annotation - PMDDA
 
-&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda2.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda2.png" alt="" width="60%" style="display: block; margin: auto;" /&gt;
 
 .half[
 Yu, M., Dolios, G., &amp; Petrick, L. (2021). Reproducible Untargeted Metabolomics Data Analysis Workflow for Exhaustive MS/MS Annotation. https://doi.org/10.26434/chemrxiv.13565159.v1
@@ -473,13 +588,13 @@ class: inverse, center, middle
 
 ## High frequency PMDs for retrieving chemical relationship
 
-&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-6-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-6-1.png" alt="" width="87%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Reaction level changes
 
-&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.cn/en/2021/02/09/reactomics-workflow-template-within-rmwf-package/index_files/figure-html/unnamed-chunk-7-1.png" alt="" width="87%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -493,7 +608,7 @@ class: inverse, center, middle
 
 ## PMD Network
 
-&lt;img src="https://yufree.github.io/presentation/figure/netdemo.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/netdemo.png" alt="" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -524,13 +639,13 @@ class: inverse, center, middle
 
 - Send unknown while independent peaks for MS/MS
 
-&lt;img src="https://yufree.github.io/presentation/figure/missxcms.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/missxcms.png" alt="" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## How many real compounds among features?
 
-&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/gapfc.jpg" alt="" style="display: block; margin: auto;" /&gt;
 
 .half[
 Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolomics Data Set Reduces 25 000 Features to Fewer than 1000 Unique Metabolites. Analytical Chemistry, 89(19), 10397–10406. https://doi.org/10.1021/acs.analchem.7b02380
@@ -544,13 +659,13 @@ Mahieu, N. G., &amp; Patti, G. J. (2017). Systems-Level Annotation of a Metabolo
 
 - Send unknown while independent peaks for MS/MS
 
-&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/peakcom.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## GlobalStd Algorithm
 
-&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/GlobalStd.png" alt="" style="display: block; margin: auto;" /&gt;
 
 .half[
 Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed analysis for LC-MS based untargeted analysis. Analytica Chimica Acta, 1050, 16–24. https://doi.org/10.1016/j.aca.2018.10.062
@@ -562,14 +677,14 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ### Retention time cluster analysis
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-25-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-27-1.png" alt="" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 2
 
 ### High frequency PMD analysis across RT clusters
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-26-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-28-1.png" alt="" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -579,21 +694,21 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 - Based on data itself, those adducts/multiply charged ions/neutral loss/isotopologues can be unknown
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-27-1.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-29-1.png" alt="" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-28-1.png" width="430px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-30-1.png" alt="" width="430px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
 
 ### Independent peaks selection - example
 
-&lt;img src="pres_files/figure-html/unnamed-chunk-29-1.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="pres_files/figure-html/unnamed-chunk-31-1.png" alt="" width="450px" style="display: block; margin: auto;" /&gt;
 
 ---
 ## GlobalStd Algorithm Step 3
@@ -603,7 +718,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 - ~14.3% peaks can capture similar variances of all peaks
 - For CAMERA/RAMclust, peaks with highest intensity from pcgroup were selected as independent peaks
 
-&lt;img src="https://yufree.github.io/presentation/figure/software.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/software.png" alt="" width="500px" style="display: block; margin: auto;" /&gt;
 
 ???
 - Similar to isotope labeled results (5% peaks)
@@ -669,7 +784,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 
 ## Untargeted MS/MS analysis - PMDDA
 
-&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/rpppmdda.png" alt="" width="87%" style="display: block; margin: auto;" /&gt;
 
 ???
 - GNPS MS/MS annotation
@@ -688,7 +803,7 @@ Yu, M., Olkowicz, M., &amp; Pawliszyn, J. (2019). Structure/reaction directed an
 - some compounds share the same pmd 87%
 
 
-&lt;img src="https://yufree.github.io/presentation/figure/pmmd.png" width="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/pmmd.png" alt="" width="400px" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, center, middle
@@ -731,7 +846,7 @@ Metabolites discovery is commen in two types of studies: environmental pollution
 
 - Confirmation by synthesized standards
 
-&lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" alt="" width="600px" style="display: block; margin: auto;" /&gt;
 
 .half[
 Hou, X., Yu, M., Liu, A., Wang, X., Li, Y., Liu, J., Schnoor, J. L., &amp; Jiang, G. (2019). Glycosylation of Tetrabromobisphenol A in Pumpkin. Environmental Science &amp;amp; Technology, 53(15), 8805–8812. https://doi.org/10.1021/acs.est.9b02122
@@ -746,7 +861,7 @@ Here I will use an example to demo such process. Here is a study to find the met
 
 - TBBPA Metabolites PMD network
 
-&lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/TBBPA.png" alt="" width="500px" style="display: block; margin: auto;" /&gt;
 
 
 .half[
@@ -774,7 +889,7 @@ The second application of reactomics is an issue confusing lots of researchers. 
 
 - Use top 10 high frequency PMDs
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/t3db3.png" alt="" width="450px" style="display: block; margin: auto;" /&gt;
 
 ???
 Here I use T3DB, which is the only database with the annotation of endogenous or exogenous for their compounds. I collected all of the 255 endogenous compounds and 705 exogenous compounds and polled their exact mass together. Then I performed PMD analysis to get all of the possible PMD among those compounds. As I mentioned before, PMD will always enriched in few high frequency ones. Here we didn't predefine those set but directly use top 10 high frequency PMD and construct the PMD network as we did for pumpkin study and here is the results.
@@ -789,7 +904,7 @@ I removed all the compounds without any high frequency PMDs relationship with ot
 
 - Average network distance: Glucose(9.74), 5-Cholestene(6.55), Caffeine(3.31), Bromophenol(1.8), TBBPA(3.88 for pumpkin)
 
-&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png" width="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/figure/kegg.png" alt="" width="450px" style="display: block; margin: auto;" /&gt;
 
 ???
 Let's see some real reactions from KEGG database. Here I use the top 10 high freqency PMDs from KEGG and generate the reaction network for four compounds. This is Glucose, which is very important to any biological process and it's a exogenous compound. You can see its network could be extended in all of high freqency PMD and lots of compounds could be coupled into this network. Then we could see Cholestene, which is also a endogenous compounds while not that important as Glucose. It's network is smaller. Then we could see Caffine, which is exogenous compounds for most animals. It also show a network while the network structure is much simpler than endogenous compounds. Then we could see bromophenol, which is also endogenous compounds and its network shows it didn't involved in too much reactions.
@@ -817,7 +932,7 @@ This is my favourite application of reactomics. I am from a medical school and a
 
 - PMD 2.02 Da show differences among control and diseases
 
-&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" width="500px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://yufree.github.io/presentation/figure/mtbls28.png" alt="" width="500px" style="display: block; margin: auto;" /&gt;
 
 ???
 Though we had some exciting data, I prefer to use public data to avoid the bias of our methods. Here we use MTBLS28 dataset from metabolights. It contains 1005 human urine samples and linked to lung cancer. What I did is simply check the high freqency PMDs from the data itself and some known high freqency PMD from KEGG. 
@@ -835,16 +950,33 @@ As I mentioned in the quanlitative analysis of reactomics, only the pairs with s
 
 
 ---
+## Reactomics beyond our lab
+
+- [74+ papers](https://yufree.github.io/reactomics/) using or extending PMD reactomics (2020–2026), curated monthly
+
+- Environmental transformation: FT-ICR MS + PMD networks for DOM in wastewater treatment, composting, photolysis and disinfection byproducts
+
+- PFAS transformation products: high-throughput pathway profiling (UV chain shortening vs plasma oxygen-rich chain lengthening)
+
+- Epidemiology: quantitative PMD (qPMD) on neonatal dried blood spots associated with pediatric acute lymphoblastic leukemia risk
+
+- Data acquisition: PMDDA yields more annotated compounds and molecular networks than CAMERA or RAMClustR
+
+???
+- Reactomics is no longer a single-group method — the website collects the literature monthly, spanning environmental chemistry, food chemistry, drug metabolism and exposure epidemiology
+- Notable findings: methylation/demethylation are the most conserved transformations across 11 WWTPs; oxygenation precedes chlorination in disinfection byproduct formation
+
+---
 
 ## Software
 
 ### [pmd package](http://yufree.github.io/pmd/)
   
-  - GlobalStd algorithm
-  - pmd-reaction database based on KEGG/HMDB
-  - quantitative pmd analysis
-  - pmd network anaysis
-  - pmd MS/MS annotation algorithm
+  - `getpaired()` / `getchain()` / `getreact()` / `getstd()`
+  - GlobalStd algorithm for independent peaks selection
+  - Built-in PMD databases: `keggrall`, `hmdb`, `omics`, `sda`, `MaConDa`
+  - Reaction-level quantification: static (sum) and dynamic (ratio) modes
+  - PMD network analysis and MS/MS annotation algorithm
   - GUI application based on shiny
 
 ### [rmwf package](https://github.com/yufree/rmwf)
@@ -867,12 +999,12 @@ Meanwhile, to make reactomics fully reproducible at the very beginning, I develo
 
 ### Reactomics means the omics study at reaction or PMD level
 
-### Real data always enriched in few PMDs or reactions
+### Real data always enriched in few PMDs — quantized shells frozen by the cofactor set
 
-### Reaction level changes could be quantitative and predictable
+### Reaction level changes could be quantitative and predictable — reactions are the analytes
 
 ???
-Here is the take-home message for reactomics: reaction is the "base pairs" for small molecular, Reactomics means the omics study at reaction or PMD level, real data always enriched in few PMDs or reactions, reaction level changes could be quantitative and predictable.
+Here is the take-home message for reactomics: reaction is the "base pairs" for small molecules, reactomics means the omics study at reaction or PMD level, real data is always enriched in few PMDs — discrete shells inherited from the frozen cofactor set, and reaction level changes could be quantitative and predictable, because reactions themselves are the analytes.
 
 ---
 
@@ -882,7 +1014,14 @@ class: inverse, center, middle
 
 ## Q&amp;A
 
-## miao.yu@mssm.edu
+## miao.yu@jax.org
+
+
+
+
+
+
+
 
 
 
@@ -898,9 +1037,9 @@ class: inverse, center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

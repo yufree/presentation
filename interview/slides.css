@@ -1,0 +1,21 @@
+/* revealjs 中文幻灯片样式 */
+.reveal {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+  font-size: 30px;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: inherit;
+}
+
+.reveal .slide-number {
+  font-size: 0.6em;
+}
+
+.reveal section img {
+  border: none;
+  box-shadow: none;
+}

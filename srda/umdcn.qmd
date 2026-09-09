@@ -212,6 +212,9 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 ## PMDDA 工作流程
 
 ![](https://yufree.github.io/presentation/figure/pmddacomp.png){fig-align="center"}
+## PMDDA 工作流程
+
+![](https://yufree.github.io/presentation/figure/rpppmdda.png)
 
 ## 代谢物发现
 
