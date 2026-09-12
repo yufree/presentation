@@ -20,20 +20,31 @@ format:
 
   - <http://yufree.github.io/presentation/srda/umdcn.html>
 
+## 非靶向分析的定性问题
 
-## 代谢物发现
+|            | **理论存在** | **理论未知** |
+|------------|--------------|--------------|
+| 谱库匹配   | 已知代谢物   | 未知化合物   |
+| 谱库不匹配 | 潜在代谢物   | 未知的未知   |
+
+- 已知代谢物可用标准品定性且理论上也应该存在
+
+- 未知化合物可以用标准品定性但说不清代谢来源（非法添加）
+
+- **潜在代谢物**理论上可推测但没有二级谱图
+
+## 潜在代谢物发现
 
 - 内源性化合物的代谢物
 
   - 特定代谢通路的激活/抑制
-  - 从生物体系中排出
+  - 从生物体系中存留/排出
 
-- 人工化合物的生物转化
+- 外源化合物的生物转化
 
   - 药物
   - 食品添加剂
   - 农药
-
 
 ## 代谢物发现原理
 
@@ -47,6 +58,8 @@ format:
 
 ### 潜在代谢物的计算机(*in silico*)预测
 
+- 从结构出发预测代谢物
+
 - Biotransformer 3.0[^2]
 
 - EAWAG-BBD 代谢路径预测系统[^3]
@@ -59,41 +72,23 @@ format:
 
 受反应迭代次数限制(3 次)
 
-## 非靶向分析的定性问题
-
-|        | **理论存在**   | **理论未知**   |
-|--------|----------------|----------------|
-| 谱库匹配 | 已知代谢物 | 未知化合物 |
-| 谱库不匹配 | 潜在代谢物 | 未知的未知 |
-
-- 已知代谢物可用标准品定性且理论上也应该存在
-
-- 未知的未知化合物无法定性
-
-- 未知化合物可以用标准品定性但说不清代谢来源（非法添加）
-
-- **潜在代谢物理论上存在但没有二级谱图**
-
-
 ## 转换思路
 
-> 关注化合物之间的关系
+> 关注化合物之间的反应关系
 
 ![](https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg){fig-align="center"}
 
 来自 [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):大碗岛的星期天下午,乔治·修拉
 
-
 ## 为什么用反应?
 
-![](https://yufree.github.io/presentation/figure/database.png){fig-align="center"}
+![](../figure/database.png){fig-align="center"}
 
 - 单元:基因 (5) \< 蛋白质 (20+2) \< 代谢物 (10万) \< 化合物 (1亿)
 
 - 组合:基因 (2万-2.5万) \< 蛋白质 (2万-2.5万) \< 化合物 (???)
 
 - 小分子的**组合**就是化学反应或配对质量距离
-
 
 ## 为什么用 PMD?
 
@@ -111,14 +106,13 @@ $$\Delta m = Zm_{H} + Nm_{n} - M$$
 
 ## KEGG 数据库中的 PMD
 
-- 频率最高的前 10 个 PMD 覆盖了 68% 的已知反应
+- 频率最高的前 10 个 PMD （反应组）覆盖了 68% 的已知反应
 
-![](https://raw.githubusercontent.com/yufree/presentation/gh-pages/AMN/images/kegg.png){fig-align="center"}
+![](../AMN/images/kegg.png){fig-align="center"}
 
 ::: footer
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 :::
-
 
 ## 真实数据中的 PMD
 
@@ -148,10 +142,9 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 :::
 :::::
 
-
 ## 质谱峰中有多少真实化合物?
 
-![](https://yufree.github.io/presentation/figure/gapfc.jpg){fig-align="center"}
+![](../figure/gapfc.jpg){fig-align="center"}
 
 ::: footer
 Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380
@@ -163,12 +156,11 @@ Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380
 
 - 仅将独立的未知峰送去 MS/MS
 
-![](https://yufree.github.io/presentation/figure/peakcom.png){fig-align="center"}
-
+![](../figure/peakcom.png){fig-align="center"}
 
 ## GlobalStd 算法
 
-![](https://yufree.github.io/presentation/figure/GlobalStd.png){fig-align="center"}
+![](../figure/GlobalStd.png){fig-align="center"}
 
 ::: footer
 Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S0003267018313047
@@ -180,20 +172,17 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png){fig-align="center"}
 
-
 ## GlobalStd 算法 第 2 步
 
 ### 跨 RT 聚类的高频 PMD 分析
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png){fig-align="center"}
 
-
 ## GlobalStd 算法 第 2 步
 
 ### 跨 RT 聚类的高频 PMD 分析 - 示例
 
 ![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png){fig-align="center"}
-
 
 ## GlobalStd 算法 第 3 步
 
@@ -203,7 +192,7 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 
 ## PMDDA 工作流程
 
-![](https://yufree.github.io/presentation/figure/PMDDAraw.png){fig-align="center"}
+![](../figure/PMDDAraw.png){fig-align="center"}
 
 ::: footer
 Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00586-8
@@ -211,11 +200,11 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
 ## PMDDA 工作流程
 
-![](https://yufree.github.io/presentation/figure/pmddacomp.png){fig-align="center"}
+![](../figure/pmddacomp.png){fig-align="center"}
 
 ## PMDDA 工作流程
 
-![](https://yufree.github.io/presentation/figure/rpppmdda.png)
+![](../figure/rpppmdda.png)
 
 ## 代谢物发现
 
@@ -229,10 +218,9 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
   - 合成标准品确证
 
-
 ## 案例研究
 
-![](https://yufree.github.io/presentation/figure/TBBPAmet.jpeg){fig-align="center"}
+![](../figure/TBBPAmet.jpeg){fig-align="center"}
 
 ::: footer
 Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122
@@ -242,7 +230,7 @@ Environmental Science & Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02
 
 - TBBPA 代谢物的 PMD 网络
 
-![](https://yufree.github.io/presentation/figure/TBBPA.png){fig-align="center"}
+![](../figure/TBBPA.png){fig-align="center"}
 
 ::: footer
 Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
@@ -252,10 +240,10 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 - 全谷物小麦摄入后一次性鉴定并定量人尿液中 76 种小麦来源代谢物
 
-![](https://yufree.github.io/presentation/figure/foodpmd.png)
+![](../figure/foodpmd.png)
 
 ::: footer
-Molecular Nutrition & Food Research  https://doi.org/10.1002/mnfr.202000615
+Molecular Nutrition & Food Research https://doi.org/10.1002/mnfr.202000615
 :::
 
 ## 小结
@@ -264,16 +252,12 @@ Molecular Nutrition & Food Research  https://doi.org/10.1002/mnfr.202000615
 
 - 反应是小分子的"碱基对"
 
-- 真实数据总是富集于少数 PMD 或反应
+- 真实数据总是富集于少数 PMD 或反应组
 
 - PMD 网络分析可以加速代谢物发现
 
-## Shiny 应用
-
-<https://yufree.shinyapps.io/pmdnet/>
-
-
 ## Q&A
 
-- yumiao\@rcees.ac.cn
+- Shiny 应用 <https://yufree.shinyapps.io/pmdnet/>
 
+- yumiao\@rcees.ac.cn

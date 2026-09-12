@@ -155,39 +155,6 @@
 </ul></li>
 </ul>
 </section>
-<section id="代谢物发现" class="slide level2">
-<h2>代谢物发现</h2>
-<ul>
-<li><p>内源性化合物的代谢物</p>
-<ul>
-<li>特定代谢通路的激活/抑制</li>
-<li>从生物体系中排出</li>
-</ul></li>
-<li><p>人工化合物的生物转化</p>
-<ul>
-<li>药物</li>
-<li>食品添加剂</li>
-<li>农药</li>
-</ul></li>
-</ul>
-</section>
-<section id="代谢物发现原理" class="slide level2">
-<h2>代谢物发现原理</h2>
-<ul>
-<li>外源代谢通路<sup>1</sup></li>
-</ul>
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png"></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>By TimVickers - Own work, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=4549628" class="uri">https://commons.wikimedia.org/w/index.php?curid=4549628</a></p></li></ol></aside></section>
-<section id="现有方案" class="slide level2">
-<h2>现有方案</h2>
-<h3 id="潜在代谢物的计算机in-silico预测">潜在代谢物的计算机(<em>in silico</em>)预测</h3>
-<ul>
-<li><p>Biotransformer 3.0<sup>1</sup></p></li>
-<li><p>EAWAG-BBD 代谢路径预测系统<sup>2</sup></p></li>
-</ul>
-<p>以 SMILES 字符串或分子结构为输入</p>
-<p>受反应迭代次数限制(3 次)</p>
-<aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://doi.org/10.1093/nar/gkac313" class="uri">https://doi.org/10.1093/nar/gkac313</a></p></li><li id="fn3"><p><a href="http://eawag-bbd.ethz.ch/index.html" class="uri">http://eawag-bbd.ethz.ch/index.html</a></p></li></ol></aside></section>
 <section id="非靶向分析的定性问题" class="slide level2">
 <h2>非靶向分析的定性问题</h2>
 <table class="caption-top">
@@ -213,15 +180,48 @@
 </table>
 <ul>
 <li><p>已知代谢物可用标准品定性且理论上也应该存在</p></li>
-<li><p>未知的未知化合物无法定性</p></li>
 <li><p>未知化合物可以用标准品定性但说不清代谢来源（非法添加）</p></li>
-<li><p><strong>潜在代谢物理论上存在但没有二级谱图</strong></p></li>
+<li><p><strong>潜在代谢物</strong>理论上可推测但没有二级谱图</p></li>
 </ul>
 </section>
+<section id="潜在代谢物发现" class="slide level2">
+<h2>潜在代谢物发现</h2>
+<ul>
+<li><p>内源性化合物的代谢物</p>
+<ul>
+<li>特定代谢通路的激活/抑制</li>
+<li>从生物体系中存留/排出</li>
+</ul></li>
+<li><p>外源化合物的生物转化</p>
+<ul>
+<li>药物</li>
+<li>食品添加剂</li>
+<li>农药</li>
+</ul></li>
+</ul>
+</section>
+<section id="代谢物发现原理" class="slide level2">
+<h2>代谢物发现原理</h2>
+<ul>
+<li>外源代谢通路<sup>1</sup></li>
+</ul>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png"></p>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>By TimVickers - Own work, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=4549628" class="uri">https://commons.wikimedia.org/w/index.php?curid=4549628</a></p></li></ol></aside></section>
+<section id="现有方案" class="slide level2">
+<h2>现有方案</h2>
+<h3 id="潜在代谢物的计算机in-silico预测">潜在代谢物的计算机(<em>in silico</em>)预测</h3>
+<ul>
+<li><p>从结构出发预测代谢物</p></li>
+<li><p>Biotransformer 3.0<sup>1</sup></p></li>
+<li><p>EAWAG-BBD 代谢路径预测系统<sup>2</sup></p></li>
+</ul>
+<p>以 SMILES 字符串或分子结构为输入</p>
+<p>受反应迭代次数限制(3 次)</p>
+<aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://doi.org/10.1093/nar/gkac313" class="uri">https://doi.org/10.1093/nar/gkac313</a></p></li><li id="fn3"><p><a href="http://eawag-bbd.ethz.ch/index.html" class="uri">http://eawag-bbd.ethz.ch/index.html</a></p></li></ol></aside></section>
 <section id="转换思路" class="slide level2">
 <h2>转换思路</h2>
 <blockquote>
-<p>关注化合物之间的关系</p>
+<p>关注化合物之间的反应关系</p>
 </blockquote>
 
 <img data-src="https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg" class="quarto-figure quarto-figure-center r-stretch"><p>来自 <a href="https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg">Wikimedia Commons</a>:大碗岛的星期天下午,乔治·修拉</p>
@@ -229,7 +229,7 @@
 <section id="为什么用反应" class="slide level2">
 <h2>为什么用反应?</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/database.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<img data-src="../figure/database.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
 <li><p>单元:基因 (5) &lt; 蛋白质 (20+2) &lt; 代谢物 (10万) &lt; 化合物 (1亿)</p></li>
 <li><p>组合:基因 (2万-2.5万) &lt; 蛋白质 (2万-2.5万) &lt; 化合物 (???)</p></li>
 <li><p>小分子的<strong>组合</strong>就是化学反应或配对质量距离</p></li>
@@ -251,10 +251,10 @@
 <section id="kegg-数据库中的-pmd" class="slide level2">
 <h2>KEGG 数据库中的 PMD</h2>
 <ul>
-<li>频率最高的前 10 个 PMD 覆盖了 68% 的已知反应</li>
+<li>频率最高的前 10 个 PMD （反应组）覆盖了 68% 的已知反应</li>
 </ul>
 
-<img data-src="https://raw.githubusercontent.com/yufree/presentation/gh-pages/AMN/images/kegg.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<img data-src="../AMN/images/kegg.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
 </div>
 </section>
@@ -292,7 +292,7 @@
 <section id="质谱峰中有多少真实化合物" class="slide level2">
 <h2>质谱峰中有多少真实化合物?</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/gapfc.jpg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<img data-src="../figure/gapfc.jpg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Analytical Chemistry https://pubs.acs.org/doi/10.1021/acs.analchem.7b02380</p>
 </div>
 </section>
@@ -303,11 +303,11 @@
 <li><p>仅将独立的未知峰送去 MS/MS</p></li>
 </ul>
 
-<img data-src="https://yufree.github.io/presentation/figure/peakcom.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="../figure/peakcom.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="globalstd-算法" class="slide level2">
 <h2>GlobalStd 算法</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/GlobalStd.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<img data-src="../figure/GlobalStd.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S0003267018313047</p>
 </div>
 </section>
@@ -334,19 +334,19 @@
 <section id="pmdda-工作流程" class="slide level2">
 <h2>PMDDA 工作流程</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/PMDDAraw.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<img data-src="../figure/PMDDAraw.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00586-8</p>
 </div>
 </section>
 <section id="pmdda-工作流程-1" class="slide level2">
 <h2>PMDDA 工作流程</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/pmddacomp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="../figure/pmddacomp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="pmdda-工作流程-2" class="slide level2">
 <h2>PMDDA 工作流程</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/rpppmdda.png" class="r-stretch"></section>
-<section id="代谢物发现-1" class="slide level2">
+<img data-src="../figure/rpppmdda.png" class="r-stretch"></section>
+<section id="代谢物发现" class="slide level2">
 <h2>代谢物发现</h2>
 <ul>
 <li><p>设定种子代谢物或污染物</p></li>
@@ -361,7 +361,7 @@
 <section id="案例研究" class="slide level2">
 <h2>案例研究</h2>
 
-<img data-src="https://yufree.github.io/presentation/figure/TBBPAmet.jpeg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<img data-src="../figure/TBBPAmet.jpeg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Environmental Science &amp; Technology https://pubs.acs.org/doi/10.1021/acs.est.9b02122</p>
 </div>
 </section>
@@ -371,7 +371,7 @@
 <li>TBBPA 代谢物的 PMD 网络</li>
 </ul>
 
-<img data-src="https://yufree.github.io/presentation/figure/TBBPA.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<img data-src="../figure/TBBPA.png" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
 <p>Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z</p>
 </div>
 </section>
@@ -381,7 +381,7 @@
 <li>全谷物小麦摄入后一次性鉴定并定量人尿液中 76 种小麦来源代谢物</li>
 </ul>
 
-<img data-src="https://yufree.github.io/presentation/figure/foodpmd.png" class="r-stretch"><div class="footer">
+<img data-src="../figure/foodpmd.png" class="r-stretch"><div class="footer">
 <p>Molecular Nutrition &amp; Food Research https://doi.org/10.1002/mnfr.202000615</p>
 </div>
 </section>
@@ -390,18 +390,15 @@
 <ul>
 <li><p>代谢物发现可以是数据驱动的</p></li>
 <li><p>反应是小分子的”碱基对”</p></li>
-<li><p>真实数据总是富集于少数 PMD 或反应</p></li>
+<li><p>真实数据总是富集于少数 PMD 或反应组</p></li>
 <li><p>PMD 网络分析可以加速代谢物发现</p></li>
 </ul>
-</section>
-<section id="shiny-应用" class="slide level2">
-<h2>Shiny 应用</h2>
-<p><a href="https://yufree.shinyapps.io/pmdnet/" class="uri">https://yufree.shinyapps.io/pmdnet/</a></p>
 </section>
 <section id="qa" class="slide level2">
 <h2>Q&amp;A</h2>
 <ul>
-<li>yumiao@rcees.ac.cn</li>
+<li><p>Shiny 应用 <a href="https://yufree.shinyapps.io/pmdnet/" class="uri">https://yufree.shinyapps.io/pmdnet/</a></p></li>
+<li><p>yumiao@rcees.ac.cn</p></li>
 </ul>
 
 </section>
