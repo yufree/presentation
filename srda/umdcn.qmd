@@ -262,8 +262,13 @@ Molecular Nutrition & Food Research https://doi.org/10.1002/mnfr.202000615
 
 - PMD 网络分析可以加速代谢物发现
 
-## Q&A
+## 应用
 
 - Shiny 应用 <https://yufree.shinyapps.io/pmdnet/>
+
+- pmd 包 <https://cran.r-project.org/web/packages/pmd/index.html>
+
+
+## Q&A
 
 - yumiao\@rcees.ac.cn
