@@ -52,6 +52,7 @@ format:
 
 [^1]: By TimVickers - Own work, Public Domain, <https://commons.wikimedia.org/w/index.php?curid=4549628>
 
+
 ![](../figure/Xenobiotic_metabolism.png)
 
 ## 现有方案
@@ -76,7 +77,7 @@ format:
 
 > 关注化合物之间的反应关系
 
-![](../figure/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg){fig-align="center"}
+![](../figure/A_Sunday_on_La_Grande_Jatte.png){fig-align="center"}
 
 来自 [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):大碗岛的星期天下午,乔治·修拉
 
@@ -204,7 +205,7 @@ Journal of Cheminformatics https://jcheminf.biomedcentral.com/articles/10.1186/s
 
 ## PMDDA 工作流程
 
-![](../figure/rpppmdda.png)
+![](../figure/rpppmdda.png){fig-align="center"}
 
 ## 代谢物发现
 
@@ -240,7 +241,7 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 
 - 全谷物小麦摄入后一次性鉴定并定量人尿液中 76 种小麦来源代谢物
 
-![](../figure/foodpmd.png)
+![](../figure/foodpmd.png){fig-align="center"}
 
 ::: footer
 Molecular Nutrition & Food Research https://doi.org/10.1002/mnfr.202000615
@@ -248,7 +249,7 @@ Molecular Nutrition & Food Research https://doi.org/10.1002/mnfr.202000615
 
 ## PMD 语法
 
-![](../figure/pmdgrammer.png)
+![](../figure/pmdgrammer.png){fig-align="center"}
 
 
 ## 小结
