@@ -52,7 +52,7 @@ format:
 
 [^1]: By TimVickers - Own work, Public Domain, <https://commons.wikimedia.org/w/index.php?curid=4549628>
 
-![](https://upload.wikimedia.org/wikipedia/commons/9/97/Xenobiotic_metabolism.png)
+![](../figure/Xenobiotic_metabolism.png)
 
 ## 现有方案
 
@@ -76,7 +76,7 @@ format:
 
 > 关注化合物之间的反应关系
 
-![](https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg){fig-align="center"}
+![](../figure/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg){fig-align="center"}
 
 来自 [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg):大碗岛的星期天下午,乔治·修拉
 
@@ -170,25 +170,25 @@ Analytica Chimica Acta https://www.sciencedirect.com/science/article/pii/S000326
 
 ### 保留时间聚类分析
 
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/rtg-1.png){fig-align="center"}
+![](../figure/rtg-1.png){fig-align="center"}
 
 ## GlobalStd 算法 第 2 步
 
 ### 跨 RT 聚类的高频 PMD 分析
 
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmd-1.png){fig-align="center"}
+![](../figure/pmd-1.png){fig-align="center"}
 
 ## GlobalStd 算法 第 2 步
 
 ### 跨 RT 聚类的高频 PMD 分析 - 示例
 
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/pmdindex-2.png){fig-align="center"}
+![](../figure/pmdindex-2.png){fig-align="center"}
 
 ## GlobalStd 算法 第 3 步
 
 ### 独立峰筛选
 
-![](https://yufree.github.io/pmd/articles/globalstd_files/figure-html/stdrtplot-1.png){fig-align="center"}
+![](../figure/stdrtplot-1.png){fig-align="center"}
 
 ## PMDDA 工作流程
 
@@ -245,6 +245,11 @@ Communications Chemistry https://doi.org/10.1038/s42004-020-00403-z
 ::: footer
 Molecular Nutrition & Food Research https://doi.org/10.1002/mnfr.202000615
 :::
+
+## PMD 语法
+
+![](../figure/pmdgrammer.png)
+
 
 ## 小结
 

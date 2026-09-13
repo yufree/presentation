@@ -207,7 +207,7 @@ tb
 
 ## PMD 语法
 
-![](figure/pmdgrammer.png)
+![](../figure/pmdgrammer.png)
 
 ## 小结
 
