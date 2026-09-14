@@ -262,7 +262,7 @@ Molecular Nutrition & Food Research https://doi.org/10.1002/mnfr.202000615
 
 - 冗余峰贡献了峰表里的暗物质而非信息
 
-- PMD 网络分析可加速代谢物发现
+- PMD 网络递归分析可加速代谢物发现
 
 ## 应用
 
