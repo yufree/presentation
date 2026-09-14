@@ -75,7 +75,7 @@ format:
 
 ## 转换思路
 
-> 关注化合物之间的反应关系
+> 关注化合物之间的反应关系而非名字
 
 ![](../figure/A_Sunday_on_La_Grande_Jatte.png){fig-align="center"}
 
