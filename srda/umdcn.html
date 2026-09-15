@@ -408,6 +408,94 @@
 <li><p>pmd 包 <a href="https://cran.r-project.org/web/packages/pmd/index.html" class="uri">https://cran.r-project.org/web/packages/pmd/index.html</a></p></li>
 </ul>
 </section>
+<section id="one-more-thing" class="slide level2">
+<h2>One More Thing</h2>
+<ul>
+<li><p>顺序进样通量不足</p>
+<pre><code>- 单仪器年产出数千样品数据
+- 落后基因组学一个数量级</code></pre></li>
+<li><p>批次效应（batch effects）</p></li>
+<li><p>保留时间漂移（retention time shifts）</p></li>
+</ul>
+</section>
+<section id="现有应对策略" class="slide level2">
+<h2>现有应对策略</h2>
+<ul>
+<li><p>双柱切换系统</p>
+<pre><code>-  两根色谱柱交替使用</code></pre></li>
+<li><p>表面多孔填料色谱柱</p>
+<pre><code>- 高流速下仍有良好分离度</code></pre></li>
+<li><p>靶向质谱分析 MISER 或 SQUID 策略</p>
+<pre><code>- 固定时间间隔多重进样时间</code></pre></li>
+</ul>
+</section>
+<section id="单文件进样法" class="slide level2">
+<h2>单文件进样法</h2>
+<ul>
+<li><p>使用连续的等度洗脱进行色谱分离</p>
+<pre><code>-   每个样本的边际时间成本仅相当于固定的进样间隔时间</code></pre></li>
+<li><p>固定时间间隔的多重进样推广到非靶向分析</p>
+<pre><code>-   所有样本的数据将生成在一个单独的文件中</code></pre></li>
+<li><p>不进行仪器物理改造的情况下实现多样本的并行数据采集</p></li>
+<li><p>提供数据分析支持软件</p></li>
+</ul>
+</section>
+<section id="序列设计" class="slide level2">
+<h2>序列设计</h2>
+<h3 id="参考峰采集">参考峰采集</h3>
+<ul>
+<li><p>进行多个<strong>混合样本</strong>（Pooled Samples）和<strong>空白样本</strong>（Blank Samples）的完全分离</p>
+<pre><code>- 覆盖尽可能多的化合物
+
+- 排除掉背景干扰</code></pre></li>
+</ul>
+
+<img data-src="../sfi/images/demo.png" class="r-stretch"></section>
+<section id="序列设计-1" class="slide level2">
+<h2>序列设计</h2>
+<h3 id="真实样本采集">真实样本采集</h3>
+<ul>
+<li><p>在连续的等度洗脱条件下，以固定的时间间隔进不同样品</p>
+<pre><code>  - 可插入混合样或空白样品进行质控</code></pre></li>
+</ul>
+
+<img data-src="../sfi/images/demosfi.png" class="r-stretch"></section>
+<section id="数据分析与峰恢复" class="slide level2">
+<h2>数据分析与峰恢复</h2>
+<ul>
+<li>开源 R 软件包 <code>sfi</code> （https://github.com/yufree/sfi）</li>
+</ul>
+<h3 id="核心算法">核心算法</h3>
+
+<img data-src="../sfi/images/SFIsimpleAlgorithm.png" class="r-stretch"></section>
+<section id="初步验证" class="slide level2">
+<h2>初步验证</h2>
+<h3 id="实验样本">实验样本</h3>
+<ul>
+<li><pre><code>  158 个人血浆样本 </code></pre></li>
+<li><pre><code>  模拟了横跨7个数量级的宽动态范围</code></pre></li>
+<li><pre><code>  HILIC（亲水作用色谱）和 RP（反相色谱）柱</code></pre></li>
+<li><pre><code>  正离子和负离子双模式</code></pre></li>
+</ul>
+</section>
+<section id="初步验证-1" class="slide level2">
+<h2>初步验证</h2>
+<h3 id="定性定量结果">定性定量结果</h3>
+<ul>
+<li><pre><code>  包括质量控制样本在内，158 个样本的总分析时间 &lt; 6 小时</code></pre></li>
+<li><pre><code>  HILIC 正/负模式下，从 158 个样本中分别恢复了 2,852,581 / 2,613,583 个与参考峰匹配的峰
+
+  - 在 HILIC 柱上，506/572 个参考峰（正/负模式）的相对标准偏差（RSD）低于 30%</code></pre></li>
+<li><pre><code>  RP 正/负模式下，分别匹配了 2,545,314 / 2,141,019 个峰
+
+  - 在 RP 柱上，450/738 个参考峰（正/负模式）的 RSD 低于 30%</code></pre></li>
+</ul>
+</section>
+<section id="初步验证-2" class="slide level2">
+<h2>初步验证</h2>
+<h3 id="定量动态范围">定量动态范围</h3>
+
+<img data-src="../sfi/images/scaleplot.png" class="r-stretch"></section>
 <section id="qa" class="slide level2">
 <h2>Q&amp;A</h2>
 <ul>
